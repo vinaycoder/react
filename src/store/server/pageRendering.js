@@ -100,6 +100,30 @@ const renderPage = (req, res, store, themeText, placeholders) => {
 	const state = store.getState();
 	const head = getHead();
 	const placeholder = getPlaceholder(placeholders);
+	console.log('in render page function');
+	//     const abcd = fetch('http://indiarush.com/irapi/produ// ct/getProductDetail/?product_id=1115931&customer_id=1190839&version=3.81');
+	// 	// console.log(abcd.json());
+	//     const abcd2 = fetch('http://localhost:3001/api/v1/products');
+	// 	console.log(abcd2.json());
+	//
+	//     fetch('http://localhost:3001/api/v1/products')
+	// 	.then(response => response.json());
+
+	// fetch('http://localhost:3001/api/v1/products')
+	// .then((result) => {
+	// return result.json();
+	// }).then((jsonResult) => {
+	//  console.log(jsonResult);
+	// });
+	//
+	// fetch('http://indiarush.com/irapi/product/getProductDetail/?product_id=1115931&customer_id=1190839&version=3.81')
+	// .then((result) => {
+	// return result.json();
+	// }).then((jsonResult) => {
+	//  console.log(jsonResult);
+	// })
+
+	//console.log(response);
 
 	const html = indexHtml
 		.replace('{placeholder_head_start}', placeholder.head_start)

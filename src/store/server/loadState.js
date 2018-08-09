@@ -20,25 +20,63 @@ const CATEGORIES_FIELDS =
 	'image,name,description,meta_description,meta_title,sort,parent_id,position,slug,id';
 
 const getCurrentPage = path => {
-	return api.sitemap
-		.retrieve({ path: path, enabled: true })
-		.then(sitemapResponse => {
-			if (sitemapResponse.status === 200) {
-				return sitemapResponse.json;
-			} else if (sitemapResponse.status === 404) {
+	console.log('in current page');
+	return fetch(
+		`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${path}&version=3.64`
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			if (jsonResult == 'null') {
 				return {
 					type: 404,
 					path: path,
 					resource: null
 				};
 			} else {
-				return Promise.reject(`Page response code = ${sitemapResponse.status}`);
+				return {
+					type: jsonResult.type,
+					path: path,
+					resource: jsonResult.id
+				};
 			}
 		});
+
+	// return api.sitemap
+	// 	.retrieve({ path: path, enabled: true })
+	// 	.then(sitemapResponse => {
+	// 		if (sitemapResponse.status === 200) {
+	// 			return sitemapResponse.json;
+	// 		} else if (sitemapResponse.status === 404) {
+	// 			return {
+	// 				type: 404,
+	// 				path: path,
+	// 				resource: null
+	// 			};
+	// 		} else {
+	// 			return Promise.reject(`Page response code = ${sitemapResponse.status}`);
+	// 		}
+	// 	});
 };
 
 const getProducts = (currentPage, productFilter) => {
 	if (currentPage.type === PRODUCT_CATEGORY || currentPage.type === SEARCH) {
+		console.log('in search of category page');
+
+		return fetch(
+			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+				currentPage.resource
+			}&item_count=20&version=3.81`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log(jsonResult.data);
+				return jsonResult.data;
+			});
+
 		let filter = getParsedProductFilter(productFilter);
 		filter.enabled = true;
 		return api.products.list(filter).then(({ status, json }) => json);
@@ -48,10 +86,33 @@ const getProducts = (currentPage, productFilter) => {
 };
 
 const getProduct = currentPage => {
+	console.log('in getting products data');
+	console.log(currentPage);
 	if (currentPage.type === PRODUCT) {
-		return api.products
-			.retrieve(currentPage.resource)
-			.then(({ status, json }) => json);
+		return fetch(
+			`http://indiarush.com/irapi/product/getProductDetail/?product_id=${
+				currentPage.resource
+			}&version=3.81`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				//console.log(jsonResult.data);
+				return jsonResult.data;
+			});
+
+		// api.products
+		// 		.retrieve(currentPage.resource)
+		// 		.then((jsonResult) => {
+		// 		console.log("jsonResult");
+		// 		console.log(jsonResult);
+		// 		});
+		//
+		//
+		// 	return api.products
+		// 		.retrieve(currentPage.resource)
+		// 		.then(({ status, json }) => json);
 	} else {
 		return {};
 	}
@@ -75,6 +136,7 @@ const getThemeSettings = () => {
 };
 
 const getAllData = (currentPage, productFilter, cookie) => {
+	console.log('get all data function in load state');
 	return Promise.all([
 		api.checkoutFields.list().then(({ status, json }) => json),
 		api.productCategories
@@ -222,6 +284,8 @@ export const loadState = (req, language) => {
 	const urlQuery = req.url.includes('?')
 		? req.url.substring(req.url.indexOf('?'))
 		: '';
+	console.log(urlPath);
+	console.log(urlQuery);
 	const location = {
 		hasHistory: false,
 		pathname: urlPath,
