@@ -1,0 +1,409 @@
+{
+  "app": {
+    "settings": {
+      "domain": "",
+      "logo_file": null,
+      "language": "en",
+      "currency_code": "USD",
+      "currency_symbol": "$",
+      "currency_format": "${amount}",
+      "thousand_separator": ",",
+      "decimal_separator": ".",
+      "decimal_number": 2,
+      "timezone": "Asia/Singapore",
+      "date_format": "MMMM D, YYYY",
+      "time_format": "h:mm a",
+      "default_shipping_country": "SG",
+      "default_shipping_state": "",
+      "default_shipping_city": "",
+      "default_product_sorting": "stock_status,price,position",
+      "product_fields": "path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position",
+      "products_limit": 30,
+      "weight_unit": "kg",
+      "length_unit": "cm",
+      "hide_billing_address": false,
+      "order_confirmation_copy_to": ""
+    },
+    "location": {
+      "hasHistory": false,
+      "pathname": "/category-a/product-a",
+      "search": "",
+      "hash": ""
+    },
+    "currentPage": {
+      "path": "/category-a/product-a",
+      "type": "product",
+      "resource": "5b6979426a5e6b239f030d2a"
+    },
+    "pageDetails": {
+
+    },
+    "categoryDetails": null,
+    "productDetails": {
+      "product_id": "1115931",
+      "sku": "IR3486_193-02052018-MAC3",
+      "set": "43",
+      "type": "simple",
+      "categories": [
+        "193"
+      ],
+      "websites": [
+        "1"
+      ],
+      "product_url": "https://indiarush.com/ma-creation-cotton-silk-multicolour-floral-print-saree-mac3/",
+      "small_image_url": "https://indiarush.com/media/catalog/product/cache/0/image/350x350/9df78eab33525d08d6e5fb8d27136e95/M/A/MAC3.jpg",
+      "video_info": {
+        "thumbnail_url": "https://indiarush.com/media/banners/product_video_test_thumbnail.jpg",
+        "video_url": "https://indiarush.com/media/banners/product_video_test.mp4"
+      },
+      "thumbnail_image_url": "https://indiarush.com/media/catalog/product/cache/0/image/75x75/9df78eab33525d08d6e5fb8d27136e95/M/A/MAC3.jpg",
+      "name": "Ma Creation Cotton Silk Multicolour Floral Print Saree - MAC3",
+      "description": "Ma Creation Cotton Silk Multicolour Floral Print Saree - MAC3",
+      "status": "2",
+      "visibility": "4",
+      "has_options": "0",
+      "additional_promotion": {
+        "name": "Featured in Collections",
+        "data": [
+          {
+            "name": "Mother's Day Special",
+            "id": "33562",
+            "type": "promotion"
+          }
+        ]
+      },
+      "size_chart": "_content",
+      "shipping_days": null,
+      "is_cod_available": true,
+      "is_salable": false,
+      "available_quantity": 0,
+      "saved_count": 1800,
+      "configurable_attributes": null,
+      "product_images": [
+        "https://indiarush.com/media/catalog/product/cache/0/image/1200,1200x/9df78eab33525d08d6e5fb8d27136e95/M/A/MAC3.jpg"
+      ],
+      "additional_info": [
+        {
+          "label": "Payment:",
+          "value": "Cash On Delivery",
+          "code": null,
+          "label_value": "Cash On Delivery",
+          "image_url": "https://indiarush.com/media/banners/payment-product-detail-app-icon.png"
+        },
+        {
+          "label": "Model Number",
+          "value": "MAC3",
+          "code": "all_model_no",
+          "label_value": "MAC3",
+          "image_url": null
+        },
+        {
+          "label": "Material:",
+          "value": "Saree Fabric: Cotton Silk,Blouse Fabric: Silk",
+          "code": "fabric_primary,fabric_secondary",
+          "label_value": "8708,8764",
+          "image_url": "https://indiarush.com/media/banners/material-product-detail-app-icon.png"
+        },
+        {
+          "label": "Size:",
+          "value": "Saree Size: 5.5 Mtr,Blouse Size: 0.8 Mtr",
+          "code": "size_primary,size_secondary",
+          "label_value": "8697,8698",
+          "image_url": "https://indiarush.com/media/banners/size-product-detail-app-icon.png"
+        },
+        {
+          "label": "Color:",
+          "value": "Saree Colour: Multicolour,Blouse Colour: Beige",
+          "code": "color_primary,color_secondary",
+          "label_value": "8709,8759",
+          "image_url": "https://indiarush.com/media/banners/color-product-detail-app-icon.png"
+        },
+        {
+          "label": "Stitching:",
+          "value": "Product Type: Unstitched",
+          "code": "product_type",
+          "label_value": "2088",
+          "image_url": "https://indiarush.com/media/banners/stiching-product-detail-app-icon.png"
+        },
+        {
+          "label": "Pattern",
+          "value": "Floral",
+          "code": "apparel_pattern_type",
+          "label_value": "1724",
+          "image_url": null
+        },
+        {
+          "label": "Weight:",
+          "value": "1000 gms",
+          "code": "weight_appliaces",
+          "label_value": "1000 gms",
+          "image_url": "https://indiarush.com/media/banners/weight-product-detail-app-icon.png"
+        },
+        {
+          "label": "Occasion:",
+          "value": "Party Wear",
+          "code": "occasion_type",
+          "label_value": "1865",
+          "image_url": "https://indiarush.com/media/banners/occasion-product-detail-app-icon.png"
+        },
+        {
+          "label": "Brand",
+          "value": "Ma Creation",
+          "code": "manufacturer",
+          "label_value": "8005",
+          "image_url": null,
+          "seller_rating": "2.4"
+        },
+        {
+          "label": "Precautions",
+          "value": "Dry Clean Only",
+          "code": "jeans_precautions",
+          "label_value": "Dry Clean Only",
+          "image_url": null
+        },
+        {
+          "label": "Disclaimer",
+          "value": "Color of the actual product may slightly vary from the image",
+          "code": "disclaimer",
+          "label_value": "Color of the actual product may slightly vary from the image"
+        },
+        {
+          "label": "Buy Online",
+          "value": "We assure that when you buy Ma Creation products Online at Indiarush.com, we will deliver 100% genuine and new products.",
+          "code": "buy_online",
+          "label_value": "We assure that when you buy Ma Creation products Online at Indiarush.com, we will deliver 100% genuine and new products.",
+          "image_url": null
+        }
+      ],
+      "today_sold_count": 0,
+      "today_sold_message": "",
+      "promo_text": "Best Quality Guarantee",
+      "return_policy": "Our endeavor is to provide the best customer service every time you shop with us, however please do not lose your faith in us if you receive a product and do not like the fit, color or design. You can initiate a return request within 14 days of product delivery.All returns are refunded in the form of store credits, which can be redeemed on any product on our website within a period of six months. Indiarush do not provide refund in the form of Cash, Bank refund or NEFT.*Please note that Cash on Delivery & Shipping Charges would not be included in the refund value as these are non-refundable charges.",
+      "shipping_policy": "IndiaRush.com offers FREE SHIPPING on all orders placed on our website, with minimum order size of Rs 500.For orders below Rs 500, there is nominal charge of Rs.40 applicable.",
+      "rating": {
+        "average_rating": 3,
+        "rating_count": 3,
+        "5_rate_coun": 1,
+        "4_rate_coun": 0,
+        "3_rate_coun": 1,
+        "2_rate_coun": 0,
+        "1_rate_coun": 1,
+        "reviews_count": 0
+      },
+      "actual_price": 2440,
+      "offered_price": 1949,
+      "return_available": true,
+      "additional_terms_conditions": [
+        {
+          "title": "Directly from Manufacturer",
+          "description": "No more bad quality. Get the best quality every time you shop from us, because we source directly from the manufacturer."
+        },
+        {
+          "title": "14 Days Return Policy",
+          "description": "You can initiate a return request within 14 days of product delivery."
+        },
+        {
+          "title": "Shop with confidence!",
+          "description": "IndiaRush source directly from manufacturers in offering Genuine Product at cheaper prices than your local shops."
+        }
+      ],
+      "isSavedForLater": false
+    },
+    "categories": [
+      {
+        "name": "Category A",
+        "slug": "category-a",
+        "image": "",
+        "parent_id": null,
+        "id": "5b6979426a5e6b239f030d24",
+        "url": "/category-a",
+        "path": "/category-a"
+      },
+      {
+        "name": "Category B",
+        "slug": "category-b",
+        "image": "",
+        "parent_id": null,
+        "id": "5b6979426a5e6b239f030d25",
+        "url": "/category-b",
+        "path": "/category-b"
+      },
+      {
+        "name": "Category C",
+        "slug": "category-c",
+        "image": "",
+        "parent_id": null,
+        "id": "5b6979426a5e6b239f030d26",
+        "url": "/category-c",
+        "path": "/category-c"
+      },
+      {
+        "name": "Subcategory 1",
+        "slug": "category-a-1",
+        "image": "",
+        "parent_id": "5b6979426a5e6b239f030d24",
+        "id": "5b6979426a5e6b239f030d27",
+        "url": "/category-a-1",
+        "path": "/category-a-1"
+      },
+      {
+        "name": "Subcategory 2",
+        "slug": "category-a-2",
+        "image": "",
+        "parent_id": "5b6979426a5e6b239f030d24",
+        "id": "5b6979426a5e6b239f030d28",
+        "url": "/category-a-2",
+        "path": "/category-a-2"
+      },
+      {
+        "name": "Subcategory 3",
+        "slug": "category-a-3",
+        "image": "",
+        "parent_id": "5b6979426a5e6b239f030d24",
+        "id": "5b6979426a5e6b239f030d29",
+        "url": "/category-a-3",
+        "path": "/category-a-3"
+      }
+    ],
+    "products": [
+
+    ],
+    "productsTotalCount": 0,
+    "productsHasMore": false,
+    "productsMinPrice": 0,
+    "productsMaxPrice": 0,
+    "productsAttributes": [
+
+    ],
+    "paymentMethods": [
+
+    ],
+    "shippingMethods": [
+
+    ],
+    "loadingProducts": false,
+    "loadingMoreProducts": false,
+    "loadingShippingMethods": false,
+    "loadingPaymentMethods": false,
+    "processingCheckout": false,
+    "productFilter": {
+      "onSale": null,
+      "search": "",
+      "priceFrom": 0,
+      "priceTo": 0,
+      "sort": "stock_status,price,position",
+      "fields": "path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position",
+      "limit": 30
+    },
+    "cart": null,
+    "order": null,
+    "checkoutFields": [
+
+    ],
+    "themeSettings": {
+      "checkoutInputClass": "checkout-field",
+      "checkoutButtonClass": "checkout-button button is-primary",
+      "checkoutEditButtonClass": "checkout-button button",
+      "cartThumbnailWidth": 100,
+      "footer_contacts": [
+        {
+          "text": "104 N Stagecoach Rd"
+        },
+        {
+          "text": "Dover Foxcroft, ME, 04426"
+        },
+        {
+          "text": "(207) 564-8482"
+        },
+        {
+          "text": "sales@shop.com"
+        }
+      ],
+      "footer_about": "Store - just to show you what it can. Some text go here. Some text go here. Some text go here. Some text go here. Some text go here. Some text go here. Some text go here.",
+      "footer_menu_2_title": "Customer service",
+      "footer_menu_1_title": "Company",
+      "footer_social": [
+        {
+          "type": "facebook",
+          "url": "https://www.facebook.com/"
+        },
+        {
+          "type": "twitter",
+          "url": "https://twitter.com/"
+        }
+      ],
+      "footer_menu_1_items": [
+        {
+          "text": "About",
+          "url": "/about"
+        },
+        {
+          "text": "Blog",
+          "url": "/blog"
+        },
+        {
+          "text": "Terms of Service",
+          "url": "/tos"
+        },
+        {
+          "text": "Privacy Policy",
+          "url": "/privacy-policy"
+        }
+      ],
+      "footer_menu_2_items": [
+        {
+          "text": "Shipping & returns",
+          "url": "/"
+        },
+        {
+          "text": "Conditions of Use",
+          "url": "/"
+        },
+        {
+          "text": "Sitemap",
+          "url": "/"
+        }
+      ],
+      "search_placeholder": "",
+      "home_products_limit": 8,
+      "home_products_title": "BEST SELLERS",
+      "home_products_sort": "-date_updated",
+      "home_slider": [
+        {
+          "path": "/page-1",
+          "image": "slide8.jpg",
+          "description": "COMFORT. SPORT. STYLE.",
+          "title": "THE FRESH FOAM CRUZ"
+        },
+        {
+          "path": "/page-2",
+          "image": "slide9.jpg"
+        },
+        {
+          "image": "slide7.jpg",
+          "path": "/page-3"
+        }
+      ],
+      "home_slider_color": "#ffffff",
+      "button_addtocart_text": "",
+      "disqus_shortname": "cezerin",
+      "maxCartItemQty": 100,
+      "product_thumbnail_position": "left",
+      "bigThumbnailWidth": 800,
+      "previewThumbnailWidth": 100,
+      "list_image_max_height": 280,
+      "listThumbnailWidth": 340,
+      "show_product_filter": true,
+      "show_category_breadcrumbs": true,
+      "show_discount_countdown": true,
+      "show_product_breadcrumbs": true,
+      "sortNewest": "-date_created",
+      "sortPriceLow": "price",
+      "sortPriceHigh": "-price",
+      "footer_logo_url": "logo.png",
+      "limit_viewed_products": 4,
+      "show_viewed_products": true,
+      "product_gallery_shownav": true,
+      "page_list_tag": "blog"
+    }
+  }

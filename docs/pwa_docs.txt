@@ -1,0 +1,51 @@
+Objective - Light Weight + High Speed
+
+Tech Stack -
+
+Polymer - (template engine) / (Block wise caching in rendering)
+React -
+Angular -
+
+
+Ideas -
+
+- High amount of unused CSS
+- Ajax (JSON) + Ajax Centralised (On Error + Exception Handling) + Request sequencing
+- Template Structuring Per Page Type (Static HTMl) && Dynamic Content Filling (over the static HTML)
+- Removing prototype from frontend
+- Heavy caching of images / js
+
+
+First Step -
+
+Ajax - Cache First / Network Later (But network should update cache)
+
+Cache of images / js / css
+
+
+
+
+
+
+
+
+App Shell - The app's shell is the minimal HTML, CSS, and JavaScript
+
+
+A service worker is a script that your browser runs in the background, separate from a web page, opening the door to features that don't need a web page or user interaction.
+
+
+All of the UI and infrastructure is cached locally using a service worker so that on subsequent loads, the Progressive Web App only needs to retrieve the necessary data, instead of having to load everything.
+
+
+
+We can use the PWA features -
+
+
+Caching the app shell.
+
+
+Client Side Rendering
+
+1. We can cache static content.
+2. We can cache whole server revert of main pages.

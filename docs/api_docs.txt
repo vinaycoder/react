@@ -1,0 +1,22 @@
+Get any URL BreakUp -
+
+https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/apollo-saree-georgette-grey-plain-saree-ap024/&version=3.64
+
+
+Product Page -
+
+http://indiarush.com/irapi/product/getProductDetail/?product_id=1115931&customer_id=1190839&version=3.81
+
+http://indiarush.com/irapi/product/getSizeChart/?productId=1138208&version=3.81
+
+
+http://indiarush.com/irapi/product/getSimilarProduct/?product_id=1138208&version=3.81
+
+
+https://indiarush.com/irapi/product/getPincodeCheck/?product_id=1115931&pincode=122002&version=3.81
+
+
+Category Page -
+
+https://indiarush.com/irapi/category/getCategoryResult/?category_id=225&item_count=20
+    Params:{, , filters[apparel_pattern_type]=1728_1724, sort=best_seller, page=0, customer_id=1296751, version=3.83}
