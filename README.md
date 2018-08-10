@@ -9,11 +9,19 @@ Built with:
 * WebPack 4
 * MongoDB (3.4+)
 
+#Git Checkout
+
+git clone git@bitbucket.org:rahi_jain/irush.git  #Change User Name
+
+
 # Installation
 
-sudo npm install
-sudo npm run build:watch
+1. sudo npm install
 
-sudo npm start
+2. sudo npm run build:watch
 
-# Basic
+3. sudo npm start
+
+# Dev Starting
+
+Checkout Docs Folder for basic help during development
