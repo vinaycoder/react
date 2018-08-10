@@ -113,15 +113,11 @@ export default class ProductDetails extends React.Component {
 						: product.stock_quantity;
 
 		if (product) {
-			var	customImageAarry= [
-					{
-						"id": "59982a0fe8c043022cb53a16",
-						"alt": "",
-						"position": 99,
-						"filename": "",
-						"url":"https://dev.indiarush.com/media/catalog/product/MAC3.jpg"
-					}
-				];
+			var	customImageAarry= [];
+			for(var i = 0; i < product.product_images.length; i += 1)
+			{
+				customImageAarry.push({"url":product.product_images[i]});
+			}
 
 			return (
 				<Fragment>
@@ -138,7 +134,7 @@ export default class ProductDetails extends React.Component {
 								<div className="column is-5">
 									<div className="content">
 										<Tags tags={product.tags} />
-										<h1 className="title is-4 product-name">{product.name}</h1>
+										<h1 className="product-name-irsuh">{product.name}</h1>
 										<Price
 											product={product}
 											variant={selectedVariant}

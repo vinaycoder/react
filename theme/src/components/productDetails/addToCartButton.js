@@ -42,10 +42,12 @@ const AddToCartButton = ({
 	}else{
 	return (
 <div className="add-to-cart checkout-types product-page-add-to-cart-button product-page-add-to-cart-button-web product-page-add-to-cart-button-web-add-css NewChangePostionSize">
-<button id="buy-button" type="button" title="Add to My Cart" className="orange-button btn-cart product-page-add-to-cart-button btn-cart-product btn-cart-product-main proAddToCartBtn">
+<button id="buy-button" type="button" title="Add to My Cart" onClick={addCartItem} className="orange-button btn-cart product-page-add-to-cart-button btn-cart-product btn-cart-product-main proAddToCartBtn">
 	 <div id="buy-now">
 			 <span className="product-page-add-to-cart-button product-page-add-to-cart-text addToCartBtn productAddToCartText " data-content="bar">Add to My Cart</span>
-			 <span className="addToCartBtnIcon productCTAIcons" data-content="bar"></span>
+			 <span className="addToCartBtnIcon productCTAIcons" data-content="bar"><i class="material-icons">
+shopping_cart
+</i></span>
 	 </div>
 	 </button>
 
@@ -55,7 +57,9 @@ const AddToCartButton = ({
 			 <span className="right product-page-add-to-cart-button"  data-content="bar">
 				 <span className="product-page-add-to-cart-button product-page-add-to-cart-text productBuyNowText" data-content="bar">Buy Now
 			 </span>
-					 <span className="buyNowBtnIcon productCTAIcons" data-content="bar"></span>
+					 <span className="buyNowBtnIcon productCTAIcons" data-content="bar">
+					 <i class="material-icons">play_arrow</i>
+					 </span>
 
 		 </span>
 	 </div>
