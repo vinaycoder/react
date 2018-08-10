@@ -29,7 +29,6 @@ export default class Gallery extends React.Component {
 	render() {
 		const { images } = this.props;
 		const { lightboxIsOpen, lightboxPhotoIndex } = this.state;
-
 		if (images && images.length > 0) {
 			const imagesArray = images.map(image => ({
 				original: helper.getThumbnailUrl(
