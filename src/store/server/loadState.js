@@ -93,6 +93,7 @@ const getProduct = currentPage => {
 			`http://indiarush.com/irapi/product/getProductDetail/?product_id=${
 				currentPage.resource
 			}&version=3.81`
+	//	'http://indiarush.com/irapi/product/getProductDetail/?product_id=1138142&customer_id=1190839&version=3.81'
 		)
 			.then(result => {
 				return result.json();
