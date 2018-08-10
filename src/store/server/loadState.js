@@ -73,27 +73,26 @@ const getProducts = (currentPage, productFilter) => {
 				return result.json();
 			})
 			.then(jsonResult => {
-				console.log(jsonResult.data);
-				return jsonResult.data;
+				console.log('logging category products data');
+				return jsonResult.data.product;
 			});
 
-		let filter = getParsedProductFilter(productFilter);
-		filter.enabled = true;
-		return api.products.list(filter).then(({ status, json }) => json);
+		// let filter = getParsedProductFilter(productFilter);
+		// filter.enabled = true;
+		// return api.products.list(filter).then(({ status, json }) => json);
 	} else {
 		return null;
 	}
 };
 
 const getProduct = currentPage => {
-	console.log('in getting products data');
+	console.log('in getting single product data');
 	console.log(currentPage);
 	if (currentPage.type === PRODUCT) {
 		return fetch(
 			`http://indiarush.com/irapi/product/getProductDetail/?product_id=${
 				currentPage.resource
 			}&version=3.81`
-	//	'http://indiarush.com/irapi/product/getProductDetail/?product_id=1138142&customer_id=1190839&version=3.81'
 		)
 			.then(result => {
 				return result.json();
@@ -140,9 +139,18 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	console.log('get all data function in load state');
 	return Promise.all([
 		api.checkoutFields.list().then(({ status, json }) => json),
-		api.productCategories
-			.list({ enabled: true, fields: CATEGORIES_FIELDS })
-			.then(({ status, json }) => json),
+		fetch(`http://indiarush.com/irapi/category/getallShopByCategories/`)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log(jsonResult.data);
+				return jsonResult.data;
+			}),
+
+		// api.productCategories
+		// 	.list({ enabled: true, fields: CATEGORIES_FIELDS })
+		// 	.then(({ status, json }) => json),
 		api.ajax.cart.retrieve(cookie).then(({ status, json }) => json),
 		getProducts(currentPage, productFilter),
 		getProduct(currentPage),
@@ -160,7 +168,21 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		]) => {
 			let categoryDetails = null;
 			if (currentPage.type === PRODUCT_CATEGORY) {
-				categoryDetails = categories.find(c => c.id === currentPage.resource);
+				categoryDetails = fetch(
+					`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+						currentPage.resource
+					}&item_count=20&version=3.81`
+				)
+					.then(result => {
+						return result.json();
+					})
+					.then(jsonResult => {
+						//console.log(jsonResult.category);
+						return jsonResult.category;
+					});
+				console.log('inside the category details');
+				//console.log(categories);
+				//categoryDetails = categories.find(c => c.id === currentPage.resource);
 			}
 			return {
 				checkoutFields,
@@ -195,9 +217,26 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 	let productsAttributes = [];
 
 	if (products) {
-		productsTotalCount = products.total_count;
+		productsTotalCount = products.products_count;
+		//console.log(productsTotalCount);
+		//console.log('showing pridct total count');
 		productsHasMore = products.has_more;
-		productsAttributes = products.attributes;
+
+		// console.log(`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${currentPage.resource}&version=3.81`);
+		// 		productsAttributes=  fetch(
+		// 	`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${currentPage.resource}&version=3.81`)
+		// 	.then(result => {
+		// 		return result.json();
+		// 	})
+		// 	.then(jsonResult => {
+		// 		console.log('showing the filter json result');
+		// 		console.log(jsonResult.data.filters);
+		// 		return jsonResult.data.filters;
+		// 	});
+		// console.log('attribute list');
+		// console.log(productsAttributes);
+
+		//	productsAttributes = [];//products.attributes;
 
 		if (products.price) {
 			productsMinPrice = products.price.min;
@@ -214,7 +253,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			categoryDetails: categoryDetails,
 			productDetails: product,
 			categories: categories,
-			products: products && products.data ? products.data : [],
+			products: products, // && products.data ? products.data : [],
 			productsTotalCount: productsTotalCount,
 			productsHasMore: productsHasMore,
 			productsMinPrice: productsMinPrice,
