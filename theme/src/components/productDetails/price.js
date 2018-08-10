@@ -54,8 +54,15 @@ const Price = ({ product, variant, isAllOptionsSelected, settings }) => {
 		);
 	} else {
 		return (
-			<div className="product-price" style={priceStyle}>
-				<FormattedCurrency settings={settings} number={price} />
+			<div className="product-price-one old-price product-view-price-old invesp-price-div" style={priceStyle}>
+			<p className="price" id="old_parent_id">
+			<span className="old_price old_price-v-test"data-content="bar">Rs {product.actual_price}</span>
+			<span className="product-price-view invesp-product-price-view product-price-view-v-test-main" id="regular_price_id">Rs {product.offered_price}</span>
+		<span className="product-view-shipping product-view-shipping-v-test-main">
+		+ Free Shipping
+		</span>
+</p>
+				{/* <FormattedCurrency settings={settings} number={product.actual_price} /> */}
 			</div>
 		);
 	}

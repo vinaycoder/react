@@ -113,6 +113,16 @@ export default class ProductDetails extends React.Component {
 						: product.stock_quantity;
 
 		if (product) {
+			var	customImageAarry= [
+					{
+						"id": "59982a0fe8c043022cb53a16",
+						"alt": "",
+						"position": 99,
+						"filename": "",
+						"url":"https://dev.indiarush.com/media/catalog/product/MAC3.jpg"
+					}
+				];
+
 			return (
 				<Fragment>
 					<section className="section section-product">
@@ -122,7 +132,8 @@ export default class ProductDetails extends React.Component {
 									{themeSettings.show_product_breadcrumbs && (
 										<Breadcrumbs product={product} categories={categories} />
 									)}
-									<Gallery images={product.images} />
+
+									<Gallery images={customImageAarry} />
 								</div>
 								<div className="column is-5">
 									<div className="content">
