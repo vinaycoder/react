@@ -32,7 +32,10 @@ export const getThumbnailUrl = (originalUrl, width) => {
 			0,
 			pos
 		)}/${width}/${originalUrl.substring(pos + 1)}`;
-		return thumbnailUrl;
+		//console.log(thumbnailUrl);
+		//return thumbnailUrl;
+		//TODO - To put the dynamic sizes in json
+		return originalUrl;
 	}
 	return '';
 };
