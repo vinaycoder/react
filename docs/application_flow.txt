@@ -1,6 +1,11 @@
-Mainly first request comes to -
+ES6: for all JavaScript code (I am not calling it ES2015, even if they paid me)
+Node + Express: as our web server platform
+Handlebars: for the server-side templating engine
+React, React Router and, less importantly, SCSS as the basis for our application’s presentation layer
+Gulp, Webpack for packaging; Babel for ES6 → ES5 transpiling; and BrowserSync for live reload across browsers during development
+ESLint for linting
 
-src/store/client/index.js
+Mainly first request comes to -
 
 https://redux.js.org/recipes/serverrendering
 
@@ -13,13 +18,6 @@ https://reacttraining.com/react-router/web/api/BrowserRouter
 React-Dom-router is mainly used to define the type of HTML / URL rendered by the application.
 
 
-ES6: for all JavaScript code (I am not calling it ES2015, even if they paid me)
-Node + Express: as our web server platform
-Handlebars: for the server-side templating engine
-React, React Router and, less importantly, SCSS as the basis for our application’s presentation layer
-Gulp, Webpack for packaging; Babel for ES6 → ES5 transpiling; and BrowserSync for live reload across browsers during development
-ESLint for linting
-
 
 
 So mainly thing which is working in the app -
@@ -28,9 +26,14 @@ Server Side Code -
 
 1. When we start the npm start - mainly the server src/store/server/index.js start which listens to the request.
 2. It goes to rendering of the basic page -
-
 src/store/server/pageRendering.js
+3. Then it goes into load state for the current page type to set the variable for the initial state.
+src/store/server/loadState.js
 
+Fetch the current page to know about the initial data.
+
+4. Load data in the getAllData function inside the loadstate.js
+5.
 
 
 React has baked-in support for server rendering components using ReactDOMServer.renderToString(). Given a component, it will generate the HTML markup to be shipped down to the browser. React can take this markup and using ReactDOM.render() hydrate it, attach events, make it interactive and provide a fast first paint on first load.
