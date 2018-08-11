@@ -22,7 +22,7 @@ const ProductList = ({
 	const items = products
 		? products.map(product => (
 				<Item
-					key={product.id}
+					key={product.product_id}
 					product={product}
 					addCartItem={addCartItem}
 					settings={settings}

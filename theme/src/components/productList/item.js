@@ -37,14 +37,14 @@ const Item = ({
 	return (
 		<div
 			className={`column is-${columnSizeOnMobile}-mobile is-${columnSizeOnTablet}-tablet is-${columnSizeOnDesktop}-desktop is-${columnSizeOnWidescreen}-widescreen is-${columnSizeOnFullhd}-fullhd ${
-				product.stock_status
+				product.is_salable
 			}`}
 		>
-			<NavLink to={product.path}>
+			<NavLink to={product.name}>
 				<figure className="image" style={{ height: imageHeight }}>
 					<ItemTags tags={product.tags} />
 					<ItemImage
-						images={product.images}
+						images={product.product_images}
 						productName={product.name}
 						height={placeholderHeight}
 					/>

@@ -239,6 +239,18 @@ export default class ProductDetails extends React.Component {
 						</div>
 					</section>
 
+					<section className="section section-product-reviews">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRProductReviews product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
 					<RelatedProducts
 						settings={settings}
 						addCartItem={this.addToCart}

@@ -144,7 +144,6 @@ const getAllData = (currentPage, productFilter, cookie) => {
 				return result.json();
 			})
 			.then(jsonResult => {
-				console.log(jsonResult.data);
 				return jsonResult.data;
 			}),
 
@@ -252,7 +251,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			pageDetails: page,
 			categoryDetails: categoryDetails,
 			productDetails: product,
-			categories: categories,
+			categories: categories, // For Category Page
 			products: products, // && products.data ? products.data : [],
 			productsTotalCount: productsTotalCount,
 			productsHasMore: productsHasMore,
@@ -332,7 +331,7 @@ export const loadState = (req, language) => {
 		search: urlQuery,
 		hash: ''
 	};
-
+	console.log('inside load state');
 	return Promise.all([
 		getCurrentPage(req.path),
 		api.settings.retrieve().then(({ status, json }) => json),
@@ -349,6 +348,8 @@ export const loadState = (req, language) => {
 				location,
 				productFilter
 			);
+			console.log('Final Return Data');
+			console.log(state);
 			return {
 				state: state,
 				themeText: themeText,
