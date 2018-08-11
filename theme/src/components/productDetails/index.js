@@ -16,7 +16,6 @@ import IRProductTNC from './irTermsAndConditions';
 import Attributes from './attributes';
 import Gallery from './gallery';
 import Options from './options';
-import Rating from './rating';
 import Price from './price';
 import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
@@ -60,7 +59,7 @@ export default class ProductDetails extends React.Component {
 		this.findVariantBySelectedOptions();
 		this.checkSelectedOptions();
 	}
-
+	a;
 	findVariantBySelectedOptions() {
 		const { selectedOptions } = this.state;
 		const { product } = this.props;
@@ -140,8 +139,9 @@ export default class ProductDetails extends React.Component {
 								<div className="column is-5">
 									<div className="content product-shop">
 										<Tags tags={product.tags} />
-										<h1 className="product-name product-name-irush">{product.name}</h1>
-										<Rating product={product} />
+										<h1 className="product-name product-name-irush">
+											{product.name}
+										</h1>
 										<Price
 											product={product}
 											variant={selectedVariant}

@@ -84,8 +84,6 @@ const AttributeFilter = ({
 	setFilterAttribute,
 	unsetFilterAttribute
 }) => {
-	console.log('logging attribute list');
-	console.log(attributes);
 	const attributeSets = attributes.map(attribute => (
 		<AttributeSet
 			key={attribute.id}
