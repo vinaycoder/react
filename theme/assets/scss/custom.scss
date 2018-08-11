@@ -76,15 +76,7 @@
 	margin: 10px 0 0 0;
 	background: #f1970a;
 }
-.product-name-irsuh{
-	font-size: 14px !important;
-	text-shadow: 0 2px 0 white !important;
-	float: right !important;
-	margin: 0 0 5px !important;
-	font-weight: bold !important;
-	color: #3a3a3a !important;
-	text-transform: none !important;
-}
+
 .product-page-add-to-cart-button
 {
 position: relative;
@@ -108,4 +100,73 @@ position: relative;
 .button-addtocart
 {
 	max-width: 400px !important;
+}
+.product-name-irush{
+  font-size: 14px !important;
+	text-shadow: 0 2px 0 white !important;
+	margin: 0 0 5px !important;
+	font-weight: bold !important;
+	color: #3a3a3a !important;
+	text-transform: none !important;
+}
+
+
+
+
+
+// @media only screen and (max-width: 992px)
+// .product-view .product-shop .product-explore {
+//     height: 20px;
+// }
+.product-shop .product-explore {
+	margin-top: 10px;
+}
+.product-shop .product-explore {
+	margin: 5px 0 5px 0;
+}
+
+// @media only screen and (max-width: 799px) and (min-width: 300px)
+// .product-rating-wrapper {
+//     margin-left: 2% !important;
+// }
+
+// @media only screen and (max-width: 992px)
+// .product-view .product-shop .product-explore .product-explore-save-for-later {
+//     margin: auto;
+//     margin-top: 10px;
+// }
+.product-explore-save-for-later-wrapper-variate {
+	margin-left: 0px !important;
+	margin-bottom: 10px !important;
+}
+
+.fixWidth {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #7f7d80;
+	padding: 2px;
+}
+.externalIconWidth
+{
+	width: 30px;
+	height: 30px;
+}
+.rating-star-variation
+{
+ color: #f9cc2b;
+}
+.productRatingBestQualityText {
+	margin-left: 5px;
+	margin-top: 2px;
+	font-size: 18px;
+	margin: 0px 11px;
+}
+.ratingStarColor
+{
+ color: #f9cc34;
+}
+.bestQualityColor
+{
+ color: #1f7c14;
 }
