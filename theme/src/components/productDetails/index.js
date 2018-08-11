@@ -2,11 +2,17 @@ import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import * as helper from '../../lib/helper';
 import { themeSettings, text } from '../../lib/settings';
-import Disqus from '../comments/disqus';
 import ViewedProducts from '../products/viewed';
 import Breadcrumbs from './breadcrumbs';
 import DiscountCountdown from './discountCountdown';
 import AddToCartButton from './addToCartButton';
+
+import IRProductDetails from './irProductDetails';
+import IRProductShipping from './irProductShipping';
+import IRProductReturns from './irProductReturns';
+import IRProductReviews from './irProductReviews';
+import IRProductTNC from './irTermsAndConditions';
+
 import Attributes from './attributes';
 import Gallery from './gallery';
 import Options from './options';
@@ -113,10 +119,9 @@ export default class ProductDetails extends React.Component {
 						: product.stock_quantity;
 
 		if (product) {
-			var	customImageAarry= [];
-			for(var i = 0; i < product.product_images.length; i += 1)
-			{
-				customImageAarry.push({"url":product.product_images[i]});
+			var customImageAarry = [];
+			for (var i = 0; i < product.product_images.length; i += 1) {
+				customImageAarry.push({ url: product.product_images[i] });
 			}
 
 			return (
@@ -184,6 +189,66 @@ export default class ProductDetails extends React.Component {
 						</div>
 					</section>
 
+					<section className="section section-product-details">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRProductDetails product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section className="section section-product-returns">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRProductReturns product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section className="section section-product-shipping">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRProductShipping product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section className="section section-product-tnc">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRProductTNC product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section className="section section-product-reviews">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRProductReviews product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
 					<RelatedProducts
 						settings={settings}
 						addCartItem={this.addToCart}
@@ -199,20 +264,6 @@ export default class ProductDetails extends React.Component {
 							limit={themeSettings.limit_viewed_products || 4}
 						/>
 					)}
-
-					{themeSettings.disqus_shortname &&
-						themeSettings.disqus_shortname !== '' && (
-							<section className="section">
-								<div className="container">
-									<Disqus
-										shortname={themeSettings.disqus_shortname}
-										identifier={product.id}
-										title={product.name}
-										url={product.url}
-									/>
-								</div>
-							</section>
-						)}
 				</Fragment>
 			);
 		} else {
