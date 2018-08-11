@@ -23,17 +23,19 @@ const ItemPrice = ({ product, settings }) => {
 	if (product.stock_status === 'out_of_stock') {
 		return <div className="product-price">{text.outOfStock}</div>;
 	}
-	if (product.on_sale) {
+	if (product.is_salable) {
 		return (
 			<div className="product-price">
 				<span className="product-new-price">
-					<FormattedCurrency settings={settings} number={product.price} />
+					{product.offered_price}
+					{/* <FormattedCurrency settings={settings} number={product.offered_price} /> */}
 				</span>
 				<del className="product-old-price">
-					<FormattedCurrency
+					{product.actual_price}
+					{/* <FormattedCurrency
 						settings={settings}
-						number={product.regular_price}
-					/>
+						number={product.actual_price}
+					/> */}
 				</del>
 			</div>
 		);
