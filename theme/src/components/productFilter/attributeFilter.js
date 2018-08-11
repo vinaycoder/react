@@ -48,7 +48,7 @@ class AttributeValue extends React.Component {
 					onChange={this.onChange}
 					checked={this.state.checked}
 				/>
-				{valueName}
+				{valueName} ({count})
 			</label>
 		);
 	}
@@ -59,11 +59,11 @@ const AttributeSet = ({
 	setFilterAttribute,
 	unsetFilterAttribute
 }) => {
-	const values = attribute.values.map((value, index) => (
+	const values = attribute.sub_label.map(value => (
 		<AttributeValue
-			key={index}
-			attributeName={attribute.name}
-			valueName={value.name}
+			key={value.value}
+			attributeName={attribute.label}
+			valueName={value.label}
 			checked={value.checked}
 			count={value.count}
 			setFilterAttribute={setFilterAttribute}
@@ -73,7 +73,7 @@ const AttributeSet = ({
 
 	return (
 		<div className="attribute">
-			<div className="attribute-title">{attribute.name}</div>
+			<div className="attribute-title">{attribute.label}</div>
 			{values}
 		</div>
 	);
@@ -84,9 +84,11 @@ const AttributeFilter = ({
 	setFilterAttribute,
 	unsetFilterAttribute
 }) => {
-	const attributeSets = attributes.map((attribute, index) => (
+	console.log('logging attribute list');
+	console.log(attributes);
+	const attributeSets = attributes.map(attribute => (
 		<AttributeSet
-			key={index}
+			key={attribute.id}
 			attribute={attribute}
 			setFilterAttribute={setFilterAttribute}
 			unsetFilterAttribute={unsetFilterAttribute}

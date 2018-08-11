@@ -40,7 +40,7 @@ const Item = ({
 				product.is_salable
 			}`}
 		>
-			<NavLink to={product.name}>
+			<NavLink to={product.path}>
 				<figure className="image" style={{ height: imageHeight }}>
 					<ItemTags tags={product.tags} />
 					<ItemImage
