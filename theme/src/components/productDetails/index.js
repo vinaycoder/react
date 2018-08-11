@@ -16,6 +16,7 @@ import IRProductTNC from './irTermsAndConditions';
 import Attributes from './attributes';
 import Gallery from './gallery';
 import Options from './options';
+import Rating from './rating';
 import Price from './price';
 import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
@@ -137,9 +138,10 @@ export default class ProductDetails extends React.Component {
 									<Gallery images={customImageAarry} />
 								</div>
 								<div className="column is-5">
-									<div className="content">
+									<div className="content product-shop">
 										<Tags tags={product.tags} />
-										<h1 className="product-name-irsuh">{product.name}</h1>
+										<h1 className="product-name product-name-irush">{product.name}</h1>
+										<Rating product={product} />
 										<Price
 											product={product}
 											variant={selectedVariant}
