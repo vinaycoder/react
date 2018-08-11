@@ -85,9 +85,31 @@ const getProducts = (currentPage, productFilter) => {
 	}
 };
 
+const getProductsAttributes = (currentPage, productFilter) => {
+	if (currentPage.type === PRODUCT_CATEGORY || currentPage.type === SEARCH) {
+		console.log('in search of category page');
+
+		return fetch(
+			`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
+				currentPage.resource
+			}&version=3.81`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				return jsonResult.data.filters;
+			});
+
+		// let filter = getParsedProductFilter(productFilter);
+		// filter.enabled = true;
+		// return api.products.list(filter).then(({ status, json }) => json);
+	} else {
+		return null;
+	}
+};
+
 const getProduct = currentPage => {
-	console.log('in getting single product data');
-	console.log(currentPage);
 	if (currentPage.type === PRODUCT) {
 		return fetch(
 			`http://indiarush.com/irapi/product/getProductDetail/?product_id=${
@@ -98,7 +120,6 @@ const getProduct = currentPage => {
 				return result.json();
 			})
 			.then(jsonResult => {
-				//console.log(jsonResult.data);
 				return jsonResult.data;
 			});
 
@@ -152,6 +173,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		// 	.then(({ status, json }) => json),
 		api.ajax.cart.retrieve(cookie).then(({ status, json }) => json),
 		getProducts(currentPage, productFilter),
+		getProductsAttributes(currentPage, productFilter),
 		getProduct(currentPage),
 		getPage(currentPage),
 		getThemeSettings()
@@ -161,6 +183,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			categories,
 			cart,
 			products,
+			productsAttributes,
 			product,
 			page,
 			themeSettings
@@ -176,18 +199,15 @@ const getAllData = (currentPage, productFilter, cookie) => {
 						return result.json();
 					})
 					.then(jsonResult => {
-						//console.log(jsonResult.category);
 						return jsonResult.category;
 					});
-				console.log('inside the category details');
-				//console.log(categories);
-				//categoryDetails = categories.find(c => c.id === currentPage.resource);
 			}
 			return {
 				checkoutFields,
 				categories,
 				cart,
 				products,
+				productsAttributes,
 				product,
 				page,
 				categoryDetails,
@@ -203,6 +223,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 		categories,
 		cart,
 		products,
+		productsAttributes,
 		product,
 		page,
 		categoryDetails,
@@ -213,30 +234,11 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 	let productsHasMore = false;
 	let productsMinPrice = 0;
 	let productsMaxPrice = 0;
-	let productsAttributes = [];
+	//let productsAttributes = [];
 
 	if (products) {
 		productsTotalCount = products.products_count;
-		//console.log(productsTotalCount);
-		//console.log('showing pridct total count');
 		productsHasMore = products.has_more;
-
-		// console.log(`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${currentPage.resource}&version=3.81`);
-		// 		productsAttributes=  fetch(
-		// 	`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${currentPage.resource}&version=3.81`)
-		// 	.then(result => {
-		// 		return result.json();
-		// 	})
-		// 	.then(jsonResult => {
-		// 		console.log('showing the filter json result');
-		// 		console.log(jsonResult.data.filters);
-		// 		return jsonResult.data.filters;
-		// 	});
-		// console.log('attribute list');
-		// console.log(productsAttributes);
-
-		//	productsAttributes = [];//products.attributes;
-
 		if (products.price) {
 			productsMinPrice = products.price.min;
 			productsMaxPrice = products.price.max;
