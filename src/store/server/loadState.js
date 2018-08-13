@@ -67,7 +67,7 @@ const getProducts = (currentPage, productFilter) => {
 		return fetch(
 			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
 				currentPage.resource
-			}&item_count=20&version=3.81`
+			}&item_count=40&version=3.81`
 		)
 			.then(result => {
 				return result.json();
@@ -190,17 +190,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		]) => {
 			let categoryDetails = null;
 			if (currentPage.type === PRODUCT_CATEGORY) {
-				categoryDetails = fetch(
-					`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
-						currentPage.resource
-					}&item_count=20&version=3.81`
-				)
-					.then(result => {
-						return result.json();
-					})
-					.then(jsonResult => {
-						return jsonResult.category;
-					});
+				categoryDetails = categories.find(c => c.id === currentPage.resource);
 			}
 			return {
 				checkoutFields,
