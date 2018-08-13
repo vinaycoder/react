@@ -62,7 +62,7 @@ class HeadMenuItem extends React.Component {
 					<NavLink
 						activeClassName="is-active"
 						className={hasItems ? 'has-items' : ''}
-						to={category.name}
+						to={`/${category.path}/`}
 						onClick={onClick}
 					>
 						{category.name}
@@ -92,12 +92,13 @@ export default class HeadMenu extends React.PureComponent {
 		if (themeSettings.header_menu && themeSettings.header_menu.length > 0) {
 			addItemsToMenu = themeSettings.header_menu.map(item => ({
 				name: item.text,
-				path: item.url,
+				path: item.path,
 				id: item.id || '',
 				parent_id: item.parent_id || null
 			}));
 		}
 		const menuItems = [...categories, ...addItemsToMenu];
+		console.log(menuItems);
 		const items = menuItems
 			.filter(category => category.parent_id == '2')
 			.map(category => (
