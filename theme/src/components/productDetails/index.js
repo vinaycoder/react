@@ -140,8 +140,9 @@ export default class ProductDetails extends React.Component {
 								<div className="column is-5">
 									<div className="content product-shop">
 										<Tags tags={product.tags} />
+										
 										<h1 className="product-name product-name-irush">{product.name}</h1>
-										<Rating product={product} />
+										<Rating product={product}/>										
 										<Price
 											product={product}
 											variant={selectedVariant}
