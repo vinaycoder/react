@@ -13,7 +13,7 @@ import api from './api';
 
 const initialState = window.__APP_STATE__;
 const themeText = window.__APP_TEXT__;
-
+console.log('inside client index');
 initOnClient({
 	themeSettings: initialState.app.themeSettings,
 	text: themeText,
