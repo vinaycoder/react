@@ -14,7 +14,7 @@ const CategoryBreadcrumbs = ({ currentCategory, categories }) => {
 				</li>
 				{items}
 				<li className="is-active">
-					<a href={currentCategory.path} aria-current="page">
+					<a href={`/${currentCategory.path}/`} aria-current="page">
 						{currentCategory.name}
 					</a>
 				</li>
