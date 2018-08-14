@@ -7,21 +7,23 @@ const initialState = {};
 const appReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case t.PRODUCT_RECEIVE:
+			console.log('inside the product reducer');
 			return Object.assign({}, state, { productDetails: action.product });
 
 		case t.PRODUCTS_REQUEST:
 			return Object.assign({}, state, { loadingProducts: true });
 
 		case t.PRODUCTS_RECEIVE:
+			console.log('inside category reducer');
 			if (action.products) {
 				return Object.assign({}, state, {
 					loadingProducts: false,
-					products: action.products.data,
-					productsTotalCount: action.products.total_count,
-					productsHasMore: action.products.has_more,
-					productsAttributes: action.products.attributes,
-					productsMinPrice: action.products.price.min || 0,
-					productsMaxPrice: action.products.price.max || 0
+					products: action.products,
+					// productsTotalCount: action.products.total_count,
+					// productsHasMore: action.products.has_more,
+					productsAttributes: action.products.attributes
+					// productsMinPrice: action.products.price.min || 0,
+					// productsMaxPrice: action.products.price.max || 0
 				});
 			} else {
 				return Object.assign({}, state, {

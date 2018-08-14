@@ -9,12 +9,40 @@ const requestProduct = () => ({ type: t.PRODUCT_REQUEST });
 
 const receiveProduct = product => ({ type: t.PRODUCT_RECEIVE, product });
 
-export const fetchProducts = () => async (dispatch, getState) => {
+export const fetchProducts = currentPage => async (dispatch, getState) => {
+	console.log(currentPage);
+	console.log('inside current page');
 	dispatch(requestProducts());
 	const { app } = getState();
 	const filter = getParsedProductFilter(app.productFilter);
-	const response = await api.ajax.products.list(filter);
-	const products = response.json;
+
+	const products = await fetch(
+		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+			currentPage.resource
+		}&item_count=40&version=3.81`
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			console.log('logging category products data');
+			return jsonResult.data.product;
+		});
+
+	products.attributes = await fetch(
+		`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
+			currentPage.resource
+		}&version=3.81`
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult.data.filters;
+		});
+
+	//api.ajax.products.list(filter);
+	//const products = response.json;
 	dispatch(receiveProducts(null));
 	dispatch(receiveProducts(products));
 };
@@ -129,6 +157,24 @@ export const addCartItem = item => async (dispatch, getState) => {
 	});
 };
 
+export const getProductDetails = currentPage => async (dispatch, getState) => {
+	dispatch(requestProduct());
+	const product = await fetch(
+		`https://indiarush.com/irapi/product/getProductDetail/?product_id=${
+			currentPage.resource
+		}&version=3.81`
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult.data;
+		});
+	console.log(product);
+	dispatch(receiveProduct(null));
+	dispatch(receiveProduct(product));
+};
+
 const requestAddCartItem = () => ({ type: t.CART_ITEM_ADD_REQUEST });
 
 export const updateCartItemQuantiry = (item_id, quantity) => async (
@@ -236,6 +282,8 @@ export const setCurrentLocation = location => ({
 export const setCategory = categoryId => (dispatch, getState) => {
 	const { app } = getState();
 	const category = app.categories.find(c => c.id === categoryId);
+	console.log(category);
+	console.log('getting category from state categories filter');
 	if (category) {
 		dispatch(setCurrentCategory(category));
 		dispatch(setProductsFilter({ categoryId: categoryId }));
@@ -284,9 +332,11 @@ export const updateCart = (data, callback) => async (dispatch, getState) => {
 };
 
 export const setCurrentPage = location => async (dispatch, getState) => {
+	console.log('calling set current opage');
 	let locationPathname = '/404';
 	let locationSearch = '';
 	let locationHash = '';
+	console.log(location);
 
 	if (location) {
 		locationPathname = location.pathname;
@@ -299,6 +349,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 	let stateSearch = '';
 	let stateHash = '';
 
+	console.log(app.location);
 	if (app.location) {
 		statePathname = app.location.pathname;
 		stateSearch = app.location.search;
@@ -307,6 +358,8 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 
 	const currentPageAlreadyInState =
 		statePathname === locationPathname && stateSearch === locationSearch;
+
+	console.log(currentPageAlreadyInState);
 
 	if (currentPageAlreadyInState) {
 		// same page
@@ -320,33 +373,60 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			})
 		);
 
-		const category = app.categories.find(c => c.path === locationPathname);
-		if (category) {
-			const newCurrentPage = {
-				type: 'product-category',
-				path: category.path,
-				resource: category.id
-			};
-			dispatch(receiveSitemap(newCurrentPage)); // remove .data
-			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		} else {
-			const sitemapResponse = await api.ajax.sitemap.retrieve({
-				path: locationPathname
-			});
-			if (sitemapResponse.status === 404) {
-				dispatch(
-					receiveSitemap({
+		//Instead of category page we can get data from all categories list
+		//const category = app.categories.find(c => c.path === locationPathname);
+		// if (category) {
+		// const newCurrentPage = {
+		// 	type: 'product-category',
+		// 	path: category.path,
+		// 	resource: category.id
+		// };
+		// dispatch(receiveSitemap(newCurrentPage)); // remove .data
+		// dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+		// } else {
+		const newCurrentPage = await fetch(
+			`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				if (jsonResult == 'null') {
+					return {
 						type: 404,
 						path: locationPathname,
 						resource: null
-					})
-				);
-			} else {
-				const newCurrentPage = sitemapResponse.json;
-				dispatch(receiveSitemap(newCurrentPage));
-				dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-			}
-		}
+					};
+				} else {
+					return {
+						type: jsonResult.type,
+						path: locationPathname,
+						resource: jsonResult.id
+					};
+				}
+			});
+		console.log('returning new page type');
+		console.log(newCurrentPage);
+		dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+		dispatch(receiveSitemap(newCurrentPage));
+
+		// const sitemapResponse = await api.ajax.sitemap.retrieve({
+		// 	path: locationPathname
+		// });
+		// if (sitemapResponse.status === 404) {
+		// 	dispatch(
+		// 		receiveSitemap({
+		// 			type: 404,
+		// 			path: locationPathname,
+		// 			resource: null
+		// 		})
+		// 	);
+		// } else {
+		// 	const newCurrentPage = sitemapResponse.json;
+		// 	dispatch(receiveSitemap(newCurrentPage));
+		// 	dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+		// }
+		//}
 	}
 };
 
@@ -361,16 +441,19 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 		path: currentPage.path,
 		title: '-'
 	});
-
+	console.log('inside fetch data');
+	console.log(currentPage);
 	switch (currentPage.type) {
 		case PRODUCT_CATEGORY:
 			productFilter = getProductFilterForCategory(
 				app.location.search,
 				app.settings.default_product_sorting
 			);
+			console.log(productFilter);
+
 			dispatch(setCategory(currentPage.resource));
 			dispatch(setProductsFilter(productFilter));
-			dispatch(fetchProducts());
+			dispatch(fetchProducts(currentPage));
 			break;
 		case SEARCH:
 			productFilter = getProductFilterForSearch(app.location.search);
@@ -379,9 +462,10 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 			analytics.search({ searchText: productFilter.search });
 			break;
 		case PRODUCT:
-			const productData = currentPage.data;
-			dispatch(receiveProduct(productData));
-			analytics.productView({ product: productData });
+			dispatch(getProductDetails(currentPage));
+			// const productData = currentPage.data;
+			// dispatch(receiveProduct(productData));
+			// analytics.productView({ product: productData });
 			break;
 		case PAGE:
 			const pageData = currentPage.data;

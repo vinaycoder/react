@@ -4,7 +4,7 @@ import { themeSettings, text } from '../lib/settings';
 
 const Sort = ({ defaultSort, currentSort, setSort }) => (
 	<div className="columns is-mobile sort">
-		<div className="column is-4 sort-title">{text.sort}:</div>
+		<div className="column is-4 sort-title">Sort:</div>
 		<div className="column">
 			<span className="select is-fullwidth">
 				<select
@@ -13,14 +13,10 @@ const Sort = ({ defaultSort, currentSort, setSort }) => (
 					}}
 					value={currentSort}
 				>
-					<option value={defaultSort}>{text.sortFavorite}</option>
-					<option value={themeSettings.sortNewest}>{text.sortNewest}</option>
-					<option value={themeSettings.sortPriceLow}>
-						{text.sortPriceLow}
-					</option>
-					<option value={themeSettings.sortPriceHigh}>
-						{text.sortPriceHigh}
-					</option>
+					<option value="bestsellers">Best Seller</option>
+					<option value="position_desc">New Arrivals</option>
+					<option value="price_asc">Price: Low to High</option>
+					<option value="price_desc">Price: High to Low</option>
 				</select>
 			</span>
 		</div>

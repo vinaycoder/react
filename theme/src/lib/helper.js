@@ -98,7 +98,7 @@ export const getCategoryBreadcrumbs = (currentCategoryId, categories) => {
 					index += 1;
 					return (
 						<li key={index}>
-							<NavLink to={category.path}>{category.name}</NavLink>
+							<NavLink to={`/${category.path}/`}>{category.name}</NavLink>
 						</li>
 					);
 				}

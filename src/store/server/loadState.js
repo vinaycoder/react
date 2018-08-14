@@ -112,7 +112,7 @@ const getProductsAttributes = (currentPage, productFilter) => {
 const getProduct = currentPage => {
 	if (currentPage.type === PRODUCT) {
 		return fetch(
-			`http://indiarush.com/irapi/product/getProductDetail/?product_id=${
+			`https://indiarush.com/irapi/product/getProductDetail/?product_id=${
 				currentPage.resource
 			}&version=3.81`
 		)
@@ -160,7 +160,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	console.log('get all data function in load state');
 	return Promise.all([
 		api.checkoutFields.list().then(({ status, json }) => json),
-		fetch(`http://indiarush.com/irapi/category/getallShopByCategories/`)
+		fetch(`https://indiarush.com/irapi/category/getallShopByCategories/`)
 			.then(result => {
 				return result.json();
 			})

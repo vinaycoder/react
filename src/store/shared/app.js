@@ -24,6 +24,8 @@ class SwitchContainers extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.props.setCurrentPage(nextProps.location);
+		console.log(nextProps.location);
+		console.log('inside the next props');
 
 		if (nextProps.location && this.props.location) {
 			const pathnameChanged =
@@ -43,14 +45,18 @@ class SwitchContainers extends React.Component {
 	}
 
 	render() {
+		console.log('inside client side render');
 		const { history, location, currentPage } = this.props;
 		const locationPathname =
 			location && location.pathname ? location.pathname : '/';
-
+		console.log(currentPage);
+		console.log(currentPage.type);
 		switch (currentPage.type) {
 			case PRODUCT:
+				console.log('inside the product container');
 				return <ProductContainer />;
 			case PRODUCT_CATEGORY:
+				console.log('inside the category container');
 				return <CategoryContainer />;
 			case SEARCH:
 				return <SearchContainer />;
