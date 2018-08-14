@@ -31,13 +31,9 @@ const AddToCartButton = ({
 
 	if (!product.is_salable) {
 		return (
-			<button
-			className="button is-dark is-fullwidth"
-			style={buttonStyle}
-			disabled
-		>
-			{text.discontinued}
-		</button>
+			<p className="product-view-avail-out-of-stock" content="Out Of Stock">
+			<b className="convert-test-v1-out-of-stock">Sold Out</b>
+			</p>
 		);
 	}else{
 	return (
