@@ -19,9 +19,7 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 	if (!currentPage) {
 		currentPage = app.currentPage;
 	}
-
-	console.log('final filter list');
-	console.log(filter);
+	console.log(app);
 
 	//Default Filter Flow
 	let filterListURL = '';
@@ -33,8 +31,8 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 
 	//Default sort
 	let sortListURl = 'best_seller';
-	if (filter.sort) {
-		sortListURl = filter.sort;
+	if (app.productFilter.sort) {
+		sortListURl = app.productFilter.sort;
 	}
 
 	//TODO - On changing sorting only the product list should change not filter list.
@@ -42,15 +40,21 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 	const products = await fetch(
 		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
 			currentPage.resource
-		}&sort=${sortListURl}&item_count=40&version=3.81${filterListURL}`
+		}&sort=${sortListURl}&page=0&item_count=40&version=3.81${filterListURL}`
 	)
 		.then(result => {
 			return result.json();
 		})
 		.then(jsonResult => {
 			console.log('logging category products data');
-			return jsonResult.data.product;
+			return jsonResult.data;
 		});
+
+	if (products.products_count > 48) {
+		products.has_more = true;
+	}
+
+	products.productsPage = 0;
 
 	products.attributes = await fetch(
 		`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
@@ -64,8 +68,6 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 			return jsonResult.data.filters;
 		});
 
-	//api.ajax.products.list(filter);
-	//const products = response.json;
 	dispatch(receiveProducts(null));
 	dispatch(receiveProducts(products));
 };
@@ -123,24 +125,57 @@ const receiveProducts = products => ({ type: t.PRODUCTS_RECEIVE, products });
 
 export const fetchMoreProducts = () => async (dispatch, getState) => {
 	const { app } = getState();
-	if (
-		app.loadingProducts ||
-		app.loadingMoreProducts ||
-		app.products.length === 0 ||
-		!app.productsHasMore
-	) {
+	console.log(app);
+	if ((app.productsPage + 1) * 48 > app.productsTotalCount) {
 		return;
-	} else {
-		dispatch(requestMoreProducts());
-
-		const filter = getParsedProductFilter(app.productFilter);
-		filter.offset = app.products.length;
-
-		const response = await api.ajax.products.list(filter);
-		const products = response.json;
-		dispatch(receiveMoreProducts(products));
-		animateScroll.scrollMore(200);
 	}
+
+	const newProductsPage = app.productsPage + 1;
+
+	dispatch(requestMoreProducts());
+	const currentPage = app.currentPage;
+
+	const filter = getParsedProductFilter(app.productFilter);
+
+	//Default Filter Flow
+	let filterListURL = '';
+	for (const queryFilter in filter.filters) {
+		filterListURL = `${filterListURL}&filters[${queryFilter}]=${
+			filter.filters[queryFilter]
+		}`;
+	}
+
+	//Default sort
+	let sortListURl = 'best_seller';
+	if (app.productFilter.sort) {
+		sortListURl = app.productFilter.sort;
+	}
+
+	const products = await fetch(
+		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+			currentPage.resource
+		}&sort=${sortListURl}&page=${newProductsPage}&item_count=48&version=3.81${filterListURL}`
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			console.log('logging category products data');
+			return jsonResult.data;
+		});
+
+	products.productsPage = newProductsPage;
+	if ((newProductsPage + 1) * 48 < products.products_count) {
+		products.has_more = true;
+	} else {
+		products.has_more = false;
+	}
+
+	console.log('final dispatch after load more');
+	console.log(products);
+
+	dispatch(receiveMoreProducts(products));
+	animateScroll.scrollMore(200);
 };
 
 const requestMoreProducts = () => ({ type: t.MORE_PRODUCTS_REQUEST });
@@ -534,7 +569,7 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 		case PRODUCT_CATEGORY:
 			productFilter = getProductFilterForCategory(
 				app.location.search,
-				app.settings.default_product_sorting
+				app.productFilter.sort
 			);
 			console.log(productFilter);
 

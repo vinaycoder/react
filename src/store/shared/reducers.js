@@ -18,9 +18,10 @@ const appReducer = (state = initialState, action) => {
 			if (action.products) {
 				return Object.assign({}, state, {
 					loadingProducts: false,
-					products: action.products,
-					// productsTotalCount: action.products.total_count,
-					// productsHasMore: action.products.has_more,
+					products: action.products.product,
+					productsTotalCount: action.products.products_count,
+					productsPage: action.products.productsPage,
+					productsHasMore: action.products.has_more,
 					productsAttributes: action.products.attributes
 					// productsMinPrice: action.products.price.min || 0,
 					// productsMaxPrice: action.products.price.max || 0
@@ -37,8 +38,9 @@ const appReducer = (state = initialState, action) => {
 		case t.MORE_PRODUCTS_RECEIVE:
 			return Object.assign({}, state, {
 				loadingMoreProducts: false,
-				products: [...state.products, ...action.products.data],
-				productsTotalCount: action.products.total_count,
+				products: [...state.products, ...action.products.product],
+				productsTotalCount: action.products.products_count,
+				productsPage: action.products.productsPage,
 				productsHasMore: action.products.has_more
 			});
 

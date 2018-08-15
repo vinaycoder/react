@@ -9,6 +9,7 @@ const ProductList = ({
 	settings,
 	loadMoreProducts,
 	hasMore,
+	productsPage,
 	loadingProducts,
 	loadingMoreProducts,
 	isCentered,
@@ -50,6 +51,7 @@ const ProductList = ({
 				<LoadMore
 					loadMoreProducts={loadMoreProducts}
 					hasMore={hasMore}
+					productsPage={productsPage}
 					loading={loadingMoreProducts}
 				/>
 			</div>
