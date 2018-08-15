@@ -125,17 +125,17 @@
   "label": "Класс кнопки Изменить"
 }, {
   "section": "Список товаров",
-  "key": "sortNewest",
+  "key": "new_arrivals",
   "type": "string",
   "label": "Сортировка. Новинки (поля сортировки)"
 }, {
   "section": "Список товаров",
-  "key": "sortPriceLow",
+  "key": "price_asc",
   "type": "string",
   "label": "Сортировка. От дешевых к дорогим (поля сортировки)"
 }, {
   "section": "Список товаров",
-  "key": "sortPriceHigh",
+  "key": "price_desc",
   "type": "string",
   "label": "Сортировка. От дорогих к дешевым (поля сортировки)"
 }, {

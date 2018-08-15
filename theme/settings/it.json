@@ -127,17 +127,17 @@
   "label": "Modifica Classe Bottone"
 }, {
   "section": "Lista Prodotti",
-  "key": "sortNewest",
+  "key": "new_arrivals",
   "type": "string",
   "label": "Ordina per i più recenti (campi separati da virgola)"
 }, {
   "section": "Lista Prodotti",
-  "key": "sortPriceLow",
+  "key": "price_asc",
   "type": "string",
   "label": "Ordina per prezzo più basso (campi separati da virgola)"
 }, {
   "section": "Lista Prodotti",
-  "key": "sortPriceHigh",
+  "key": "price_desc",
   "type": "string",
   "label": "Ordina per prezzo più alto (campi separati da virgola)"
 }, {

@@ -125,17 +125,17 @@
   "label": "编辑按钮-类"
 }, {
   "section": "产品列表",
-  "key": "sortNewest",
+  "key": "new_arrivals",
   "type": "string",
   "label": "按最新排序（逗号分隔的字段）"
 }, {
   "section": "产品列表",
-  "key": "sortPriceLow",
+  "key": "price_asc",
   "type": "string",
   "label": "按价格从低到高排序（逗号分隔的字段）"
 }, {
   "section": "产品列表",
-  "key": "sortPriceHigh",
+  "key": "price_desc",
   "type": "string",
   "label": "按价格从高到低排序（逗号分隔的字段）"
 }, {

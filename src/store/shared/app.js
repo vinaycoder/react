@@ -45,16 +45,18 @@ class SwitchContainers extends React.Component {
 	}
 
 	componentDidMount() {
-		if(!cookie.load('userQuoteId'))
-		{
-			fetch('https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99')
-			.then((result) => {
-				return result.json();
-			}).then((jsonResult) => {
-			//	return jsonResult;
-				cookie.save('userQuoteId', jsonResult.data.quoteId, { path: '/' });
-				this.setState({quoteId:jsonResult.data.quoteId});
-			})
+		if (!cookie.load('userQuoteId')) {
+			fetch(
+				'https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99'
+			)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					//	return jsonResult;
+					cookie.save('userQuoteId', jsonResult.data.quoteId, { path: '/' });
+					this.setState({ quoteId: jsonResult.data.quoteId });
+				});
 		}
 	}
 

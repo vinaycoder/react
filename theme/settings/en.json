@@ -125,17 +125,22 @@
   "label": "Edit button class"
 }, {
   "section": "Product List",
-  "key": "sortNewest",
+  "key": "new_arrivals",
   "type": "string",
-  "label": "Sort by newest (comma separated fields)"
+  "label": "New Arrivals (comma separated fields)"
 }, {
   "section": "Product List",
-  "key": "sortPriceLow",
+  "key": "price_asc",
   "type": "string",
   "label": "Sort by low price (comma separated fields)"
 }, {
   "section": "Product List",
-  "key": "sortPriceHigh",
+  "key": "top_rated",
+  "type": "string",
+  "label": "Top Rated (comma separated fields)"
+}, {
+  "section": "Product List",
+  "key": "price_desc",
   "type": "string",
   "label": "Sort by high price (comma separated fields)"
 }, {

@@ -34,28 +34,35 @@ const BackButton = ({ onClick }) => (
 );
 
 export default class Header extends React.Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
 			mobileMenuIsActive: false,
 			mobileSearchIsActive: false,
 			cartIsActive: false,
-			cart:[]
+			cart: []
 		};
 	}
 
 	componentDidMount() {
-		const quoteId=cookie.load('userQuoteId');
-	fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='+quoteId+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
-		.then((result) => {
-			return result.json();
-		}).then((jsonResult) => {
-			this.props.state.cart=jsonResult.data
-			this.setState({
-				cart: jsonResult.data
+		const quoteId = cookie.load('userQuoteId');
+		fetch(
+			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+				quoteId +
+				'&pincode=""' +
+				'&reset_payment=1' +
+				'&version=' +
+				'99.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				this.props.state.cart = jsonResult.data;
+				this.setState({
+					cart: jsonResult.data
+				});
 			});
-		})
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -238,6 +245,4 @@ export default class Header extends React.Component {
 			</Fragment>
 		);
 	}
-
-
 }

@@ -125,17 +125,17 @@
   "label": "Edit button class"
 }, {
   "section": "Artikelliste",
-  "key": "sortNewest",
+  "key": "new_arrivals",
   "type": "string",
   "label": "Nach Neuste sortieren (Mit Komma getrennte Felder)"
 }, {
   "section": "Artikelliste",
-  "key": "sortPriceLow",
+  "key": "price_asc",
   "type": "string",
   "label": "Sortieren nach kleinstem Preis (Mit Komma getrennte Felder)"
 }, {
   "section": "Artikelliste",
-  "key": "sortPriceHigh",
+  "key": "price_desc",
   "type": "string",
   "label": "Sortieren nach höchstem Preis (Mit Komma getrennte Felder)"
 }, {
