@@ -404,7 +404,6 @@ diccount-sticker-p {
 {
 	color:red;
 	font-weight: bold;
-	margin-top: 30px;
 }
 
 /* Slider */
@@ -883,4 +882,14 @@ diccount-sticker-p {
 	float: right;
 	background: #FF823C;
 	color: #fff;
+}
+.priceDropBlock P {
+	background: #ccc;
+	font-size: 12px;
+	text-align: center;
+}
+.priceDropIcon {
+	width: 13px;
+	height: 8px;
+	display: inline-block;
 }

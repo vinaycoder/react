@@ -173,9 +173,11 @@ export default class ProductDetails extends React.Component {
 												isAllOptionsSelected={isAllOptionsSelected}
 											/>
 										</div>
+										{product.is_salable && (
 										<Pincode
 										product={product}
 										 />
+										)}
 									</div>
 								</div>
 							</div>
