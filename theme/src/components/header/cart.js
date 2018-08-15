@@ -13,25 +13,26 @@ const CartItem = ({ item, deleteCartItem, settings }) => {
 		<div className="columns is-mobile">
 			<div className="column is-2">
 				<div className="image">
-					<NavLink to={item.path}>
-						<img src={thumbnail} />
+					<NavLink to={item.name}>
+						<img src={item.imageUrl} />
 					</NavLink>
 				</div>
 			</div>
 			<div className="column">
 				<div>
-					<NavLink to={item.path}>{item.name}</NavLink>
+					<NavLink to={item.name}>{item.name}</NavLink>
 				</div>
-				{item.variant_name.length > 0 && (
-					<div className="cart-option-name">{item.variant_name}</div>
-				)}
+				{/* {item.name.length > 0 && (
+					 <div className="cart-option-name">{item.name}</div>
+				)} */}
 				<div className="cart-quantity">
 					{text.qty}: {item.quantity}
 				</div>
 			</div>
 			<div className="column is-4 has-text-right">
 				<div className="mini-cart-item-price">
-					{helper.formatCurrency(item.price_total, settings)}
+				Rs {item.price}
+					{/* {helper.formatCurrency(item.price, settings)} */}
 				</div>
 				<a
 					className="button is-light is-small"
@@ -47,7 +48,6 @@ const CartItem = ({ item, deleteCartItem, settings }) => {
 export default class Cart extends React.PureComponent {
 	render() {
 		const { cart, deleteCartItem, settings, cartToggle } = this.props;
-
 		if (cart && cart.items && cart.items.length > 0) {
 			const items = cart.items.map(item => (
 				<CartItem
@@ -67,7 +67,10 @@ export default class Cart extends React.PureComponent {
 							<b>{text.subtotal}</b>
 						</div>
 						<div className="column is-5 has-text-right">
-							<b>{helper.formatCurrency(cart.subtotal, settings)}</b>
+							<b>
+								Rs {cart.subtotal}
+							{/* {helper.formatCurrency(cart.subtotal, settings)} */}
+							</b>
 						</div>
 					</div>
 					<NavLink
