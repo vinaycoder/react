@@ -210,6 +210,63 @@ export const addCartItem = item => async (dispatch, getState) => {
 		.then(jsonResult => {
 			return jsonResult;
 		});
+	/*
+	const NewQuoteId= await fetch('https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99')
+	.then((result) => {
+		return result.json();
+	}).then((jsonResult) => {
+		return jsonResult;
+	})
+	*/
+	if (!cookie.load('userQuoteId')) {
+		fetch(
+			'https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				//	return jsonResult;
+				cookie.save('userQuoteId', jsonResult.data.quoteId, { path: '/' });
+				this.setState({ quoteId: jsonResult.data.quoteId });
+			});
+	}
+	const quoteId = cookie.load('userQuoteId');
+
+	//const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id=13880914'+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
+	const saveToCart = await fetch(
+		'https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product=' +
+			item.product_id +
+			'&quote_id=' +
+			quoteId +
+			'&isAjax=' +
+			'1' +
+			'&current_p_id=""' +
+			'&product_quantity=' +
+			item.quantity
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult;
+		});
+
+	// calling for get cart details
+	const getCartDetails = await fetch(
+		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+			quoteId +
+			'&pincode=""' +
+			'&reset_payment=1' +
+			'&version=' +
+			'99.99'
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult;
+		});
 
 	// console.log(getCartDetails);
 
