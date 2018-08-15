@@ -12,6 +12,7 @@ import IRProductShipping from './irProductShipping';
 import IRProductReturns from './irProductReturns';
 import IRProductReviews from './irProductReviews';
 import IRProductTNC from './irTermsAndConditions';
+import IRSimilarProducts from './irSimilarProducts';
 
 import Attributes from './attributes';
 import Gallery from './gallery';
@@ -141,10 +142,9 @@ export default class ProductDetails extends React.Component {
 									<div className="content product-shop">
 										<Tags tags={product.tags} />
 
+
 										<h1 className="product-name product-name-irush">{product.name}</h1>
-
 										<Rating product={product}/>
-
 										<Price
 											product={product}
 											variant={selectedVariant}
@@ -248,6 +248,23 @@ export default class ProductDetails extends React.Component {
 								<div className="columns">
 									<div className="column is-12">
 										<IRProductReviews product={product} />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section className="section section-product-similar-wrapper">
+						<div className="container">
+							<div className="content">
+								<div className="columns">
+									<div className="column is-12">
+										<IRSimilarProducts
+											settings={settings}
+											addCartItem={this.addToCart}
+											product={product}
+											limit={25}
+										/>
 									</div>
 								</div>
 							</div>

@@ -18,8 +18,8 @@ class AttributeValue extends React.Component {
 
 	onChange = event => {
 		const {
-			attributeName,
-			valueName,
+			attributeId,
+			valueId,
 			setFilterAttribute,
 			unsetFilterAttribute
 		} = this.props;
@@ -28,9 +28,9 @@ class AttributeValue extends React.Component {
 		this.setState({ checked: checked });
 
 		if (checked) {
-			setFilterAttribute(attributeName, valueName);
+			setFilterAttribute(attributeId, valueId);
 		} else {
-			unsetFilterAttribute(attributeName, valueName);
+			unsetFilterAttribute(attributeId, valueId);
 		}
 	};
 
@@ -63,6 +63,8 @@ const AttributeSet = ({
 		<AttributeValue
 			key={value.value}
 			attributeName={attribute.label}
+			attributeId={attribute.id}
+			valueId={value.value}
 			valueName={value.label}
 			checked={value.checked}
 			count={value.count}

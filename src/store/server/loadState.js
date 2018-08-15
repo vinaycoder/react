@@ -67,7 +67,7 @@ const getProducts = (currentPage, productFilter) => {
 		return fetch(
 			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
 				currentPage.resource
-			}&item_count=40&version=3.81`
+			}&item_count=48&version=3.81`
 		)
 			.then(result => {
 				return result.json();

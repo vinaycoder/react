@@ -1,0 +1,64 @@
+// Remove Customer ID From
+irapi/category/findCategoryFilters?category_id=193
+
+irapi/category/getCategoryResult?category_id=193
+
+
+
+// Sort tags
+sort=?
+
+//page
+number=?
+
+//item_count
+item_count=?
+
+//version
+version=3.82
+
+
+https://indiarush.com/irapi/category/getCategoryResult/?category_id=193&page=4&count=40
+
+irapi/category/findCategoryFilters?category_id=193
+
+category_id=?
+filters(0,4000)
+
+filters[apparel_female_size] = (2284_1125_1124)
+
+Sort Options -
+price_asc
+price_desc
+new_arrivals
+top_rated
+best_seller
+
+
+
+
+Category page :
+Request Url: https://indiarush.com/irapi/category/getCategoryResult/
+    Params:{item_count=20, category_id=225, sort=best_seller, page=0, customer_id=1341275, version=99.99}
+
+
+Filter:
+ Request Url: https://indiarush.com/irapi/category/getCategoryFilters/
+    Params:{category_id=225, version=99.99}
+
+
+Request Url: https://indiarush.com/irapi/category/getCategoryFilters/
+    Params:{filters[base_fabric_all]=1662, filters[price]=0,2000, category_id=225, version=99.99}
+
+Category Result :
+Request Url: https://indiarush.com/irapi/category/getCategoryResult/
+    Params:{item_count=20, filters[price]=0,2000, category_id=225, filters[base_fabric_all]=1662, sort=best_seller, page=0, customer_id=1341275, version=99.99}
+
+
+
+Sort tag:
+price_asc
+price_desc
+new_arrivals
+top_rated
+best_seller

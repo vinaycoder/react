@@ -78,28 +78,24 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		setFilterAttribute: (name, value) => {
 			let query = queryString.parse(ownProps.history.location.search);
-			const queryKey = `attributes.${name}`;
-
+			const queryKey = name;
 			if (query[queryKey]) {
-				if (Array.isArray(query[queryKey])) {
-					query[queryKey].push(value);
-				} else {
-					query[queryKey] = [query[queryKey], value];
-				}
+				query[queryKey] = `${query[queryKey]}_${value}`;
 			} else {
 				query[queryKey] = [value];
 			}
-
 			setQuery(ownProps.history, query);
 		},
 		unsetFilterAttribute: (name, value) => {
 			let query = queryString.parse(ownProps.history.location.search);
-			const queryKey = `attributes.${name}`;
+			const queryKey = name;
 			const values = query[queryKey];
-
 			if (values) {
 				if (Array.isArray(values)) {
 					query[queryKey] = values.filter(v => v !== value);
+				} else if (values.indexOf('_') > 0) {
+					query[queryKey] = query[queryKey].replace(`${value}_`, '');
+					query[queryKey] = query[queryKey].replace(`_${value}`, '');
 				} else {
 					query[queryKey] = undefined;
 				}

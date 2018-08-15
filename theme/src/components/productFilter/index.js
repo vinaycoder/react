@@ -70,14 +70,16 @@ export default class ProductFilter extends React.Component {
 								unsetFilterAttribute={this.props.unsetFilterAttribute}
 							/>
 
-							<PriceSlider
-								minPrice={productsMinPrice}
-								maxPrice={productsMaxPrice}
-								minValue={productFilter.priceFrom}
-								maxValue={productFilter.priceTo}
-								setPriceFromAndTo={this.props.setPriceFromAndTo}
-								settings={settings}
-							/>
+							{/*
+							// <PriceSlider
+							// 	minPrice={productsMinPrice}
+							// 	maxPrice={productsMaxPrice}
+							// 	minValue={productFilter.priceFrom}
+							// 	maxValue={productFilter.priceTo}
+							// 	setPriceFromAndTo={this.props.setPriceFromAndTo}
+							// 	settings={settings}
+							// />
+							*/}
 
 							<button
 								className="button is-fullwidth is-dark is-hidden-tablet"
