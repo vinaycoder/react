@@ -26,10 +26,10 @@ class SettingsService {
 			default_shipping_country: 'SG',
 			default_shipping_state: '',
 			default_shipping_city: '',
-			default_product_sorting: 'stock_status,price,position',
+			default_product_sorting: 'best_seller',
 			product_fields:
 				'path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position',
-			products_limit: 30,
+			products_limit: 48,
 			weight_unit: 'kg',
 			length_unit: 'cm',
 			hide_billing_address: false,

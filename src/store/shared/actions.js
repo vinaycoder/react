@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { animateScroll } from 'react-scroll';
 import api from '../client/api';
 import * as analytics from './analytics';
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 
 const requestProduct = () => ({ type: t.PRODUCT_REQUEST });
 
@@ -16,11 +16,33 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 	dispatch(requestProducts());
 	const { app } = getState();
 	const filter = getParsedProductFilter(app.productFilter);
+	if (!currentPage) {
+		currentPage = app.currentPage;
+	}
+
+	console.log('final filter list');
+	console.log(filter);
+
+	//Default Filter Flow
+	let filterListURL = '';
+	for (const queryFilter in filter.filters) {
+		filterListURL = `${filterListURL}&filters[${queryFilter}]=${
+			filter.filters[queryFilter]
+		}`;
+	}
+
+	//Default sort
+	let sortListURl = 'best_seller';
+	if (filter.sort) {
+		sortListURl = filter.sort;
+	}
+
+	//TODO - On changing sorting only the product list should change not filter list.
 
 	const products = await fetch(
 		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
 			currentPage.resource
-		}&item_count=40&version=3.81`
+		}&sort=${sortListURl}&item_count=40&version=3.81${filterListURL}`
 	)
 		.then(result => {
 			return result.json();
@@ -33,7 +55,7 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 	products.attributes = await fetch(
 		`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
 			currentPage.resource
-		}&version=3.81`
+		}&version=3.81${filterListURL}`
 	)
 		.then(result => {
 			return result.json();
@@ -50,18 +72,14 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 
 export const getProductFilterForCategory = (locationSearch, sortBy) => {
 	const queryFilter = queryString.parse(locationSearch);
-
-	let attributes = {};
+	let attributesList = {};
 	for (const querykey in queryFilter) {
-		if (querykey.startsWith('attributes.')) {
-			attributes[querykey] = queryFilter[querykey];
-		}
+		attributesList[querykey] = queryFilter[querykey];
 	}
-
 	return {
 		priceFrom: parseInt(queryFilter.price_from || 0),
 		priceTo: parseInt(queryFilter.price_to || 0),
-		attributes: attributes,
+		attributes: { filters: attributesList },
 		search: null,
 		sort: sortBy
 	};
@@ -150,31 +168,50 @@ const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 export const addCartItem = item => async (dispatch, getState) => {
 	dispatch(requestAddCartItem());
 	// calling for the quote
-	const NewQuoteId= await fetch('https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99')
-	.then((result) => {
-		return result.json();
-	}).then((jsonResult) => {
-		return jsonResult;
-	})
-// calling for add to cart
-const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id=13880914'+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
-//const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id='+NewQuoteId.data.quoteId+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
-.then((result) => {
-	return result.json();
-}).then((jsonResult) => {
-	return jsonResult;
-})
+	const NewQuoteId = await fetch(
+		'https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99'
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult;
+		});
+	// calling for add to cart
+	const saveToCart = await fetch(
+		'https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product=' +
+			item.product_id +
+			'&quote_id=13880914' +
+			'&isAjax=' +
+			'1' +
+			'&current_p_id=""' +
+			'&product_quantity=' +
+			item.quantity
+	)
+		//const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id='+NewQuoteId.data.quoteId+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult;
+		});
 
-// calling for get cart details
-const getCartDetails= await fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=13880914'+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
-.then((result) => {
-	return result.json();
-}).then((jsonResult) => {
-	return jsonResult;
-})
+	// calling for get cart details
+	const getCartDetails = await fetch(
+		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=13880914' +
+			'&pincode=""' +
+			'&reset_payment=1' +
+			'&version=' +
+			'99.99'
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			return jsonResult;
+		});
 
-// console.log(getCartDetails);
-
+	// console.log(getCartDetails);
 
 	// console.log(NewQuoteId);
 	console.log('vinay addto cart');
