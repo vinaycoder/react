@@ -16,7 +16,7 @@ import SearchContainer from './containers/search';
 
 import { setCurrentPage } from './actions';
 import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './pageTypes';
-
+import cookie from 'react-cookies';
 class SwitchContainers extends React.Component {
 	constructor(props) {
 		super(props);
@@ -44,7 +44,22 @@ class SwitchContainers extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		if(!cookie.load('userQuoteId'))
+		{
+			fetch('https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99')
+			.then((result) => {
+				return result.json();
+			}).then((jsonResult) => {
+			//	return jsonResult;
+				cookie.save('userQuoteId', jsonResult.data.quoteId, { path: '/' });
+				this.setState({quoteId:jsonResult.data.quoteId});
+			})
+		}
+	}
+
 	render() {
+		console.log(this.state);
 		console.log('inside client side render');
 		const { history, location, currentPage } = this.props;
 		const locationPathname =

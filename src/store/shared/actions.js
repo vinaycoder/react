@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { animateScroll } from 'react-scroll';
 import api from '../client/api';
 import * as analytics from './analytics';
-import cookie from 'react-cookies'
+import cookie from 'react-cookies';
 
 const requestProduct = () => ({ type: t.PRODUCT_REQUEST });
 
@@ -150,15 +150,29 @@ const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 export const addCartItem = item => async (dispatch, getState) => {
 	dispatch(requestAddCartItem());
 	// calling for the quote
+	/*
 	const NewQuoteId= await fetch('https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99')
 	.then((result) => {
 		return result.json();
 	}).then((jsonResult) => {
 		return jsonResult;
 	})
-// calling for add to cart
-const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id=13880914'+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
-//const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id='+NewQuoteId.data.quoteId+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
+	*/
+	if(!cookie.load('userQuoteId'))
+	{
+		fetch('https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99')
+		.then((result) => {
+			return result.json();
+		}).then((jsonResult) => {
+		//	return jsonResult;
+			cookie.save('userQuoteId', jsonResult.data.quoteId, { path: '/' });
+			this.setState({quoteId:jsonResult.data.quoteId});
+		})
+	}
+	const quoteId=cookie.load('userQuoteId');
+
+//const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id=13880914'+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
+const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart?itemId=""&product='+item.product_id+'&quote_id='+quoteId+'&isAjax='+"1"+'&current_p_id=""'+'&product_quantity='+item.quantity)
 .then((result) => {
 	return result.json();
 }).then((jsonResult) => {
@@ -166,7 +180,7 @@ const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart
 })
 
 // calling for get cart details
-const getCartDetails= await fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=13880914'+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
+const getCartDetails= await fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='++'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
 .then((result) => {
 	return result.json();
 }).then((jsonResult) => {

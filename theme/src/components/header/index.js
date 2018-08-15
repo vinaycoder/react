@@ -5,7 +5,7 @@ import Cart from './cart';
 import CartIndicator from './cartIndicator';
 import SearchBox from './searchBox';
 import HeadMenu from './headMenu';
-
+import cookie from 'react-cookies';
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
 		<img src={src} alt={alt} />
@@ -46,7 +46,8 @@ export default class Header extends React.Component {
 	}
 
 	componentDidMount() {
-	fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=13880914'+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
+		const quoteId=cookie.load('userQuoteId');
+	fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='+quoteId+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
 		.then((result) => {
 			return result.json();
 		}).then((jsonResult) => {
