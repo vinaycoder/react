@@ -180,7 +180,7 @@ const saveToCart= await fetch('https://indiarush.com/irapi/cart/productAddToCart
 })
 
 // calling for get cart details
-const getCartDetails= await fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='++'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
+const getCartDetails= await fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='+quoteId+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
 .then((result) => {
 	return result.json();
 }).then((jsonResult) => {
