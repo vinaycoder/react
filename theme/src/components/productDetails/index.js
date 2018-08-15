@@ -88,7 +88,7 @@ export default class ProductDetails extends React.Component {
 		const { selectedVariant, quantity } = this.state;
 
 		let item = {
-			product_id: product.id,
+			product_id: product.product_id,
 			quantity: quantity
 		};
 
@@ -142,12 +142,9 @@ export default class ProductDetails extends React.Component {
 									<div className="content product-shop">
 										<Tags tags={product.tags} />
 
-										<h1 className="product-name product-name-irush">
-											{product.name}
-										</h1>
 
-										<Rating product={product} />
-
+										<h1 className="product-name product-name-irush">{product.name}</h1>
+										<Rating product={product}/>
 										<Price
 											product={product}
 											variant={selectedVariant}

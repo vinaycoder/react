@@ -34,13 +34,27 @@ const BackButton = ({ onClick }) => (
 );
 
 export default class Header extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			mobileMenuIsActive: false,
 			mobileSearchIsActive: false,
-			cartIsActive: false
+			cartIsActive: false,
+			cart:[]
 		};
+	}
+
+	componentDidMount() {
+	fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=13880914'+'&pincode=""'+'&reset_payment=1'+'&version='+"99.99")
+		.then((result) => {
+			return result.json();
+		}).then((jsonResult) => {
+			this.props.state.cart=jsonResult.data
+			this.setState({
+				cart: jsonResult.data
+			});
+		})
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -49,6 +63,7 @@ export default class Header extends React.Component {
 			this.props.state.currentPage.path !== '/checkout'
 		) {
 			this.showCart();
+			this.defaultcartItem();
 		}
 	}
 
@@ -58,6 +73,11 @@ export default class Header extends React.Component {
 			cartIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
+	};
+	defaultcartItem = () => {
+		this.setState({
+			cart: false
+		});
 	};
 
 	searchToggle = () => {
@@ -125,7 +145,6 @@ export default class Header extends React.Component {
 			: 'navbar-burger is-hidden-tablet';
 		const showBackButton =
 			currentPage.type === 'product' && location.hasHistory;
-
 		return (
 			<Fragment>
 				<header
@@ -218,4 +237,6 @@ export default class Header extends React.Component {
 			</Fragment>
 		);
 	}
+
+
 }
