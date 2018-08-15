@@ -4,6 +4,7 @@ import { themeSettings, text } from '../../lib/settings';
 const LoadMore = ({
 	loadMoreProducts,
 	hasMore,
+	productsPage,
 	loading,
 	className = 'button is-fullwidth is-dark'
 }) => {

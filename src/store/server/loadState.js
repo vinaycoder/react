@@ -61,28 +61,41 @@ const getCurrentPage = path => {
 };
 
 const getProducts = (currentPage, productFilter) => {
+	let filter = getParsedProductFilter(productFilter);
+	filter.enabled = true;
+	console.log('list of filter');
+	console.log(filter);
+
 	if (currentPage.type === PRODUCT_CATEGORY || currentPage.type === SEARCH) {
+		//Default Filter Flow
+		let filterListURL = '';
+		for (const queryFilter in filter.filters) {
+			filterListURL = `${filterListURL}&filters[${queryFilter}]=${
+				filter.filters[queryFilter]
+			}`;
+		}
+
+		//Default sort
+		let sortListURl = 'best_seller';
+		if (filter.sort) {
+			sortListURl = filter.sort;
+		}
 		console.log('in search of category page');
 
 		return fetch(
 			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
 				currentPage.resource
-			}&item_count=48&version=3.81`
+			}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
 		)
-			.then(result => {
-				return result.json();
-			})
+			.then(result => result.json())
 			.then(jsonResult => {
 				console.log('logging category products data');
-				return jsonResult.data.product;
+				return jsonResult.data;
 			});
 
-		// let filter = getParsedProductFilter(productFilter);
-		// filter.enabled = true;
 		// return api.products.list(filter).then(({ status, json }) => json);
-	} else {
-		return null;
 	}
+	return null;
 };
 
 const getProductsAttributes = (currentPage, productFilter) => {
@@ -224,11 +237,13 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 	let productsHasMore = false;
 	let productsMinPrice = 0;
 	let productsMaxPrice = 0;
-	//let productsAttributes = [];
+	let productsPage = 0;
 
 	if (products) {
 		productsTotalCount = products.products_count;
-		productsHasMore = products.has_more;
+		if (productsTotalCount > 48) {
+			productsHasMore = true;
+		}
 		if (products.price) {
 			productsMinPrice = products.price.min;
 			productsMaxPrice = products.price.max;
@@ -244,9 +259,10 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			categoryDetails: categoryDetails,
 			productDetails: product,
 			categories: categories, // For Category Page
-			products: products, // && products.data ? products.data : [],
+			products: products.product, // && products.data ? products.data : [],
 			productsTotalCount: productsTotalCount,
 			productsHasMore: productsHasMore,
+			productsPage: productsPage,
 			productsMinPrice: productsMinPrice,
 			productsMaxPrice: productsMaxPrice,
 			productsAttributes: productsAttributes,

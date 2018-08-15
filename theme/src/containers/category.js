@@ -33,7 +33,7 @@ const getFilterPriceSummary = (productFilter, settings) => {
 	return priceSummary;
 };
 
-const CategoryHero = ({ categoryDetails, categories }) => (
+const CategoryHero = ({ categoryDetails, categories, productsTotalCount }) => (
 	<section className="hero is-light">
 		<div className="hero-body">
 			<div className="container">
@@ -44,6 +44,7 @@ const CategoryHero = ({ categoryDetails, categories }) => (
 					/>
 				)}
 				<h1 className="category-title">{categoryDetails.name}</h1>
+				<h3>{productsTotalCount} Products</h3>
 				<div
 					className="category-description is-hidden-mobile content"
 					dangerouslySetInnerHTML={{ __html: categoryDetails.description }}
@@ -73,7 +74,9 @@ const CategoryContainer = props => {
 			productsHasMore,
 			categories,
 			loadingProducts,
-			loadingMoreProducts
+			loadingMoreProducts,
+			productsTotalCount,
+			productsPage
 		}
 	} = props;
 
@@ -94,6 +97,7 @@ const CategoryContainer = props => {
 		<Fragment>
 			<MetaTags
 				title={title}
+				productsTotalCount={productsTotalCount}
 				description={categoryDetails.meta_description}
 				canonicalUrl={categoryDetails.url}
 				imageUrl={categoryDetails.image}
@@ -103,7 +107,11 @@ const CategoryContainer = props => {
 				jsonld={jsonld}
 			/>
 
-			<CategoryHero categoryDetails={categoryDetails} categories={categories} />
+			<CategoryHero
+				categoryDetails={categoryDetails}
+				categories={categories}
+				productsTotalCount={productsTotalCount}
+			/>
 
 			<section className="section section-category">
 				<div className="container">
@@ -131,6 +139,7 @@ const CategoryContainer = props => {
 								settings={settings}
 								loadMoreProducts={loadMoreProducts}
 								hasMore={productsHasMore}
+								productsPag={productsPage}
 								loadingProducts={loadingProducts}
 								loadingMoreProducts={loadingMoreProducts}
 							/>
