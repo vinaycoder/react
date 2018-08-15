@@ -19,6 +19,7 @@ import Gallery from './gallery';
 import Options from './options';
 import Rating from './rating';
 import Price from './price';
+import Pincode from './pincode';
 import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
 import Tags from './tags';
@@ -142,7 +143,6 @@ export default class ProductDetails extends React.Component {
 									<div className="content product-shop">
 										<Tags tags={product.tags} />
 
-
 										<h1 className="product-name product-name-irush">{product.name}</h1>
 										<Rating product={product}/>
 										<Price
@@ -173,6 +173,9 @@ export default class ProductDetails extends React.Component {
 												isAllOptionsSelected={isAllOptionsSelected}
 											/>
 										</div>
+										<Pincode
+										product={product}
+										 />
 									</div>
 								</div>
 							</div>
