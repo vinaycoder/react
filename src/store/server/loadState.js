@@ -238,6 +238,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 	let productsMinPrice = 0;
 	let productsMaxPrice = 0;
 	let productsPage = 0;
+	let productsList = null;
 
 	if (products) {
 		productsTotalCount = products.products_count;
@@ -248,6 +249,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			productsMinPrice = products.price.min;
 			productsMaxPrice = products.price.max;
 		}
+		productsList = products.product;
 	}
 
 	const state = {
@@ -259,7 +261,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			categoryDetails: categoryDetails,
 			productDetails: product,
 			categories: categories, // For Category Page
-			products: products.product, // && products.data ? products.data : [],
+			products: productsList, // && products.data ? products.data : [],
 			productsTotalCount: productsTotalCount,
 			productsHasMore: productsHasMore,
 			productsPage: productsPage,
