@@ -19,7 +19,7 @@ import Gallery from './gallery';
 import Options from './options';
 import Rating from './rating';
 import Price from './price';
-import Pincode from './pincode';
+import PinCode from './pinCode';
 import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
 import Tags from './tags';
@@ -174,7 +174,7 @@ export default class ProductDetails extends React.Component {
 											/>
 										</div>
 										{product.is_salable && (
-										<Pincode
+										<PinCode
 										product={product}
 										 />
 										)}

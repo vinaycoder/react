@@ -893,3 +893,25 @@ diccount-sticker-p {
 	height: 8px;
 	display: inline-block;
 }
+
+
+.product-pincode-checker-bottom {
+    float: right;
+    width: 100%;
+    padding: 5px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    color: gray;
+    margin-top: 10px;
+}
+.pincodeRight {
+    float: right !important;
+}
+.pincodeLeft {
+    float: left !important;
+}
+.product-pincode-checker-retry {
+    color: #f60;
+    text-decoration: none;
+}
