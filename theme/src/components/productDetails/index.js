@@ -23,13 +23,8 @@ import PinCode from './pinCode';
 import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
 import Tags from './tags';
+import Description from './description';
 
-const Description = ({ description }) => (
-	<div
-		className="product-content"
-		dangerouslySetInnerHTML={{ __html: description }}
-	/>
-);
 
 export default class ProductDetails extends React.Component {
 	constructor(props) {
@@ -184,17 +179,10 @@ export default class ProductDetails extends React.Component {
 						</div>
 					</section>
 
-					<section className="section section-product-description">
+					<section className="section clear">
 						<div className="container">
 							<div className="content">
-								<div className="columns">
-									<div className="column is-7">
-										<Description description={product.description} />
-									</div>
-									<div className="column is-5">
-										<Attributes attributes={product.attributes} />
-									</div>
-								</div>
+								<Description/>
 							</div>
 						</div>
 					</section>
