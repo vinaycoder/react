@@ -211,6 +211,9 @@ export const addCartItem = item => async (dispatch, getState) => {
 		return jsonResult;
 	})
 	*/
+	console.log('item.product_id');
+	console.log(item.product_id);
+
 	if (!cookie.load('userQuoteId')) {
 		fetch(
 			'https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99'
@@ -264,7 +267,6 @@ export const addCartItem = item => async (dispatch, getState) => {
 	// console.log(getCartDetails);
 
 	// console.log(NewQuoteId);
-	console.log('vinay addto cart');
 
 	const response = getCartDetails.data;
 	const cart = getCartDetails.data;

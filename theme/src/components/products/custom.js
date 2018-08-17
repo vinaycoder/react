@@ -59,14 +59,17 @@ export default class CustomProducts extends React.Component {
 
 	componentDidMount() {
 		this.isCancelled = false;
+		console.log('custom componentDidMount');
 		this.fetchProducts(this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('custom componentWillReceiveProps');
 		this.fetchProducts(nextProps);
 	}
 
 	componentWillUnmount() {
+		console.log('custom componentWillUnmount');
 		this.isCancelled = true;
 	}
 
@@ -104,6 +107,8 @@ export default class CustomProducts extends React.Component {
 			});
 		}
 
+		console.log('in here');
+
 		api.ajax.products
 			.list(filter)
 			.then(({ json }) => {
@@ -117,6 +122,7 @@ export default class CustomProducts extends React.Component {
 	};
 
 	render() {
+		console.log('in custom js render');
 		const {
 			settings,
 			addCartItem,
