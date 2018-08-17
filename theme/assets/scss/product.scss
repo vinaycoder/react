@@ -953,3 +953,27 @@ margin-left: 4px;
   padding: 5px;
   min-height: 100px;
 }
+.product-buyer-satisfaction {
+    float: right;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ff3232;
+    text-align: center;
+    color: gray;
+    margin-top: 10px;
+}
+.product-buyer-satisfaction-leftdiv {
+    float: left;
+    width: 22%;
+}
+.product-buyer-satisfaction-rightdiv {
+    float: right;
+    width: 76%;
+}
+.span100 {
+    font-size: 150%;
+    color: #000;
+}
+.span10 {
+    color: #ff3232;
+}

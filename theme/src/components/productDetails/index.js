@@ -24,6 +24,7 @@ import Quantity from './quantity';
 import RelatedProducts from './relatedProducts';
 import Tags from './tags';
 import Description from './description';
+import Buyers from './buyers';
 
 
 export default class ProductDetails extends React.Component {
@@ -211,6 +212,7 @@ export default class ProductDetails extends React.Component {
 											/>
 										</div>
 										{product.is_salable && <PinCode product={product} />}
+										{product.is_salable && <Buyers/>}
 									</div>
 								</div>
 							</div>

@@ -19,7 +19,9 @@ showPincode()
 }
 	checkPincode(e,productId)
 	{
-		if(e.target.value.length==6)
+		console.log('vinay tkkkk');
+		console.log(Number.isInteger(Number(e.target.value)));
+		if(e.target.value.length==6 && Number.isInteger(Number(e.target.value)))
 		{
 			var pincode=e.target.value;
 		const pinddddd=	fetch('https://indiarush.com/irapi/product/getPincodeCheck?product_id='+this.props.product.product_id +'&pincode='+e.target.value+'&version='+'3.99')
