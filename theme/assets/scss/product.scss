@@ -394,6 +394,7 @@ diccount-sticker-p {
 .invesp-diccount-sticker-p
 {
 	font-size: 14px;
+  margin-bottom: 0px !important;
 }
 .inStockInProduct
 {
@@ -914,4 +915,25 @@ diccount-sticker-p {
 .product-pincode-checker-retry {
     color: #f60;
     text-decoration: none;
+}
+
+.variation_purchase_product_history {
+    color: #00f;
+    float: left;
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+.variation_purchase_product_history .purchase_product_label_show{
+  color: white;
+padding: 2px;
+border-radius: 2px;
+background: rgb(26, 35, 126);
+}
+.regular-price span {
+    display: inline;
+}
+.variation_purchase_product_history .variation_purchase_product_count
+{
+color: #1a237e;
+margin-left: 4px;
 }

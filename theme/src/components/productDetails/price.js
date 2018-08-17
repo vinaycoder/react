@@ -93,11 +93,23 @@ const Price = ({ product, variant, isAllOptionsSelected, settings }) => {
 			   </div>
 			)}
 			{product.is_salable && (
+				<div>
 				 <p className="invesp-diccount-sticker-p invesp-diccount-sticker-p-v-test-main">
 					<span className="price save font-medium you-save-span you-save-span-main-add-css">You Save :
 					</span>
 					<span className="you-save-span-percent1 you-save-span-main-add-css">Rs {discountPrice} </span>
 				</p>
+				{product.today_sold_count>0 && (
+				<div className="variation_purchase_product_history">
+			    <span className="font-medium variation_purchase_product_label purchase_product_label_show" data-content="bar">
+			      Selling Fast!
+			    </span>
+			    <span className="font-medium variation_purchase_product_count" >
+			    Sold {product.today_sold_count} times today
+			    </span>
+			 </div>
+			 )}
+			 </div>
       )}
 				{/* <FormattedCurrency settings={settings} number={product.actual_price} /> */}
 			</div>
