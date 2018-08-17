@@ -16,6 +16,7 @@ export default class ViewedProducts extends React.Component {
 	};
 
 	componentDidMount() {
+		console.log('componentDidMount viewed');
 		const { product } = this.props;
 		const viewedProducts = this.getArrayFromLocalStorage();
 		this.setState({ viewedProducts });
@@ -42,7 +43,7 @@ export default class ViewedProducts extends React.Component {
 	getArrayFromLocalStorage = () => {
 		let values = [];
 		const viewedProducts = localStorage.getItem('viewedProducts');
-
+		console.log('getArrayFromLocalStorage');
 		try {
 			if (viewedProducts && viewedProducts.length > 0) {
 				const viewedProductsParsed = JSON.parse(viewedProducts);
@@ -58,6 +59,7 @@ export default class ViewedProducts extends React.Component {
 	};
 
 	addProductIdToLocalStorage = productId => {
+		console.log('addProductIdToLocalStorage');
 		if (productId && productId.length > 0) {
 			const viewedProducts = this.getArrayFromLocalStorage();
 
@@ -82,6 +84,9 @@ export default class ViewedProducts extends React.Component {
 			viewedProducts = viewedProducts.filter(id => id !== product.id);
 		}
 
+		console.log('viewedProducts render');
+		console.log(viewedProducts);
+		console.log(viewedProducts.length);
 		if (viewedProducts && viewedProducts.length > 0) {
 			const ids = viewedProducts.reverse().slice(0, limit);
 			return (

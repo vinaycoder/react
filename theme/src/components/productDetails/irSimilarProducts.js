@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+import { NavLink } from 'react-router-dom';
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
 // import SlickCarousel from "slick-carousel";
 import * as helper from '../../lib/helper';
 import { themeSettings, text } from '../../lib/settings';
 
+import ViewedProducts from '../products/viewed';
+
 class IRSimilarProducts extends Component {
 	constructor(props) {
 		super(props);
+		this.SimilarClicked = this.SimilarClicked.bind(this);
 	}
 
 	state = {
@@ -46,6 +50,63 @@ class IRSimilarProducts extends Component {
 
 				// return jsonResult;
 			});
+	}
+
+	getArrayFromLocalStorage = () => {
+		console.log('getArrayFromLocalStorage');
+		let values = [];
+		const viewedProducts = localStorage.getItem('viewedProducts');
+		console.log('getArrayFromLocalStorage');
+		try {
+			if (viewedProducts && viewedProducts.length > 0) {
+				const viewedProductsParsed = JSON.parse(viewedProducts);
+				if (Array.isArray(viewedProductsParsed)) {
+					values = viewedProductsParsed;
+				}
+			}
+		} catch (e) {
+			//
+		}
+
+		return values;
+	};
+
+	// onClick = () => {
+	// window.alert('do stuff');
+	// console.log("in Onclick");
+	// this.ViewedProducts.addProductIdToLocalStorage(this.props.product.product_id);
+	// console.log(this.props.id);
+	//
+	// if (this.props.id && this.props.id.length > 0) {
+	// 	const viewedProducts = this.getArrayFromLocalStorage();
+	//
+	// 	if (viewedProducts.includes(this.props.id)) {
+	// 		const index = viewedProducts.indexOf(this.props.id);
+	// 		viewedProducts.splice(index, 1);
+	// 		viewedProducts.push(this.props.id);
+	// 	} else {
+	// 		viewedProducts.push(this.props.id);
+	// 	}
+	//
+	// 	localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+	// 	this.setState({ viewedProducts });
+	// }
+
+	// };
+
+	SimilarClicked(i, e) {
+		if (this.props.onClick && this.props.onClick > 0) {
+			const viewedProducts = this.getArrayFromLocalStorage();
+			if (viewedProducts.includes(this.id)) {
+				const index = viewedProducts.indexOf(this.id);
+				viewedProducts.splice(index, 1);
+				viewedProducts.push(this.id);
+			} else {
+				viewedProducts.push(this.id);
+			}
+			localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+			this.setState({ viewedProducts });
+		}
 	}
 
 	render() {
@@ -145,28 +206,32 @@ class IRSimilarProducts extends Component {
 										key={irSimilarProduct.product_id}
 									>
 										<div className="category-landscape-image-wrapper onsale-category-container-list">
-											<a
-												data-arg1={irSimilarProduct.product_id}
-												href={`/${irSimilarProduct.product_urlpath}`}
-												title={irSimilarProduct.product_name}
-												className="product-image getSimilarProductClick"
+											<NavLink
+												to={`/${irSimilarProduct.product_urlpath}`}
+												onClick={this.SimilarClicked.bind(
+													this,
+													`${irSimilarProduct.product_id}`
+												)}
+												id={irSimilarProduct.product_id}
 											>
 												<img
 													data-arg1={irSimilarProduct.product_id}
 													src={irSimilarProduct.product_img}
 													alt={irSimilarProduct.product_name}
 												/>
-											</a>
+											</NavLink>
 										</div>
 
 										<div className="listview">
 											<div className="category-landscape-content-wrapper">
 												<div className="products-grid-price-name category-landscape-price-name-wrapper">
-													<a
-														className="getSimilarProductClick"
-														data-arg1={irSimilarProduct.product_id}
-														href={`/${irSimilarProduct.product_urlpath}`}
-														title={irSimilarProduct.product_name}
+													<NavLink
+														to={`/${irSimilarProduct.product_urlpath}`}
+														onClick={this.SimilarClicked.bind(
+															this,
+															`${irSimilarProduct.product_id}`
+														)}
+														id={irSimilarProduct.product_id}
 													>
 														<div className="product-price-discount price_variation_test price_variation_test_convert_v1 convert-cart-v1-test-show">
 															<span className="original-category-price original-category-price-add-css similar_price">
@@ -179,19 +244,21 @@ class IRSimilarProducts extends Component {
 															</span>
 														</div>
 														<div className="clear" />
-													</a>
+													</NavLink>
 												</div>
 
 												<div className="products-grid-newblock category-landscape-grid-new-block">
 													<div className="product-name">
-														<a
-															className="product-name-sm getSimilarProductClick"
-															data-arg1={irSimilarProduct.product_id}
-															href={`/${irSimilarProduct.product_urlpath}`}
-															title={irSimilarProduct.product_name}
+														<NavLink
+															to={`/${irSimilarProduct.product_urlpath}`}
+															onClick={this.SimilarClicked.bind(
+																this,
+																`${irSimilarProduct.product_id}`
+															)}
+															id={irSimilarProduct.product_id}
 														>
 															{irSimilarProduct.product_name}
-														</a>
+														</NavLink>
 													</div>
 												</div>
 
@@ -218,29 +285,19 @@ class IRSimilarProducts extends Component {
 										key={irStyleWith.product_id}
 									>
 										<div className="category-landscape-image-wrapper onsale-category-container-list">
-											<a
-												data-arg1={irStyleWith.product_id}
-												href={`/${irStyleWith.product_urlpath}`}
-												title={irStyleWith.product_name}
-												className="product-image getSimilarProductClick"
-											>
+											<NavLink to={`/${irStyleWith.product_urlpath}`}>
 												<img
 													data-arg1={irStyleWith.product_id}
 													src={irStyleWith.product_img}
 													alt={irStyleWith.product_name}
 												/>
-											</a>
+											</NavLink>
 										</div>
 
 										<div className="listview">
 											<div className="category-landscape-content-wrapper">
 												<div className="products-grid-price-name category-landscape-price-name-wrapper">
-													<a
-														className="getSimilarProductClick"
-														data-arg1={irStyleWith.product_id}
-														href={`/${irStyleWith.product_urlpath}`}
-														title={irStyleWith.product_name}
-													>
+													<NavLink to={`/${irStyleWith.product_urlpath}`}>
 														<div className="product-price-discount price_variation_test price_variation_test_convert_v1 convert-cart-v1-test-show">
 															<span className="original-category-price original-category-price-add-css similar_price">
 																{irStyleWith.product_offer}
@@ -252,19 +309,14 @@ class IRSimilarProducts extends Component {
 															</span>
 														</div>
 														<div className="clear" />
-													</a>
+													</NavLink>
 												</div>
 
 												<div className="products-grid-newblock category-landscape-grid-new-block">
 													<div className="product-name">
-														<a
-															className="product-name-sm getSimilarProductClick"
-															data-arg1={irStyleWith.product_id}
-															href={`/${irStyleWith.product_urlpath}`}
-															title={irStyleWith.product_name}
-														>
+														<NavLink to={`/${irStyleWith.product_urlpath}`}>
 															{irStyleWith.product_name}
-														</a>
+														</NavLink>
 													</div>
 												</div>
 
@@ -291,28 +343,20 @@ class IRSimilarProducts extends Component {
 										key={irTopSellerProduct.product_id}
 									>
 										<div className="category-landscape-image-wrapper onsale-category-container-list">
-											<a
-												data-arg1={irTopSellerProduct.product_id}
-												href={`/${irTopSellerProduct.product_urlpath}`}
-												title={irTopSellerProduct.product_name}
-												className="product-image getSimilarProductClick"
-											>
+											<NavLink to={`/${irTopSellerProduct.product_urlpath}`}>
 												<img
 													data-arg1={irTopSellerProduct.product_id}
 													src={irTopSellerProduct.product_img}
 													alt={irTopSellerProduct.product_name}
 												/>
-											</a>
+											</NavLink>
 										</div>
 
 										<div className="listview">
 											<div className="category-landscape-content-wrapper">
 												<div className="products-grid-price-name category-landscape-price-name-wrapper">
-													<a
-														className="getSimilarProductClick"
-														data-arg1={irTopSellerProduct.product_id}
-														href={`/${irTopSellerProduct.product_urlpath}`}
-														title={irTopSellerProduct.product_name}
+													<NavLink
+														to={`/${irTopSellerProduct.product_urlpath}`}
 													>
 														<div className="product-price-discount price_variation_test price_variation_test_convert_v1 convert-cart-v1-test-show">
 															<span className="original-category-price original-category-price-add-css similar_price">
@@ -325,19 +369,16 @@ class IRSimilarProducts extends Component {
 															</span>
 														</div>
 														<div className="clear" />
-													</a>
+													</NavLink>
 												</div>
 
 												<div className="products-grid-newblock category-landscape-grid-new-block">
 													<div className="product-name">
-														<a
-															className="product-name-sm getSimilarProductClick"
-															data-arg1={irTopSellerProduct.product_id}
-															href={`/${irTopSellerProduct.product_urlpath}`}
-															title={irTopSellerProduct.product_name}
+														<NavLink
+															to={`/${irTopSellerProduct.product_urlpath}`}
 														>
 															{irTopSellerProduct.product_name}
-														</a>
+														</NavLink>
 													</div>
 												</div>
 

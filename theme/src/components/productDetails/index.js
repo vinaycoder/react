@@ -53,7 +53,17 @@ export default class ProductDetails extends React.Component {
 			selectedOptions[optionId] = valueId;
 		}
 
+		console.log('optionId');
+		console.log(optionId);
+
+		console.log('valueId');
+		console.log(valueId);
+
 		this.setState({ selectedOptions: selectedOptions });
+
+		console.log('state selectedOptions');
+		console.log(selectedOptions);
+
 		this.findVariantBySelectedOptions();
 		this.checkSelectedOptions();
 	}
@@ -61,15 +71,27 @@ export default class ProductDetails extends React.Component {
 	findVariantBySelectedOptions() {
 		const { selectedOptions } = this.state;
 		const { product } = this.props;
-		for (const variant of product.variants) {
-			const variantMutchSelectedOptions = variant.options.every(
-				variantOption =>
-					selectedOptions[variantOption.option_id] === variantOption.value_id
-			);
-			if (variantMutchSelectedOptions) {
-				this.setState({ selectedVariant: variant });
-				return;
-			}
+		let variant;
+		console.log('findVariantBySelectedOptions selectedOptions');
+		console.log(selectedOptions);
+
+		// for (const variant of product.variants) {
+		// 	const variantMutchSelectedOptions = variant.options.every(
+		// 		variantOption =>
+		// 			selectedOptions[variantOption.option_id] === variantOption.value_id
+		// 	);
+		// 	if (variantMutchSelectedOptions) {
+		// 		this.setState({ selectedVariant: variant });
+		// 		return;
+		// 	}
+		// }
+
+		console.log('findVariantBySelectedOptions count');
+		console.log(Object.keys(selectedOptions).length);
+
+		if (Object.keys(selectedOptions).length > 0) {
+			this.setState({ selectedVariant: variant });
+			return;
 		}
 
 		this.setState({ selectedVariant: null });
@@ -88,9 +110,18 @@ export default class ProductDetails extends React.Component {
 			quantity: quantity
 		};
 
+		console.log('addToCart selectedVariant');
+		console.log(selectedVariant);
+
+		console.log('item.variant_id');
+		console.log(item.variant_id);
+
 		if (selectedVariant) {
 			item.variant_id = selectedVariant.id;
 		}
+
+		console.log('addCartItem item');
+		console.log(item);
 
 		addCartItem(item);
 	}
@@ -99,8 +130,17 @@ export default class ProductDetails extends React.Component {
 		const { selectedOptions } = this.state;
 		const { product } = this.props;
 
+		console.log('checkSelectedOptions selectedOptions');
+		console.log(selectedOptions.length);
+
+		console.log('product.configurable_attributes.values.length');
+		console.log(product.configurable_attributes.values.length);
+
 		const allOptionsSelected =
 			Object.keys(selectedOptions).length === product.options.length;
+
+		console.log('allOptionsSelected');
+		console.log(allOptionsSelected);
 		this.setState({ isAllOptionsSelected: allOptionsSelected });
 	}
 
@@ -138,8 +178,10 @@ export default class ProductDetails extends React.Component {
 									<div className="content product-shop">
 										<Tags tags={product.tags} />
 
-										<h1 className="product-name product-name-irush">{product.name}</h1>
-										<Rating product={product}/>
+										<h1 className="product-name product-name-irush">
+											{product.name}
+										</h1>
+										<Rating product={product} />
 										<Price
 											product={product}
 											variant={selectedVariant}
@@ -153,7 +195,7 @@ export default class ProductDetails extends React.Component {
 											)}
 
 										<Options
-											options={product.options}
+											options={product.configurable_attributes}
 											onChange={this.onOptionChange}
 										/>
 										<Quantity
@@ -168,11 +210,7 @@ export default class ProductDetails extends React.Component {
 												isAllOptionsSelected={isAllOptionsSelected}
 											/>
 										</div>
-										{product.is_salable && (
-										<PinCode
-										product={product}
-										 />
-										)}
+										{product.is_salable && <PinCode product={product} />}
 									</div>
 								</div>
 							</div>
