@@ -56,6 +56,13 @@ export default class ProductFilter extends React.Component {
 					/>
 					<div className={sidebarIsActive ? 'modal-content' : ''}>
 						<div className={sidebarIsActive ? 'box sidebar' : ''}>
+							<button
+								className="button is-fullwidth is-dark is-hidden-tablet"
+								onClick={this.sidebarClose}
+							>
+								{text.close}
+							</button>
+							{/*
 							<div className="is-hidden-tablet" style={{ marginBottom: 30 }}>
 								<Sort
 									defaultSort={settings.default_product_sorting}
@@ -63,7 +70,7 @@ export default class ProductFilter extends React.Component {
 									setSort={this.props.setSort}
 								/>
 							</div>
-
+						*/}
 							<AttributeFilter
 								attributes={productsAttributes}
 								setFilterAttribute={this.props.setFilterAttribute}

@@ -19,7 +19,9 @@ git clone git@bitbucket.org:rahi_jain/irush.git  #Change User Name
 
 npm cache clean --force
 
-1. sudo npm install
+
+
+1. sudo npm install -g --unsafe-perm
 
 2. sudo npm run build:watch
 

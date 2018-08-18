@@ -197,7 +197,7 @@ const CategoryContainer = props => {
 						)}
 
 						<div className="column">
-							<div className="columns is-hidden-mobile">
+							<div className="columns">
 								<div className="column" />
 								<div className="column is-5">
 									<Sort
