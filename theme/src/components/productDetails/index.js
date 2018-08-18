@@ -26,7 +26,6 @@ import Tags from './tags';
 import Description from './description';
 import Buyers from './buyers';
 
-
 export default class ProductDetails extends React.Component {
 	constructor(props) {
 		super(props);
@@ -212,7 +211,7 @@ export default class ProductDetails extends React.Component {
 											/>
 										</div>
 										{product.is_salable && <PinCode product={product} />}
-										{product.is_salable && <Buyers/>}
+										{product.is_salable && <Buyers />}
 									</div>
 								</div>
 							</div>
@@ -222,11 +221,11 @@ export default class ProductDetails extends React.Component {
 					<section className="section clear">
 						<div className="container">
 							<div className="content">
-								<Description/>
+								<Description />
 							</div>
 						</div>
 					</section>
-
+					{/*
 					<section className="section section-product-details">
 						<div className="container">
 							<div className="content">
@@ -274,7 +273,7 @@ export default class ProductDetails extends React.Component {
 							</div>
 						</div>
 					</section>
-
+					*/}
 					<section className="section section-product-reviews">
 						<div className="container">
 							<div className="content">

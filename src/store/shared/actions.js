@@ -40,7 +40,7 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 	const products = await fetch(
 		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
 			currentPage.resource
-		}&sort=${sortListURl}&page=0&item_count=40&version=3.81${filterListURL}`
+		}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
 	)
 		.then(result => {
 			return result.json();
@@ -283,17 +283,35 @@ export const addCartItem = item => async (dispatch, getState) => {
 
 export const getProductDetails = currentPage => async (dispatch, getState) => {
 	dispatch(requestProduct());
-	const product = await fetch(
-		`https://indiarush.com/irapi/product/getProductDetail/?product_id=${
-			currentPage.resource
-		}&version=3.81`
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			return jsonResult.data;
-		});
+	const { app } = getState();
+	console.log(app);
+	let product = {};
+	let alreadyData = 0;
+	if (app.products) {
+		console.log('loading using category data node');
+		for (const key in app.products) {
+			if (app.products[key].product_id == currentPage.resource) {
+				product = app.products[key];
+				alreadyData = 1;
+			}
+		}
+	}
+
+	if (alreadyData === 0) {
+		console.log('loading using api');
+		product = await fetch(
+			`https://indiarush.com/irapi/product/getProductDetail/?product_id=${
+				currentPage.resource
+			}&version=3.81`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				return jsonResult.data;
+			});
+	}
+
 	console.log(product);
 	dispatch(receiveProduct(null));
 	dispatch(receiveProduct(product));
