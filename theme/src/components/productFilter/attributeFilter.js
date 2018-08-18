@@ -54,32 +54,63 @@ class AttributeValue extends React.Component {
 	}
 }
 
-const AttributeSet = ({
-	attribute,
-	setFilterAttribute,
-	unsetFilterAttribute
-}) => {
-	const values = attribute.sub_label.map(value => (
-		<AttributeValue
-			key={value.value}
-			attributeName={attribute.label}
-			attributeId={attribute.id}
-			valueId={value.value}
-			valueName={value.label}
-			checked={value.checked}
-			count={value.count}
-			setFilterAttribute={setFilterAttribute}
-			unsetFilterAttribute={unsetFilterAttribute}
-		/>
-	));
+class AttributeSet extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			truncated: 1
+		};
+	}
 
-	return (
-		<div className="attribute">
-			<div className="attribute-title">{attribute.label}</div>
-			{values}
-		</div>
-	);
-};
+	onExpand = event => {
+		this.setState({ truncated: 0 });
+	};
+	onCollapse = event => {
+		this.setState({ truncated: 1 });
+	};
+
+	values = (): void => {
+		const { attribute, setFilterAttribute, unsetFilterAttribute } = this.props;
+		const values = attribute.sub_label.map(value => (
+			<AttributeValue
+				key={value.value}
+				attributeName={attribute.label}
+				attributeId={attribute.id}
+				valueId={value.value}
+				valueName={value.label}
+				checked={value.checked}
+				count={value.count}
+				setFilterAttribute={setFilterAttribute}
+				unsetFilterAttribute={unsetFilterAttribute}
+			/>
+		));
+		let newValues = values;
+		let showMoreCount = 1;
+		if (this.state.truncated === 1) {
+			newValues = values.slice(0, 10);
+		} else {
+			showMoreCount = 0;
+		}
+		return [newValues, values.length - 10, showMoreCount];
+	};
+
+	render() {
+		const { attribute, setFilterAttribute, unsetFilterAttribute } = this.props;
+		const [value, valueCount, showMoreCount] = this.values();
+		return (
+			<div className="attribute">
+				<div className="attribute-title">{attribute.label}</div>
+				{value}
+				{valueCount > 0 &&
+					showMoreCount === 1 && (
+						<div onClick={this.onExpand}>Show More {valueCount}</div>
+					)}
+				{valueCount > 0 &&
+					showMoreCount === 0 && <div onClick={this.onCollapse}>Show Less</div>}
+			</div>
+		);
+	}
+}
 
 const AttributeFilter = ({
 	attributes,

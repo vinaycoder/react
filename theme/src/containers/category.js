@@ -33,7 +33,14 @@ const getFilterPriceSummary = (productFilter, settings) => {
 	return priceSummary;
 };
 
-const CategoryHero = ({ categoryDetails, categories, productsTotalCount }) => (
+const CategoryHero = ({
+	categoryDetails,
+	categories,
+	productsTotalCount,
+	productsAttributes,
+	productFilter,
+	unsetFilterAttribute
+}) => (
 	<section className="hero is-light">
 		<div className="hero-body">
 			<div className="container">
@@ -49,10 +56,72 @@ const CategoryHero = ({ categoryDetails, categories, productsTotalCount }) => (
 					className="category-description is-hidden-mobile content"
 					dangerouslySetInnerHTML={{ __html: categoryDetails.description }}
 				/>
+				<AppliedFilters
+					allFilters={productsAttributes}
+					appliedFiltersList={productFilter.attributes.filters}
+					unsetFilterAttribute={unsetFilterAttribute}
+				/>
 			</div>
 		</div>
 	</section>
 );
+
+const AppliedFilters = ({
+	allFilters,
+	appliedFiltersList,
+	unsetFilterAttribute
+}) => {
+	if (appliedFiltersList) {
+		const appliedFiltersDiv = Object.keys(appliedFiltersList).map(
+			filterCode => (
+				<AppliedFilter
+					key={filterCode}
+					filterCode={filterCode}
+					filterValue={appliedFiltersList[filterCode]}
+					allFilters={allFilters}
+					unsetFilterAttribute={unsetFilterAttribute}
+				/>
+			)
+		);
+		return <div className="applied-filters">{appliedFiltersDiv}</div>;
+	}
+	return null;
+};
+
+class AppliedFilter extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+	onChange = event => {
+		const { filterCode, filterValue, unsetFilterAttribute } = this.props;
+		unsetFilterAttribute(filterCode, filterValue);
+	};
+
+	render() {
+		const { filterCode, filterValue, allFilters } = this.props;
+		let filterLabel = null;
+		let filterValueLabel = null;
+		for (const key in allFilters) {
+			if (allFilters[key].id == filterCode) {
+				for (const secondKey in allFilters[key].sub_label) {
+					filterLabel = allFilters[key].label;
+					if (allFilters[key].sub_label[secondKey].value == filterValue) {
+						filterValueLabel = allFilters[key].sub_label[secondKey].label;
+					}
+				}
+			}
+		}
+
+		return (
+			<div className="applied-filters">
+				<div>
+					{filterLabel} : {filterValueLabel}
+				</div>
+				<div onClick={this.onChange}>Button</div>
+			</div>
+		);
+	}
+}
 
 CategoryHero.propTypes = {
 	categoryDetails: PropTypes.shape({}).isRequired,
@@ -64,6 +133,7 @@ const CategoryContainer = props => {
 		setSort,
 		addCartItem,
 		loadMoreProducts,
+		unsetFilterAttribute,
 		getJSONLD,
 		state,
 		state: {
@@ -76,7 +146,8 @@ const CategoryContainer = props => {
 			loadingProducts,
 			loadingMoreProducts,
 			productsTotalCount,
-			productsPage
+			productsPage,
+			productsAttributes
 		}
 	} = props;
 
@@ -111,6 +182,9 @@ const CategoryContainer = props => {
 				categoryDetails={categoryDetails}
 				categories={categories}
 				productsTotalCount={productsTotalCount}
+				productsAttributes={productsAttributes}
+				productFilter={productFilter}
+				unsetFilterAttribute={unsetFilterAttribute}
 			/>
 
 			<section className="section section-category">
@@ -155,6 +229,7 @@ CategoryContainer.propTypes = {
 	setSort: PropTypes.func.isRequired,
 	addCartItem: PropTypes.func.isRequired,
 	loadMoreProducts: PropTypes.func.isRequired,
+	unsetFilterAttribute: PropTypes.func.isRequired,
 	getJSONLD: PropTypes.func.isRequired,
 	state: PropTypes.shape({
 		settings: PropTypes.shape({}),
