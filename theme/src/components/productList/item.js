@@ -17,9 +17,9 @@ class Item extends React.Component {
 			settings,
 			columnCountOnMobile = 2,
 			columnCountOnTablet = 3,
-			columnCountOnDesktop = 4,
-			columnCountOnWidescreen = 4,
-			columnCountOnFullhd = 4,
+			columnCountOnDesktop = 3,
+			columnCountOnWidescreen = 3,
+			columnCountOnFullhd = 3,
 			itemView
 		} = this.props;
 
