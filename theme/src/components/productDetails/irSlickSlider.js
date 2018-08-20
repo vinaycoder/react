@@ -149,11 +149,20 @@ class IRSlickSlider extends Component {
 										key={irSimilarProduct.product_id}
 									>
 										<div className="category-landscape-image-wrapper onsale-category-container-list">
-											<img
-												data-arg1={irSimilarProduct.product_id}
-												src={irSimilarProduct.product_img}
-												alt={irSimilarProduct.product_name}
-											/>
+											<NavLink
+												to={`/${irSimilarProduct.product_urlpath}`}
+												onClick={this.ProductClicked.bind(
+													this,
+													`${irSimilarProduct.product_id}`
+												)}
+												id={irSimilarProduct.product_id}
+											>
+												<img
+													data-arg1={irSimilarProduct.product_id}
+													src={irSimilarProduct.product_img}
+													alt={irSimilarProduct.product_name}
+												/>
+											</NavLink>
 										</div>
 
 										<div className="listview">

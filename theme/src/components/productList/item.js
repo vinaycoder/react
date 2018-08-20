@@ -8,6 +8,52 @@ import ItemPrice from './itemPrice';
 class Item extends React.Component {
 	constructor(props) {
 		super(props);
+		this.ProductClicked = this.ProductClicked.bind(this);
+	}
+
+	getArrayFromLocalStorage = () => {
+		console.log('getArrayFromLocalStorage pre');
+		let values = [];
+		const viewedProducts = localStorage.getItem('viewedProducts');
+		console.log('getArrayFromLocalStorage post');
+		console.log(viewedProducts);
+		try {
+			if (viewedProducts && viewedProducts.length > 0) {
+				const viewedProductsParsed = JSON.parse(viewedProducts);
+				if (Array.isArray(viewedProductsParsed)) {
+					values = viewedProductsParsed;
+				}
+			}
+		} catch (e) {
+			//
+		}
+
+		return values;
+	};
+
+	ProductClicked(i, e) {
+		console.log('ProductClicked');
+		console.log(e);
+		console.log(e.target.getAttribute('itemId'));
+		console.log('this');
+		console.log(this);
+		console.log('props');
+		console.log(this.props.product.product_id);
+		if (this.props.product.product_id) {
+			const viewedProducts = this.getArrayFromLocalStorage();
+			if (viewedProducts.includes(this.props.product.product_id)) {
+				const index = viewedProducts.indexOf(this.props.product.product_id);
+				viewedProducts.splice(index, 1);
+				viewedProducts.push(this.props.product.product_id);
+			} else {
+				viewedProducts.push(this.props.product.product_id);
+			}
+			localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+			this.setState({ viewedProducts });
+
+			console.log('ProductClicked post');
+			console.log(viewedProducts);
+		}
 	}
 
 	render() {
@@ -23,6 +69,8 @@ class Item extends React.Component {
 			itemView
 		} = this.props;
 
+		console.log('products render ete');
+		console.log(product);
 		let columnCount = 12;
 		let columnSizeOnMobile = columnCount / columnCountOnMobile;
 		let columnSizeOnTablet = columnCount / columnCountOnTablet;
@@ -57,7 +105,12 @@ class Item extends React.Component {
 							product.is_salable
 						}`}
 					>
-						<NavLink to={`/${product.path}/`}>
+						<NavLink
+							to={`/${product.path}/`}
+							onClick={this.ProductClicked.bind(this, `${product.product_id}`)}
+							id={product.product_id}
+							itemId={product.product_id}
+						>
 							<figure className="image" style={{ height: imageHeight }}>
 								{/*<ItemTags tags={product.tags} />*/}
 								<ItemImage
@@ -79,7 +132,11 @@ class Item extends React.Component {
 							product.is_salable
 						}`}
 					>
-						<NavLink to={`/${product.path}/`}>
+						<NavLink
+							to={`/${product.path}/`}
+							onClick={this.ProductClicked.bind(this, `${product.product_id}`)}
+							id={product.product_id}
+						>
 							<figure className="image" style={{ height: imageHeight }}>
 								{/*<ItemTags tags={product.tags} />*/}
 								<ItemImage
