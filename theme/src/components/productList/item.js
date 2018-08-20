@@ -12,11 +12,8 @@ class Item extends React.Component {
 	}
 
 	getArrayFromLocalStorage = () => {
-		console.log('getArrayFromLocalStorage pre');
 		let values = [];
 		const viewedProducts = localStorage.getItem('viewedProducts');
-		console.log('getArrayFromLocalStorage post');
-		console.log(viewedProducts);
 		try {
 			if (viewedProducts && viewedProducts.length > 0) {
 				const viewedProductsParsed = JSON.parse(viewedProducts);
@@ -32,13 +29,6 @@ class Item extends React.Component {
 	};
 
 	ProductClicked(i, e) {
-		console.log('ProductClicked');
-		console.log(e);
-		console.log(e.target.getAttribute('itemId'));
-		console.log('this');
-		console.log(this);
-		console.log('props');
-		console.log(this.props.product.product_id);
 		if (this.props.product.product_id) {
 			const viewedProducts = this.getArrayFromLocalStorage();
 			if (viewedProducts.includes(this.props.product.product_id)) {
@@ -50,9 +40,6 @@ class Item extends React.Component {
 			}
 			localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
 			this.setState({ viewedProducts });
-
-			console.log('ProductClicked post');
-			console.log(viewedProducts);
 		}
 	}
 
@@ -69,8 +56,6 @@ class Item extends React.Component {
 			itemView
 		} = this.props;
 
-		console.log('products render ete');
-		console.log(product);
 		let columnCount = 12;
 		let columnSizeOnMobile = columnCount / columnCountOnMobile;
 		let columnSizeOnTablet = columnCount / columnCountOnTablet;
