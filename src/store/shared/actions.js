@@ -211,6 +211,11 @@ export const addCartItem = item => async (dispatch, getState) => {
 		return jsonResult;
 	})
 	*/
+
+	if (item.variant_id) {
+		item.product_id = item.variant_id;
+	}
+
 	console.log('item.product_id');
 	console.log(item.product_id);
 

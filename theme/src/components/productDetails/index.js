@@ -45,7 +45,7 @@ export default class ProductDetails extends React.Component {
 	}
 
 	onOptionChange(optionId, valueId) {
-		let { selectedOptions } = this.state;
+		const { selectedOptions } = this.state;
 
 		if (valueId === '') {
 			delete selectedOptions[optionId];
@@ -59,7 +59,7 @@ export default class ProductDetails extends React.Component {
 		console.log('valueId');
 		console.log(valueId);
 
-		this.setState({ selectedOptions: selectedOptions });
+		this.setState({ selectedOptions });
 
 		console.log('state selectedOptions');
 		console.log(selectedOptions);
@@ -89,6 +89,21 @@ export default class ProductDetails extends React.Component {
 		console.log('findVariantBySelectedOptions count');
 		console.log(Object.keys(selectedOptions).length);
 
+		// const items = [];
+
+		const mainOptions = product.configurable_attributes.map(
+			(actualoption, index) => {
+				const subOptions = actualoption.values.map((optionObj, index) => {
+					if (optionObj.product_id == selectedOptions[product.product_id]) {
+						variant = optionObj;
+					}
+				});
+			}
+		);
+
+		console.log('findVariantBySelectedOptions variant');
+		console.log(variant);
+
 		if (Object.keys(selectedOptions).length > 0) {
 			this.setState({ selectedVariant: variant });
 			return;
@@ -98,14 +113,14 @@ export default class ProductDetails extends React.Component {
 	}
 
 	setQuantity = quantity => {
-		this.setState({ quantity: quantity });
+		this.setState({ quantity });
 	};
 
 	addToCart() {
 		const { product, addCartItem } = this.props;
 		const { selectedVariant, quantity } = this.state;
 
-		let item = {
+		const item = {
 			product_id: product.product_id,
 			quantity: quantity
 		};
@@ -117,7 +132,7 @@ export default class ProductDetails extends React.Component {
 		console.log(item.variant_id);
 
 		if (selectedVariant) {
-			item.variant_id = selectedVariant.id;
+			item.variant_id = selectedVariant.product_id;
 		}
 
 		console.log('addCartItem item');
@@ -136,8 +151,14 @@ export default class ProductDetails extends React.Component {
 		console.log('product.configurable_attributes.values.length');
 		console.log(product.configurable_attributes.values.length);
 
-		const allOptionsSelected =
-			Object.keys(selectedOptions).length === product.options.length;
+		// const allOptionsSelected =
+		// Object.keys(selectedOptions).length === product.options.length;
+
+		let allOptionsSelected = false;
+
+		if (Object.keys(selectedOptions).length > 0) {
+			allOptionsSelected = 'true';
+		}
 
 		console.log('allOptionsSelected');
 		console.log(allOptionsSelected);
@@ -315,7 +336,7 @@ export default class ProductDetails extends React.Component {
 							settings={settings}
 							addCartItem={this.addToCart}
 							product={product}
-							limit={themeSettings.limit_viewed_products || 4}
+							limit={25}
 						/>
 					)}
 				</Fragment>

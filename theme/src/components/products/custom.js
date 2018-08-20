@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import api from '../../lib/api';
 import ProductList from '../productList';
+import IRSlickSlider from '../productDetails/irSlickSlider';
 
 export default class CustomProducts extends React.Component {
 	static propTypes = {
@@ -97,7 +98,7 @@ export default class CustomProducts extends React.Component {
 			sort,
 			fields:
 				'path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags',
-			limit: limit || 4,
+			limit: limit || 25,
 			offset: 0
 		};
 
@@ -109,16 +110,18 @@ export default class CustomProducts extends React.Component {
 
 		console.log('in here');
 
-		api.ajax.products
-			.list(filter)
-			.then(({ json }) => {
-				if (!this.isCancelled) {
-					this.setState({
-						products: json.data
-					});
-				}
+		fetch(
+			`https://indiarush.com/irapi/product/getProductDetailsBasedOnProductIds/?product_id=${ids}&version=3.81`
+		)
+			.then(result => {
+				return result.json();
 			})
-			.catch(() => {});
+			.then(jsonResult => {
+				// return jsonResult.data;
+				this.setState({
+					products: jsonResult.data.products
+				});
+			});
 	};
 
 	render() {
@@ -137,21 +140,23 @@ export default class CustomProducts extends React.Component {
 
 		const { products } = this.state;
 
-		return (
-			<ProductList
-				products={products}
-				addCartItem={addCartItem}
-				settings={settings}
-				loadMoreProducts={null}
-				hasMore={false}
-				columnCountOnMobile={columnCountOnMobile}
-				columnCountOnTablet={columnCountOnTablet}
-				columnCountOnDesktop={columnCountOnDesktop}
-				columnCountOnWidescreen={columnCountOnWidescreen}
-				columnCountOnFullhd={columnCountOnFullhd}
-				isCentered={isCentered}
-				className={className}
-			/>
-		);
+		return <IRSlickSlider products={products} />;
+
+		// return (
+		// 	<ProductList
+		// 		products={products}
+		// 		addCartItem={addCartItem}
+		// 		settings={settings}
+		// 		loadMoreProducts={null}
+		// 		hasMore={false}
+		// 		columnCountOnMobile={columnCountOnMobile}
+		// 		columnCountOnTablet={columnCountOnTablet}
+		// 		columnCountOnDesktop={columnCountOnDesktop}
+		// 		columnCountOnWidescreen={columnCountOnWidescreen}
+		// 		columnCountOnFullhd={columnCountOnFullhd}
+		// 		isCentered={isCentered}
+		// 		className={className}
+		// 	/>
+		// );
 	}
 }

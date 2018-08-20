@@ -134,7 +134,7 @@ const AddToCartButton = ({
 			</div>
 		);
 	}
-
+	/*
 	if (product.stock_status === 'discontinued') {
 		return (
 			<button
@@ -145,7 +145,7 @@ const AddToCartButton = ({
 				{text.discontinued}
 			</button>
 		);
-	} else if (product.variable && variant && variant.stock_quantity > 0) {
+	} else if (product.variable && variant && variant.max_quantity > 0) {
 		return (
 			<button
 				className="button is-success is-fullwidth"
@@ -198,6 +198,8 @@ const AddToCartButton = ({
 	} else {
 		return null;
 	}
+
+	*/
 };
 
 export default AddToCartButton;
