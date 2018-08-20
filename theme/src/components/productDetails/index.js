@@ -218,6 +218,7 @@ export default class ProductDetails extends React.Component {
 										<Options
 											options={product.configurable_attributes}
 											onChange={this.onOptionChange}
+											product={product}
 										/>
 										<Quantity
 											maxQuantity={maxQuantity}

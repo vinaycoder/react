@@ -3,7 +3,10 @@ import { NavLink } from 'react-router-dom';
 import * as helper from '../../lib/helper';
 import { themeSettings, text } from '../../lib/settings';
 
-const Option = ({ option, onChange }) => {
+const Option = ({ option, onChange, product }) => {
+	console.log('Option product');
+	console.log(product);
+
 	const values = option.values
 		// .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
 		.map(optionObj => (
@@ -20,7 +23,7 @@ const Option = ({ option, onChange }) => {
 			<span className="select is-fullwidth">
 				<select
 					onChange={e => {
-						onChange(1149280, e.target.value);
+						onChange(product.product_id, e.target.value);
 						// onChange(option.attribute_id, e.target.value);
 					}}
 				>
@@ -32,7 +35,7 @@ const Option = ({ option, onChange }) => {
 	);
 };
 
-const Options = ({ options, onChange }) => {
+const Options = ({ options, onChange, product }) => {
 	if (options && options.length > 0) {
 		const items = [];
 
@@ -42,6 +45,7 @@ const Options = ({ options, onChange }) => {
 					key={actualoption.attribute_id}
 					option={actualoption}
 					onChange={onChange}
+					product={product}
 				/>
 			);
 		});
