@@ -35,6 +35,10 @@ $ig-blue: #636363 !default;
   min-height: 340px;
 }
 
+.sprites{
+  background: url(/assets/images/sprites.png?v=81) left center no-repeat;
+}
+
 .dark-overflow {
   background: rgba(0,0,0,0.4);
   position: fixed;

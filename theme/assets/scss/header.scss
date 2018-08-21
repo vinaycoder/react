@@ -19,6 +19,13 @@ header {
   display: block;
 }
 
+header .mobileLogo{
+  display: block;
+  background-position: -140px -106px;
+  width: 156px;
+  height: 34px;
+}
+
 .icon-search {
   cursor: pointer;
 }
@@ -75,6 +82,7 @@ header {
 
   header .logo-image img {
     max-height: 3.25rem;
+
   }
 
   .cart-button {
