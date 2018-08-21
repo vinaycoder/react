@@ -4,6 +4,9 @@ import { themeSettings, text } from '../../lib/settings';
 import ItemTags from './itemTags';
 import ItemImage from './itemImage';
 import ItemPrice from './itemPrice';
+import ItemSize from './itemSize';
+import ItemSoldCount from './itemSoldCount';
+import ItemRatings from './itemRatings';
 
 class Item extends React.Component {
 	constructor(props) {
@@ -113,8 +116,11 @@ class Item extends React.Component {
 								/>
 							</figure>
 							<div className="content product-caption">
-								<div className="product-name">{product.name}</div>
+								<div className="product-name">{product.product_name}</div>
 								<ItemPrice product={product} settings={settings} />
+								<ItemSize product={product} settings={settings} />
+								<ItemSoldCount product={product} settings={settings} />
+								<ItemRatings product={product} settings={settings} />
 							</div>
 						</NavLink>
 					</div>
@@ -148,8 +154,11 @@ class Item extends React.Component {
 								/>
 							</figure>
 							<div className="content product-caption">
-								<div className="product-name">{product.name}</div>
+								<div className="product-name">{product.product_name}</div>
 								<ItemPrice product={product} settings={settings} />
+								<ItemSize product={product} settings={settings} />
+								<ItemSoldCount product={product} settings={settings} />
+								<ItemRatings product={product} settings={settings} />
 							</div>
 						</NavLink>
 					</div>

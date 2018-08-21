@@ -27,11 +27,11 @@ const ItemPrice = ({ product, settings }) => {
 		return (
 			<div className="product-price">
 				<span className="product-new-price">
-					{product.offered_price}
+					Rs. {product.offered_price}
 					{/* <FormattedCurrency settings={settings} number={product.offered_price} /> */}
 				</span>
 				<del className="product-old-price">
-					{product.actual_price}
+					Rs. {product.actual_price}
 					{/* <FormattedCurrency
 						settings={settings}
 						number={product.actual_price}
