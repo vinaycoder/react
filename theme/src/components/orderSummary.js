@@ -16,7 +16,8 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 			? themeSettings.maxCartItemQty
 			: item.stock_quantity;
 
-	for (let i = 0; i <= maxQty; i++) {
+	for (let i = 0; i <= 10; i++) {
+	// for (let i = 0; i <= maxQty; i++) {
 		const optionText = i === 0 ? text.remove : i;
 		qtyOptions.push(
 			<option key={i} value={i}>
@@ -24,15 +25,15 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 			</option>
 		);
 	}
-
+const productUrl=item.productUrl.split('/');
 	return (
 		<div className="columns is-mobile">
 			<div className="column is-3">
 				<div className="image">
-					<NavLink to={item.path}>
+					<NavLink to={productUrl[3]}>
 						<img
 							className="product-image"
-							src={thumbnail}
+							src={item.imageUrl}
 							alt={item.name}
 							title={item.name}
 						/>
@@ -41,17 +42,14 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 			</div>
 			<div className="column">
 				<div>
-					<NavLink to={item.path}>{item.name}</NavLink>
+					<NavLink to={productUrl[3]}>{item.name}</NavLink>
 				</div>
-				{item.variant_name.length > 0 && (
-					<div className="cart-option-name">{item.variant_name}</div>
-				)}
 				<div className="qty">
 					<span>{text.qty}:</span>
 					<span className="select is-small">
 						<select
 							onChange={e => {
-								updateCartItemQuantiry(item.id, e.target.value);
+								updateCartItemQuantiry(item.itemId, e.target.value);
 							}}
 							value={item.quantity}
 						>
@@ -61,7 +59,7 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 				</div>
 			</div>
 			<div className="column is-3 has-text-right price">
-				{helper.formatCurrency(item.price_total, settings)}
+				{helper.formatCurrency(item.price, settings)}
 			</div>
 		</div>
 	);
@@ -78,7 +76,9 @@ const OrderSummary = props => {
 		updateCartItemQuantiry,
 		state: { cart, settings }
 	} = props;
-
+	console.log('vinay on order summary');
+console.log(cart);
+console.log(props);
 	if (cart && cart.items && cart.items.length > 0) {
 		const items = cart.items.map(item => (
 			<SummaryItem
@@ -104,7 +104,7 @@ const OrderSummary = props => {
 					</div>
 					<div className="column is-7">{text.shipping}</div>
 					<div className="column is-5 has-text-right price">
-						{helper.formatCurrency(cart.shipping_total, settings)}
+						{helper.formatCurrency(cart.shippingAmount, settings)}
 					</div>
 
 					{cart.discount_total > 0 && (
@@ -121,7 +121,7 @@ const OrderSummary = props => {
 					</div>
 					<div className="column is-6 total-text">{text.grandTotal}</div>
 					<div className="column is-6 total-price">
-						{helper.formatCurrency(cart.grand_total, settings)}
+						{helper.formatCurrency(cart.subtotal, settings)}
 					</div>
 				</div>
 			</div>

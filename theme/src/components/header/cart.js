@@ -36,7 +36,7 @@ const CartItem = ({ item, deleteCartItem, settings }) => {
 				</div>
 				<a
 					className="button is-light is-small"
-					onClick={() => deleteCartItem(item.id)}
+					onClick={() => deleteCartItem(item.itemId)}
 				>
 					{text.remove}
 				</a>

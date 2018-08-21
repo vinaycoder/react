@@ -13,7 +13,7 @@ import {
 	RESERVED,
 	SEARCH
 } from '../shared/pageTypes';
-
+import cookie from 'react-cookies';
 const PRODUCT_FIELDS =
 	'path,id,name,category_id,category_ids,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position';
 const CATEGORIES_FIELDS =
@@ -35,11 +35,23 @@ const getCurrentPage = path => {
 					resource: null
 				};
 			} else {
-				return {
-					type: jsonResult.type,
-					path: path,
-					resource: jsonResult.id
-				};
+				if(path=='/checkout')
+				{
+					return {
+						type: "page",
+						path: "/checkout",
+						resource: "5b6984d45452db221b4044f2"
+					};
+				}
+				else{
+					return {
+						type: jsonResult.type,
+						path: path,
+						resource: jsonResult.id
+					};
+
+				}
+
 			}
 		});
 
@@ -170,6 +182,11 @@ const getThemeSettings = () => {
 };
 
 const getAllData = (currentPage, productFilter, cookie) => {
+	var list = {}
+	cookie && cookie.split(';').forEach(function( cookie ) {
+			var parts = cookie.split('=');
+			list[parts.shift().trim()] = decodeURI(parts.join('='));
+	});
 	console.log('get all data function in load state');
 	return Promise.all([
 		api.checkoutFields.list().then(({ status, json }) => json),
@@ -184,7 +201,20 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		// api.productCategories
 		// 	.list({ enabled: true, fields: CATEGORIES_FIELDS })
 		// 	.then(({ status, json }) => json),
-		api.ajax.cart.retrieve(cookie).then(({ status, json }) => json),
+
+		fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='+
+				list.userQuoteId +
+				'&pincode=""' +
+				'&reset_payment=1' +
+				'&version=' +
+				'99.99'
+		).then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				return jsonResult.data;
+			}),
+		// api.ajax.cart.retrieve(cookie).then(({ status, json }) => json),
 		getProducts(currentPage, productFilter),
 		getProductsAttributes(currentPage, productFilter),
 		getProduct(currentPage),

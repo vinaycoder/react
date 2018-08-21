@@ -342,14 +342,56 @@ const requestUpdateCartItemQuantiry = () => ({
 
 export const deleteCartItem = item_id => async (dispatch, getState) => {
 	dispatch(requestDeleteCartItem());
+
 	const { app } = getState();
-	const response = await api.ajax.cart.deleteItem(item_id);
-	dispatch(receiveCart(response.json));
-	dispatch(fetchShippingMethods());
-	analytics.deleteCartItem({
-		itemId: item_id,
-		cart: app.cart
+//  for deleting cart item
+const quoteId = cookie.load('userQuoteId');
+const removeStatus = await fetch(
+	'https://indiarush.com/irapi/cart/remove?quote_id=' +
+		quoteId +
+		'&item_id='+item_id+
+		'&version=' +
+		'99.99'
+)
+	.then(result => {
+		return result;
+	})
+	.then(jsonResult => {
+	 return jsonResult;
 	});
+	console.log('vinay delete cart');
+	console.log(removeStatus);
+	console.log(item_id);
+ if(removeStatus)
+ {
+	 fetch(
+		 'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+			 quoteId +
+			 '&pincode=""' +
+			 '&reset_payment=1' +
+			 '&version=' +
+			 '99.99'
+	 )
+		 .then(result => {
+			 return result.json();
+		 })
+		 .then(jsonResult => {
+			 dispatch(receiveCart(jsonResult.data));
+			 dispatch(fetchShippingMethods());
+			 // this.props.state.cart = jsonResult.data;
+			 // this.setState({
+				//  cart: jsonResult.data
+			 // });
+		 });
+
+ }
+
+	//const response = await api.ajax.cart.deleteItem(item_id);
+
+	// analytics.deleteCartItem({
+	// 	itemId: item_id,
+	// 	cart: app.cart
+	// });
 };
 
 const requestDeleteCartItem = () => ({ type: t.CART_ITEM_DELETE_REQUEST });
@@ -545,11 +587,22 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 						resource: null
 					};
 				} else {
-					return {
-						type: jsonResult.type,
-						path: locationPathname,
-						resource: jsonResult.id
-					};
+					if(locationPathname=='/checkout')
+					{
+						return {
+							type: "page",
+							path: "/checkout",
+							resource: "5b6984d45452db221b4044f2"
+						};
+					}
+					else{
+						return {
+							type: jsonResult.type,
+							path: locationPathname,
+							resource: jsonResult.id
+						};
+					}
+
 				}
 			});
 		console.log('returning new page type');
