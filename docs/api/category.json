@@ -1,0 +1,16 @@
+
+{
+  id: "193"
+  image : "Best-Seller-Sarees-ctb-700x200-011215.jpg"
+  landing_url : {type: "category", id: "193"}
+  meta_description : "Sarees - Buy Designer Saree Online For Women @50% Off"
+  meta_title : "Sarees - Buy Designer Saree Online For Women @50% Off"
+  name : "Sarees"
+  parent_id : "308"
+  path : "sarees-for-women"
+  slug : "sarees-for-women"
+  type : "subcat"
+  url : "https://indiarush.com/sarees-for-women",
+  product_count:
+  
+}

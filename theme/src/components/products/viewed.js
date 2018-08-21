@@ -80,8 +80,8 @@ export default class ViewedProducts extends React.Component {
 		const { limit, settings, addCartItem, product } = this.props;
 		let { viewedProducts } = this.state;
 
-		if (viewedProducts && product && product.id) {
-			viewedProducts = viewedProducts.filter(id => id !== product.id);
+		if (viewedProducts && product && product.product_id) {
+			viewedProducts = viewedProducts.filter(id => id !== product.product_id);
 		}
 
 		console.log('viewedProducts render');
@@ -100,7 +100,6 @@ export default class ViewedProducts extends React.Component {
 							settings={settings}
 							addCartItem={addCartItem}
 							limit={limit}
-							isCentered
 						/>
 					</div>
 				</section>
