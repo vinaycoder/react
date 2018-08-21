@@ -35,23 +35,19 @@ const getCurrentPage = path => {
 					resource: null
 				};
 			} else {
-				if(path=='/checkout')
-				{
+				if (path == '/checkout') {
 					return {
-						type: "page",
-						path: "/checkout",
-						resource: "5b6984d45452db221b4044f2"
+						type: 'page',
+						path: '/checkout',
+						resource: '5b6984d45452db221b4044f2'
 					};
-				}
-				else{
+				} else {
 					return {
 						type: jsonResult.type,
 						path: path,
 						resource: jsonResult.id
 					};
-
 				}
-
 			}
 		});
 
@@ -182,11 +178,12 @@ const getThemeSettings = () => {
 };
 
 const getAllData = (currentPage, productFilter, cookie) => {
-	var list = {}
-	cookie && cookie.split(';').forEach(function( cookie ) {
+	var list = {};
+	cookie &&
+		cookie.split(';').forEach(function(cookie) {
 			var parts = cookie.split('=');
 			list[parts.shift().trim()] = decodeURI(parts.join('='));
-	});
+		});
 	console.log('get all data function in load state');
 	return Promise.all([
 		api.checkoutFields.list().then(({ status, json }) => json),
@@ -202,13 +199,15 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		// 	.list({ enabled: true, fields: CATEGORIES_FIELDS })
 		// 	.then(({ status, json }) => json),
 
-		fetch('https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id='+
+		fetch(
+			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				list.userQuoteId +
 				'&pincode=""' +
 				'&reset_payment=1' +
 				'&version=' +
 				'99.99'
-		).then(result => {
+		)
+			.then(result => {
 				return result.json();
 			})
 			.then(jsonResult => {
@@ -250,7 +249,14 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	);
 };
 
-const getState = (currentPage, settings, allData, location, productFilter) => {
+const getState = (
+	currentPage,
+	settings,
+	allData,
+	location,
+	productFilter,
+	recommendationProducts
+) => {
 	const {
 		checkoutFields,
 		categories,
@@ -325,7 +331,8 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			cart: cart,
 			order: null,
 			checkoutFields: checkoutFields,
-			themeSettings: themeSettings
+			themeSettings: themeSettings,
+			recommendationProducts: recommendationProducts
 		}
 	};
 

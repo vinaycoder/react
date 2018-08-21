@@ -37,8 +37,19 @@ class IRSlickSlider extends Component {
 
 	ProductClicked(i, e) {
 		// this.ViewedProducts.addProductIdToLocalStorage(this.props.product.product_id);
+		console.log('ProductClicked e');
+		console.log(e);
+		console.log('ProductClicked ');
+		console.log(this.props);
+
+		let { recommendationProducts } = this.props;
+
+		// this.setState({
+		// 		recommendationProducts : "test"
+		//  })
 
 		if (e.target.getAttribute('id')) {
+			console.log('in here');
 			const viewedProducts = this.getArrayFromLocalStorage();
 			if (viewedProducts.includes(e.target.getAttribute('id'))) {
 				const index = viewedProducts.indexOf(e.target.getAttribute('id'));
@@ -49,6 +60,28 @@ class IRSlickSlider extends Component {
 			}
 			localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
 			this.setState({ viewedProducts });
+
+			console.log('in recommendationProducts');
+
+			// const values = this.props.products
+			// 	.map(productObj => (
+			//
+			// 		this.setState({
+			// 			 recommendationProducts : productObj
+			// 		 })
+			//
+			// 	));
+			// if(this.props.products)
+			// 	{
+			// 			console.log("in recommendationProducts setter");
+			// 			console.log(this.props.products.recommendationLabel);
+			// 	// this.setState({
+			// 	// 		recommendationProducts : "test"
+			// 	//  })
+			// }
+
+			console.log('recommendationProducts');
+			console.log(recommendationProducts);
 		}
 	}
 
