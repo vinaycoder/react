@@ -91,7 +91,15 @@ class Item extends React.Component {
 						}`}
 					>
 						<NavLink
-							to={`/${product.path}/`}
+							to={{
+								pathname: `/${product.path}/`,
+								search: '',
+								hash: '',
+								state: {
+									id: product.product_id,
+									type: 'product'
+								}
+							}}
 							onClick={this.ProductClicked.bind(this, `${product.product_id}`)}
 							id={product.product_id}
 							itemId={product.product_id}
@@ -118,9 +126,18 @@ class Item extends React.Component {
 						}`}
 					>
 						<NavLink
-							to={`/${product.path}/`}
+							to={{
+								pathname: `/${product.path}/`,
+								search: '',
+								hash: '',
+								state: {
+									id: product.product_id,
+									type: 'product'
+								}
+							}}
 							onClick={this.ProductClicked.bind(this, `${product.product_id}`)}
 							id={product.product_id}
+							itemId={product.product_id}
 						>
 							<figure className="image" style={{ height: imageHeight }}>
 								{/*<ItemTags tags={product.tags} />*/}
