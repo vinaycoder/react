@@ -8,7 +8,7 @@ import HeadMenu from './headMenu';
 import cookie from 'react-cookies';
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
-		<img src={src} alt={alt} />
+		<span className="sprites mobileLogo " alt={alt} />
 	</NavLink>
 );
 
