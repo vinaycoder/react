@@ -11,8 +11,15 @@ const CheckoutContainer = props => {
 
 	return (
 		<Fragment>
-
-
+		{/*
+			<MetaTags
+				title={pageDetails.meta_title}
+				description={pageDetails.meta_description}
+				canonicalUrl={pageDetails.url}
+				ogTitle={pageDetails.meta_title}
+				ogDescription={pageDetails.meta_description}
+			/>
+*/}
 			<section className="section section-checkout">
 				<div className="container">
 					<div className="columns columns-checkout">
