@@ -8,7 +8,10 @@ const appReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case t.PRODUCT_RECEIVE:
 			console.log('inside the product reducer');
-			return Object.assign({}, state, { productDetails: action.product });
+			return Object.assign({}, state, {
+				productDetails: action.product,
+				recommendationProducts: []
+			});
 
 		case t.PRODUCTS_REQUEST:
 			return Object.assign({}, state, { loadingProducts: true });

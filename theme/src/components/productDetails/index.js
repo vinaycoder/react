@@ -33,8 +33,7 @@ export default class ProductDetails extends React.Component {
 			selectedOptions: {},
 			selectedVariant: null,
 			isAllOptionsSelected: false,
-			quantity: 1,
-			recommendationProducts: []
+			quantity: 1
 		};
 
 		this.onOptionChange = this.onOptionChange.bind(this);
@@ -132,12 +131,13 @@ export default class ProductDetails extends React.Component {
 	}
 
 	render() {
-		const { product, settings, categories } = this.props;
 		const {
-			selectedVariant,
-			isAllOptionsSelected,
+			product,
+			settings,
+			categories,
 			recommendationProducts
-		} = this.state;
+		} = this.props;
+		const { selectedVariant, isAllOptionsSelected } = this.state;
 		const maxQuantity =
 			product.stock_status === 'discontinued'
 				? 0

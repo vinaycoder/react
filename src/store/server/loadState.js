@@ -249,14 +249,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	);
 };
 
-const getState = (
-	currentPage,
-	settings,
-	allData,
-	location,
-	productFilter,
-	recommendationProducts
-) => {
+const getState = (currentPage, settings, allData, location, productFilter) => {
 	const {
 		checkoutFields,
 		categories,
@@ -304,6 +297,7 @@ const getState = (
 			productsMinPrice: productsMinPrice,
 			productsMaxPrice: productsMaxPrice,
 			productsAttributes: productsAttributes,
+			recommendationProducts: [],
 			paymentMethods: [],
 			shippingMethods: [],
 			loadingProducts: false,
@@ -331,8 +325,7 @@ const getState = (
 			cart: cart,
 			order: null,
 			checkoutFields: checkoutFields,
-			themeSettings: themeSettings,
-			recommendationProducts: recommendationProducts
+			themeSettings: themeSettings
 		}
 	};
 

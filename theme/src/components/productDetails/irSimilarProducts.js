@@ -22,8 +22,7 @@ class IRSimilarProducts extends Component {
 			topseller_status: undefined,
 			irSimilarProductsLabel: undefined,
 			irStyleWithProductsLabel: undefined,
-			irTopSellerProductsLabel: undefined,
-			recommendationProducts: []
+			irTopSellerProductsLabel: undefined
 		};
 	}
 
