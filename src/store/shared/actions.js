@@ -11,6 +11,7 @@ const requestProduct = () => ({ type: t.PRODUCT_REQUEST });
 const receiveProduct = product => ({ type: t.PRODUCT_RECEIVE, product });
 
 export const fetchProducts = currentPage => async (dispatch, getState) => {
+	console.log(currentPage);
 	console.log('inside current page');
 	dispatch(requestProducts());
 	const { app } = getState();
@@ -328,6 +329,11 @@ export const updateCartItemQuantiry = (item_id, quantity) => async (
 	getState
 ) => {
 	dispatch(requestUpdateCartItemQuantiry());
+
+	console.log('vinay in action');
+	console.log(item_id);
+	console.log(quantity);
+	return false;
 	const response = await api.ajax.cart.updateItem(item_id, {
 		quantity: quantity
 	});
@@ -343,46 +349,47 @@ export const deleteCartItem = item_id => async (dispatch, getState) => {
 	dispatch(requestDeleteCartItem());
 
 	const { app } = getState();
-	//  for deleting cart item
-	const quoteId = cookie.load('userQuoteId');
-	const removeStatus = await fetch(
-		'https://indiarush.com/irapi/cart/remove?quote_id=' +
-			quoteId +
-			'&item_id=' +
-			item_id +
-			'&version=' +
-			'99.99'
-	)
-		.then(result => {
-			return result;
-		})
-		.then(jsonResult => {
-			return jsonResult;
-		});
+//  for deleting cart item
+const quoteId = cookie.load('userQuoteId');
+const removeStatus = await fetch(
+	'https://indiarush.com/irapi/cart/remove?quote_id=' +
+		quoteId +
+		'&item_id='+item_id+
+		'&version=' +
+		'99.99'
+)
+	.then(result => {
+		return result;
+	})
+	.then(jsonResult => {
+	 return jsonResult;
+	});
 	console.log('vinay delete cart');
 	console.log(removeStatus);
 	console.log(item_id);
-	if (removeStatus) {
-		fetch(
-			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
-				quoteId +
-				'&pincode=""' +
-				'&reset_payment=1' +
-				'&version=' +
-				'99.99'
-		)
-			.then(result => {
-				return result.json();
-			})
-			.then(jsonResult => {
-				dispatch(receiveCart(jsonResult.data));
-				dispatch(fetchShippingMethods());
-				// this.props.state.cart = jsonResult.data;
-				// this.setState({
+ if(removeStatus)
+ {
+	 fetch(
+		 'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+			 quoteId +
+			 '&pincode=""' +
+			 '&reset_payment=1' +
+			 '&version=' +
+			 '99.99'
+	 )
+		 .then(result => {
+			 return result.json();
+		 })
+		 .then(jsonResult => {
+			 dispatch(receiveCart(jsonResult.data));
+			 dispatch(fetchShippingMethods());
+			 // this.props.state.cart = jsonResult.data;
+			 // this.setState({
 				//  cart: jsonResult.data
-				// });
-			});
-	}
+			 // });
+		 });
+
+ }
 
 	//const response = await api.ajax.cart.deleteItem(item_id);
 
@@ -536,7 +543,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 	let stateSearch = '';
 	let stateHash = '';
 
-	console.log(app);
+	console.log(app.location);
 	if (app.location) {
 		statePathname = app.location.pathname;
 		stateSearch = app.location.search;
@@ -560,57 +567,72 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			})
 		);
 
-		let newCurrentPage = {};
-		if (location.state) {
-			newCurrentPage = {
-				type: location.state.type,
-				path: locationPathname,
-				resource: location.state.id
-			};
-		} else {
-			newCurrentPage = await fetch(
-				`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
-			)
-				.then(result => {
-					return result.json();
-				})
-				.then(jsonResult => {
-					if (jsonResult == 'null') {
+		//Instead of category page we can get data from all categories list
+		//const category = app.categories.find(c => c.path === locationPathname);
+		// if (category) {
+		// const newCurrentPage = {
+		// 	type: 'product-category',
+		// 	path: category.path,
+		// 	resource: category.id
+		// };
+		// dispatch(receiveSitemap(newCurrentPage)); // remove .data
+		// dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+		// } else {
+		const newCurrentPage = await fetch(
+			`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				if (jsonResult == 'null') {
+					return {
+						type: 404,
+						path: locationPathname,
+						resource: null
+					};
+				} else {
+					if(locationPathname=='/checkout')
+					{
 						return {
-							type: 404,
-							path: locationPathname,
-							resource: null
+							type: "page",
+							path: "/checkout",
+							resource: "5b6984d45452db221b4044f2"
 						};
-					} else {
+					}
+					else{
 						return {
 							type: jsonResult.type,
 							path: locationPathname,
 							resource: jsonResult.id
 						};
 					}
-				});
-		}
 
+				}
+			});
+		console.log('returning new page type');
+		console.log(newCurrentPage);
 		dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
 		dispatch(receiveSitemap(newCurrentPage));
+
+		// const sitemapResponse = await api.ajax.sitemap.retrieve({
+		// 	path: locationPathname
+		// });
+		// if (sitemapResponse.status === 404) {
+		// 	dispatch(
+		// 		receiveSitemap({
+		// 			type: 404,
+		// 			path: locationPathname,
+		// 			resource: null
+		// 		})
+		// 	);
+		// } else {
+		// 	const newCurrentPage = sitemapResponse.json;
+		// 	dispatch(receiveSitemap(newCurrentPage));
+		// 	dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+		// }
+		//}
 	}
-	// const sitemapResponse = await api.ajax.sitemap.retrieve({
-	// 	path: locationPathname
-	// });
-	// if (sitemapResponse.status === 404) {
-	// 	dispatch(
-	// 		receiveSitemap({
-	// 			type: 404,
-	// 			path: locationPathname,
-	// 			resource: null
-	// 		})
-	// 	);
-	// } else {
-	// 	const newCurrentPage = sitemapResponse.json;
-	// 	dispatch(receiveSitemap(newCurrentPage));
-	// 	dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-	// }
-	//}
 };
 
 const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
@@ -624,12 +646,16 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 		path: currentPage.path,
 		title: '-'
 	});
+	console.log('inside fetch data');
+	console.log(currentPage);
 	switch (currentPage.type) {
 		case PRODUCT_CATEGORY:
 			productFilter = getProductFilterForCategory(
 				app.location.search,
 				app.productFilter.sort
 			);
+			console.log(productFilter);
+
 			dispatch(setCategory(currentPage.resource));
 			dispatch(setProductsFilter(productFilter));
 			dispatch(fetchProducts(currentPage));
