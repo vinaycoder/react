@@ -1,0 +1,47 @@
+
+Navigation Drawer URL:
+https://indiarush.com/irapi/category/getSideMenu/?version=99.99
+
+HomeUrl:
+https://indiarush.com/irapi/promotion/getPromotionData/?id=4&p=1&image=300&version=99.99
+
+
+Product Detail Page
+https://indiarush.com/irapi/product/getProductDetail/?product_id=1132924&customer_id=1533902692&version=99.99
+
+
+Get Guest Customer QuoteId URL: https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99
+
+Product Added to Cart:
+https://indiarush.com/irapi/cart/productAddToCart/
+    Params:{itemId=, product=1132924, quote_id=14578135, isAjax=1, current_p_id=, product_quantity=1}
+
+Get Cart information :
+https://indiarush.com/irapi/cart/getShoppingCartInfo/?quote_id=14578135&pincode=&reset_payment=1&version=99.99
+
+ Check existing User or not :
+https://indiarush.com/irapi/customer/checkRegisteredUser?username=9034689865&version=99.99
+
+Shopping Cart Customer Set (Return registered Customer id) https://indiarush.com/irapi/customer/getGuestCustomerId/?quoteId=14578135&fname=cghjj&username=9034689865&version=99.99
+
+
+Get Customer QuoteId:
+https://indiarush.com/irapi/customer/getCustomerQuoteId/?customerId=1341275&version=99.99
+
+Merge Guest Customer to Customer: https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=14578152&tempQuoteId=14578135&version=99.99
+
+User Address :
+https://indiarush.com/irapi/customer/postUserAddress/?customer_id=1341275&version=99.99
+    Params:{firstname=cghjj, city=Gurgaon, street=good fghj, postcode=122002, telephone=9034689865, region=Haryana}
+
+Map address with given Quote ID:
+https://indiarush.com/irapi/checkout/mapQuoteAddress?quote_id=14578152&address_id=941080&version=99.99
+
+ Get Payment Method List:
+https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId=14578152&version=99.99
+
+Register payment method call
+
+
+Get Cart info based on register payment method
+https://indiarush.com/irapi/cart/getShoppingCartInfo/?quote_id=14578152&pincode=122002&reset_payment=0&version=99.99
