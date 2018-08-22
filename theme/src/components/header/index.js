@@ -82,7 +82,7 @@ export default class Header extends React.Component {
 		this.setState({
 			mobileMenuIsActive: !this.state.mobileMenuIsActive,
 			cartIsActive: false,
-			saveForLaterIsActive:false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -108,7 +108,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive:false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.remove('noscroll');
 	};
@@ -117,7 +117,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: !this.state.cartIsActive,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive:false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -126,7 +126,7 @@ export default class Header extends React.Component {
 		this.setState({
 			saveForLaterIsActive: !this.state.saveForLaterIsActive,
 			mobileMenuIsActive: false,
-			cartIsActive:false
+			cartIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -135,7 +135,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: true,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive:false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -184,7 +184,7 @@ export default class Header extends React.Component {
 				>
 					<div className="container">
 						<div className="columns is-gapless is-mobile header-container">
-							<div className="column is-4">
+							<div className="column is-hidden-tablet">
 								{!showBackButton && (
 									<BurgerButton
 										onClick={this.menuToggle}
@@ -194,10 +194,19 @@ export default class Header extends React.Component {
 								{showBackButton && <BackButton onClick={this.handleGoBack} />}
 							</div>
 
-							<div className="column is-4 has-text-centered">
+							<div className="column has-text-left">
 								<Logo src={settings.logo} onClick={this.closeAll} alt="logo" />
 							</div>
-							<div className="column is-4 has-text-right header-block-right">
+							<div className="column">
+								<SearchBox
+									value={productFilter.search}
+									onSearch={this.handleSearch}
+									className={
+										this.state.mobileSearchIsActive ? 'search-active' : ''
+									}
+								/>
+							</div>
+							<div className="column has-text-right header-block-right">
 								<span
 									className="icon icon-search is-hidden-tablet"
 									onClick={this.searchToggle}
@@ -209,20 +218,15 @@ export default class Header extends React.Component {
 										style={{ minWidth: 24 }}
 									/>
 								</span>
-								<SearchBox
-									value={productFilter.search}
-									onSearch={this.handleSearch}
-									className={
-										this.state.mobileSearchIsActive ? 'search-active' : ''
-									}
-								/>
 								<SaveIndicator
 									cart={cart}
 									onClick={this.saveForLaterToggle}
 									cartIsActive={this.state.saveForLaterIsActive}
 								/>
 								<div
-									className={this.state.saveForLaterIsActive ? 'mini-cart-open' : ''}
+									className={
+										this.state.saveForLaterIsActive ? 'mini-cart-open' : ''
+									}
 								>
 									<SaveForLater
 										cart={cart}
@@ -263,7 +267,9 @@ export default class Header extends React.Component {
 
 				<div
 					className={
-						this.state.mobileMenuIsActive || this.state.cartIsActive || this.state.saveForLaterIsActive
+						this.state.mobileMenuIsActive ||
+						this.state.cartIsActive ||
+						this.state.saveForLaterIsActive
 							? 'dark-overflow'
 							: ''
 					}
