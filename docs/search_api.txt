@@ -1,0 +1,10 @@
+For suggestion:
+http://indiarush.com/irapi/search/getSearchSuggestion/?query=sar&version=3.84
+
+For Search Result:
+http://indiarush.com/irapi/search/getSearchResult/?query=saree&sort=best_seller&page=0&item_count=24&version=3.84
+
+
+For Search Result with Filter:
+
+https://indiarush.com/irapi/search/getSearchResult/?query=Sarees&item_count=20&filters[price]=2000,4000&sort=best_seller&page=0&version=3.83&filters[dress_style]=2161
