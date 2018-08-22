@@ -217,7 +217,7 @@ export default class ProductDetails extends React.Component {
 							</div>
 						</div>
 					</section>
-
+					{/*
 					<section className="section section-product-details">
 						<div className="container">
 							<div className="content">
@@ -277,7 +277,7 @@ export default class ProductDetails extends React.Component {
 							</div>
 						</div>
 					</section>
-
+					*/}
 					<section className="section section-product-similar-wrapper">
 						<div className="container">
 							<div className="content">

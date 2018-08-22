@@ -1,0 +1,18 @@
+Pending Tasks -
+
+Setting the price filter selection and deselection
+Also url setting for the first level url setting
+Also search on the filters
+
+List of applied filters (_ issue / left selection)
+
+Category page Ajax control on page type and filters.
+
+Close after apply in the mobile view.
+
+https://thumbor.readthedocs.io/en/latest/usage.html
+https://medium.com/@nvkudva/myntras-web-ui-journey-amp-and-pwa-77b87523ee7d
+
+URL Type on category page.
+
+C-C

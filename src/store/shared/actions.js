@@ -301,7 +301,8 @@ export const getProductDetails = currentPage => async (dispatch, getState) => {
 			}
 		}
 	}
-
+	console.log('changes for same');
+	/*
 	if (this.state.recommendationProducts) {
 		console.log('loading using category data node');
 		for (const key in this.state.recommendationProducts) {
@@ -320,7 +321,7 @@ export const getProductDetails = currentPage => async (dispatch, getState) => {
 			}
 		}
 	}
-
+*/
 	if (alreadyData === 0) {
 		console.log('loading using api');
 		product = await fetch(
@@ -352,8 +353,10 @@ export const updateCartItemQuantiry = (item_id, quantity) => async (
 	const removeStatus = await fetch(
 		'https://indiarush.com/irapi/cart/updateQuantityonCartUpdate?quote_id=' +
 			quoteId +
-			'&item_id='+item_id+
-			'&new_quantity='+quantity+
+			'&item_id=' +
+			item_id +
+			'&new_quantity=' +
+			quantity +
 			'&version=' +
 			'99.99'
 	)
@@ -361,32 +364,29 @@ export const updateCartItemQuantiry = (item_id, quantity) => async (
 			return result;
 		})
 		.then(jsonResult => {
-		 return jsonResult;
+			return jsonResult;
 		});
-	 if(removeStatus)
-	 {
-		 fetch(
-			 'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
-				 quoteId +
-				 '&pincode=""' +
-				 '&reset_payment=1' +
-				 '&version=' +
-				 '99.99'
-		 )
-			 .then(result => {
-				 return result.json();
-			 })
-			 .then(jsonResult => {
-				 dispatch(receiveCart(jsonResult.data));
-				 dispatch(fetchShippingMethods());
-			 });
-
-	 }
+	if (removeStatus) {
+		fetch(
+			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+				quoteId +
+				'&pincode=""' +
+				'&reset_payment=1' +
+				'&version=' +
+				'99.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				dispatch(receiveCart(jsonResult.data));
+				dispatch(fetchShippingMethods());
+			});
+	}
 	////  for update quantity
 	// const response = await api.ajax.cart.updateItem(item_id, {
 	// 	quantity: quantity
 	// });
-
 };
 
 const requestUpdateCartItemQuantiry = () => ({
