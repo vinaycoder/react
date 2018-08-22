@@ -15,9 +15,7 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 		: item.stock_quantity >= themeSettings.maxCartItemQty
 			? themeSettings.maxCartItemQty
 			: item.stock_quantity;
-
-	for (let i = 0; i <= 10; i++) {
-	// for (let i = 0; i <= maxQty; i++) {
+	for (let i = 0; i <= item.maxQuantity; i++) {
 		const optionText = i === 0 ? text.remove : i;
 		qtyOptions.push(
 			<option key={i} value={i}>
