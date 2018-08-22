@@ -14,11 +14,6 @@ const ItemRatings = ({ product, settings }) => {
 	// 	priceStyle.color = themeSettings.list_price_color;
 	// }
 
-	console.log('product.rating.average_rating');
-	console.log(product.rating.average_rating);
-	console.log('product.rating.rating_count');
-	console.log(product.rating.rating_count);
-
 	if (product.rating.average_rating > 3 && product.rating.rating_count != 0) {
 		return (
 			<div className="product-rating-wrapper">

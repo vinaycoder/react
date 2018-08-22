@@ -17,7 +17,9 @@ const ItemSoldCount = ({ product, settings }) => {
 	if (product.today_sold_count) {
 		return (
 			<div className="product-soldcount-wrapper">
-				<p className="product-soldcount-data-element" />
+				<p className="product-soldcount-data-element">
+					Sold {product.today_sold_count} times today
+				</p>
 			</div>
 		);
 	}

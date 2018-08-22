@@ -22,7 +22,8 @@ class IRSimilarProducts extends Component {
 			topseller_status: undefined,
 			irSimilarProductsLabel: undefined,
 			irStyleWithProductsLabel: undefined,
-			irTopSellerProductsLabel: undefined
+			irTopSellerProductsLabel: undefined,
+			allRecommendations: []
 		};
 	}
 
@@ -30,21 +31,9 @@ class IRSimilarProducts extends Component {
 		// const productId = 1138208;
 		const productId = this.props.product.product_id;
 		const version = 3.81;
-
+		// let allRecommendations[];
 		// let { recommendationProducts } = this.props;
 		// let alreadyData = 0;
-
-		// console.log("this.props");
-		// console.log(this.props);
-		//
-		// console.log("this.state.recommendationProducts");
-		// console.log(this.state);
-
-		// console.log("this.props.recommendationProducts.length");
-		// console.log(this.props.recommendationProducts.length);
-
-		// console.log("Object.keys(recommendationProducts).length");
-		// console.log(Object.keys(recommendationProducts).length);
 
 		// if(this.props.recommendationProducts)
 		// {
@@ -64,13 +53,6 @@ class IRSimilarProducts extends Component {
 		// 			});
 		// }
 
-		//
-		// console.log("alreadyData");
-		// console.log(alreadyData);
-
-		// console.log("recommendationProducts");
-		// console.log(recommendationProducts);
-
 		// if(alreadyData == 0)
 		// {
 		return fetch(
@@ -78,46 +60,35 @@ class IRSimilarProducts extends Component {
 		)
 			.then(result => result.json())
 			.then(jsonResult => {
-				// console.log(jsonResult.similar_status);
-
 				if (jsonResult.similar_status == 1) {
 					this.setState({ irSimilarStatus: jsonResult.similar_status });
 					this.setState({ irSimilarProducts: jsonResult.similar });
 					this.setState({ irSimilarProductsLabel: 'Similar Products' });
-					// console.log("jsonResult.similar");
-					// console.log(jsonResult.similar);
-					//
-					// console.log("this.props.recommendationProducts");
-					// console.log(this.props.recommendationProducts);
-
-					// let getRecommendationProducts = this.props.recommendationProducts;
-					// getRecommendationProducts[`${productId}`]= getRecommendationProducts;
-					// this.props.recommendationProducts.push(getRecommendationProducts);
-					// console.log("getRecommendationProducts");
-					// console.log(getRecommendationProducts);
-					this.setState({
-						recommendationProducts: jsonResult.similar
-					});
-
-					this.props.recommendationProducts.push(jsonResult.similar);
+					this.state.allRecommendations.push(jsonResult.similar);
 				}
 				if (jsonResult.stylewith_status == 1) {
 					this.setState({ irStyleWithStatus: jsonResult.stylewith_status });
 					this.setState({ irStyleWithProducts: jsonResult.style_with });
 					this.setState({ irStyleWithProductsLabel: 'Style With' });
-					this.props.recommendationProducts.push(jsonResult.style_with);
-					this.setState({
-						recommendationProducts: jsonResult.style_with
-					});
+					this.state.allRecommendations.push(jsonResult.style_with);
 				}
 				if (jsonResult.topseller_status == 1) {
 					this.setState({ irTopSellerStatus: jsonResult.topseller_status });
 					this.setState({ irTopSellerProducts: jsonResult.topseller });
 					this.setState({ irTopSellerProductsLabel: 'Top Seller Products' });
-					this.props.recommendationProducts.push(jsonResult.topseller);
-					this.setState({
-						recommendationProducts: jsonResult.topseller
-					});
+					this.state.allRecommendations.push(jsonResult.topseller);
+				}
+
+				if (this.state.allRecommendations) {
+					const mainOptions = this.state.allRecommendations.map(
+						(recommendationProduct, index) => {
+							const subOptions = recommendationProduct.map(
+								(recommendedProduct, index) => {
+									this.props.recommendationProducts.push(recommendedProduct);
+								}
+							);
+						}
+					);
 				}
 
 				// return jsonResult;
