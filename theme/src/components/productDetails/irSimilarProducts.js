@@ -28,33 +28,9 @@ class IRSimilarProducts extends Component {
 	}
 
 	componentDidMount() {
-		// const productId = 1138208;
 		const productId = this.props.product.product_id;
 		const version = 3.81;
-		// let allRecommendations[];
-		// let { recommendationProducts } = this.props;
-		// let alreadyData = 0;
 
-		// if(this.props.recommendationProducts)
-		// {
-		// 			const mainOptions = this.props.recommendationProducts.map((recommendationProduct, index) => {
-		//
-		// 				const subOptions = recommendationProduct.map((recommendedProduct, index) => {
-		//
-		// 								if(recommendedProduct.product_id == this.props.product.product_id )
-		// 								{
-		// 										alreadyData = 1;
-		//
-		//
-		// 								}
-		//
-		// 				});
-		//
-		// 			});
-		// }
-
-		// if(alreadyData == 0)
-		// {
 		return fetch(
 			`https://indiarush.com/irapi/product/getSimilarProduct/?product_id=${productId}&version=${version}`
 		)
@@ -93,13 +69,6 @@ class IRSimilarProducts extends Component {
 
 				// return jsonResult;
 			});
-
-		// }
-		// else{
-		//
-		//
-		//
-		// }
 	}
 
 	render() {

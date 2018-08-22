@@ -309,6 +309,7 @@ export default class ProductDetails extends React.Component {
 							addCartItem={this.addToCart}
 							product={product}
 							limit={25}
+							recommendationProducts={recommendationProducts}
 						/>
 					)}
 				</Fragment>

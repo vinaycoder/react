@@ -322,8 +322,20 @@ export const getProductDetails = currentPage => async (dispatch, getState) => {
 		}
 	}
 */
+
+	if (`${currentPage.resource}`) {
+		const viewedProducts = getArrayFromLocalStorage();
+		if (viewedProducts.includes(`${currentPage.resource}`)) {
+			const index = viewedProducts.indexOf(`${currentPage.resource}`);
+			viewedProducts.splice(index, 1);
+			viewedProducts.push(`${currentPage.resource}`);
+		} else {
+			viewedProducts.push(`${currentPage.resource}`);
+		}
+		localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
+	}
+
 	if (alreadyData === 0) {
-		console.log('loading using api');
 		product = await fetch(
 			`https://indiarush.com/irapi/product/getProductDetail/?product_id=${
 				currentPage.resource
@@ -337,7 +349,6 @@ export const getProductDetails = currentPage => async (dispatch, getState) => {
 			});
 	}
 
-	console.log(product);
 	dispatch(receiveProduct(null));
 	dispatch(receiveProduct(product));
 };
@@ -724,4 +735,21 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 			}
 			break;
 	}
+};
+
+export const getArrayFromLocalStorage = () => {
+	let values = [];
+
+	const viewedProducts = localStorage.getItem('viewedProducts');
+	try {
+		if (viewedProducts && viewedProducts.length > 0) {
+			const viewedProductsParsed = JSON.parse(viewedProducts);
+			if (Array.isArray(viewedProductsParsed)) {
+				values = viewedProductsParsed;
+			}
+		}
+	} catch (e) {
+		//
+	}
+	return values;
 };
