@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
 // import SlickCarousel from "slick-carousel";
-import * as helper from '../../lib/helper';
-import { themeSettings, text } from '../../lib/settings';
+// import * as helper from '../../lib/helper';
+// import { themeSettings, text } from '../../lib/settings';
 
 import ViewedProducts from '../products/viewed';
 import CustomProducts from '../products/custom';
@@ -13,76 +13,6 @@ import CustomProducts from '../products/custom';
 class IRSlickSlider extends Component {
 	constructor(props) {
 		super(props);
-		this.ProductClicked = this.ProductClicked.bind(this);
-	}
-
-	getArrayFromLocalStorage = () => {
-		console.log('getArrayFromLocalStorage');
-		let values = [];
-		const viewedProducts = localStorage.getItem('viewedProducts');
-		console.log('getArrayFromLocalStorage');
-		try {
-			if (viewedProducts && viewedProducts.length > 0) {
-				const viewedProductsParsed = JSON.parse(viewedProducts);
-				if (Array.isArray(viewedProductsParsed)) {
-					values = viewedProductsParsed;
-				}
-			}
-		} catch (e) {
-			//
-		}
-
-		return values;
-	};
-
-	ProductClicked(i, e) {
-		// this.ViewedProducts.addProductIdToLocalStorage(this.props.product.product_id);
-		console.log('ProductClicked e');
-		console.log(e);
-		console.log('ProductClicked ');
-		console.log(this.props);
-
-		let { recommendationProducts } = this.props;
-
-		// this.setState({
-		// 		recommendationProducts : "test"
-		//  })
-
-		if (e.target.getAttribute('id')) {
-			console.log('in here');
-			const viewedProducts = this.getArrayFromLocalStorage();
-			if (viewedProducts.includes(e.target.getAttribute('id'))) {
-				const index = viewedProducts.indexOf(e.target.getAttribute('id'));
-				viewedProducts.splice(index, 1);
-				viewedProducts.push(e.target.getAttribute('id'));
-			} else {
-				viewedProducts.push(e.target.getAttribute('id'));
-			}
-			localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
-			this.setState({ viewedProducts });
-
-			console.log('in recommendationProducts');
-
-			// const values = this.props.products
-			// 	.map(productObj => (
-			//
-			// 		this.setState({
-			// 			 recommendationProducts : productObj
-			// 		 })
-			//
-			// 	));
-			// if(this.props.products)
-			// 	{
-			// 			console.log("in recommendationProducts setter");
-			// 			console.log(this.props.products.recommendationLabel);
-			// 	// this.setState({
-			// 	// 		recommendationProducts : "test"
-			// 	//  })
-			// }
-
-			console.log('recommendationProducts');
-			console.log(recommendationProducts);
-		}
 	}
 
 	render() {
@@ -184,10 +114,6 @@ class IRSlickSlider extends Component {
 										<div className="category-landscape-image-wrapper onsale-category-container-list">
 											<NavLink
 												to={`/${irSimilarProduct.product_urlpath}`}
-												onClick={this.ProductClicked.bind(
-													this,
-													`${irSimilarProduct.product_id}`
-												)}
 												id={irSimilarProduct.product_id}
 											>
 												<img
@@ -203,10 +129,6 @@ class IRSlickSlider extends Component {
 												<div className="products-grid-price-name category-landscape-price-name-wrapper">
 													<NavLink
 														to={`/${irSimilarProduct.product_urlpath}`}
-														onClick={this.ProductClicked.bind(
-															this,
-															`${irSimilarProduct.product_id}`
-														)}
 														id={irSimilarProduct.product_id}
 													>
 														<div className="product-price-discount price_variation_test price_variation_test_convert_v1 convert-cart-v1-test-show">
@@ -227,10 +149,6 @@ class IRSlickSlider extends Component {
 													<div className="product-name">
 														<NavLink
 															to={`/${irSimilarProduct.product_urlpath}`}
-															onClick={this.ProductClicked.bind(
-																this,
-																`${irSimilarProduct.product_id}`
-															)}
 															id={irSimilarProduct.product_id}
 														>
 															{irSimilarProduct.product_name}

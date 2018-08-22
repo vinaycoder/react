@@ -8,7 +8,8 @@ export default class ViewedProducts extends React.Component {
 		limit: PropTypes.number.isRequired,
 		settings: PropTypes.shape({}).isRequired,
 		addCartItem: PropTypes.func.isRequired,
-		product: PropTypes.shape({}).isRequired
+		product: PropTypes.shape({}).isRequired,
+		recommendationProducts: PropTypes.shape({}).isRequired
 	};
 
 	state = {
@@ -77,16 +78,19 @@ export default class ViewedProducts extends React.Component {
 	};
 
 	render() {
-		const { limit, settings, addCartItem, product } = this.props;
+		const {
+			limit,
+			settings,
+			addCartItem,
+			product,
+			recommendationProducts
+		} = this.props;
 		let { viewedProducts } = this.state;
 
 		if (viewedProducts && product && product.product_id) {
 			viewedProducts = viewedProducts.filter(id => id !== product.product_id);
 		}
 
-		console.log('viewedProducts render');
-		console.log(viewedProducts);
-		console.log(viewedProducts.length);
 		if (viewedProducts && viewedProducts.length > 0) {
 			const ids = viewedProducts.reverse().slice(0, limit);
 			return (
@@ -100,6 +104,7 @@ export default class ViewedProducts extends React.Component {
 							settings={settings}
 							addCartItem={addCartItem}
 							limit={limit}
+							recommendationProducts={recommendationProducts}
 						/>
 					</div>
 				</section>

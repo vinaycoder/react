@@ -45,6 +45,11 @@ class SwitchContainers extends React.Component {
 	}
 
 	componentDidMount() {
+		// console.log("currentPage mine");
+		// console.log(currentPage);
+		// console.log("currentPage.type mine");
+		// console.log(currentPage.type);
+
 		if (!cookie.load('userQuoteId')) {
 			fetch(
 				'https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99'

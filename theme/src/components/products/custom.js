@@ -60,17 +60,14 @@ export default class CustomProducts extends React.Component {
 
 	componentDidMount() {
 		this.isCancelled = false;
-		console.log('custom componentDidMount');
 		this.fetchProducts(this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('custom componentWillReceiveProps');
 		this.fetchProducts(nextProps);
 	}
 
 	componentWillUnmount() {
-		console.log('custom componentWillUnmount');
 		this.isCancelled = true;
 	}
 
@@ -108,8 +105,6 @@ export default class CustomProducts extends React.Component {
 			});
 		}
 
-		console.log('in here');
-
 		fetch(
 			`https://indiarush.com/irapi/product/getProductDetailsBasedOnProductIds/?product_id=${ids}&version=3.81`
 		)
@@ -121,6 +116,14 @@ export default class CustomProducts extends React.Component {
 				this.setState({
 					products: jsonResult.data.products
 				});
+
+				if (jsonResult.data.products) {
+					const mainOptions = jsonResult.data.products.map(
+						(recommendationProduct, index) => {
+							this.props.recommendationProducts.push(recommendationProduct);
+						}
+					);
+				}
 			});
 	};
 
@@ -135,7 +138,8 @@ export default class CustomProducts extends React.Component {
 			columnCountOnTablet,
 			columnCountOnDesktop,
 			columnCountOnWidescreen,
-			columnCountOnFullhd
+			columnCountOnFullhd,
+			recommendationProducts
 		} = this.props;
 
 		const { products } = this.state;

@@ -85,11 +85,11 @@ class Pincode extends Component {
 						</div>
 						<div className="product-pincode-checker font-medium">
 							<div className="product-pincode-checker-box">
-								<label for="product-pincode-checker">
+								<label htmlFor="product-pincode-checker">
 									Enter your Pincode to check shipping time
 								</label>
 								<input
-									maxlength="6"
+									maxLength="6"
 									id="product-pincode-checker"
 									onChange={e => this.checkPincode(e)}
 									className="product-pincode-checker-input"

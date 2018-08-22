@@ -100,7 +100,7 @@ const AddToCartButton = ({
 							className="addToCartBtnIcon productCTAIcons"
 							data-content="bar"
 						>
-							<i class="material-icons">shopping_cart</i>
+							<i className="material-icons">shopping_cart</i>
 						</span>
 					</div>
 				</button>
@@ -126,7 +126,7 @@ const AddToCartButton = ({
 								className="buyNowBtnIcon productCTAIcons"
 								data-content="bar"
 							>
-								<i class="material-icons">play_arrow</i>
+								<i className="material-icons">play_arrow</i>
 							</span>
 						</span>
 					</div>
