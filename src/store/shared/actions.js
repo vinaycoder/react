@@ -329,16 +329,45 @@ export const updateCartItemQuantiry = (item_id, quantity) => async (
 	getState
 ) => {
 	dispatch(requestUpdateCartItemQuantiry());
+	const quoteId = cookie.load('userQuoteId');
+	const removeStatus = await fetch(
+		'https://indiarush.com/irapi/cart/updateQuantityonCartUpdate?quote_id=' +
+			quoteId +
+			'&item_id='+item_id+
+			'&new_quantity='+quantity+
+			'&version=' +
+			'99.99'
+	)
+		.then(result => {
+			return result;
+		})
+		.then(jsonResult => {
+		 return jsonResult;
+		});
+	 if(removeStatus)
+	 {
+		 fetch(
+			 'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+				 quoteId +
+				 '&pincode=""' +
+				 '&reset_payment=1' +
+				 '&version=' +
+				 '99.99'
+		 )
+			 .then(result => {
+				 return result.json();
+			 })
+			 .then(jsonResult => {
+				 dispatch(receiveCart(jsonResult.data));
+				 dispatch(fetchShippingMethods());
+			 });
 
-	console.log('vinay in action');
-	console.log(item_id);
-	console.log(quantity);
-	return false;
-	const response = await api.ajax.cart.updateItem(item_id, {
-		quantity: quantity
-	});
-	dispatch(receiveCart(response.json));
-	dispatch(fetchShippingMethods());
+	 }
+	////  for update quantity
+	// const response = await api.ajax.cart.updateItem(item_id, {
+	// 	quantity: quantity
+	// });
+
 };
 
 const requestUpdateCartItemQuantiry = () => ({
@@ -364,9 +393,6 @@ const removeStatus = await fetch(
 	.then(jsonResult => {
 	 return jsonResult;
 	});
-	console.log('vinay delete cart');
-	console.log(removeStatus);
-	console.log(item_id);
  if(removeStatus)
  {
 	 fetch(
