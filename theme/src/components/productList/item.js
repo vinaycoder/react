@@ -11,40 +11,7 @@ import ItemRatings from './itemRatings';
 class Item extends React.Component {
 	constructor(props) {
 		super(props);
-		// this.ProductClicked = this.ProductClicked.bind(this);
 	}
-
-	// getArrayFromLocalStorage = () => {
-	// 	let values = [];
-	// 	const viewedProducts = localStorage.getItem('viewedProducts');
-	// 	try {
-	// 		if (viewedProducts && viewedProducts.length > 0) {
-	// 			const viewedProductsParsed = JSON.parse(viewedProducts);
-	// 			if (Array.isArray(viewedProductsParsed)) {
-	// 				values = viewedProductsParsed;
-	// 			}
-	// 		}
-	// 	} catch (e) {
-	// 		//
-	// 	}
-	//
-	// 	return values;
-	// };
-
-	// ProductClicked(i, e) {
-	// 	if (this.props.product.product_id) {
-	// 		const viewedProducts = this.getArrayFromLocalStorage();
-	// 		if (viewedProducts.includes(this.props.product.product_id)) {
-	// 			const index = viewedProducts.indexOf(this.props.product.product_id);
-	// 			viewedProducts.splice(index, 1);
-	// 			viewedProducts.push(this.props.product.product_id);
-	// 		} else {
-	// 			viewedProducts.push(this.props.product.product_id);
-	// 		}
-	// 		localStorage.setItem('viewedProducts', JSON.stringify(viewedProducts));
-	// 		this.setState({ viewedProducts });
-	// 	}
-	// }
 
 	render() {
 		const {
@@ -103,7 +70,6 @@ class Item extends React.Component {
 									type: 'product'
 								}
 							}}
-							// onClick={this.ProductClicked.bind(this, `${product.product_id}`)}
 							id={product.product_id}
 							// itemId={product.product_id}
 						>
@@ -141,7 +107,6 @@ class Item extends React.Component {
 									type: 'product'
 								}
 							}}
-							onClick={this.ProductClicked.bind(this, `${product.product_id}`)}
 							id={product.product_id}
 							itemId={product.product_id}
 						>
