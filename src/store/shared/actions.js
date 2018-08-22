@@ -302,6 +302,25 @@ export const getProductDetails = currentPage => async (dispatch, getState) => {
 		}
 	}
 
+	if (this.state.recommendationProducts) {
+		console.log('loading using category data node');
+		for (const key in this.state.recommendationProducts) {
+			console.log('this.state.recommendationProducts.product_id');
+			console.log(this.state.recommendationProducts.product_id);
+
+			console.log('currentPage.resource');
+			console.log(currentPage.resource);
+
+			if (
+				this.state.recommendationProducts.product_id == currentPage.resource
+			) {
+				console.log('abhinesh');
+				// product = app.products[key];
+				alreadyData = 1;
+			}
+		}
+	}
+
 	if (alreadyData === 0) {
 		console.log('loading using api');
 		product = await fetch(
@@ -349,47 +368,46 @@ export const deleteCartItem = item_id => async (dispatch, getState) => {
 	dispatch(requestDeleteCartItem());
 
 	const { app } = getState();
-//  for deleting cart item
-const quoteId = cookie.load('userQuoteId');
-const removeStatus = await fetch(
-	'https://indiarush.com/irapi/cart/remove?quote_id=' +
-		quoteId +
-		'&item_id='+item_id+
-		'&version=' +
-		'99.99'
-)
-	.then(result => {
-		return result;
-	})
-	.then(jsonResult => {
-	 return jsonResult;
-	});
+	//  for deleting cart item
+	const quoteId = cookie.load('userQuoteId');
+	const removeStatus = await fetch(
+		'https://indiarush.com/irapi/cart/remove?quote_id=' +
+			quoteId +
+			'&item_id=' +
+			item_id +
+			'&version=' +
+			'99.99'
+	)
+		.then(result => {
+			return result;
+		})
+		.then(jsonResult => {
+			return jsonResult;
+		});
 	console.log('vinay delete cart');
 	console.log(removeStatus);
 	console.log(item_id);
- if(removeStatus)
- {
-	 fetch(
-		 'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
-			 quoteId +
-			 '&pincode=""' +
-			 '&reset_payment=1' +
-			 '&version=' +
-			 '99.99'
-	 )
-		 .then(result => {
-			 return result.json();
-		 })
-		 .then(jsonResult => {
-			 dispatch(receiveCart(jsonResult.data));
-			 dispatch(fetchShippingMethods());
-			 // this.props.state.cart = jsonResult.data;
-			 // this.setState({
+	if (removeStatus) {
+		fetch(
+			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+				quoteId +
+				'&pincode=""' +
+				'&reset_payment=1' +
+				'&version=' +
+				'99.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				dispatch(receiveCart(jsonResult.data));
+				dispatch(fetchShippingMethods());
+				// this.props.state.cart = jsonResult.data;
+				// this.setState({
 				//  cart: jsonResult.data
-			 // });
-		 });
-
- }
+				// });
+			});
+	}
 
 	//const response = await api.ajax.cart.deleteItem(item_id);
 
@@ -592,22 +610,19 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 						resource: null
 					};
 				} else {
-					if(locationPathname=='/checkout')
-					{
+					if (locationPathname == '/checkout') {
 						return {
-							type: "page",
-							path: "/checkout",
-							resource: "5b6984d45452db221b4044f2"
+							type: 'page',
+							path: '/checkout',
+							resource: '5b6984d45452db221b4044f2'
 						};
-					}
-					else{
+					} else {
 						return {
 							type: jsonResult.type,
 							path: locationPathname,
 							resource: jsonResult.id
 						};
 					}
-
 				}
 			});
 		console.log('returning new page type');
