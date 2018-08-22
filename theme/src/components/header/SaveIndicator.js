@@ -22,16 +22,14 @@ const CartIcon = ({ cartIsActive }) => {
 			/>
 		);
 	}
-	return (
-		<i className="material-icons icon">shopping_cart</i>
-	);
+	return <i className="material-icons">favorite_border</i>;
 };
 
-export default class CartIndicator extends React.PureComponent {
+export default class SaveIndicator extends React.PureComponent {
 	render() {
 		const { cart, onClick, cartIsActive } = this.props;
 		return (
-			<span className="cart-button" onClick={onClick}>
+			<span className="cart-button save-for-later-button" onClick={onClick}>
 				<CartIcon cartIsActive={cartIsActive} />
 				<CartCount cart={cart} />
 			</span>

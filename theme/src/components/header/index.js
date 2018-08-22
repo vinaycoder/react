@@ -6,6 +6,8 @@ import CartIndicator from './cartIndicator';
 import SearchBox from './searchBox';
 import HeadMenu from './headMenu';
 import cookie from 'react-cookies';
+import SaveIndicator from './SaveIndicator';
+import SaveForLater from './saveForLater';
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
 		<span className="sprites mobileLogo " alt={alt} />
@@ -40,6 +42,7 @@ export default class Header extends React.Component {
 			mobileMenuIsActive: false,
 			mobileSearchIsActive: false,
 			cartIsActive: false,
+			saveForLaterIsActive: false,
 			cart: []
 		};
 	}
@@ -78,7 +81,8 @@ export default class Header extends React.Component {
 	menuToggle = () => {
 		this.setState({
 			mobileMenuIsActive: !this.state.mobileMenuIsActive,
-			cartIsActive: false
+			cartIsActive: false,
+			saveForLaterIsActive:false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -103,7 +107,8 @@ export default class Header extends React.Component {
 	closeAll = () => {
 		this.setState({
 			cartIsActive: false,
-			mobileMenuIsActive: false
+			mobileMenuIsActive: false,
+			saveForLaterIsActive:false
 		});
 		document.body.classList.remove('noscroll');
 	};
@@ -111,7 +116,17 @@ export default class Header extends React.Component {
 	cartToggle = () => {
 		this.setState({
 			cartIsActive: !this.state.cartIsActive,
-			mobileMenuIsActive: false
+			mobileMenuIsActive: false,
+			saveForLaterIsActive:false
+		});
+		document.body.classList.toggle('noscroll');
+	};
+
+	saveForLaterToggle = () => {
+		this.setState({
+			saveForLaterIsActive: !this.state.saveForLaterIsActive,
+			mobileMenuIsActive: false,
+			cartIsActive:false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -119,7 +134,16 @@ export default class Header extends React.Component {
 	showCart = () => {
 		this.setState({
 			cartIsActive: true,
-			mobileMenuIsActive: false
+			mobileMenuIsActive: false,
+			saveForLaterIsActive:false
+		});
+		document.body.classList.add('noscroll');
+	};
+	saveForLaterShow = () => {
+		this.setState({
+			cartIsActive: false,
+			mobileMenuIsActive: false,
+			saveForLaterIsActive: false
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -192,12 +216,28 @@ export default class Header extends React.Component {
 										this.state.mobileSearchIsActive ? 'search-active' : ''
 									}
 								/>
+								<SaveIndicator
+									cart={cart}
+									onClick={this.saveForLaterToggle}
+									cartIsActive={this.state.saveForLaterIsActive}
+								/>
+								<div
+									className={this.state.saveForLaterIsActive ? 'mini-cart-open' : ''}
+								>
+									<SaveForLater
+										cart={cart}
+										deleteCartItem={this.props.deleteCartItem}
+										settings={settings}
+										cartToggle={this.saveForLaterToggle}
+									/>
+								</div>
 
 								<CartIndicator
 									cart={cart}
 									onClick={this.cartToggle}
 									cartIsActive={this.state.cartIsActive}
 								/>
+
 								<div
 									className={this.state.cartIsActive ? 'mini-cart-open' : ''}
 								>
@@ -223,7 +263,7 @@ export default class Header extends React.Component {
 
 				<div
 					className={
-						this.state.mobileMenuIsActive || this.state.cartIsActive
+						this.state.mobileMenuIsActive || this.state.cartIsActive || this.state.saveForLaterIsActive
 							? 'dark-overflow'
 							: ''
 					}
