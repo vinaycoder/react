@@ -82,11 +82,11 @@ class Item extends React.Component {
 								/>
 							</figure>
 							<div className="content product-caption">
-								<div className="product-name">{product.product_name}</div>
 								<ItemPrice product={product} settings={settings} />
+								<div className="product-name">{product.product_name}</div>
 								<ItemSize product={product} settings={settings} />
-								<ItemSoldCount product={product} settings={settings} />
 								<ItemRatings product={product} settings={settings} />
+								<ItemSoldCount product={product} settings={settings} />
 							</div>
 						</NavLink>
 					</div>
@@ -119,10 +119,10 @@ class Item extends React.Component {
 								/>
 							</figure>
 							<div className="content product-caption">
-								<div className="product-name">{product.product_name}</div>
-								<ItemPrice product={product} settings={settings} />
-								<ItemSize product={product} settings={settings} />
 								<ItemSoldCount product={product} settings={settings} />
+								<ItemPrice product={product} settings={settings} />
+								<div className="product-name">{product.product_name}</div>
+								<ItemSize product={product} settings={settings} />
 								<ItemRatings product={product} settings={settings} />
 							</div>
 						</NavLink>

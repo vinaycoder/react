@@ -18,7 +18,12 @@ const ItemSoldCount = ({ product, settings }) => {
 		return (
 			<div className="product-soldcount-wrapper">
 				<p className="product-soldcount-data-element">
-					Sold {product.today_sold_count} times today
+					<i className="material-icons catRatingNotification">
+						notifications_active
+					</i>
+					<span className="cat_sold_count_label">
+						Sold {product.today_sold_count} times today
+					</span>
 				</p>
 			</div>
 		);

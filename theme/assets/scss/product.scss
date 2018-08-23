@@ -977,3 +977,38 @@ margin-left: 4px;
 .span10 {
     color: #ff3232;
 }
+
+.catRatingUnselectedStarIconWidth
+{
+  width: 15px;
+  height: 15px;
+}
+.catRatinglabel{
+
+  float: right;
+  padding-right: 10%;
+}
+.product-soldcount-wrapper{
+
+  // position: relative;
+}
+.product-soldcount-data-element{
+
+  // position: absolute;
+  top: -40px;
+  background-color: #7ddaeb;
+  color: black;
+  width: 100%;
+}
+.catRatingNotification{
+
+  width: 15px;
+  height: 15px;
+  margin: 0px 20px 0 0;
+  color: #ff3232;
+}
+.cat_sold_count_label{
+
+  vertical-align: top;
+
+}
