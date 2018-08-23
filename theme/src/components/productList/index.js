@@ -58,8 +58,8 @@ class ProductList extends React.Component {
 		return (
 			<Fragment>
 				<div>
-					<div onClick={this.onChangeToGrid}>Move To Grid</div>
-					<div onClick={this.onChangeToList}>Move To List</div>
+					<span onClick={this.onChangeToGrid}>Move To Grid</span>
+					<span onClick={this.onChangeToList}>Move To List</span>
 				</div>
 				<div
 					className={
