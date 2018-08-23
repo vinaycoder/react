@@ -24,25 +24,31 @@ const CATEGORIES_FIELDS =
 
 const getCurrentPage = path => {
 	console.log('in current page');
-	return fetch(
-		`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${path}&version=3.64`
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			if (jsonResult == 'null') {
-				return {
-					type: 404,
-					path: path,
-					resource: null
-				};
-			} else {
-				if (path == '/checkout') {
+	if (path == '/checkout') {
+		return {
+			type: 'page',
+			path: '/checkout',
+			resource: '5b6984d45452db221b4044f2'
+		};
+	} else if (path == '/search') {
+		return {
+			type: 'search',
+			path: '/search',
+			resource: ''
+		};
+	} else {
+		return fetch(
+			`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${path}&version=3.64`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				if (jsonResult == 'null') {
 					return {
-						type: 'page',
-						path: '/checkout',
-						resource: '5b6984d45452db221b4044f2'
+						type: 404,
+						path: path,
+						resource: null
 					};
 				} else {
 					return {
@@ -51,31 +57,13 @@ const getCurrentPage = path => {
 						resource: jsonResult.id
 					};
 				}
-			}
-		});
-
-	// return api.sitemap
-	// 	.retrieve({ path: path, enabled: true })
-	// 	.then(sitemapResponse => {
-	// 		if (sitemapResponse.status === 200) {
-	// 			return sitemapResponse.json;
-	// 		} else if (sitemapResponse.status === 404) {
-	// 			return {
-	// 				type: 404,
-	// 				path: path,
-	// 				resource: null
-	// 			};
-	// 		} else {
-	// 			return Promise.reject(`Page response code = ${sitemapResponse.status}`);
-	// 		}
-	// 	});
+			});
+	}
 };
 
 const getProducts = (currentPage, productFilter) => {
 	let filter = getParsedProductFilter(productFilter);
 	filter.enabled = true;
-	console.log('list of filter');
-	console.log(filter);
 
 	if (currentPage.type === PRODUCT_CATEGORY || currentPage.type === SEARCH) {
 		//Default Filter Flow
@@ -91,43 +79,75 @@ const getProducts = (currentPage, productFilter) => {
 		if (filter.sort) {
 			sortListURl = filter.sort;
 		}
-		console.log('in search of category page');
 
-		return fetch(
-			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
-				currentPage.resource
-			}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
-		)
-			.then(result => result.json())
-			.then(jsonResult => {
-				console.log('logging category products data');
-				return jsonResult.data;
-			});
+		if (currentPage.type === PRODUCT_CATEGORY) {
+			return fetch(
+				`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+					currentPage.resource
+				}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
+			)
+				.then(result => result.json())
+				.then(jsonResult => {
+					console.log('logging category products data');
+					return jsonResult.data;
+				});
+		}
 
-		// return api.products.list(filter).then(({ status, json }) => json);
+		if (currentPage.type === SEARCH) {
+			return fetch(
+				`https://indiarush.com/irapi/search/getSearchResult/?query=${
+					filter.search
+				}&sort=${sortListURl}&page=0&item_count=48&version=3.83${filterListURL}`
+			)
+				.then(result => result.json())
+				.then(jsonResult => {
+					console.log('logging search products data');
+					return jsonResult.data;
+				});
+		}
 	}
 	return null;
 };
 
 const getProductsAttributes = (currentPage, productFilter) => {
+	let filter = getParsedProductFilter(productFilter);
+	filter.enabled = true;
+
 	if (currentPage.type === PRODUCT_CATEGORY || currentPage.type === SEARCH) {
 		console.log('in search of category page');
-
-		return fetch(
-			`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
-				currentPage.resource
-			}&version=3.81`
-		)
-			.then(result => {
-				return result.json();
-			})
-			.then(jsonResult => {
-				return jsonResult.data.filters;
-			});
-
-		// let filter = getParsedProductFilter(productFilter);
-		// filter.enabled = true;
-		// return api.products.list(filter).then(({ status, json }) => json);
+		//Default Filter Flow
+		let filterListURL = '';
+		for (const queryFilter in filter.filters) {
+			filterListURL = `${filterListURL}&filters[${queryFilter}]=${
+				filter.filters[queryFilter]
+			}`;
+		}
+		if (currentPage.type === PRODUCT_CATEGORY) {
+			return fetch(
+				`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
+					currentPage.resource
+				}&version=3.81${filterListURL}`
+			)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					return jsonResult.data.filters;
+				});
+		}
+		if (currentPage.type === SEARCH) {
+			return fetch(
+				`https://indiarush.com/irapi/category/getCategoryFilters/?query=${
+					filter.search
+				}&version=3.81${filterListURL}`
+			)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					return jsonResult.data.filters;
+				});
+		}
 	} else {
 		return null;
 	}
