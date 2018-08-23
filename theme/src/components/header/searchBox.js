@@ -10,13 +10,11 @@ export default class SearchBox extends React.Component {
 			hasFocus: false,
 			suggest: []
 		};
+		this.handleSuggest = this.handleSuggest.bind(this);
 	}
 
 	handleChange = event => {
 		this.setState({ value: event.target.value });
-		console.log('changes for the key');
-		console.log(this.state.value);
-		console.log(event.target.value);
 		fetch(
 			`https://indiarush.com/irapi/search/getSearchSuggestion/?query=${
 				event.target.value
@@ -46,8 +44,15 @@ export default class SearchBox extends React.Component {
 		this.props.onSearch(this.state.value);
 	};
 
+	handleSuggest = suggest => {
+		this.setState({ value: suggest });
+		this.props.onSearch(suggest);
+		this.setState({ suggest: '' });
+	};
+
 	handleClear = () => {
 		this.setState({ value: '' });
+		this.setState({ suggest: '' });
 		this.props.onSearch('');
 	};
 
@@ -66,14 +71,14 @@ export default class SearchBox extends React.Component {
 			themeSettings.search_placeholder.length > 0
 				? themeSettings.search_placeholder
 				: text.searchPlaceholder;
-		console.log('logging state suggest');
-		console.log(this.state.suggest);
 		let suggestions = [];
-		console.log(suggest);
 		if (suggest.length > 0) {
-			console.log('inside');
 			suggestions = suggest.map(suggestion => (
-				<Suggest key={suggestion} suggestion={suggestion} />
+				<Suggest
+					key={suggestion}
+					suggestion={suggestion}
+					handleSuggest={this.handleSuggest}
+				/>
 			));
 		}
 
@@ -118,7 +123,15 @@ export default class SearchBox extends React.Component {
 		);
 	}
 }
-
-const Suggest = ({ suggestion }) => {
-	return <div>{suggestion}</div>;
-};
+class Suggest extends React.Component {
+	constructor(props) {
+		super(props);
+		this.onClick = this.onClick.bind(this);
+	}
+	onClick() {
+		this.props.handleSuggest(this.props.suggestion);
+	}
+	render() {
+		return <div onClick={this.onClick}>{this.props.suggestion}</div>;
+	}
+}
