@@ -30,7 +30,8 @@ const AddToCartButton = ({
 		themeSettings.button_addtocart_text.length > 0
 			? themeSettings.button_addtocart_text
 			: text.addToCart;
-
+			console.log('vinay in prduct');
+console.log(product);
 	if (!product.is_salable) {
 		return (
 			<div
@@ -86,7 +87,9 @@ const AddToCartButton = ({
 					id="buy-button"
 					type="button"
 					title="Add to My Cart"
-					onClick={addCartItem}
+					onClick={e => {
+						addCartItem('addCart');
+					}}
 					className="orange-button btn-cart product-page-add-to-cart-button btn-cart-product btn-cart-product-main proAddToCartBtn"
 				>
 					<div id="buy-now">
@@ -109,6 +112,9 @@ const AddToCartButton = ({
 					id="buy-now-button"
 					type="button"
 					title="Buy Now"
+					onClick={e => {
+						addCartItem('buyNow');
+					}}
 					className="orange-button btn-buy"
 				>
 					<div id="buy-now-label">

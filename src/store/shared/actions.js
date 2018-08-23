@@ -200,7 +200,7 @@ const requestCart = () => ({ type: t.CART_REQUEST });
 
 const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 
-export const addCartItem = item => async (dispatch, getState) => {
+export const addCartItem = (item, history) => async (dispatch, getState) => {
 	dispatch(requestAddCartItem());
 	// calling for the quote
 	/*
@@ -278,6 +278,10 @@ export const addCartItem = item => async (dispatch, getState) => {
 	// const response = await api.ajax.cart.addItem(item);
 	// const cart = response.json;
 	dispatch(receiveCart(cart));
+	if(item.type=='buyNow')
+	{
+		history.push('/checkout');
+	}
 	// const cart = response.json;
 	// dispatch(receiveCart(cart));
 	analytics.addCartItem({

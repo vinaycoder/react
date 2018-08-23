@@ -98,14 +98,20 @@ export default class ProductDetails extends React.Component {
 		this.setState({ quantity });
 	};
 
-	addToCart() {
+	addToCart(clickType) {
 		const { product, addCartItem } = this.props;
 		const { selectedVariant, quantity } = this.state;
 
 		const item = {
 			product_id: product.product_id,
-			quantity: quantity
+			quantity: quantity,
+			type:null
 		};
+
+		if(clickType=='buyNow')
+		{
+			item.type = clickType;
+		}
 
 		if (selectedVariant) {
 			item.variant_id = selectedVariant.product_id;

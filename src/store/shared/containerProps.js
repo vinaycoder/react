@@ -29,7 +29,7 @@ export const mapStateToProps = (state, ownProps) => {
 export const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		addCartItem: item => {
-			dispatch(addCartItem(item));
+			dispatch(addCartItem(item, ownProps.history));
 		},
 		deleteCartItem: item_id => {
 			dispatch(deleteCartItem(item_id));
