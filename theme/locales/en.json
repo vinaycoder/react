@@ -73,5 +73,10 @@
   "edit": "Edit",
   "next": "Next",
   "customerDetails": "Customer Details",
-  "payment": "Payment"
+  "payment": "Payment",
+  "signInToAccess": "Sign In To Access Your My Account, Order And Feed. ",
+  "signIn": "Sign in",
+  "dontHaveIrAcc": "Don't Have IndiaRush Account ?",
+  "createAccount" : "Create Account",
+  "loginLabel" : "Login Account"
 }

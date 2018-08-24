@@ -1,5 +1,12 @@
 import * as t from './actionTypes';
-import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './pageTypes';
+import {
+	PAGE,
+	PRODUCT_CATEGORY,
+	PRODUCT,
+	RESERVED,
+	SEARCH,
+	LOGIN
+} from './pageTypes';
 import queryString from 'query-string';
 import { animateScroll } from 'react-scroll';
 import api from '../client/api';
@@ -34,21 +41,36 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 	if (app.productFilter.sort) {
 		sortListURl = app.productFilter.sort;
 	}
-
+	let products = {};
 	//TODO - On changing sorting only the product list should change not filter list.
-
-	const products = await fetch(
-		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
-			currentPage.resource
-		}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			console.log('logging category products data');
-			return jsonResult.data;
-		});
+	if (currentPage.type === PRODUCT_CATEGORY) {
+		products = await fetch(
+			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+				currentPage.resource
+			}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log('logging category products data');
+				return jsonResult.data;
+			});
+	}
+	if (currentPage.type === SEARCH) {
+		products = await fetch(
+			`https://indiarush.com/irapi/search/getSearchResult/?query=${
+				filter.search
+			}&sort=${sortListURl}&page=0&item_count=48&version=3.81${filterListURL}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log('logging search data');
+				return jsonResult.data;
+			});
+	}
 
 	if (products.products_count > 48) {
 		products.has_more = true;
@@ -56,17 +78,32 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 
 	products.productsPage = 0;
 
-	products.attributes = await fetch(
-		`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
-			currentPage.resource
-		}&version=3.81${filterListURL}`
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			return jsonResult.data.filters;
-		});
+	if (currentPage.type === PRODUCT_CATEGORY) {
+		products.attributes = await fetch(
+			`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${
+				currentPage.resource
+			}&version=3.81${filterListURL}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				return jsonResult.data.filters;
+			});
+	}
+	if (currentPage.type === SEARCH) {
+		products.attributes = await fetch(
+			`https://indiarush.com/irapi/category/getCategoryFilters/?query=${
+				filter.search
+			}&version=3.81${filterListURL}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				return jsonResult.data.filters;
+			});
+	}
 
 	dispatch(receiveProducts(null));
 	dispatch(receiveProducts(products));
@@ -150,19 +187,35 @@ export const fetchMoreProducts = () => async (dispatch, getState) => {
 	if (app.productFilter.sort) {
 		sortListURl = app.productFilter.sort;
 	}
-
-	const products = await fetch(
-		`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
-			currentPage.resource
-		}&sort=${sortListURl}&page=${newProductsPage}&item_count=48&version=3.81${filterListURL}`
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			console.log('logging category products data');
-			return jsonResult.data;
-		});
+	let products = {};
+	if (currentPage.type === PRODUCT_CATEGORY) {
+		products = await fetch(
+			`https://indiarush.com/irapi/category/getCategoryResult/?category_id=${
+				currentPage.resource
+			}&sort=${sortListURl}&page=${newProductsPage}&item_count=48&version=3.81${filterListURL}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log('logging category products data');
+				return jsonResult.data;
+			});
+	}
+	if (currentPage.type === SEARCH) {
+		products = await fetch(
+			`https://indiarush.com/irapi/search/getSearchResult/?query=${
+				filter.search
+			}&sort=${sortListURl}&page=${newProductsPage}&item_count=48&version=3.81${filterListURL}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log('logging category products data');
+				return jsonResult.data;
+			});
+	}
 
 	products.productsPage = newProductsPage;
 	if ((newProductsPage + 1) * 48 < products.products_count) {
@@ -278,8 +331,7 @@ export const addCartItem = (item, history) => async (dispatch, getState) => {
 	// const response = await api.ajax.cart.addItem(item);
 	// const cart = response.json;
 	dispatch(receiveCart(cart));
-	if(item.type=='buyNow')
-	{
+	if (item.type == 'buyNow') {
 		history.push('/checkout');
 	}
 	// const cart = response.json;
@@ -288,6 +340,19 @@ export const addCartItem = (item, history) => async (dispatch, getState) => {
 		item: item,
 		cart: cart
 	});
+};
+
+export const getLoginDetails = currentPage => async (dispatch, getState) => {
+	// dispatch(requestProduct());
+	// const { app } = getState();
+	// console.log(app);
+	// let product = {};
+	// let alreadyData = 0;
+
+	console.log('getLoginDetails');
+
+	// dispatch(receiveProduct(null));
+	// dispatch(receiveProduct(product));
 };
 
 export const getProductDetails = currentPage => async (dispatch, getState) => {
@@ -660,6 +725,18 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 							path: '/checkout',
 							resource: '5b6984d45452db221b4044f2'
 						};
+					} else if (locationPathname == '/search') {
+						return {
+							type: 'search',
+							path: '/search',
+							resource: ''
+						};
+					} else if (locationPathname == '/customer/account/login') {
+						return {
+							type: 'login',
+							path: '/customer/account/login',
+							resource: ''
+						};
 					} else {
 						return {
 							type: jsonResult.type,
@@ -720,13 +797,22 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 			dispatch(fetchProducts(currentPage));
 			break;
 		case SEARCH:
-			productFilter = getProductFilterForSearch(app.location.search);
+			productFilter = getProductFilterForSearch(
+				app.location.search,
+				app.productFilter.sort
+			);
 			dispatch(setProductsFilter(productFilter));
-			dispatch(fetchProducts());
+			dispatch(fetchProducts(currentPage));
 			analytics.search({ searchText: productFilter.search });
 			break;
 		case PRODUCT:
 			dispatch(getProductDetails(currentPage));
+			// const productData = currentPage.data;
+			// dispatch(receiveProduct(productData));
+			// analytics.productView({ product: productData });
+			break;
+		case LOGIN:
+			dispatch(getLoginDetails());
 			// const productData = currentPage.data;
 			// dispatch(receiveProduct(productData));
 			// analytics.productView({ product: productData });

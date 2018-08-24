@@ -1,13 +1,13 @@
 for Product Details :
-http://indiarush.com/irapi/product/getProductDetail/?product_id=1115931&customer_id=1190839&version=3.81
+https://indiarush.com/irapi/product/getProductDetail/?product_id=1115931&customer_id=1190839&version=3.81
 
 
 For Size chart:
-http://indiarush.com/irapi/product/getSizeChart/?productId=1138208&version=3.81
+https://indiarush.com/irapi/product/getSizeChart/?productId=1138208&version=3.81
 
 
 For Similar Product list:
-http://indiarush.com/irapi/product/getSimilarProduct/?product_id=1138208&version=3.81
+https://indiarush.com/irapi/product/getSimilarProduct/?product_id=1138208&version=3.81
 
 
 For Pincode check:

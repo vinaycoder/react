@@ -310,3 +310,44 @@ body.search-active .mobile-nav {
     height: 2rem;
   }
 }
+
+.customerAccountCreate{
+
+  text-decoration: underline;
+  color:#f60;
+}
+
+.facebook-login-div{
+
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.btn-cart-header-wrapper{
+
+  width: 100%;
+  min-height: 40px;
+  margin-bottom: 10px;
+}
+
+.signInToAccess{
+
+  text-align:center;
+    margin-bottom:10px;
+}
+
+.facebookloginbutton {
+    background-color: #3b5998;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    border: 0 none;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 10px;
+    -webkit-appearance: none !important;
+}

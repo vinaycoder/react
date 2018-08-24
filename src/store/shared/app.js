@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { animateScroll } from 'react-scroll';
+import Time from 'react-time';
 
 import IndexContainer from './containers/index';
 import SharedContainer from './containers/shared';
@@ -13,13 +14,26 @@ import CheckoutContainer from './containers/checkout';
 import CheckoutSuccessContainer from './containers/checkoutSuccess';
 import NotFoundContainer from './containers/notfound';
 import SearchContainer from './containers/search';
+// import LoginContainer from './containers/login';
 
 import { setCurrentPage } from './actions';
-import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './pageTypes';
+import {
+	PAGE,
+	PRODUCT_CATEGORY,
+	PRODUCT,
+	RESERVED,
+	SEARCH,
+	LOGIN
+} from './pageTypes';
 import cookie from 'react-cookies';
+
 class SwitchContainers extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			isLoggedIn: undefined,
+			statsCookieId: undefined
+		};
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -49,6 +63,26 @@ class SwitchContainers extends React.Component {
 		// console.log(currentPage);
 		// console.log("currentPage.type mine");
 		// console.log(currentPage.type);
+
+		if (!cookie.load('statsCookieId')) {
+			let timeStamp = Math.floor(Date.now());
+			// let now = new Date();
+			console.log('Date');
+			console.log(timeStamp);
+			cookie.save('statsCookieId', timeStamp, { path: '/' });
+			this.setState({ statsCookieId: timeStamp });
+		}
+
+		if (!cookie.load('isLoggedIn')) {
+			let isLoggedIn = 0;
+
+			if (this.state.isLoggedIn) {
+				console.log('state set for isLoggedIn');
+				isLoggedIn = this.state.isLoggedIn;
+			}
+			cookie.save('isLoggedIn', isLoggedIn, { path: '/' });
+			this.setState({ isLoggedIn: isLoggedIn });
+		}
 
 		if (!cookie.load('userQuoteId')) {
 			fetch(
@@ -82,6 +116,8 @@ class SwitchContainers extends React.Component {
 				return <CategoryContainer />;
 			case SEARCH:
 				return <SearchContainer />;
+			// case LOGIN:
+			// 		return <LoginContainer />;
 			case PAGE:
 				if (locationPathname === '/') {
 					return <IndexContainer />;

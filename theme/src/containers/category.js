@@ -6,6 +6,7 @@ import ProductList from '../components/productList';
 import ProductFilter from '../components/productFilter';
 import Sort from '../components/sort';
 import CategoryBreadcrumbs from '../components/categoryBreadcrumbs';
+import CategoryOffers from '../components/categoryOffers';
 import * as helper from '../lib/helper';
 
 const getFilterAttributesSummary = productFilter => {
@@ -42,25 +43,46 @@ const CategoryHero = ({
 	unsetFilterAttribute
 }) => (
 	<section className="hero is-light">
-		<div className="hero-body">
-			<div className="container">
+		<div className="hero-body columns">
+			<div className="container column is-3">
 				{themeSettings.show_category_breadcrumbs && (
-					<CategoryBreadcrumbs
-						currentCategory={categoryDetails}
-						categories={categories}
-					/>
+					<div className="column is-1">
+						<CategoryBreadcrumbs
+							currentCategory={categoryDetails}
+							categories={categories}
+						/>
+					</div>
 				)}
-				<h1 className="category-title">{categoryDetails.name}</h1>
-				<h3>{productsTotalCount} Products</h3>
-				<div
-					className="category-description is-hidden-mobile content"
-					dangerouslySetInnerHTML={{ __html: categoryDetails.description }}
-				/>
-				<AppliedFilters
-					allFilters={productsAttributes}
-					appliedFiltersList={productFilter.attributes.filters}
-					unsetFilterAttribute={unsetFilterAttribute}
-				/>
+			</div>
+			<div className="category-offers-main-wrapper column is-9">
+				<div className="">
+					<CategoryOffers currentCategory={categoryDetails} />
+				</div>
+
+				<div className="column is-12">
+					<div className="category-other-data-main-wrapper column is-9">
+						<div className="">
+							<div className="column is-12">
+								<h1 className="category-title">{categoryDetails.name}</h1>
+							</div>
+
+							<h3>{productsTotalCount} Products</h3>
+
+							<div
+								className="category-description is-hidden-mobile content"
+								dangerouslySetInnerHTML={{
+									__html: categoryDetails.description
+								}}
+							/>
+
+							<AppliedFilters
+								allFilters={productsAttributes}
+								appliedFiltersList={productFilter.attributes.filters}
+								unsetFilterAttribute={unsetFilterAttribute}
+							/>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -92,6 +114,7 @@ class AppliedFilter extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+
 	onChange = event => {
 		const { filterCode, filterValue, unsetFilterAttribute } = this.props;
 		unsetFilterAttribute(filterCode, filterValue);
