@@ -30,10 +30,17 @@ const getCurrentPage = path => {
 			path: '/checkout',
 			resource: '5b6984d45452db221b4044f2'
 		};
-	} else if (path == '/search') {
+	}
+	if (path == '/search') {
 		return {
 			type: 'search',
 			path: '/search',
+			resource: ''
+		};
+	} else if (path == '/customer/account/login') {
+		return {
+			type: 'login',
+			path: '/customer/account/login',
 			resource: ''
 		};
 	} else {
@@ -208,6 +215,10 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			list[parts.shift().trim()] = decodeURI(parts.join('='));
 		});
 	console.log('get all data function in load state');
+
+	console.log('cookie');
+	console.log(cookie);
+
 	return Promise.all([
 		api.checkoutFields.list().then(({ status, json }) => json),
 		fetch(`https://indiarush.com/irapi/category/getallShopByCategories/`)

@@ -1,5 +1,12 @@
 import * as t from './actionTypes';
-import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './pageTypes';
+import {
+	PAGE,
+	PRODUCT_CATEGORY,
+	PRODUCT,
+	RESERVED,
+	SEARCH,
+	LOGIN
+} from './pageTypes';
 import queryString from 'query-string';
 import { animateScroll } from 'react-scroll';
 import api from '../client/api';
@@ -333,6 +340,19 @@ export const addCartItem = (item, history) => async (dispatch, getState) => {
 		item: item,
 		cart: cart
 	});
+};
+
+export const getLoginDetails = currentPage => async (dispatch, getState) => {
+	// dispatch(requestProduct());
+	// const { app } = getState();
+	// console.log(app);
+	// let product = {};
+	// let alreadyData = 0;
+
+	console.log('getLoginDetails');
+
+	// dispatch(receiveProduct(null));
+	// dispatch(receiveProduct(product));
 };
 
 export const getProductDetails = currentPage => async (dispatch, getState) => {
@@ -711,6 +731,12 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 							path: '/search',
 							resource: ''
 						};
+					} else if (locationPathname == '/customer/account/login') {
+						return {
+							type: 'login',
+							path: '/customer/account/login',
+							resource: ''
+						};
 					} else {
 						return {
 							type: jsonResult.type,
@@ -781,6 +807,12 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 			break;
 		case PRODUCT:
 			dispatch(getProductDetails(currentPage));
+			// const productData = currentPage.data;
+			// dispatch(receiveProduct(productData));
+			// analytics.productView({ product: productData });
+			break;
+		case LOGIN:
+			dispatch(getLoginDetails());
 			// const productData = currentPage.data;
 			// dispatch(receiveProduct(productData));
 			// analytics.productView({ product: productData });

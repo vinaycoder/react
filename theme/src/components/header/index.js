@@ -8,6 +8,9 @@ import HeadMenu from './headMenu';
 import cookie from 'react-cookies';
 import SaveIndicator from './SaveIndicator';
 import SaveForLater from './saveForLater';
+import LoginWrapper from './login';
+import LoginIndicator from './loginIndicator';
+
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
 		<span className="sprites mobileLogo " alt={alt} />
@@ -43,12 +46,16 @@ export default class Header extends React.Component {
 			mobileSearchIsActive: false,
 			cartIsActive: false,
 			saveForLaterIsActive: false,
+			loginIsActive: false,
 			cart: []
 		};
 	}
 
 	componentDidMount() {
 		const quoteId = cookie.load('userQuoteId');
+		const statsCookieId = cookie.load('statsCookieId');
+		const isLoggedIn = cookie.load('isLoggedIn');
+
 		fetch(
 			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				quoteId +
@@ -82,7 +89,8 @@ export default class Header extends React.Component {
 		this.setState({
 			mobileMenuIsActive: !this.state.mobileMenuIsActive,
 			cartIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -94,13 +102,14 @@ export default class Header extends React.Component {
 
 	searchToggle = () => {
 		this.setState({
-			mobileSearchIsActive: !this.state.mobileSearchIsActive
+			mobileSearchIsActive: !this.state.mobileSearchIsActive,
+			loginIsActive: false
 		});
 		document.body.classList.toggle('search-active');
 	};
 
 	menuClose = () => {
-		this.setState({ mobileMenuIsActive: false });
+		this.setState({ mobileMenuIsActive: false, loginIsActive: false });
 		document.body.classList.remove('noscroll');
 	};
 
@@ -108,7 +117,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive: false
 		});
 		document.body.classList.remove('noscroll');
 	};
@@ -117,7 +127,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: !this.state.cartIsActive,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -125,6 +136,16 @@ export default class Header extends React.Component {
 	saveForLaterToggle = () => {
 		this.setState({
 			saveForLaterIsActive: !this.state.saveForLaterIsActive,
+			mobileMenuIsActive: false,
+			cartIsActive: false,
+			loginIsActive: false
+		});
+		document.body.classList.toggle('noscroll');
+	};
+
+	loginToggle = () => {
+		this.setState({
+			loginIsActive: !this.state.loginIsActive,
 			mobileMenuIsActive: false,
 			cartIsActive: false
 		});
@@ -135,7 +156,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: true,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive: false
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -143,7 +165,18 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive: false
+		});
+		document.body.classList.add('noscroll');
+	};
+
+	loginWrapperShow = () => {
+		this.setState({
+			cartIsActive: false,
+			mobileMenuIsActive: false,
+			saveForLaterIsActive: false,
+			loginIsActive: true
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -218,6 +251,20 @@ export default class Header extends React.Component {
 										style={{ minWidth: 24 }}
 									/>
 								</span>
+
+								<LoginIndicator
+									onClick={this.loginToggle}
+									loginIsActive={this.state.loginIsActive}
+								/>
+								<div
+									className={this.state.loginIsActive ? 'mini-cart-open' : ''}
+								>
+									<LoginWrapper
+										settings={settings}
+										loginToggle={this.loginToggle}
+									/>
+								</div>
+
 								<SaveIndicator
 									cart={cart}
 									onClick={this.saveForLaterToggle}
@@ -269,7 +316,8 @@ export default class Header extends React.Component {
 					className={
 						this.state.mobileMenuIsActive ||
 						this.state.cartIsActive ||
-						this.state.saveForLaterIsActive
+						this.state.saveForLaterIsActive ||
+						this.state.loginIsActive
 							? 'dark-overflow'
 							: ''
 					}
