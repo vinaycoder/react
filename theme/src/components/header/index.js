@@ -250,6 +250,7 @@ export default class Header extends React.Component {
 										deleteCartItem={this.props.deleteCartItem}
 										settings={settings}
 										cartToggle={this.cartToggle}
+										updateCartItemQuantiry={this.props.updateCartItemQuantiry}
 									/>
 								</div>
 							</div>

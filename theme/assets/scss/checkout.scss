@@ -358,7 +358,7 @@ StripeElement
 }
 .new-cart-save-for-later, .new-cart-remove {
     padding: 5px;
-    border: 1px solid #666;
+    border: 1px solid #666 !important;
     border-radius: 3px;
     cursor: pointer;
 }
@@ -400,10 +400,14 @@ StripeElement
 .save-for-later-mrp
 {
   text-decoration: line-through;
-  font-size: 16px;
+  font-size:14px;
 }
 .save-for-later-offer-price
 {
   font-size: 15px;
   color: #000;
+}
+.saveLaterBtns :last-child
+{
+  border: none;
 }

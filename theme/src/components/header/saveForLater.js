@@ -8,20 +8,20 @@ const CartItem = ({ item, deleteCartItem, settings }) => {
 		item.image_url,
 		themeSettings.cartThumbnailWidth
 	);
-
+  const productUrl=item.productUrl.split('/');
 	return (
 		<div>
 		<div className="columns is-mobile">
 			<div className="column is-3">
 				<div className="image">
-					<NavLink to={item.name}>
+					<NavLink to={productUrl[3]}>
 						<img src={item.imageUrl} />
 					</NavLink>
 				</div>
 			</div>
 			<div className="column">
 				<div>
-					<NavLink to={item.name}>{item.name}</NavLink>
+					<NavLink to={productUrl[3]}>{item.name}</NavLink>
 				</div>
 					<div className="save-for-later-mrp"> {helper.formatCurrency(item.mrpprice, settings)}</div>
 					<div className="save-for-later-offer-price"> {helper.formatCurrency(item.price, settings)}</div>
@@ -74,7 +74,7 @@ export default class saveForLater extends React.PureComponent {
 		}
 		return (
 			<div className="mini-cart">
-				<p>{text.cartEmpty}</p>
+				<p>Your Save For Later is Empty</p>
 			</div>
 		);
 	}
