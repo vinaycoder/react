@@ -351,3 +351,33 @@ body.search-active .mobile-nav {
     margin-bottom: 10px;
     -webkit-appearance: none !important;
 }
+
+.login-strip{
+
+  height: 70px;
+  background: #e0e0e0;
+  overflow: hidden;
+
+}
+.login-strip-content{
+
+  padding: 20px;
+  color: #333;
+  font-weight: normal;
+
+}
+.login-content-container{
+
+  margin-top: 50px;
+  margin-left: 20px;
+}
+.login-heading{
+
+  text-align: left;
+  font-weight: bold;
+}
+
+.login-sub-content-wrapper{
+
+  margin: 2% 0px 0px 5%;
+}

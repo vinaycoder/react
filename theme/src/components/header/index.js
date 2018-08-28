@@ -239,8 +239,7 @@ removeSaveForLater(productId)
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
 			: 'navbar-burger is-hidden-tablet';
-		const showBackButton =
-			currentPage.type === 'product';
+		const showBackButton = currentPage.type === 'product'; //&& location.hasHistory;
 		return (
 			<Fragment>
 				<header

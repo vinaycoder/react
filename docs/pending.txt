@@ -11,8 +11,32 @@ Category page Ajax control on page type and filters.
 Close after apply in the mobile view.
 
 https://thumbor.readthedocs.io/en/latest/usage.html
+
+
 https://medium.com/@nvkudva/myntras-web-ui-journey-amp-and-pwa-77b87523ee7d
+https://medium.com/@hdsna/building-myntra-zero-a-high-performance-progressive-web-app-29a382d31d04
+https://medium.com/myntra-ux-design/transforming-the-mobile-web-experience-with-a-pwa-fd172ce91d84
 
 URL Type on category page.
 
 C-C
+
+
+Credential api
+https://codelabs.developers.google.com/codelabs/credential-management-api/#0
+
+Network api
+https://wicg.github.io/netinfo/
+
+Server to nginxc + pHP + node js
+
+Also image thumbor issue
+
+https://www.mycodesmells.com/post/add-ie11-support-to-your-react-apps
+
+
+
+PWA -
+
+https://developers.google.com/web/ilt/pwa/introduction-to-progressive-web-app-architectures
+https://community.magento.com/t5/Magento-DevBlog/Introducing-Magento-PWA-Studio/ba-p/74636

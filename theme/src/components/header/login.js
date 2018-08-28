@@ -87,7 +87,7 @@ export default class LoginWrapper extends React.PureComponent {
 						{text.signInToAccess}
 					</div>
 
-					<NavLink to="customer/account/login">
+					<NavLink to="/customer/account/login">
 						<button
 							className="orange-button btn-cart btn-cart-header-wrapper"
 							data-arg1="#loaderHeaderSignInBtn"
@@ -123,7 +123,7 @@ export default class LoginWrapper extends React.PureComponent {
 
 							<NavLink
 								className="customerAccountCreate"
-								to="customer/account/login"
+								to="/customer/account/login"
 							>
 								{text.createAccount}
 							</NavLink>

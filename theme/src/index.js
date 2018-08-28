@@ -10,6 +10,7 @@ export {
 	default as CheckoutSuccessContainer
 } from './containers/checkoutSuccess';
 export { default as SearchContainer } from './containers/search';
+export { default as LoginContainer } from './containers/login';
 
 // combine all css files into one with webpack. Hack to deal with server side rendering.
 if (typeof window !== 'undefined') {
