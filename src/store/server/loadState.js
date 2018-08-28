@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import api from './api';
 import queryString from 'query-string';
+
 import {
 	getParsedProductFilter,
 	getProductFilterForCategory,
@@ -180,19 +181,150 @@ const getProduct = currentPage => {
 
 const getPage = currentPage => {
 	if (currentPage.type === PAGE) {
-		return api.pages
-			.retrieve(currentPage.resource)
-			.then(({ status, json }) => json);
-	} else {
+		// 	return api.pages
+		// 		.retrieve(currentPage.resource)
+		// 		.then(({ status, json }) => json);
+		// } else {
 		return {};
 	}
 };
 
+const getSettings = () => {
+	return {
+		domain: '',
+		logo_file: null,
+		language: 'en',
+		currency_code: 'USD',
+		currency_symbol: '$',
+		currency_format: '${amount}',
+		thousand_separator: ',',
+		decimal_separator: '.',
+		decimal_number: 2,
+		timezone: 'Asia/Singapore',
+		date_format: 'MMMM D, YYYY',
+		time_format: 'h:mm a',
+		default_shipping_country: 'SG',
+		default_shipping_state: '',
+		default_shipping_city: '',
+		default_product_sorting: 'stock_status,price,position',
+		product_fields:
+			'path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position',
+		products_limit: 30,
+		weight_unit: 'kg',
+		length_unit: 'cm',
+		hide_billing_address: false,
+		order_confirmation_copy_to: ''
+	};
+};
+
 const getThemeSettings = () => {
-	return api.theme.settings
-		.retrieve()
-		.then(({ status, json }) => json)
-		.catch(err => ({}));
+	return {
+		checkoutInputClass: 'checkout-field',
+		checkoutButtonClass: 'checkout-button button is-primary',
+		checkoutEditButtonClass: 'checkout-button button',
+		cartThumbnailWidth: 100,
+		footer_contacts: [
+			{
+				text: '104 N Stagecoach Rd'
+			},
+			{
+				text: 'Dover Foxcroft, ME, 04426'
+			},
+			{
+				text: '(207) 564-8482'
+			},
+			{
+				text: 'sales@shop.com'
+			}
+		],
+		footer_about:
+			'Store - just to show you what it can. Some text go here. Some text go here. Some text go here. Some text go here. Some text go here. Some text go here. Some text go here.',
+		footer_menu_2_title: 'Customer service',
+		footer_menu_1_title: 'Company',
+		footer_social: [
+			{
+				type: 'facebook',
+				url: 'https://www.facebook.com/'
+			},
+			{
+				type: 'twitter',
+				url: 'https://twitter.com/'
+			}
+		],
+		footer_menu_1_items: [
+			{
+				text: 'About',
+				url: '/about'
+			},
+			{
+				text: 'Blog',
+				url: '/blog'
+			},
+			{
+				text: 'Terms of Service',
+				url: '/tos'
+			},
+			{
+				text: 'Privacy Policy',
+				url: '/privacy-policy'
+			}
+		],
+		footer_menu_2_items: [
+			{
+				text: 'Shipping & returns',
+				url: '/'
+			},
+			{
+				text: 'Conditions of Use',
+				url: '/'
+			},
+			{
+				text: 'Sitemap',
+				url: '/'
+			}
+		],
+		search_placeholder: '',
+		home_products_limit: 8,
+		home_products_title: 'BEST SELLERS',
+		home_products_sort: '-date_updated',
+		home_slider: [
+			{
+				path: '/page-1',
+				image: 'slide8.jpg',
+				description: 'COMFORT. SPORT. STYLE.',
+				title: 'THE FRESH FOAM CRUZ'
+			},
+			{
+				path: '/page-2',
+				image: 'slide9.jpg'
+			},
+			{
+				image: 'slide7.jpg',
+				path: '/page-3'
+			}
+		],
+		home_slider_color: '#ffffff',
+		button_addtocart_text: '',
+		disqus_shortname: 'cezerin',
+		maxCartItemQty: 100,
+		product_thumbnail_position: 'left',
+		bigThumbnailWidth: 800,
+		previewThumbnailWidth: 100,
+		list_image_max_height: 280,
+		listThumbnailWidth: 340,
+		show_product_filter: true,
+		show_category_breadcrumbs: true,
+		show_discount_countdown: true,
+		show_product_breadcrumbs: true,
+		new_arrivals: '-date_created',
+		price_asc: 'price',
+		price_desc: '-price',
+		footer_logo_url: 'logo.png',
+		limit_viewed_products: 4,
+		show_viewed_products: true,
+		product_gallery_shownav: true,
+		page_list_tag: 'blog'
+	};
 };
 
 const getAllData = (currentPage, productFilter, cookie) => {
@@ -208,7 +340,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	console.log(cookie);
 
 	return Promise.all([
-		api.checkoutFields.list().then(({ status, json }) => json),
+		[], //api.checkoutFields.list().then(({ status, json }) => json),
 		fetch(`https://indiarush.com/irapi/category/getallShopByCategories/`)
 			.then(result => {
 				return result.json();
@@ -393,9 +525,10 @@ export const loadState = (req, language) => {
 	console.log('inside load state');
 	return Promise.all([
 		getCurrentPage(req.path),
-		api.settings.retrieve().then(({ status, json }) => json),
+		getSettings(), // api.settings.retrieve().then(({ status, json }) => json),
 		themeLocales.getText(language),
-		api.theme.placeholders.list()
+		[]
+		//api.theme.placeholders.list()
 	]).then(([currentPage, settings, themeText, placeholdersResponse]) => {
 		const productFilter = getFilter(currentPage, urlQuery, settings);
 

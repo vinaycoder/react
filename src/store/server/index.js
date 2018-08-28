@@ -43,7 +43,7 @@ app.get(
 );
 app.get('/robots.txt', robotsRendering);
 app.get('/sitemap.xml', sitemapRendering);
-app.get('*', redirects);
+//app.get('*', redirects);
 app.use(responseTime());
 app.use(cookieParser(settings.cookieSecretKey));
 app.get('*', pageRendering);
