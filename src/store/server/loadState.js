@@ -173,18 +173,6 @@ const getProduct = currentPage => {
 			.then(jsonResult => {
 				return jsonResult.data;
 			});
-
-		// api.products
-		// 		.retrieve(currentPage.resource)
-		// 		.then((jsonResult) => {
-		// 		console.log("jsonResult");
-		// 		console.log(jsonResult);
-		// 		});
-		//
-		//
-		// 	return api.products
-		// 		.retrieve(currentPage.resource)
-		// 		.then(({ status, json }) => json);
 	} else {
 		return {};
 	}
@@ -247,7 +235,6 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			.then(jsonResult => {
 				return jsonResult.data;
 			}),
-		// api.ajax.cart.retrieve(cookie).then(({ status, json }) => json),
 		getProducts(currentPage, productFilter),
 		getProductsAttributes(currentPage, productFilter),
 		getProduct(currentPage),
@@ -397,8 +384,6 @@ export const loadState = (req, language) => {
 	const urlQuery = req.url.includes('?')
 		? req.url.substring(req.url.indexOf('?'))
 		: '';
-	console.log(urlPath);
-	console.log(urlQuery);
 	const location = {
 		hasHistory: false,
 		pathname: urlPath,

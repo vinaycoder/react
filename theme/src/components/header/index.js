@@ -208,8 +208,7 @@ export default class Header extends React.Component {
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
 			: 'navbar-burger is-hidden-tablet';
-		const showBackButton =
-			currentPage.type === 'product' && location.hasHistory;
+		const showBackButton = currentPage.type === 'product'; //&& location.hasHistory;
 		return (
 			<Fragment>
 				<header
