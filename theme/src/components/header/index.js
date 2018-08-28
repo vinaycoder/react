@@ -124,11 +124,8 @@ removeSaveForLater(productId)
 			return result.json();
 		})
 		.then(jsonResult => {
-			if(jsonResult.status=='success')
-			{
-				console.log('vinay in remove save for later');
-				this.getSaveFOrLaterDetails();
-			}
+			this.getSaveFOrLaterDetails();
+			this.shoppingCartDetails();
 		});
 }
 
