@@ -357,6 +357,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 						: 30
 			},
 			cart: cart,
+			saveForLater:[],
 			order: null,
 			checkoutFields: checkoutFields,
 			themeSettings: themeSettings

@@ -69,8 +69,9 @@ class SwitchContainers extends React.Component {
 			// let now = new Date();
 			console.log('Date');
 			console.log(timeStamp);
-			cookie.save('statsCookieId', timeStamp, { path: '/' });
-			this.setState({ statsCookieId: timeStamp });
+			let timesVariable=Math.floor(100000 + Math.random() * 900000);
+			cookie.save('statsCookieId', timesVariable, { path: '/' });
+			this.setState({ statsCookieId: timesVariable });
 		}
 
 		if (!cookie.load('isLoggedIn')) {

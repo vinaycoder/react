@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../../lib/settings';
 import * as helper from '../../lib/helper';
 
-const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry }) => {
+const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry, saveForLater }) => {
 	const thumbnail = helper.getThumbnailUrl(
 		item.image_url,
 		themeSettings.cartThumbnailWidth
@@ -71,7 +71,9 @@ const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry }) =>
 
 			<div className="saveLaterBtns">
 			<div className="cart-buttons">
-					<div className="new-cart-save-for-later">
+					<div className="new-cart-save-for-later" onClick={e => {
+						saveForLater(item.id,item.itemId);
+					}}>
 							<div className="movetocart">SAVE FOR LATER</div>
 					</div>
 					<div className="new-cart-remove right" 	onClick={() => deleteCartItem(item.itemId)}>
@@ -86,7 +88,7 @@ const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry }) =>
 
 export default class Cart extends React.PureComponent {
 	render() {
-		const { cart, deleteCartItem, settings, cartToggle, updateCartItemQuantiry } = this.props;
+		const { cart, deleteCartItem, settings, cartToggle, updateCartItemQuantiry, saveForLater } = this.props;
 		if (cart && cart.items && cart.items.length > 0) {
 			const items = cart.items.map(item => (
 				<CartItem
@@ -95,6 +97,7 @@ export default class Cart extends React.PureComponent {
 					deleteCartItem={deleteCartItem}
 					settings={settings}
 					updateCartItemQuantiry={updateCartItemQuantiry}
+					saveForLater={saveForLater}
 				/>
 			));
 

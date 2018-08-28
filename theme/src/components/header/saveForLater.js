@@ -3,37 +3,38 @@ import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../../lib/settings';
 import * as helper from '../../lib/helper';
 
-const CartItem = ({ item, deleteCartItem, settings }) => {
+const CartItem = ({ item, settings,moveSaveForLaterToCart, removeFromSaveForLater }) => {
 	const thumbnail = helper.getThumbnailUrl(
 		item.image_url,
 		themeSettings.cartThumbnailWidth
 	);
-  const productUrl=item.productUrl.split('/');
+  const productUrl=item.name.split('/');
+  // const productUrl=item.productUrl.split('/');
 	return (
 		<div>
 		<div className="columns is-mobile">
 			<div className="column is-3">
 				<div className="image">
-					<NavLink to={productUrl[3]}>
-						<img src={item.imageUrl} />
+					<NavLink to='name'>
+						<img src={item.image_url} />
 					</NavLink>
 				</div>
 			</div>
 			<div className="column">
 				<div>
-					<NavLink to={productUrl[3]}>{item.name}</NavLink>
+					<NavLink to='name'>{item.name}</NavLink>
 				</div>
-					<div className="save-for-later-mrp"> {helper.formatCurrency(item.mrpprice, settings)}</div>
-					<div className="save-for-later-offer-price"> {helper.formatCurrency(item.price, settings)}</div>
+					<div className="save-for-later-mrp"> {helper.formatCurrency(item.price, settings)}</div>
+					<div className="save-for-later-offer-price"> {helper.formatCurrency(item.special_price, settings)}</div>
 			</div>
 		</div>
 
 			<div className="saveLaterBtns">
 			<div className="cart-buttons">
-					<div className="new-cart-save-for-later">
+					<div className="new-cart-save-for-later" onClick={()=>moveSaveForLaterToCart(item.product_id)}>
 							<div className="movetocart">Move to cart</div>
 					</div>
-					<div className="new-cart-remove right">
+					<div className="new-cart-remove right" onClick={()=>removeFromSaveForLater(item.product_id)}>
 							<span className="gtmCartremove">Remove</span>
 					</div>
 			</div>
@@ -45,20 +46,21 @@ const CartItem = ({ item, deleteCartItem, settings }) => {
 
 export default class saveForLater extends React.PureComponent {
 	render() {
-		const { cart, deleteCartItem, settings, cartToggle } = this.props;
-		if (cart && cart.items && cart.items.length > 0) {
-			const items = cart.items.map(item => (
+		const { saveForLater, settings, saveForLaterToggle, moveSaveForLaterToCart, removeFromSaveForLater } = this.props;
+		if (saveForLater.length > 0) {
+			const items = saveForLater.map(item => (
 				<CartItem
 					key={item.id}
 					item={item}
-					deleteCartItem={deleteCartItem}
 					settings={settings}
+					moveSaveForLaterToCart={moveSaveForLaterToCart}
+					removeFromSaveForLater={removeFromSaveForLater}
 				/>
 			));
 
 			return (
 				<div className="mini-cart">
-					<p className="save-for-later-counts">{items.length} Items</p>
+					<p className="save-for-later-counts">{saveForLater.length} Items</p>
 					<div className="cart-main-div">
 					{items}
 					</div>

@@ -8,9 +8,6 @@ import HeadMenu from './headMenu';
 import cookie from 'react-cookies';
 import SaveIndicator from './SaveIndicator';
 import SaveForLater from './saveForLater';
-import LoginWrapper from './login';
-import LoginIndicator from './loginIndicator';
-
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
 		<span className="sprites mobileLogo " alt={alt} />
@@ -34,6 +31,7 @@ const BackButton = ({ onClick }) => (
 			className="icon"
 			src="/assets/images/arrow_back.svg"
 			style={{ width: 18 }}
+Shipping
 		/>
 	</span>
 );
@@ -46,33 +44,97 @@ export default class Header extends React.Component {
 			mobileSearchIsActive: false,
 			cartIsActive: false,
 			saveForLaterIsActive: false,
-			loginIsActive: false,
 			cart: []
 		};
+		this.saveForLater = this.saveForLater.bind(this);
+		this.shoppingCartDetails = this.shoppingCartDetails.bind(this);
+		this.removeSaveForLater = this.removeSaveForLater.bind(this);
+		this.moveSaveForLaterToCart = this.moveSaveForLaterToCart.bind(this);
 	}
+saveForLater(productId,itemId)
+{
+	const quoteId = cookie.load('userQuoteId');
+	const statsCookieId = cookie.load('statsCookieId');
+	fetch('https://indiarush.com/irapi/cart/moveToSaveforLater?pincode=""'+'&item_id='+itemId+'&product_id='+productId+'&quote_id='+quoteId+'&customer_id='+statsCookieId+'&version=3.99')
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			this.getSaveFOrLaterDetails();
+			this.shoppingCartDetails();
+		});
+		console.log('check props');
+		console.log(this.props);
+}
 
-	componentDidMount() {
-		const quoteId = cookie.load('userQuoteId');
-		const statsCookieId = cookie.load('statsCookieId');
-		const isLoggedIn = cookie.load('isLoggedIn');
-
-		fetch(
-			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
-				quoteId +
-				'&pincode=""' +
-				'&reset_payment=1' +
-				'&version=' +
-				'99.99'
-		)
+getSaveFOrLaterDetails()
+{
+	  const statsCookieId = cookie.load('statsCookieId');
+		fetch('https://indiarush.com/irapi/customer/getSaveForLaterDetailsByCustomerId?customer_id='+statsCookieId+'&version=3.99')
 			.then(result => {
 				return result.json();
 			})
 			.then(jsonResult => {
-				this.props.state.cart = jsonResult.data;
-				this.setState({
-					cart: jsonResult.data
-				});
+				console.log('vinay in save for later detials');
+				this.props.state.saveForLater = jsonResult;
 			});
+}
+
+shoppingCartDetails()
+{
+	const quoteId = cookie.load('userQuoteId');
+	fetch(
+		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+			quoteId +
+			'&pincode=""' +
+			'&reset_payment=1' +
+			'&version=' +
+			'99.99'
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			this.props.state.cart = jsonResult.data;
+			this.setState({
+				cart: jsonResult.data
+			});
+		});
+}
+
+moveSaveForLaterToCart(productId)
+{
+	const { addCartItem } = this.props;
+	const item = {
+		product_id: productId,
+		quantity: 1,
+		type:'addCart'
+	};
+	console.log('vinay in move to cart');
+	addCartItem(item);
+	this.shoppingCartDetails();
+	this.removeSaveForLater(productId);
+}
+
+removeSaveForLater(productId)
+{
+	const statsCookieId = cookie.load('statsCookieId');
+	fetch('https://indiarush.com/irapi/cart/RemovefromSaveLater/?customer_id='+statsCookieId+'&product_id='+productId+'&version=3.99')
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			if(jsonResult.status=='success')
+			{
+				console.log('vinay in remove save for later');
+				this.getSaveFOrLaterDetails();
+			}
+		});
+}
+
+	componentDidMount() {
+		this.shoppingCartDetails();
+		this.getSaveFOrLaterDetails();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -81,7 +143,6 @@ export default class Header extends React.Component {
 			this.props.state.currentPage.path !== '/checkout'
 		) {
 			this.showCart();
-			this.defaultcartItem();
 		}
 	}
 
@@ -89,27 +150,20 @@ export default class Header extends React.Component {
 		this.setState({
 			mobileMenuIsActive: !this.state.mobileMenuIsActive,
 			cartIsActive: false,
-			saveForLaterIsActive: false,
-			loginIsActive: false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
-	};
-	defaultcartItem = () => {
-		this.setState({
-			cart: false
-		});
 	};
 
 	searchToggle = () => {
 		this.setState({
-			mobileSearchIsActive: !this.state.mobileSearchIsActive,
-			loginIsActive: false
+			mobileSearchIsActive: !this.state.mobileSearchIsActive
 		});
 		document.body.classList.toggle('search-active');
 	};
 
 	menuClose = () => {
-		this.setState({ mobileMenuIsActive: false, loginIsActive: false });
+		this.setState({ mobileMenuIsActive: false });
 		document.body.classList.remove('noscroll');
 	};
 
@@ -117,8 +171,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false,
-			loginIsActive: false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.remove('noscroll');
 	};
@@ -127,8 +180,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: !this.state.cartIsActive,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false,
-			loginIsActive: false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -136,16 +188,6 @@ export default class Header extends React.Component {
 	saveForLaterToggle = () => {
 		this.setState({
 			saveForLaterIsActive: !this.state.saveForLaterIsActive,
-			mobileMenuIsActive: false,
-			cartIsActive: false,
-			loginIsActive: false
-		});
-		document.body.classList.toggle('noscroll');
-	};
-
-	loginToggle = () => {
-		this.setState({
-			loginIsActive: !this.state.loginIsActive,
 			mobileMenuIsActive: false,
 			cartIsActive: false
 		});
@@ -156,8 +198,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: true,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false,
-			loginIsActive: false
+			saveForLaterIsActive: false
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -165,18 +206,7 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false,
-			loginIsActive: false
-		});
-		document.body.classList.add('noscroll');
-	};
-
-	loginWrapperShow = () => {
-		this.setState({
-			cartIsActive: false,
-			mobileMenuIsActive: false,
-			saveForLaterIsActive: false,
-			loginIsActive: true
+			saveForLaterIsActive: false
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -203,13 +233,14 @@ export default class Header extends React.Component {
 			settings,
 			currentPage,
 			location,
-			productFilter
+			productFilter,
+			saveForLater
 		} = this.props.state;
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
 			: 'navbar-burger is-hidden-tablet';
 		const showBackButton =
-			currentPage.type === 'product' && location.hasHistory;
+			currentPage.type === 'product';
 		return (
 			<Fragment>
 				<header
@@ -251,24 +282,10 @@ export default class Header extends React.Component {
 										style={{ minWidth: 24 }}
 									/>
 								</span>
-
-								<LoginIndicator
-									onClick={this.loginToggle}
-									loginIsActive={this.state.loginIsActive}
-								/>
-								<div
-									className={this.state.loginIsActive ? 'mini-cart-open' : ''}
-								>
-									<LoginWrapper
-										settings={settings}
-										loginToggle={this.loginToggle}
-									/>
-								</div>
-
 								<SaveIndicator
-									cart={cart}
+									saveForLater={saveForLater}
 									onClick={this.saveForLaterToggle}
-									cartIsActive={this.state.saveForLaterIsActive}
+									saveForLaterIsActive={this.state.saveForLaterIsActive}
 								/>
 								<div
 									className={
@@ -276,10 +293,11 @@ export default class Header extends React.Component {
 									}
 								>
 									<SaveForLater
-										cart={cart}
-										deleteCartItem={this.props.deleteCartItem}
+										saveForLater={saveForLater}
 										settings={settings}
-										cartToggle={this.saveForLaterToggle}
+										saveForLaterToggle={this.saveForLaterToggle}
+										moveSaveForLaterToCart={this.moveSaveForLaterToCart}
+										removeFromSaveForLater={this.removeSaveForLater}
 									/>
 								</div>
 
@@ -298,6 +316,7 @@ export default class Header extends React.Component {
 										settings={settings}
 										cartToggle={this.cartToggle}
 										updateCartItemQuantiry={this.props.updateCartItemQuantiry}
+										saveForLater={this.saveForLater}
 									/>
 								</div>
 							</div>
@@ -317,8 +336,7 @@ export default class Header extends React.Component {
 					className={
 						this.state.mobileMenuIsActive ||
 						this.state.cartIsActive ||
-						this.state.saveForLaterIsActive ||
-						this.state.loginIsActive
+						this.state.saveForLaterIsActive
 							? 'dark-overflow'
 							: ''
 					}

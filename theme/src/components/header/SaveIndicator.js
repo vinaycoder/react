@@ -2,16 +2,15 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../../lib/settings';
 
-const CartCount = ({ cart }) => {
-	if (cart && cart.items && cart.items.length > 0) {
-		const itemsCount = cart.items.reduce((a, b) => a + b.quantity, 0);
-		return <span className="cart-count">{itemsCount}</span>;
+const CartCount = ({ saveForLater }) => {
+	if (saveForLater.length > 0) {
+		return <span className="cart-count">{saveForLater.length}</span>;
 	}
 	return null;
 };
 
-const CartIcon = ({ cartIsActive }) => {
-	if (cartIsActive) {
+const CartIcon = ({ saveForLaterIsActive }) => {
+	if (saveForLaterIsActive) {
 		return (
 			<img
 				src="/assets/images/close.svg"
@@ -27,11 +26,11 @@ const CartIcon = ({ cartIsActive }) => {
 
 export default class SaveIndicator extends React.PureComponent {
 	render() {
-		const { cart, onClick, cartIsActive } = this.props;
+		const { saveForLater, onClick, saveForLaterIsActive } = this.props;
 		return (
 			<span className="cart-button save-for-later-button" onClick={onClick}>
-				<CartIcon cartIsActive={cartIsActive} />
-				<CartCount cart={cart} />
+				<CartIcon saveForLaterIsActive={saveForLaterIsActive} />
+				<CartCount saveForLater={saveForLater} />
 			</span>
 		);
 	}
