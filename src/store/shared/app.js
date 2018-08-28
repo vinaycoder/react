@@ -14,7 +14,7 @@ import CheckoutContainer from './containers/checkout';
 import CheckoutSuccessContainer from './containers/checkoutSuccess';
 import NotFoundContainer from './containers/notfound';
 import SearchContainer from './containers/search';
-// import LoginContainer from './containers/login';
+import LoginContainer from './containers/login';
 
 import { setCurrentPage } from './actions';
 import {
@@ -116,8 +116,8 @@ class SwitchContainers extends React.Component {
 				return <CategoryContainer />;
 			case SEARCH:
 				return <SearchContainer />;
-			// case LOGIN:
-			// 		return <LoginContainer />;
+			case LOGIN:
+				return <LoginContainer />;
 			case PAGE:
 				if (locationPathname === '/') {
 					return <IndexContainer />;
