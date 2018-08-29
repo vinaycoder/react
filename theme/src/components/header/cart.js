@@ -141,9 +141,8 @@ export default class Cart extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-		pincode:null
+		pincode:undefined
 		};
-
 	}
 	showSize(e,product_id,item_id)
 	{
@@ -161,7 +160,7 @@ export default class Cart extends React.PureComponent {
 			Number.isInteger(Number(e.target.value))
 		) {
 			var pincode = e.target.value;
-			const pinddddd = fetch(
+			fetch(
 				'https://indiarush.com/irapi/product/getPincodeCheck?product_id=' +
 					productId +
 					'&pincode=' +
@@ -184,7 +183,8 @@ export default class Cart extends React.PureComponent {
 						document.getElementById("shippingDate"+item_id).innerHTML = "Get it by : "+jsonResult.data.deliveryDate;
 						document.getElementById("checkpincode"+item_id).style.display = "none";
 						localStorage.setItem('userPincode', pincode);
-						this.setState({pincode:pincode});
+						// this.setState({pincode:pincode});
+						// this.setState({pincode: 110044});
 					}
 				});
 
@@ -197,7 +197,7 @@ export default class Cart extends React.PureComponent {
 					this.setState({pincode:pincode});
 			}
 			else {
-				this.setState({pincode:null});
+				this.setState({pincode:undefined});
 			}
 
 		}
