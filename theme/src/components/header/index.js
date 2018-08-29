@@ -50,6 +50,7 @@ export default class Header extends React.Component {
 		this.shoppingCartDetails = this.shoppingCartDetails.bind(this);
 		this.removeSaveForLater = this.removeSaveForLater.bind(this);
 		this.moveSaveForLaterToCart = this.moveSaveForLaterToCart.bind(this);
+		this.updateCartItemSize = this.updateCartItemSize.bind(this);
 	}
 saveForLater(productId,itemId)
 {
@@ -86,7 +87,7 @@ shoppingCartDetails()
 	fetch(
 		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 			quoteId +
-			'&pincode=""' +
+			'&pincode="110044"' +
 			'&reset_payment=1' +
 			'&version=' +
 			'99.99'
@@ -128,6 +129,30 @@ removeSaveForLater(productId)
 			this.shoppingCartDetails();
 		});
 }
+
+updateCartItemSize(itemId,productId)
+{
+	console.log(itemId);
+	console.log(productId);
+	const quoteId = cookie.load('userQuoteId');
+	fetch(
+		'https://indiarush.com/irapi/cart/updateSizeonCartUpdate?quote_id=' +
+			quoteId +
+			'&itemId=' +itemId+
+			'&product='+productId+
+			'&isAjax=1'+ +
+			'&version=' +
+			'3.99'
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			this.getSaveFOrLaterDetails();
+			this.shoppingCartDetails();
+		});
+}
+
 
 	componentDidMount() {
 		this.shoppingCartDetails();
@@ -313,6 +338,7 @@ removeSaveForLater(productId)
 										cartToggle={this.cartToggle}
 										updateCartItemQuantiry={this.props.updateCartItemQuantiry}
 										saveForLater={this.saveForLater}
+										updateCartItemSize={this.updateCartItemSize}
 									/>
 								</div>
 							</div>

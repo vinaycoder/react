@@ -3,12 +3,13 @@ import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../../lib/settings';
 import * as helper from '../../lib/helper';
 
-const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry, saveForLater }) => {
+const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry, saveForLater, showSize, updateCartItemSize, showPincode, checkPincodeOnCart, pincode }) => {
 	const thumbnail = helper.getThumbnailUrl(
 		item.image_url,
 		themeSettings.cartThumbnailWidth
 	);
 	const qtyOptions = [];
+	const sizeOptions = [];
 	const maxQty = item.stock_backorder
 		? themeSettings.maxCartItemQty
 		: item.stock_quantity >= themeSettings.maxCartItemQty
@@ -27,6 +28,15 @@ const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry, save
 	if(item.isConfigurableProduct)
 	{
 		 productConfigData=item.name.split('-');
+
+		item.sizelabel.map((size,index) => (
+			 sizeOptions.push(
+				 <option key={size.product_id} value={size.product_id}>
+					 {size.size}
+				 </option>
+			 )
+		 ));
+
 	}
 	return (
 		<div>
@@ -45,14 +55,55 @@ const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry, save
 					<div className="save-for-later-mrp is-inline mrLR2"> {helper.formatCurrency(item.mrpprice, settings)}</div>
 					<div className="save-for-later-offer-price is-inline mrLR2"> {helper.formatCurrency(item.price, settings)}</div>
 					{item.isConfigurableProduct && (
-			       <div className="cartPopSize mrLR2">
-								<span>Size:</span>
-								<span>{productConfigData[1]}&nbsp;&nbsp;<span style={{color:'#f6823c'}}>Edit</span></span>
-						</div>
+					       <div className="cartPopSize mrLR2" >
+										<span>Size:</span>
+										<span id={"size_" + item.itemId}>
+										{productConfigData[1]}&nbsp;&nbsp;<span style={{color:'#f6823c',cursor:'pointer'}} onClick={e => showSize(e,item.id,item.itemId)}>Edit</span>
+										</span>
+										&nbsp;&nbsp;
+										<span id={"sizeShow_" + item.itemId} style={{display:'none',}} className="select is-small mrL5">
+										<select
+											onChange={e => {
+												updateCartItemSize(item.itemId, e.target.value);
+											}}
+											value={item.id}
+										>
+											{sizeOptions}
+										</select>
+										</span>
+								</div>
+
           )}
-          <div className="shipping-days-cartPop mrLR2">Ships in 7 business days.</div>
-          <div className="delivery-days-cart-popup mrLR2">Get delivery dates</div>
-          <div className="cash-delivery-cartpopup mrLR2">Cash On Delivery Available</div>
+
+
+
+
+					{item.deliveryDate=="" ? (
+					<div>
+					<div className="shipping-days-cartPop mrLR2" id={"shippingDate" + item.itemId}>Ships in 7 business days.</div>
+          <div className="delivery-days-cart-popup mrLR2" id={"checkpincode" + item.itemId} onClick={e => showPincode(e,item.id,item.itemId)}>Get delivery dates
+						<span className="pincodeOnCart" id={"pincode" + item.itemId}>
+							<input
+								maxLength="6"
+								placeholder="Enter Pincode"
+								title="Enter your Pincode to check shipping time"
+								type="tel"
+								onChange={e => checkPincodeOnCart(e,item.id,item.itemId)}
+							/>
+						</span>
+					</div>
+					 <div className="cash-delivery-cartpopup mrLR2" id={"cod" + item.itemId}>Cash On Delivery Available</div>
+					</div>
+				) : (
+					<div>
+					<div className="shipping-days-cartPop mrLR2" id={"shippingDate" + item.itemId}>{item.shippingInfo}</div>
+					<div className="cash-delivery-cartpopup mrLR2" id={"cod" + item.itemId}>{item.codInfo}</div>
+					</div>
+				)}
+
+
+
+
 					<div className="qty mrLR6">
 						<span>Qty:</span>
 						<span className="select is-small mrL5">
@@ -87,8 +138,73 @@ const CartItem = ({ item, deleteCartItem, settings, updateCartItemQuantiry, save
 };
 
 export default class Cart extends React.PureComponent {
+	constructor(props) {
+		super(props);
+		this.state = {
+		pincode:null
+		};
+
+	}
+	showSize(e,product_id,item_id)
+	{
+		document.getElementById("size_"+item_id).style.display = "none";
+		document.getElementById("sizeShow_"+item_id).style.display = "inline-block";
+	}
+	showPincode(e,product_id,item_id)
+	{
+		document.getElementById("pincode"+item_id).style.display = "block";
+	}
+
+	checkPincodeOnCart(e, productId, item_id) {
+		if (
+			e.target.value.length == 6 &&
+			Number.isInteger(Number(e.target.value))
+		) {
+			var pincode = e.target.value;
+			const pinddddd = fetch(
+				'https://indiarush.com/irapi/product/getPincodeCheck?product_id=' +
+					productId +
+					'&pincode=' +
+					e.target.value +
+					'&version=' +
+					'3.99'
+			)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					console.log(jsonResult);
+					if(jsonResult.metadata.message=='success')
+					{
+						if (jsonResult.data.postpaid) {
+							document.getElementById("cod"+item_id).innerHTML = "Cash On Delivery Available.";
+						} else {
+							document.getElementById("cod"+item_id).innerHTML = "Cash On Not Delivery Available.";
+						}
+						document.getElementById("shippingDate"+item_id).innerHTML = "Get it by : "+jsonResult.data.deliveryDate;
+						document.getElementById("checkpincode"+item_id).style.display = "none";
+						localStorage.setItem('userPincode', pincode);
+						this.setState({pincode:pincode});
+					}
+				});
+
+		}
+	}
+		componentDidMount() {
+			if(localStorage.getItem('userPincode'))
+			{
+				const	 pincode=localStorage.getItem('userPincode');
+					this.setState({pincode:pincode});
+			}
+			else {
+				this.setState({pincode:null});
+			}
+
+		}
+
 	render() {
-		const { cart, deleteCartItem, settings, cartToggle, updateCartItemQuantiry, saveForLater } = this.props;
+		const { cart, deleteCartItem, settings, cartToggle, updateCartItemQuantiry, saveForLater, updateCartItemSize } = this.props;
+
 		if (cart && cart.items && cart.items.length > 0) {
 			const items = cart.items.map(item => (
 				<CartItem
@@ -98,6 +214,11 @@ export default class Cart extends React.PureComponent {
 					settings={settings}
 					updateCartItemQuantiry={updateCartItemQuantiry}
 					saveForLater={saveForLater}
+					showSize={this.showSize}
+					updateCartItemSize={updateCartItemSize}
+					showPincode={this.showPincode}
+					checkPincodeOnCart={this.checkPincodeOnCart}
+					pincode={this.state.pincode}
 				/>
 			));
 
