@@ -147,3 +147,47 @@ Mobile
 {
   width: 150px;
 }
+.cartCouponSection
+{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.coupon_code{
+    padding: 7px;
+    background: #fff !important;
+    border: 1px solid #ddd;
+    padding: 7px;
+    width: 75%;
+}
+.apply-coupon-btn
+{
+    background-color: #f6823c!important;
+    color: #fff;
+    border-color: transparent;
+    padding: 8px;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-left: 3px;
+}
+
+input.input-text, select, textarea {
+    background: #fff !important;
+    border: 1px solid #ddd;
+}
+.appliedCouponMar
+{
+  margin-top:20px;
+}
+.couponDiscountLable
+{
+  text-align: right;
+  font-size: 15px;
+}
+.couponDiscountLableLastChild
+{
+  margin-bottom: 10px;
+}
+.appliedCouponCode
+{
+  text-align: right;
+}

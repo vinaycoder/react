@@ -141,10 +141,15 @@ export default class Cart extends React.PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-		pincode:undefined
+		pincode:undefined,
+		visible: false
 		};
 		this.checkPincodeOnCart=this.checkPincodeOnCart.bind(this);
+		this.toggleMenu = this.toggleMenu.bind(this);
 	}
+	toggleMenu() {
+		this.setState({visible: !this.state.visible})
+}
 	showSize(e,product_id,item_id)
 	{
 		document.getElementById("size_"+item_id).style.display = "none";
@@ -202,8 +207,9 @@ export default class Cart extends React.PureComponent {
 
 		}
 
+
 	render() {
-		const { cart, deleteCartItem, settings, cartToggle, updateCartItemQuantiry, saveForLater, updateCartItemSize } = this.props;
+		const { cart, deleteCartItem, settings, cartToggle, updateCartItemQuantiry, saveForLater, updateCartItemSize,applyCoupon } = this.props;
 
 		if (cart && cart.items && cart.items.length > 0) {
 			const items = cart.items.map(item => (
@@ -225,7 +231,7 @@ export default class Cart extends React.PureComponent {
 			return (
 				<div className="mini-cart cartPopBottom">
 					<p className="save-for-later-counts is-inline">{items.length} Items</p>
-					<p className="save-for-later-counts is-inline is-pulled-right">Total : <span className="cartPopTopPrice">	{helper.formatCurrency(cart.subtotal, settings)}</span></p>
+					<p className="save-for-later-counts is-inline is-pulled-right">Total : <span className="cartPopTopPrice">	{helper.formatCurrency(cart.grandtotal, settings)}</span></p>
 					<NavLink
 						className="button is-primary is-fullwidth has-text-centered checkoutBottomButton mrB20"
 						style={{ textTransform: 'uppercase' }}
@@ -240,9 +246,32 @@ export default class Cart extends React.PureComponent {
 					{/*<hr className="separator" />*/}
 					<div className="columns is-mobile is-gapless cart-checkout-button">
 						<div className="column is-12 cartPopBottom">
-							<p className="checkout-coupon-text">
-								Have a coupon code? <a href="">Click Here</a>
+						{cart.discount == 0 && (
+							<p className="checkout-coupon-text" onClick={this.toggleMenu}>
+								Have a coupon code? <span style={{color:'#f6701d',cursor:'pointer'}}>Click Here </span>
 							</p>
+			        )}
+
+							{(this.state.visible || cart.discount>0) &&
+								<div className="cartCouponSection">
+									{cart.discount>0 ? (
+										<div className="appliedCouponMar">
+										 	<p className="couponDiscountLable">Subtotal : <span className="cartPopTopPrice">	{helper.formatCurrency(cart.subtotal, settings)}</span></p>
+											<p className="couponDiscountLable">Coupon : <span className="cartPopTopPrice">	{helper.formatCurrency(cart.discount, settings)}</span></p>
+											<p className="couponDiscountLable couponDiscountLableLastChild">Total	 : <span className="cartPopTopPrice">	{helper.formatCurrency(cart.grandtotal, settings)}</span></p>
+										  <div className="appliedCouponCode">
+											<input className="input-text" className="coupon_code input-text" id="coupon_code" name="coupon_code" value={""+cart.applied_coupon} readOnly />
+											<span className="apply-coupon-btn" style={{cursor:'pointer'}} onClick={e => { applyCoupon('remove');}}>CANCEL</span>
+											</div>
+										</div>
+					      ) : (
+									<div>
+									<input className="input-text" className="coupon_code input-text" id="coupon_code" name="coupon_code"/>
+									<span className="apply-coupon-btn" style={{cursor:'pointer'}} onClick={e => { applyCoupon('apply');}}>APPLY</span>
+									</div>
+					      )}
+					      </div>
+							}
 								<NavLink
 									className="button is-primary is-fullwidth has-text-centered checkoutBottomButton"
 									style={{ textTransform: 'uppercase' }}

@@ -8,21 +8,19 @@ const CartItem = ({ item, settings,moveSaveForLaterToCart, removeFromSaveForLate
 		item.image_url,
 		themeSettings.cartThumbnailWidth
 	);
-  const productUrl=item.name.split('/');
-  // const productUrl=item.productUrl.split('/');
 	return (
 		<div>
 		<div className="columns is-mobile">
 			<div className="column is-3">
 				<div className="image">
-					<NavLink to='name'>
+					<NavLink to={'/'+item.productUrl}>
 						<img src={item.image_url} />
 					</NavLink>
 				</div>
 			</div>
 			<div className="column">
 				<div>
-					<NavLink to='name'>{item.name}</NavLink>
+					<NavLink to={'/'+item.productUrl}>{item.name}</NavLink>
 				</div>
 					<div className="save-for-later-mrp"> {helper.formatCurrency(item.price, settings)}</div>
 					<div className="save-for-later-offer-price"> {helper.formatCurrency(item.special_price, settings)}</div>
