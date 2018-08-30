@@ -307,10 +307,15 @@ export const addCartItem = (item, history) => async (dispatch, getState) => {
 		});
 
 	// calling for get cart details
+	var pincode="";
+	if(localStorage.getItem('userPincode')!==null)
+	{
+		pincode=localStorage.getItem('userPincode');
+	}
 	const getCartDetails = await fetch(
 		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 			quoteId +
-			'&pincode=""' +
+			'&pincode='+pincode+
 			'&reset_payment=1' +
 			'&version=' +
 			'99.99'
@@ -446,11 +451,16 @@ export const updateCartItemQuantiry = (item_id, quantity) => async (
 		.then(jsonResult => {
 			return jsonResult;
 		});
+		var pincode="";
+		if(localStorage.getItem('userPincode')!==null)
+		{
+			pincode=localStorage.getItem('userPincode');
+		}
 	if (removeStatus) {
 		fetch(
 			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				quoteId +
-				'&pincode=""' +
+				'&pincode='+pincode+
 				'&reset_payment=1' +
 				'&version=' +
 				'99.99'
@@ -493,14 +503,16 @@ export const deleteCartItem = item_id => async (dispatch, getState) => {
 		.then(jsonResult => {
 			return jsonResult;
 		});
-	console.log('vinay delete cart');
-	console.log(removeStatus);
-	console.log(item_id);
+		var pincode="";
+		if(localStorage.getItem('userPincode')!==null)
+		{
+			pincode=localStorage.getItem('userPincode');
+		}
 	if (removeStatus) {
 		fetch(
 			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				quoteId +
-				'&pincode=""' +
+				'&pincode='+pincode+
 				'&reset_payment=1' +
 				'&version=' +
 				'99.99'

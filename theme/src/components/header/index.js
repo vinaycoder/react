@@ -84,10 +84,15 @@ getSaveFOrLaterDetails()
 shoppingCartDetails()
 {
 	const quoteId = cookie.load('userQuoteId');
+	var pincode="";
+	if(localStorage.getItem('userPincode')!==null)
+	{
+		pincode=localStorage.getItem('userPincode');
+	}
 	fetch(
 		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 			quoteId +
-			'&pincode="110044"' +
+			'&pincode='+pincode+
 			'&reset_payment=1' +
 			'&version=' +
 			'99.99'

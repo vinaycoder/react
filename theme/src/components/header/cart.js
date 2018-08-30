@@ -143,6 +143,7 @@ export default class Cart extends React.PureComponent {
 		this.state = {
 		pincode:undefined
 		};
+		this.checkPincodeOnCart=this.checkPincodeOnCart.bind(this);
 	}
 	showSize(e,product_id,item_id)
 	{
@@ -183,15 +184,14 @@ export default class Cart extends React.PureComponent {
 						document.getElementById("shippingDate"+item_id).innerHTML = "Get it by : "+jsonResult.data.deliveryDate;
 						document.getElementById("checkpincode"+item_id).style.display = "none";
 						localStorage.setItem('userPincode', pincode);
-						// this.setState({pincode:pincode});
-						// this.setState({pincode: 110044});
+						this.setState({pincode:pincode});
 					}
 				});
 
 		}
 	}
 		componentDidMount() {
-			if(localStorage.getItem('userPincode'))
+			if(localStorage.getItem('userPincode')!==null)
 			{
 				const	 pincode=localStorage.getItem('userPincode');
 					this.setState({pincode:pincode});

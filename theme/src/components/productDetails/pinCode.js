@@ -21,8 +21,6 @@ class Pincode extends Component {
 		this.setState({ pincodeShow: true });
 	}
 	checkPincode(e, productId) {
-		console.log('vinay tkkkk');
-		console.log(Number.isInteger(Number(e.target.value)));
 		if (
 			e.target.value.length == 6 &&
 			Number.isInteger(Number(e.target.value))
@@ -40,6 +38,7 @@ class Pincode extends Component {
 					return result.json();
 				})
 				.then(jsonResult => {
+					localStorage.setItem('userPincode', pincode);
 					if (jsonResult.data.postpaid) {
 						var codmessage = 'Cash On Delivery Available.';
 					} else {
