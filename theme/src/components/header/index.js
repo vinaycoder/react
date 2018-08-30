@@ -47,13 +47,14 @@ export default class Header extends React.Component {
 			cart: []
 		};
 		this.saveForLater = this.saveForLater.bind(this);
-		this.shoppingCartDetails = this.shoppingCartDetails.bind(this);
+		// this.shoppingCartDetails = this.shoppingCartDetails.bind(this);
 		this.removeSaveForLater = this.removeSaveForLater.bind(this);
 		this.moveSaveForLaterToCart = this.moveSaveForLaterToCart.bind(this);
 		this.updateCartItemSize = this.updateCartItemSize.bind(this);
 	}
 saveForLater(productId,itemId)
 {
+	const { fetchCart } = this.props;
 	const quoteId = cookie.load('userQuoteId');
 	const statsCookieId = cookie.load('statsCookieId');
 	fetch('https://indiarush.com/irapi/cart/moveToSaveforLater?pincode=""'+'&item_id='+itemId+'&product_id='+productId+'&quote_id='+quoteId+'&customer_id='+statsCookieId+'&version=3.99')
@@ -62,7 +63,7 @@ saveForLater(productId,itemId)
 		})
 		.then(jsonResult => {
 			this.getSaveFOrLaterDetails();
-			this.shoppingCartDetails();
+			fetchCart();
 		});
 		console.log('check props');
 		console.log(this.props);
@@ -81,36 +82,9 @@ getSaveFOrLaterDetails()
 			});
 }
 
-shoppingCartDetails()
-{
-	const quoteId = cookie.load('userQuoteId');
-	var pincode="";
-	if(localStorage.getItem('userPincode')!==null)
-	{
-		pincode=localStorage.getItem('userPincode');
-	}
-	fetch(
-		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
-			quoteId +
-			'&pincode='+pincode+
-			'&reset_payment=1' +
-			'&version=' +
-			'99.99'
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			this.props.state.cart = jsonResult.data;
-			this.setState({
-				cart: jsonResult.data
-			});
-		});
-}
-
 moveSaveForLaterToCart(productId)
 {
-	const { addCartItem } = this.props;
+	const { addCartItem,fetchCart } = this.props;
 	const item = {
 		product_id: productId,
 		quantity: 1,
@@ -118,12 +92,13 @@ moveSaveForLaterToCart(productId)
 	};
 	console.log('vinay in move to cart');
 	addCartItem(item);
-	this.shoppingCartDetails();
+	fetchCart();
 	this.removeSaveForLater(productId);
 }
 
 removeSaveForLater(productId)
 {
+	const { fetchCart } = this.props;
 	const statsCookieId = cookie.load('statsCookieId');
 	fetch('https://indiarush.com/irapi/cart/RemovefromSaveLater/?customer_id='+statsCookieId+'&product_id='+productId+'&version=3.99')
 		.then(result => {
@@ -131,14 +106,13 @@ removeSaveForLater(productId)
 		})
 		.then(jsonResult => {
 			this.getSaveFOrLaterDetails();
-			this.shoppingCartDetails();
+			fetchCart();
 		});
 }
 
 updateCartItemSize(itemId,productId)
 {
-	console.log(itemId);
-	console.log(productId);
+const { fetchCart } = this.props;
 	const quoteId = cookie.load('userQuoteId');
 	fetch(
 		'https://indiarush.com/irapi/cart/updateSizeonCartUpdate?quote_id=' +
@@ -154,13 +128,14 @@ updateCartItemSize(itemId,productId)
 		})
 		.then(jsonResult => {
 			this.getSaveFOrLaterDetails();
-			this.shoppingCartDetails();
+			fetchCart();
 		});
 }
 
 
 	componentDidMount() {
-		this.shoppingCartDetails();
+		const { fetchCart } = this.props;
+		fetchCart();
 		this.getSaveFOrLaterDetails();
 	}
 

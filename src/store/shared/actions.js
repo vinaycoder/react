@@ -244,9 +244,26 @@ const receivePage = pageDetails => ({ type: t.PAGE_RECEIVE, pageDetails });
 
 export const fetchCart = () => async (dispatch, getState) => {
 	dispatch(requestCart());
-	const response = await api.ajax.cart.retrieve();
-	const cart = response.json;
-	dispatch(receiveCart(cart));
+	var pincode="";
+if(localStorage.getItem('userPincode')!==null)
+{
+	pincode=localStorage.getItem('userPincode');
+}
+const quoteId = cookie.load('userQuoteId');
+fetch(
+	'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+		quoteId +
+		'&pincode='+pincode+
+		'&reset_payment=1' +
+		'&version=' +
+		'99.99'
+)
+	.then(result => {
+		return result.json();
+	})
+	.then(jsonResult => {
+		dispatch(receiveCart(jsonResult.data));
+	});
 };
 
 const requestCart = () => ({ type: t.CART_REQUEST });

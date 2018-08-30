@@ -9,6 +9,7 @@ import {
 	fetchShippingMethods,
 	fetchPaymentMethods,
 	updateCart,
+	fetchCart,
 	checkout
 } from './actions';
 
@@ -39,6 +40,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		updateCart: (data, callback) => {
 			dispatch(updateCart(data, callback));
+		},
+		fetchCart: () => {
+			dispatch(fetchCart());
 		},
 		checkout: data => {
 			dispatch(checkout(data, ownProps.history));
