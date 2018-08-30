@@ -268,6 +268,32 @@ fetch(
 
 const requestCart = () => ({ type: t.CART_REQUEST });
 
+export const couponCode = (type,coupon) => async (dispatch, getState) => {
+		dispatch(requestCouponCode());
+
+		const quoteId = cookie.load('userQuoteId');
+		if(type=='apply')
+		{
+			var url='https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
+				quoteId+'&coupan='+coupon;
+		}
+		if(type=='remove')
+		{
+			var url='https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
+				quoteId+'&coupan='+coupon+'&remove=1';
+		}
+
+		fetch(url)
+			.then(result => {
+				return result;
+			})
+			.then(jsonResult => {
+						dispatch(fetchCart());
+			});
+
+};
+const requestCouponCode = () => ({ type: t.COUPON_CODE_REQUEST });
+
 const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 
 export const addCartItem = (item, history) => async (dispatch, getState) => {

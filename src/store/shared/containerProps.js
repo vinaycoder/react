@@ -10,7 +10,8 @@ import {
 	fetchPaymentMethods,
 	updateCart,
 	fetchCart,
-	checkout
+	checkout,
+	couponCode
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -43,6 +44,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		fetchCart: () => {
 			dispatch(fetchCart());
+		},
+		couponCode: (type,coupon) => {
+			dispatch(couponCode(type,coupon));
 		},
 		checkout: data => {
 			dispatch(checkout(data, ownProps.history));

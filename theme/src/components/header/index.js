@@ -152,27 +152,8 @@ const { fetchCart } = this.props;
 	applyCoupon(type)
 	{
 		var coupon=document.getElementById('coupon_code').value;
-		const { fetchCart } = this.props;
-			const quoteId = cookie.load('userQuoteId');
-			if(type=='apply')
-			{
-				var url='https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
-					quoteId+'&coupan='+coupon;
-			}
-			if(type=='remove')
-			{
-				var url='https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
-					quoteId+'&coupan='+coupon+'&remove=1';
-			}
-
-			fetch(url)
-				.then(result => {
-					return result;
-				})
-				.then(jsonResult => {
-					fetchCart();
-				});
-
+		const { couponCode } = this.props;
+		couponCode(type,coupon);
 		// end coupon codes
 	}
 

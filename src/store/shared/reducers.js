@@ -103,6 +103,7 @@ const appReducer = (state = initialState, action) => {
 		case t.CART_ITEM_UPDATE_REQUEST:
 		case t.SITEMAP_REQUEST:
 		case t.LOGIN_REQUEST:
+		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
 		default:
 			return state;
