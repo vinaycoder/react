@@ -73,10 +73,10 @@ class SwitchContainers extends React.Component {
 		if (!cookie.load('isLoggedIn')) {
 			let isLoggedIn = 0;
 
-			if (this.state.isLoggedIn) {
-				console.log('state set for isLoggedIn');
-				isLoggedIn = this.state.isLoggedIn;
-			}
+			// if (this.state.isLoggedIn) {
+			// 	console.log('state set for isLoggedIn');
+			// 	isLoggedIn = this.state.isLoggedIn;
+			// }
 			cookie.save('isLoggedIn', isLoggedIn, { path: '/' });
 			this.setState({ isLoggedIn: isLoggedIn });
 		}
