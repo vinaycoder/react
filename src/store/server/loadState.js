@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import api from './api';
 import queryString from 'query-string';
+import winston from 'winston';
 
 import {
 	getParsedProductFilter,
@@ -583,7 +584,8 @@ export const loadState = (req, language) => {
 					productFilter,
 					loginPost
 				);
-				console.log('Final Return Data');
+				console.log('Final Return Daasdasdta');
+				winston.info(`i am also here`);
 				console.log(state);
 				return {
 					state: state,
