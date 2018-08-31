@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { themeSettings, text } from '../../lib/settings';
 
-const LoginIcon = ({ loginIsActive }) => {
+const LoginIcon = ({ loginIsActive, loginPost }) => {
 	if (loginIsActive) {
 		return (
 			<img
@@ -19,10 +19,12 @@ const LoginIcon = ({ loginIsActive }) => {
 
 export default class LoginIndicator extends React.PureComponent {
 	render() {
-		const { onClick, loginIsActive } = this.props;
+		const { onClick, loginIsActive, loginPost } = this.props;
+		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
+
 		return (
 			<span className="cart-button" onClick={onClick}>
-				<LoginIcon loginIsActive={loginIsActive} />
+				<LoginIcon loginIsActive={loginIsActive} loginPost={loginPost} />
 			</span>
 		);
 	}

@@ -105,11 +105,10 @@ export default class ProductDetails extends React.Component {
 		const item = {
 			product_id: product.product_id,
 			quantity: quantity,
-			type:null
+			type: null
 		};
 
-		if(clickType=='buyNow')
-		{
+		if (clickType == 'buyNow') {
 			item.type = clickType;
 		}
 
@@ -141,9 +140,16 @@ export default class ProductDetails extends React.Component {
 			product,
 			settings,
 			categories,
-			recommendationProducts
+			recommendationProducts,
+			loginPost
 		} = this.props;
-		const { selectedVariant, isAllOptionsSelected } = this.state;
+		const {
+			selectedVariant,
+			isAllOptionsSelected,
+			isLoggedIn,
+			statsCookieId,
+			customerDetails
+		} = this.state;
 		const maxQuantity =
 			product.stock_status === 'discontinued'
 				? 0

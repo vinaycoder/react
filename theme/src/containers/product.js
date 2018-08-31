@@ -7,7 +7,16 @@ const ProductContainer = props => {
 	const {
 		addCartItem,
 		getJSONLD,
-		state: { productDetails, settings, categories, recommendationProducts }
+		loginPost,
+		state: {
+			productDetails,
+			settings,
+			categories,
+			recommendationProducts,
+			isLoggedIn,
+			statsCookieId,
+			customerDetails
+		}
 	} = props;
 
 	if (productDetails) {
@@ -38,6 +47,7 @@ const ProductContainer = props => {
 					addCartItem={addCartItem}
 					categories={categories}
 					recommendationProducts={recommendationProducts}
+					loginPost={loginPost}
 				/>
 			</Fragment>
 		);
@@ -48,11 +58,15 @@ const ProductContainer = props => {
 ProductContainer.propTypes = {
 	getJSONLD: PropTypes.func.isRequired,
 	addCartItem: PropTypes.func.isRequired,
+	loginPost: PropTypes.func,
 	state: PropTypes.shape({
 		settings: PropTypes.shape({}),
 		productDetails: PropTypes.shape({}),
 		categories: PropTypes.arrayOf(PropTypes.shape({})),
-		recommendationProducts: PropTypes.arrayOf(PropTypes.shape({}))
+		recommendationProducts: PropTypes.arrayOf(PropTypes.shape({})),
+		isLoggedIn: PropTypes.shape({}),
+		statsCookieId: PropTypes.shape({}),
+		customerDetails: PropTypes.shape({})
 	}).isRequired
 };
 
