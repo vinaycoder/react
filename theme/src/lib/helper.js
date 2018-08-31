@@ -155,3 +155,23 @@ export const getShippingFieldLabel = ({ label, key }) =>
 
 export const getCheckoutFieldLabel = ({ label, name }) =>
 	label && label.length > 0 ? label : getFieldLabelByKey(name);
+
+export function PostData(type, userData) {
+	// let BaseURL = 'https://apipaypal.9lessons.info/apipaypal/';
+	// let BaseURL = 'https://dev.indiarush.com:3000/';
+	let BaseURL = 'https://dev.indiarush.com/irapi/customer/customerLoginReact';
+
+	return new Promise((resolve, reject) => {
+		fetch(BaseURL, {
+			method: 'POST',
+			body: JSON.stringify(userData)
+		})
+			.then(response => response.json())
+			.then(res => {
+				resolve(res);
+			})
+			.catch(error => {
+				reject(error);
+			});
+	});
+}

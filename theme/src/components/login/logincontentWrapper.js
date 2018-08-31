@@ -4,13 +4,18 @@ import api from '../../lib/api';
 import { themeSettings, text } from '../../lib/settings';
 
 export default class LogincontentWrapper extends React.Component {
-	static propTypes = {
-		settings: PropTypes.shape({}).isRequired
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			// customerDetails: [],
+			// statsCookieId: undefined,
+			// isLoggedIn: false
+		};
+	}
 
-	state = {
-		products: []
-	};
+	// static propTypes = {
+	// 	settings: PropTypes.shape({}).isRequired
+	// };
 
 	componentDidMount() {
 		// this.isCancelled = false;
@@ -26,12 +31,9 @@ export default class LogincontentWrapper extends React.Component {
 	}
 
 	render() {
-		console.log('in SocialLogin js render');
-		const { settings } = this.props;
-
-		// const { products } = this.state;
-
-		// return <IRSlickSlider products={products} />;
+		// console.log('in Login Content Wrapper js render');
+		const { loginPost } = this.props;
+		const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
 		return (
 			<div className="extra-content loginExtraContent right">

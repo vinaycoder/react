@@ -1,82 +1,83 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import cookie from 'react-cookies';
 import { themeSettings, text } from '../../lib/settings';
 import * as helper from '../../lib/helper';
-import cookie from 'react-cookies';
-
-const CartItem = ({ item, deleteCartItem, settings }) => {
-	const thumbnail = helper.getThumbnailUrl(
-		item.image_url,
-		themeSettings.cartThumbnailWidth
-	);
-
-	return (
-		<div className="columns is-mobile">
-			<div className="column is-2">
-				<div className="image">
-					<NavLink to={item.name}>
-						<img src={item.imageUrl} />
-					</NavLink>
-				</div>
-			</div>
-			<div className="column">
-				<div>
-					<NavLink to={item.name}>{item.name}</NavLink>
-				</div>
-				{/* {item.name.length > 0 && (
-					 <div className="cart-option-name">{item.name}</div>
-				)} */}
-				<div className="cart-quantity">
-					{text.qty}: {item.quantity}
-				</div>
-			</div>
-			<div className="column is-4 has-text-right">
-				<div className="mini-cart-item-price">
-					Rs {item.price}
-					{/* {helper.formatCurrency(item.price, settings)} */}
-				</div>
-				<a
-					className="button is-light is-small"
-					onClick={() => deleteCartItem(item.itemId)}
-				>
-					{text.remove}
-				</a>
-			</div>
-		</div>
-	);
-};
 
 export default class LoginWrapper extends React.PureComponent {
 	render() {
-		const { settings, loginToggle } = this.props;
+		const { settings, loginToggle, loginPost } = this.props;
+		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
-		const isLoggedIn = cookie.load('isLoggedIn');
-		const statsCookieId = cookie.load('statsCookieId');
+		console.log('LoginWrapper this.props');
+		console.log(this.props);
+		// console.log("LoginWrapper this.state");
+		// console.log(this.state);
+		// const isLoggedIn = cookie.load('isLoggedIn');
+		// const statsCookieId = cookie.load('statsCookieId');
+		// const isLoggedInTest = 0;
 
-		if (isLoggedIn == 1) {
+		if (this.props.isLoggedIn === true) {
 			return (
 				<div className="mini-cart">
-					{items}
-					<hr className="separator" />
-					<div className="columns is-mobile is-gapless">
-						<div className="column is-7">
-							<b>{text.subtotal}</b>
-						</div>
-						<div className="column is-5 has-text-right">
-							<b>
-								Rs
-								{/* {helper.formatCurrency(cart.subtotal, settings)} */}
-							</b>
-						</div>
+					<div className="dropdown-login-test mob_drop_loginn-test">
+						<span>
+							<div className="left">
+								<ul className="dropdown-login-block-1">
+									<li className="dropdown-login-block-item">
+										<span className="dropdown-login-block-item-icon" />
+										<NavLink className="ullia" to="/customer/account/">
+											My Account
+										</NavLink>
+									</li>
+									<li className="dropdown-login-block-item">
+										<span className="dropdown-login-block-item-icon" />
+										<i className="material-icons icon logged-in-image">
+											person
+										</i>
+										<NavLink className="ullia" to="/sales/order/history/">
+											My Orders
+										</NavLink>
+									</li>
+								</ul>
+							</div>
+							<div className="right image-box">
+								<NavLink to="/customer/account/">
+									<span className="fb-connect-header-image-inner left sprites" />
+								</NavLink>
+							</div>
+						</span>
+						<span className="clear" />
+
+						<span>
+							<div className="test">
+								<span className="test">
+									<NavLink to="/customer/account/profile/">
+										<div className="dropdown-login-block-2">
+											<span className="dropdown-login-block-2-text">
+												{this.props.customerDetails.email}
+											</span>
+										</div>
+									</NavLink>
+								</span>
+								<span className="test">
+									<input
+										type="hidden"
+										id="loggedOutEmail"
+										value={this.props.customerDetails.email}
+									/>
+									<div className="divider" />
+									<NavLink
+										className="gtmUserInfo"
+										id="trackLoggedoutState"
+										to="/customer/account/logout/"
+									>
+										<div className="dropdown-login-block-3">Sign out</div>
+									</NavLink>
+								</span>
+							</div>
+						</span>
 					</div>
-					<NavLink
-						className="button is-primary is-fullwidth has-text-centered"
-						style={{ textTransform: 'uppercase' }}
-						to="/customer/account/login	"
-						onClick={loginToggle}
-					>
-						{text.proceedToCheckout}
-					</NavLink>
 				</div>
 			);
 		}

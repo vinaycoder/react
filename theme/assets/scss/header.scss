@@ -381,3 +381,867 @@ body.search-active .mobile-nav {
 
   margin: 2% 0px 0px 5%;
 }
+
+.login-facebook-wrapper{
+
+    margin: 2% 0 0 0;
+}
+
+.product-border-around{
+
+    border: 1px solid #ffba91;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 32px;
+    background: #ffefe6;
+}
+.login-input-div{
+  padding-left: 4px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background: none repeat scroll 0% 0% rgb(224, 224, 224);
+  border-radius: 3px;
+  width: 99%;
+  border: 1px solid rgb(224, 224, 224);
+  margin: auto;
+}
+.login-email-image {
+  background: #ff823c;
+  border-radius: 15px;
+  float: left;
+  color: white;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+}
+
+.input-field-login {
+    border: 0px none;
+    border-radius: 3px;
+    padding-left: 11px;
+    height: 30px;
+    width: 258px;
+}
+
+.login-password-image {
+  background: #ff823c;
+  border-radius: 15px;
+  float: left;
+  color: white;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+}
+
+.login-people-image {
+    background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') left center no-repeat;
+    display: block;
+    float: left;
+    margin-top: 1px;
+    padding: 4px;
+    background-position: -505px -586px;
+    width: 24px;
+    height: 21px;
+}
+.login-signup-submit {
+    float: left;
+    width: 65px !important;
+    padding: 5px !important;
+}
+
+.login-tab-title {
+    margin-bottom: -10px;
+    padding: 0 27px 0 0 !important;
+}
+
+#login-signup-tabs {
+    width: 450px;
+    margin-left: 4px;
+}
+
+.login-strip h1 {
+    margin: 10px 0px 0px 20px;
+    text-transform: capitalize;
+}
+
+.login-input-div .input-field-login {
+    width: 89%;
+}
+
+.login-input-link-div {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.login-input-link-div #forgotpass {
+    text-align: center;
+}
+
+.login-submit-div {
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.login-submit-div input {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.account-login-content {
+    background: #fff;
+    position: relative;
+}
+
+.account-login-content .registered-users {
+    width: 50%;
+    height: 100%;
+}
+
+.account-login-main {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.account-login-content .extra-content {
+    border-left: 1px solid #ccc;
+    width: 49%;
+    padding-left: 7px;
+    margin-top: 5px;
+    height: 700px;
+}
+
+.account-login-content .login-submit-div input {
+    font-weight: bold;
+}
+
+.account-login-content label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.account-create {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.account-create label {
+    margin-top: 10px;
+}
+
+.account-create .login-input-div {
+    margin-bottom: 10px;
+}
+
+.login-input-div-block1 {
+    width: 45%;
+}
+
+.account-create .login-input-link-div {
+    margin-top: 0px;
+}
+
+.account-create-name div {
+    display: block;
+}
+
+.account-create-full-field div {
+    width: 92%;
+}
+
+.login-strip {
+    height: 70px;
+    background: #e0e0e0;
+    overflow: hidden;
+}
+
+.login-strip h1 {
+    margin: 10px 0px 0px 20px;
+    text-transform: capitalize;
+}
+
+.login-input-div {
+    padding-left: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background: none repeat scroll 0% 0% rgb(224, 224, 224);
+    border-radius: 3px;
+    width: 99%;
+    border: 1px solid rgb(224, 224, 224);
+    margin: auto;
+}
+
+.login-input-div .input-field-login {
+    width: 89%;
+}
+
+.login-input-link-div {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.login-input-link-div #forgotpass {
+    text-align: center;
+}
+
+.login-submit-div {
+    border-radius: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.login-submit-div input {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.content-img-container {
+    margin-top: 8%;
+}
+
+.signup-full-field {
+    padding-left: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background: none repeat scroll 0% 0% rgb(224, 224, 224);
+    border-radius: 3px;
+    width: 306px;
+}
+
+.signup-field-gender {
+    padding: 3px;
+    border-radius: 3px;
+    border: 3px solid rgb(224, 224, 224);
+}
+
+.signup-field-fname {
+    background: none repeat scroll 0% 0% rgb(224, 224, 224);
+    border-radius: 3px;
+    padding: 3px 3px 3px 4px;
+}
+
+.signup-field-lname {
+    background: none repeat scroll 0% 0% rgb(224, 224, 224);
+    border-radius: 6px;
+    border-left: 3px solid rgb(255, 255, 255);
+    padding: 3px;
+}
+
+.signup-field-lname-input {
+    border: 0px none;
+    border-radius: 3px;
+    padding-left: 13px;
+    margin-right: 36px;
+    height: 30px;
+    width: 92%;
+}
+
+.signup-field-fname-input {
+    border: 0px none;
+    border-radius: 3px;
+    padding-left: 11px;
+    height: 30px;
+    width: 93%;
+}
+
+.signup-input-field {
+    border: 0px none;
+    border-radius: 3px;
+    padding-left: 8px;
+    height: 30px;
+    width: 97%;
+}
+
+.signup-gender-div {
+    padding-top: 3px;
+    background: #fff;
+}
+
+.signup-gender-span {
+    border-right: 2px solid rgb(224, 224, 224);
+    width: 30px;
+    padding-right: 27px;
+    margin-right: 0px;
+}
+
+.signup-gender-container {
+    width: 91%;
+    display: inline;
+    padding: 4px 4px 4px 0;
+    display: inline;
+    background: #fff;
+}
+
+.signup-gender-male-container {
+    width: 40%;
+    display: inline;
+    margin-left: 46px;
+    margin-right: 50px;
+}
+
+.signup-gender-female-container {
+    width: 50%;
+    display: inline;
+}
+
+.signup-radio-button {
+    margin-right: 4px;
+}
+
+.signup-tab-main {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+.signup-gender-image {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') left center no-repeat;
+    background-position: -402px -586px;
+    display: inline;
+    height: 30px;
+    width: 32px;
+}
+
+.signup-gender-image img {
+    margin-top: 3px;
+}
+
+.extra-content .content-container {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.extra-content .content-container div {
+    margin-bottom: 20px;
+}
+
+.extra-content .content-container div span.heading {
+    display: block;
+    font-weight: bold;
+}
+
+.tab-content-ruler {
+    margin: auto;
+    width: 100%;
+}
+
+.tab-content-ruler-hr {
+    top: 11px;
+    width: 100%;
+    height: 1px;
+    border: 0px none;
+    background-color: rgb(204, 204, 204);
+    margin-bottom: 35px;
+    margin-top: 15px;
+}
+
+.tab-content-rulerr-hr {
+    top: 11px;
+    width: 100%;
+    height: 1px;
+    border: 0px none;
+    background-color: rgb(204, 204, 204);
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+hr.tab-content-ruler-hr:after {
+    content: "OR";
+    display: inline-block;
+    position: relative;
+    top: -15px;
+    left: 44%;
+    padding: 0 10px;
+    background: #fff;
+    color: #8c8b8b;
+    font-size: 18px;
+}
+
+hr.tab-content-rulerr-hr:after {
+    content: "OR";
+    display: inline-block;
+    position: absolute;
+    padding: 0 10px;
+    background: #fff;
+    color: #8c8b8b;
+    font-size: 18px;
+    margin-top: -10px;
+    margin-left: -16px;
+    padding: 2px;
+}
+
+.fb-icon {
+    // background: url(/skin/frontend/default/theme202/images/sprites.png?v=81) left center no-repeat;
+    display: block;
+    background-position: -358px -254px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+.facebookloginbutton {
+    background-color: #3b5998;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    border: 0 none;
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 10px;
+    -webkit-appearance: none !important;
+}
+
+.instagramloginbutton {
+    // background: url("/skin/frontend/default/theme202/images/fb-login-icon.png") no-repeat black;
+    background-position: 5px 5px;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    font-weight: normal;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    border: 0 none;
+    font-size: 13px;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.signup-male-radio {
+    margin-left: 64px;
+}
+
+.signup-female-span {
+    padding-right: 19%;
+}
+
+.login-strip-content {
+    padding: 20px;
+    color: #333;
+    font-weight: normal;
+}
+
+.mobile-home-page-button-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.mobile-category-button {
+    display: inline-block;
+    width: 22%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0px auto;
+    color: #000;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background: #fff;
+}
+
+.women-men-nav-mob-divider {
+    display: none;
+}
+
+.women-men-nav-mob {
+    display: none;
+    width: 100%;
+    text-align: left;
+    background: #fff;
+}
+
+.women-men-nav-mob .sub-cat, .women-men-nav-mob .no-child-cat {
+    width: 96%;
+    display: block;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    padding-left: 5px;
+}
+
+.women-men-nav-mob .sub-cat {
+    position: relative;
+    color: #000;
+}
+
+.women-men-nav-mob .no-child-cat {
+    position: relative;
+    color: #000;
+}
+
+.women-men-nav-mob .sub-cat span, .women-men-nav-mob .no-child-cat span {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 10px;
+}
+
+.women-men-nav-mob a {
+    color: #000;
+    width: auto;
+}
+
+.women-men-nav-mob .item-has-children {
+    display: none;
+    border-top: 1px solid #ccc;
+    margin-top: 12px;
+}
+
+.women-men-nav-mob .item-has-children li {
+    padding: 10px;
+    padding-left: 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+.women-men-nav-mob .item-has-children li:last-child {
+    border-bottom: 0px;
+}
+
+.women-men-nav-mob .item-has-children li a {
+    color: #666;
+    width: 100%;
+    display: block;
+}
+
+.mob-menu-arrow-icon {
+    // background: url('../images/arrow-menu-icon-25x25.png');
+}
+
+.feedback-plus-icon {
+    background-position: -171px -383px !important;
+    width: 30px;
+    height: 28px;
+}
+.feedback-minus-icon {
+    background-position: -202px -383px !important;
+   width: 30px;
+   height: 28px;
+}
+
+
+.mob-menu-plus-icon, .catFAQPlus {
+    background-position: -175px -201px !important;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+}
+
+.mob-menu-plus-icon-gray {
+    background-position: -175px -351px !important;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+}
+
+.mob-menu-minus-icon, .catFAQMinus {
+    background-position: -205px -201px !important;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+}
+
+.mob-menu-minus-icon-gray {
+    background-position: -205px -351px !important;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+}
+.login-account-create-label-p{
+
+        text-align: center;
+}
+
+.login-account-create-label-action-p{
+
+        text-align: center;
+}
+
+.login-account-create{
+
+  color: #ff823c;
+  text-decoration: underline;
+}
+.forgotpwd-login-link{
+
+  color: #ff823c !important;
+  text-decoration: underline;
+}
+.loginORDividerText {
+    // margin-left: 200px;
+    // position: absolute;
+    // margin-top: -17px;
+    background: #fff;
+    padding: 5px;
+    color: rgb(154, 154, 154);
+}
+
+.fb-gplus-separator{
+      padding: 20px 0px 20px 0;
+}
+.no-display{
+  display: none;
+}
+
+/*========================Top Links ============================= */
+
+.top-link-cart-image {
+    float: right;
+    height: 33px;
+    margin-top: 5px;
+    padding-top: 0;
+    width: 50px;
+}
+
+.top-link-cart {
+    color: black;
+    margin-right: 2px;
+    margin-top: 5px;
+    text-align: center;
+    width: 59px;
+    padding-left: 4px;
+}
+
+.top-link-cart-text {
+    background-position: -240px -2px;
+    float: right;
+    height: 28px;
+    margin-top: 9px;
+}
+
+.social-links {
+    float: right;
+    min-width: 180px;
+    line-height: 14px;
+}
+
+.dropdown-login-text {
+    background-color: #E5E4E2;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.social-links .fb-connect-header {
+    float: right;
+    height: 35px;
+    padding-top: 16px;
+    position: relative;
+    line-height: 16px;
+
+}
+
+.dropdown-login {
+
+    left: -155px;
+    top: 30px;
+    padding-top: 10px;
+}
+
+.social-links {
+    left: -155px;
+    top: 30px;
+    padding-top: 10px;
+}
+
+.feed_wrapper {
+    height: 42px;
+}
+
+.dropdown_feed {
+
+    margin: 30px auto;
+    margin-left: 59px;
+    position: absolute;
+    left: -999em;
+    background: #fff;
+    background-position: -435px -282px;
+    z-index: 1000;
+    border-top: 1px solid;
+    border-color: #f60;
+    width: 283px;
+}
+
+
+
+.dropdown-login {
+
+    margin: 30px auto;
+    margin-left: 59px;
+    position: absolute;
+    left: -999em;
+    background: #fff;
+    background-position: -435px -282px;
+    z-index: 1000;
+    border-top: 1px solid;
+    border-color: #f60;
+    width: 283px;
+}
+
+.fb-connect-header {
+    background-position: -128px -9px;
+    width: 11px;
+    height: 6px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 3px;
+    display: block;
+}
+
+.fb-connect-header-drop {
+    background-position: -128px -9px;
+    width: 11px;
+    height: 6px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 3px;
+    display: block;
+}
+
+.fb-connect-header-name {
+    float: left;
+}
+
+.dropdown-login-block-1 {
+
+    text-align: left;
+    margin-left: 20px;
+    height: 50px;
+    cursor: pointer;
+
+}
+
+.dropdown-login-block-item a {
+    color: gray;
+    cursor: pointer;
+}
+
+.dropdown-login-block-item a:hover {
+    color: #000;
+}
+
+.dropdown-login-block-item-icon {
+    background-position: -107px -8px;
+    display: block;
+    height: 10px;
+    float: left;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.dropdown-login-block-2 {
+    background-color: #FF823C;
+    border-radius: 3px;
+    height: 40px;
+    margin: 10px auto auto;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dropdown-login-block-2-text {
+    display: block;
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+.dropdown-login-block-2-text a {
+    color: #ffffff;
+}
+
+.dropdown-login-block-2-text a:hover {
+    color: #ffffff;
+}
+
+.dropdown-login-block-3 {
+
+    margin: auto;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.dropdown-login-block-3 a {
+    color: gray;
+}
+
+.dropdown-login-block-3 a:hover {
+    color: #000;
+}
+
+.fb-connect-header-image {
+    background-position: -611px -85px;
+    float: left;
+    height: 32px;
+    width: 32px;
+    margin-top: 4px;
+}
+
+.fb-connect-header-image-inner {
+    background-position: -319px 0px;
+    float: left;
+    height: 100px;
+    width: 100px;
+    margin-top: 4px;
+}
+
+.image-box {
+    text-align: center;
+    margin-top: -4px;
+    margin-right: 12px;
+    margin-bottom: 10px;
+
+}
+
+.fb-connect-header-text {
+    float: left;
+    height: 30px;
+    padding: 5px 5px 5px;
+    color: black;
+}
+
+.fb-connect-wrapper {
+
+    height: 42px;
+    margin-top: 2px;
+}
+
+.fb-connect-wrapper:hover {
+    background: #fff;
+}
+
+.logged-in-image{
+
+  background: #ff823c;
+  border-radius: 15px;
+  float: left;
+  color: white;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+
+}
+
+.left{
+    float: left;
+}
+.right{
+
+    float: right;
+}

@@ -103,6 +103,43 @@ const appReducer = (state = initialState, action) => {
 		case t.CART_ITEM_UPDATE_REQUEST:
 		case t.SITEMAP_REQUEST:
 		case t.LOGIN_REQUEST:
+			// return Object.assign({}, state, { location: action.location });
+			// console.log('inside LOGIN_REQUEST reducer');
+			// console.log(action);
+			// console.log(state);
+
+			if (action.data) {
+				if (action.data.customer_id !== null) {
+					return Object.assign({}, state, {
+						isLoggedIn: true,
+						statsCookieId: action.data.customer_id,
+						customerDetails: action.data
+					});
+				} else {
+					return Object.assign({}, state, {
+						isLoggedIn: null,
+						statsCookieId: null,
+						customerDetails: []
+					});
+				}
+			}
+		case t.LOGIN_RECEIVE:
+			console.log('inside the login receive reducer');
+			if (action.data) {
+				if (action.data.customer_id !== null) {
+					return Object.assign({}, state, {
+						isLoggedIn: true,
+						statsCookieId: action.data.customer_id,
+						customerDetails: action.data
+					});
+				} else {
+					return Object.assign({}, state, {
+						isLoggedIn: null,
+						statsCookieId: null,
+						customerDetails: []
+					});
+				}
+			}
 		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
 		default:

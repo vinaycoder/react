@@ -30,10 +30,6 @@ import cookie from 'react-cookies';
 class SwitchContainers extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			isLoggedIn: undefined,
-			statsCookieId: undefined
-		};
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -69,7 +65,7 @@ class SwitchContainers extends React.Component {
 			// let now = new Date();
 			console.log('Date');
 			console.log(timeStamp);
-			let timesVariable=Math.floor(100000 + Math.random() * 900000);
+			let timesVariable = Math.floor(100000 + Math.random() * 900000);
 			cookie.save('statsCookieId', timesVariable, { path: '/' });
 			this.setState({ statsCookieId: timesVariable });
 		}
@@ -77,10 +73,10 @@ class SwitchContainers extends React.Component {
 		if (!cookie.load('isLoggedIn')) {
 			let isLoggedIn = 0;
 
-			if (this.state.isLoggedIn) {
-				console.log('state set for isLoggedIn');
-				isLoggedIn = this.state.isLoggedIn;
-			}
+			// if (this.state.isLoggedIn) {
+			// 	console.log('state set for isLoggedIn');
+			// 	isLoggedIn = this.state.isLoggedIn;
+			// }
 			cookie.save('isLoggedIn', isLoggedIn, { path: '/' });
 			this.setState({ isLoggedIn: isLoggedIn });
 		}

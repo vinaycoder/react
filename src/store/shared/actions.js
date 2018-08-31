@@ -1,3 +1,6 @@
+import queryString from 'query-string';
+import { animateScroll } from 'react-scroll';
+import cookie from 'react-cookies';
 import * as t from './actionTypes';
 import {
 	PAGE,
@@ -7,11 +10,8 @@ import {
 	SEARCH,
 	LOGIN
 } from './pageTypes';
-import queryString from 'query-string';
-import { animateScroll } from 'react-scroll';
 import api from '../client/api';
 import * as analytics from './analytics';
-import cookie from 'react-cookies';
 
 const requestProduct = () => ({ type: t.PRODUCT_REQUEST });
 
@@ -111,7 +111,7 @@ export const fetchProducts = currentPage => async (dispatch, getState) => {
 
 export const getProductFilterForCategory = (locationSearch, sortBy) => {
 	const queryFilter = queryString.parse(locationSearch);
-	let attributesList = {};
+	const attributesList = {};
 	for (const querykey in queryFilter) {
 		attributesList[querykey] = queryFilter[querykey];
 	}
@@ -244,53 +244,57 @@ const receivePage = pageDetails => ({ type: t.PAGE_RECEIVE, pageDetails });
 
 export const fetchCart = () => async (dispatch, getState) => {
 	dispatch(requestCart());
-	var pincode="";
-if(localStorage.getItem('userPincode')!==null)
-{
-	pincode=localStorage.getItem('userPincode');
-}
-const quoteId = cookie.load('userQuoteId');
-fetch(
-	'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
-		quoteId +
-		'&pincode='+pincode+
-		'&reset_payment=1' +
-		'&version=' +
-		'99.99'
-)
-	.then(result => {
-		return result.json();
-	})
-	.then(jsonResult => {
-		dispatch(receiveCart(jsonResult.data));
-	});
+	var pincode = '';
+	if (localStorage.getItem('userPincode') !== null) {
+		pincode = localStorage.getItem('userPincode');
+	}
+	const quoteId = cookie.load('userQuoteId');
+	fetch(
+		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
+			quoteId +
+			'&pincode=' +
+			pincode +
+			'&reset_payment=1' +
+			'&version=' +
+			'99.99'
+	)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			dispatch(receiveCart(jsonResult.data));
+		});
 };
 
 const requestCart = () => ({ type: t.CART_REQUEST });
 
-export const couponCode = (type,coupon) => async (dispatch, getState) => {
-		dispatch(requestCouponCode());
+export const couponCode = (type, coupon) => async (dispatch, getState) => {
+	dispatch(requestCouponCode());
 
-		const quoteId = cookie.load('userQuoteId');
-		if(type=='apply')
-		{
-			var url='https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
-				quoteId+'&coupan='+coupon;
-		}
-		if(type=='remove')
-		{
-			var url='https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
-				quoteId+'&coupan='+coupon+'&remove=1';
-		}
+	const quoteId = cookie.load('userQuoteId');
+	if (type == 'apply') {
+		var url =
+			'https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
+			quoteId +
+			'&coupan=' +
+			coupon;
+	}
+	if (type == 'remove') {
+		var url =
+			'https://indiarush.com/irapi/cart/applyCoupon?quoteId=' +
+			quoteId +
+			'&coupan=' +
+			coupon +
+			'&remove=1';
+	}
 
-		fetch(url)
-			.then(result => {
-				return result;
-			})
-			.then(jsonResult => {
-						dispatch(fetchCart());
-			});
-
+	fetch(url)
+		.then(result => {
+			return result;
+		})
+		.then(jsonResult => {
+			dispatch(fetchCart());
+		});
 };
 const requestCouponCode = () => ({ type: t.COUPON_CODE_REQUEST });
 
@@ -350,15 +354,15 @@ export const addCartItem = (item, history) => async (dispatch, getState) => {
 		});
 
 	// calling for get cart details
-	var pincode="";
-	if(localStorage.getItem('userPincode')!==null)
-	{
-		pincode=localStorage.getItem('userPincode');
+	var pincode = '';
+	if (localStorage.getItem('userPincode') !== null) {
+		pincode = localStorage.getItem('userPincode');
 	}
 	const getCartDetails = await fetch(
 		'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 			quoteId +
-			'&pincode='+pincode+
+			'&pincode=' +
+			pincode +
 			'&reset_payment=1' +
 			'&version=' +
 			'99.99'
@@ -494,16 +498,16 @@ export const updateCartItemQuantiry = (item_id, quantity) => async (
 		.then(jsonResult => {
 			return jsonResult;
 		});
-		var pincode="";
-		if(localStorage.getItem('userPincode')!==null)
-		{
-			pincode=localStorage.getItem('userPincode');
-		}
+	var pincode = '';
+	if (localStorage.getItem('userPincode') !== null) {
+		pincode = localStorage.getItem('userPincode');
+	}
 	if (removeStatus) {
 		fetch(
 			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				quoteId +
-				'&pincode='+pincode+
+				'&pincode=' +
+				pincode +
 				'&reset_payment=1' +
 				'&version=' +
 				'99.99'
@@ -546,16 +550,16 @@ export const deleteCartItem = item_id => async (dispatch, getState) => {
 		.then(jsonResult => {
 			return jsonResult;
 		});
-		var pincode="";
-		if(localStorage.getItem('userPincode')!==null)
-		{
-			pincode=localStorage.getItem('userPincode');
-		}
+	var pincode = '';
+	if (localStorage.getItem('userPincode') !== null) {
+		pincode = localStorage.getItem('userPincode');
+	}
 	if (removeStatus) {
 		fetch(
 			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				quoteId +
-				'&pincode='+pincode+
+				'&pincode=' +
+				pincode +
 				'&reset_payment=1' +
 				'&version=' +
 				'99.99'
@@ -833,6 +837,9 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 	// clear product data
 	dispatch(receiveProduct(null));
 
+	console.log('app data on fetchDataOnCurrentPageChange');
+	console.log(app);
+
 	analytics.pageView({
 		path: currentPage.path,
 		title: '-'
@@ -867,7 +874,7 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 			// analytics.productView({ product: productData });
 			break;
 		case LOGIN:
-			dispatch(getLoginDetails());
+			dispatch(getLoginDetails(app));
 			// const productData = currentPage.data;
 			// dispatch(receiveProduct(productData));
 			// analytics.productView({ product: productData });
@@ -897,4 +904,38 @@ export const getArrayFromLocalStorage = () => {
 		//
 	}
 	return values;
+};
+
+const requestLoginPost = data => ({ type: t.LOGIN_REQUEST, data });
+
+const receiveLoginPost = data => ({ type: t.LOGIN_RECEIVE, data });
+
+export const loginPost = data => async (dispatch, getState) => {
+	console.log('in loginPost action');
+	dispatch(requestLoginPost());
+	const version = 3.81;
+	const isOtp = 0;
+	// const { app } = getState();
+	// const loginDetails = getloginDetails(app.customerDetails);
+
+	fetch(
+		`https://indiarush.com/irapi/customer/customerLoginReact/?email=${
+			data[0]
+		}&password=${data[1]}&isOtp=${isOtp}&version=${version}`
+	)
+		.then(result => result.json())
+		.then(jsonResult => {
+			// console.log(jsonResult);
+
+			if (jsonResult.customer_id !== '') {
+				if (cookie.load('statsCookieId').length > 10) {
+					cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
+					cookie.save('isLoggedIn', 1, { path: '/' });
+				}
+			}
+
+			// dispatch(requestLoginPost(jsonResult));
+			dispatch(receiveLoginPost(jsonResult));
+			return jsonResult;
+		});
 };
