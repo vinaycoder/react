@@ -127,10 +127,11 @@ class CheckoutStepContacts extends React.Component {
 		if (isReadOnly) {
 			return (
 				<div className="checkout-step">
-					<h1>
-						<span>1</span>
-						{title}
-					</h1>
+				<div className="step-title">
+						<h2 className="not-log-in-checkout-label">
+							Enter Mobile Number or Email Address :
+						</h2>
+					</div>
 
 					{!this.isFieldHidden('email') && (
 						<ReadOnlyField name={text.email} value={initialValues.email} />
@@ -178,12 +179,13 @@ class CheckoutStepContacts extends React.Component {
 			);
 		} else {
 			return (
-				<div className="checkout-step">
-					<h1>
-						<span>1</span>
-						{title}
-					</h1>
-					<form onSubmit={handleSubmit}>
+				<div className="checkout-step newPadding">
+				<div className="step-title">
+						<h2 className="not-log-in-checkout-label">
+							Enter Mobile Number or Email Address :
+						</h2>
+					</div>
+					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
 						{!this.isFieldHidden('email') && (
 							<Field
 								className={inputClassName}

@@ -90,34 +90,49 @@ const OrderSummary = props => {
 				className="checkout-box content is-small"
 				style={{ paddingBottom: 0 }}
 			>
-				<div className="title is-4">{text.orderSummary}</div>
+				<div className="title is-4 checkoutTitle">{text.orderSummary}</div>
+				<div className="checkoutCounts">{cart.items.length} Item(s) {helper.formatCurrency(cart.grandtotal, settings)}</div>
 				<hr className="separator" />
 				{items}
 				<div className="columns is-mobile is-gapless is-multiline summary-block">
-					<div className="column is-7">{text.subtotal}</div>
-					<div className="column is-5 has-text-right price">
+					<div className="column is-7 checkoutLabelColor">{text.subtotal}</div>
+					<div className="column is-5 has-text-right price checkoutLabelColor">
 						{helper.formatCurrency(cart.subtotal, settings)}
 					</div>
-					<div className="column is-7">{text.shipping}</div>
-					<div className="column is-5 has-text-right price">
-						{helper.formatCurrency(cart.shippingAmount, settings)}
-					</div>
-
-					{cart.discount_total > 0 && (
-						<div className="column is-7">{text.discount}</div>
+					{cart.discount > 0 && (
+						<div className="column is-7 checkoutLabelColor">{text.discount}</div>
 					)}
-					{cart.discount_total > 0 && (
-						<div className="column is-5 has-text-right price">
-							{helper.formatCurrency(cart.discount_total, settings)}
+					{cart.discount > 0 && (
+						<div className="column is-5 has-text-right price checkoutLabelColor">
+							-{helper.formatCurrency(cart.discount, settings)}
 						</div>
 					)}
 
-					<div className="column is-12">
-						<hr className="separator" />
+					{cart.shippingAmount > 0 && (
+						<div className="column is-7 checkoutLabelColor">{text.shipping}</div>
+					)}
+					{cart.shippingAmount > 0 && (
+						<div className="column is-5 has-text-right price checkoutLabelColor">
+							{helper.formatCurrency(cart.shippingAmount, settings)}
+						</div>
+					)}
+
+					{cart.codFee > 0 && (
+						<div className="column is-7 checkoutLabelColor">Cod Fee</div>
+					)}
+					{cart.codFee > 0 && (
+						<div className="column is-5 has-text-right price checkoutLabelColor">
+							{helper.formatCurrency(cart.codFee, settings)}
+						</div>
+					)}
+
+
+					<div className="column is-12 checkoutGrandTotalPrice">
+						<hr className="separator checkoutSeparator" />
 					</div>
 					<div className="column is-6 total-text">{text.grandTotal}</div>
 					<div className="column is-6 total-price">
-						{helper.formatCurrency(cart.subtotal, settings)}
+						{helper.formatCurrency(cart.grandtotal, settings)}
 					</div>
 				</div>
 			</div>

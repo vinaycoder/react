@@ -64,7 +64,7 @@ export default class CheckoutForm extends React.Component {
 		this.props.updateCart(
 			{
 				payment_method_id: null,
-				shipping_method_id: shippingMethodId
+				shipping_methoCheckoutStepContactsd_id: shippingMethodId
 			},
 			cart => {
 				this.props.loadPaymentMethods();
@@ -147,7 +147,7 @@ export default class CheckoutForm extends React.Component {
 			}
 
 			return (
-				<div className="checkout-form">
+				<div className="checkout-form">			
 					<CheckoutStepContacts
 						isReadOnly={step > 1}
 						title={text.customerDetails}
