@@ -177,7 +177,7 @@ class CheckoutStepContacts extends React.Component {
 					</div>
 				</div>
 			);
-		} else {
+		}
 			return (
 				<div className="checkout-step newPadding">
 						<div className="step-title">
@@ -192,15 +192,15 @@ class CheckoutStepContacts extends React.Component {
 					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
 
 						{!this.isFieldHidden('mobile') && (
-							<Field
-								className={inputClassName}
-								name="mobile"
-								id="customer.mobile"
-								component={InputField}
-								type="tel"
-								validate={this.getFieldValidators('mobile')}
-								placeholder={this.getFieldPlaceholder('mobile')}
-							/>
+						<Field
+							className={inputClassName + ' input-fields-2'}
+							name="mobile"
+							id="customer.mobile"
+							component={InputField}
+							type="tel"
+							validate={this.getFieldValidators('mobile')}
+							placeholder={this.getFieldPlaceholder('mobile')}
+						/>
 						)}
 						<div className="variation-checkout variation-login-message">
               <span >Example: example@example.com or 9999000099</span>
@@ -218,7 +218,7 @@ class CheckoutStepContacts extends React.Component {
 					</form>
 				</div>
 			);
-		}
+
 	}
 }
 
