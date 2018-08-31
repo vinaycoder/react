@@ -30,3 +30,8 @@ npm cache clean --force
 # Dev Starting
 
 Checkout Docs Folder for basic help during development
+
+
+#File Structure
+
+process.json - # pm2 process file
