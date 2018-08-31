@@ -180,24 +180,16 @@ class CheckoutStepContacts extends React.Component {
 		} else {
 			return (
 				<div className="checkout-step newPadding">
-				<div className="step-title">
-						<h2 className="not-log-in-checkout-label">
-							Enter Mobile Number or Email Address :
-						</h2>
-					</div>
+						<div className="step-title">
+								<h2 className="not-log-in-checkout-label">
+									Enter Mobile Number or Email Address :
+								</h2>
+							</div>
+							<div className="input-box">
+								<label>We will use your Mobile Number or Email Address to send you order confirmation details
+								</label>
+							</div>
 					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
-						{!this.isFieldHidden('email') && (
-							<Field
-								className={inputClassName}
-								name="email"
-								id="customer.email"
-								component={InputField}
-								type="email"
-								label={this.getFieldLabel('email')}
-								validate={this.getFieldValidators('email')}
-								placeholder={this.getFieldPlaceholder('email')}
-							/>
-						)}
 
 						{!this.isFieldHidden('mobile') && (
 							<Field
@@ -206,130 +198,13 @@ class CheckoutStepContacts extends React.Component {
 								id="customer.mobile"
 								component={InputField}
 								type="tel"
-								label={this.getFieldLabel('mobile')}
 								validate={this.getFieldValidators('mobile')}
 								placeholder={this.getFieldPlaceholder('mobile')}
 							/>
 						)}
-
-						<h2>{text.shippingTo}</h2>
-
-						{!this.isFieldHidden('country') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.country"
-								id="shipping_address.country"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('country')}
-								validate={this.getFieldValidators('country')}
-								placeholder={this.getFieldPlaceholder('country')}
-								onBlur={(event, value) =>
-									setTimeout(() => saveShippingLocation({ country: value }))
-								}
-							/>
-						)}
-
-						{!this.isFieldHidden('state') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.state"
-								id="shipping_address.state"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('state')}
-								validate={this.getFieldValidators('state')}
-								placeholder={this.getFieldPlaceholder('state')}
-								onBlur={(event, value) =>
-									setTimeout(() => saveShippingLocation({ state: value }))
-								}
-							/>
-						)}
-
-						{!this.isFieldHidden('city') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.city"
-								id="shipping_address.city"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('city')}
-								validate={this.getFieldValidators('city')}
-								placeholder={this.getFieldPlaceholder('city')}
-								onBlur={(event, value) =>
-									setTimeout(() => saveShippingLocation({ city: value }))
-								}
-							/>
-						)}
-
-						<h2>
-							{text.shippingMethods}{' '}
-							{loadingShippingMethods && <small>{text.loading}</small>}
-						</h2>
-						<div className="shipping-methods">
-							{shippingMethods.map((method, index) => (
-								<label
-									key={index}
-									className={
-										'shipping-method' +
-										(method.id === initialValues.shipping_method_id
-											? ' active'
-											: '')
-									}
-								>
-									<Field
-										name="shipping_method_id"
-										component="input"
-										type="radio"
-										value={method.id}
-										onClick={() => saveShippingMethod(method.id)}
-									/>
-									<div>
-										<div className="shipping-method-name">{method.name}</div>
-										<div className="shipping-method-description">
-											{method.description}
-										</div>
-									</div>
-									<span className="shipping-method-rate">
-										{formatCurrency(method.price, settings)}
-									</span>
-								</label>
-							))}
-						</div>
-
-						<h2>
-							{text.paymentMethods}{' '}
-							{loadingPaymentMethods && <small>{text.loading}</small>}
-						</h2>
-						<div className="payment-methods">
-							{paymentMethods.map((method, index) => (
-								<label
-									key={index}
-									className={
-										'payment-method' +
-										(method.id === initialValues.payment_method_id
-											? ' active'
-											: '')
-									}
-								>
-									<Field
-										name="payment_method_id"
-										validate={[validateRequired]}
-										component="input"
-										type="radio"
-										value={method.id}
-										onClick={() => savePaymentMethod(method.id)}
-									/>
-									<div>
-										<div className="payment-method-name">{method.name}</div>
-										<div className="payment-method-description">
-											{method.description}
-										</div>
-									</div>
-									<span className="payment-method-logo" />
-								</label>
-							))}
-						</div>
+						<div className="variation-checkout variation-login-message">
+              <span >Example: example@example.com or 9999000099</span>
+            </div>
 
 						<div className="checkout-button-wrap">
 							<button
