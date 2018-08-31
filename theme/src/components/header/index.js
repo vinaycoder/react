@@ -8,6 +8,9 @@ import HeadMenu from './headMenu';
 import cookie from 'react-cookies';
 import SaveIndicator from './SaveIndicator';
 import SaveForLater from './saveForLater';
+import LoginWrapper from './login';
+import LoginIndicator from './loginIndicator';
+
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
 		<span className="sprites mobileLogo " alt={alt} />
@@ -31,7 +34,7 @@ const BackButton = ({ onClick }) => (
 			className="icon"
 			src="/assets/images/arrow_back.svg"
 			style={{ width: 18 }}
-Shipping
+			Shipping
 		/>
 	</span>
 );
@@ -44,6 +47,7 @@ export default class Header extends React.Component {
 			mobileSearchIsActive: false,
 			cartIsActive: false,
 			saveForLaterIsActive: false,
+			loginIsActive: false,
 			cart: []
 		};
 		this.saveForLater = this.saveForLater.bind(this);
@@ -53,27 +57,40 @@ export default class Header extends React.Component {
 		this.updateCartItemSize = this.updateCartItemSize.bind(this);
 		this.applyCoupon = this.applyCoupon.bind(this);
 	}
-saveForLater(productId,itemId)
-{
-	const { fetchCart } = this.props;
-	const quoteId = cookie.load('userQuoteId');
-	const statsCookieId = cookie.load('statsCookieId');
-	fetch('https://indiarush.com/irapi/cart/moveToSaveforLater?pincode=""'+'&item_id='+itemId+'&product_id='+productId+'&quote_id='+quoteId+'&customer_id='+statsCookieId+'&version=3.99')
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			this.getSaveFOrLaterDetails();
-			fetchCart();
-		});
+	saveForLater(productId, itemId) {
+		const { fetchCart } = this.props;
+		const quoteId = cookie.load('userQuoteId');
+		const statsCookieId = cookie.load('statsCookieId');
+		fetch(
+			'https://indiarush.com/irapi/cart/moveToSaveforLater?pincode=""' +
+				'&item_id=' +
+				itemId +
+				'&product_id=' +
+				productId +
+				'&quote_id=' +
+				quoteId +
+				'&customer_id=' +
+				statsCookieId +
+				'&version=3.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				this.getSaveFOrLaterDetails();
+				fetchCart();
+			});
 		console.log('check props');
 		console.log(this.props);
-}
+	}
 
-getSaveFOrLaterDetails()
-{
-	  const statsCookieId = cookie.load('statsCookieId');
-		fetch('https://indiarush.com/irapi/customer/getSaveForLaterDetailsByCustomerId?customer_id='+statsCookieId+'&version=3.99')
+	getSaveFOrLaterDetails() {
+		const statsCookieId = cookie.load('statsCookieId');
+		fetch(
+			'https://indiarush.com/irapi/customer/getSaveForLaterDetailsByCustomerId?customer_id=' +
+				statsCookieId +
+				'&version=3.99'
+		)
 			.then(result => {
 				return result.json();
 			})
@@ -81,60 +98,67 @@ getSaveFOrLaterDetails()
 				console.log('vinay in save for later detials');
 				this.props.state.saveForLater = jsonResult;
 			});
-}
+	}
 
-moveSaveForLaterToCart(productId)
-{
-	const { addCartItem,fetchCart } = this.props;
-	const item = {
-		product_id: productId,
-		quantity: 1,
-		type:'addCart'
-	};
-	console.log('vinay in move to cart');
-	addCartItem(item);
-	fetchCart();
-	this.removeSaveForLater(productId);
-}
+	moveSaveForLaterToCart(productId) {
+		const { addCartItem, fetchCart } = this.props;
+		const item = {
+			product_id: productId,
+			quantity: 1,
+			type: 'addCart'
+		};
+		console.log('vinay in move to cart');
+		addCartItem(item);
+		fetchCart();
+		this.removeSaveForLater(productId);
+	}
 
-removeSaveForLater(productId)
-{
-	const { fetchCart } = this.props;
-	const statsCookieId = cookie.load('statsCookieId');
-	fetch('https://indiarush.com/irapi/cart/RemovefromSaveLater/?customer_id='+statsCookieId+'&product_id='+productId+'&version=3.99')
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			this.getSaveFOrLaterDetails();
-			fetchCart();
-		});
-}
+	removeSaveForLater(productId) {
+		const { fetchCart } = this.props;
+		const statsCookieId = cookie.load('statsCookieId');
+		fetch(
+			'https://indiarush.com/irapi/cart/RemovefromSaveLater/?customer_id=' +
+				statsCookieId +
+				'&product_id=' +
+				productId +
+				'&version=3.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				this.getSaveFOrLaterDetails();
+				fetchCart();
+			});
+	}
 
-updateCartItemSize(itemId,productId)
-{
-const { fetchCart } = this.props;
-	const quoteId = cookie.load('userQuoteId');
-	fetch(
-		'https://indiarush.com/irapi/cart/updateSizeonCartUpdate?quote_id=' +
-			quoteId +
-			'&itemId=' +itemId+
-			'&product='+productId+
-			'&isAjax=1'+ +
-			'&version=' +
-			'3.99'
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			this.getSaveFOrLaterDetails();
-			fetchCart();
-		});
-}
-
+	updateCartItemSize(itemId, productId) {
+		const { fetchCart } = this.props;
+		const quoteId = cookie.load('userQuoteId');
+		fetch(
+			'https://indiarush.com/irapi/cart/updateSizeonCartUpdate?quote_id=' +
+				quoteId +
+				'&itemId=' +
+				itemId +
+				'&product=' +
+				productId +
+				'&isAjax=1' +
+				+'&version=' +
+				'3.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				this.getSaveFOrLaterDetails();
+				fetchCart();
+			});
+	}
 
 	componentDidMount() {
+		const statsCookieId = cookie.load('statsCookieId');
+		const isLoggedIn = cookie.load('isLoggedIn');
+
 		const { fetchCart } = this.props;
 		fetchCart();
 		this.getSaveFOrLaterDetails();
@@ -149,11 +173,10 @@ const { fetchCart } = this.props;
 		}
 	}
 
-	applyCoupon(type)
-	{
-		var coupon=document.getElementById('coupon_code').value;
+	applyCoupon(type) {
+		var coupon = document.getElementById('coupon_code').value;
 		const { couponCode } = this.props;
-		couponCode(type,coupon);
+		couponCode(type, coupon);
 		// end coupon codes
 	}
 
@@ -205,6 +228,15 @@ const { fetchCart } = this.props;
 		document.body.classList.toggle('noscroll');
 	};
 
+	loginToggle = () => {
+		this.setState({
+			loginIsActive: !this.state.loginIsActive,
+			mobileMenuIsActive: false,
+			cartIsActive: false
+		});
+		document.body.classList.toggle('noscroll');
+	};
+
 	showCart = () => {
 		this.setState({
 			cartIsActive: true,
@@ -218,6 +250,16 @@ const { fetchCart } = this.props;
 			cartIsActive: false,
 			mobileMenuIsActive: false,
 			saveForLaterIsActive: false
+		});
+		document.body.classList.add('noscroll');
+	};
+
+	loginWrapperShow = () => {
+		this.setState({
+			cartIsActive: false,
+			mobileMenuIsActive: false,
+			saveForLaterIsActive: false,
+			loginIsActive: true
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -245,8 +287,16 @@ const { fetchCart } = this.props;
 			currentPage,
 			location,
 			productFilter,
-			saveForLater
+			saveForLater,
+			loginPost,
+			isLoggedIn,
+			statsCookieId,
+			customerDetails
 		} = this.props.state;
+
+		console.log('in Index Login render');
+		console.log(this.props.state);
+
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
 			: 'navbar-burger is-hidden-tablet';
@@ -292,6 +342,28 @@ const { fetchCart } = this.props;
 										style={{ minWidth: 24 }}
 									/>
 								</span>
+
+								<LoginIndicator
+									onClick={this.loginToggle}
+									loginIsActive={this.state.loginIsActive}
+									loginPost={loginPost}
+									isLoggedIn={isLoggedIn}
+									statsCookieId={statsCookieId}
+									customerDetails={customerDetails}
+								/>
+								<div
+									className={this.state.loginIsActive ? 'mini-cart-open' : ''}
+								>
+									<LoginWrapper
+										settings={settings}
+										loginToggle={this.loginToggle}
+										loginPost={loginPost}
+										isLoggedIn={isLoggedIn}
+										statsCookieId={statsCookieId}
+										customerDetails={customerDetails}
+									/>
+								</div>
+
 								<SaveIndicator
 									saveForLater={saveForLater}
 									onClick={this.saveForLaterToggle}
@@ -348,7 +420,8 @@ const { fetchCart } = this.props;
 					className={
 						this.state.mobileMenuIsActive ||
 						this.state.cartIsActive ||
-						this.state.saveForLaterIsActive
+						this.state.saveForLaterIsActive ||
+						this.state.loginIsActive
 							? 'dark-overflow'
 							: ''
 					}

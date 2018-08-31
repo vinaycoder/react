@@ -7,7 +7,8 @@ import queryString from 'query-string';
 import {
 	getParsedProductFilter,
 	getProductFilterForCategory,
-	getProductFilterForSearch
+	getProductFilterForSearch,
+	loginPost
 } from '../shared/actions';
 import * as themeLocales from './themeLocales';
 import {
@@ -15,7 +16,8 @@ import {
 	PRODUCT_CATEGORY,
 	PRODUCT,
 	RESERVED,
-	SEARCH
+	SEARCH,
+	LOGIN
 } from '../shared/pageTypes';
 import cookie from 'react-cookies';
 const PRODUCT_FIELDS =
@@ -113,6 +115,32 @@ const getProducts = (currentPage, productFilter) => {
 					return jsonResult.data;
 				});
 		}
+	}
+	return null;
+};
+
+const getLoginDetails = app => {
+	let allloginDetails = loginPost(app);
+	console.log('allloginDetails');
+	console.log(allloginDetails);
+
+	console.log('getLoginDetails app');
+	console.log(app);
+
+	if (allloginDetails) {
+		console.log('in allloginDetails enter');
+		// if (currentPage.type === SEARCH) {
+		// 	return fetch(
+		// 		`https://indiarush.com/irapi/search/getSearchResult/?query=${
+		// 			filter.search
+		// 		}&sort=${sortListURl}&page=0&item_count=48&version=3.83${filterListURL}`
+		// 	)
+		// 		.then(result => result.json())
+		// 		.then(jsonResult => {
+		// 			console.log('logging search products data');
+		// 			return jsonResult.data;
+		// 		});
+		// }
 	}
 	return null;
 };
@@ -340,6 +368,11 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	console.log('cookie');
 	console.log(cookie);
 
+	console.log('list.statsCookieId');
+	console.log(list.statsCookieId);
+	console.log('list.isLoggedIn');
+	console.log(list.isLoggedIn);
+
 	return Promise.all([
 		[], //api.checkoutFields.list().then(({ status, json }) => json),
 		fetch(`https://indiarush.com/irapi/category/getallShopByCategories/`)
@@ -382,7 +415,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			productsAttributes,
 			product,
 			page,
-			themeSettings
+			themeSettings,
+			loginPost
 		]) => {
 			let categoryDetails = null;
 			if (currentPage.type === PRODUCT_CATEGORY) {
@@ -397,7 +431,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 				product,
 				page,
 				categoryDetails,
-				themeSettings
+				themeSettings,
+				loginPost
 			};
 		}
 	);
@@ -413,7 +448,8 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 		product,
 		page,
 		categoryDetails,
-		themeSettings
+		themeSettings,
+		loginPost
 	} = allData;
 
 	let productsTotalCount = 0;
@@ -452,6 +488,9 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			productsMaxPrice: productsMaxPrice,
 			productsAttributes: productsAttributes,
 			recommendationProducts: [],
+			isLoggedIn: null,
+			statsCookieId: null,
+			customerDetails: [],
 			paymentMethods: [],
 			shippingMethods: [],
 			loadingProducts: false,
@@ -477,7 +516,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 						: 30
 			},
 			cart: cart,
-			saveForLater:[],
+			saveForLater: [],
 			order: null,
 			checkoutFields: checkoutFields,
 			themeSettings: themeSettings
@@ -534,21 +573,24 @@ export const loadState = (req, language) => {
 	]).then(([currentPage, settings, themeText, placeholdersResponse]) => {
 		const productFilter = getFilter(currentPage, urlQuery, settings);
 
-		return getAllData(currentPage, productFilter, cookie).then(allData => {
-			const state = getState(
-				currentPage,
-				settings,
-				allData,
-				location,
-				productFilter
-			);
-			console.log('Final Return Data');
-			console.log(state);
-			return {
-				state: state,
-				themeText: themeText,
-				placeholders: placeholdersResponse.json
-			};
-		});
+		return getAllData(currentPage, productFilter, cookie, loginPost).then(
+			allData => {
+				const state = getState(
+					currentPage,
+					settings,
+					allData,
+					location,
+					productFilter,
+					loginPost
+				);
+				console.log('Final Return Data');
+				console.log(state);
+				return {
+					state: state,
+					themeText: themeText,
+					placeholders: placeholdersResponse.json
+				};
+			}
+		);
 	});
 };

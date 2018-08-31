@@ -11,7 +11,8 @@ import {
 	updateCart,
 	fetchCart,
 	checkout,
-	couponCode
+	couponCode,
+	loginPost
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -45,8 +46,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		fetchCart: () => {
 			dispatch(fetchCart());
 		},
-		couponCode: (type,coupon) => {
-			dispatch(couponCode(type,coupon));
+		couponCode: (type, coupon) => {
+			dispatch(couponCode(type, coupon));
 		},
 		checkout: data => {
 			dispatch(checkout(data, ownProps.history));
@@ -121,6 +122,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		getJSONLD: state => {
 			return getJSONLD(state);
+		},
+		loginPost: data => {
+			dispatch(loginPost(data, ownProps.history));
 		}
 	};
 };
