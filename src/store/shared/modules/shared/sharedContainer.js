@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
+import Header from './components/header';
+import Footer from './components/footer';
 
 const SharedContainer = props => {
 	const {
@@ -29,4 +32,9 @@ SharedContainer.propTypes = {
 	}).isRequired
 };
 
-export default SharedContainer;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(SharedContainer)
+);

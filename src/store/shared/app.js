@@ -6,7 +6,7 @@ import { animateScroll } from 'react-scroll';
 import Time from 'react-time';
 
 import HomeContainer from './modules/pages/homeContainer';
-import SharedContainer from './containers/shared';
+import SharedContainer from './modules/shared/sharedContainer';
 import CategoryContainer from './modules/category/categoryContainer';
 import ProductContainer from './modules/product/productContainer';
 import PageContainer from './modules/pages/pageContainer';
