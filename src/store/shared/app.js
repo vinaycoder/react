@@ -13,7 +13,7 @@ import PageContainer from './containers/page';
 import CheckoutContainer from './containers/checkout';
 import CheckoutSuccessContainer from './containers/checkoutSuccess';
 import NotFoundContainer from './containers/notfound';
-import SearchContainer from './containers/search';
+import SearchContainer from './modules/category/searchContainer';
 import LoginContainer from './containers/login';
 
 import { setCurrentPage } from './actions';

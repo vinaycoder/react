@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { text } from '../lib/settings';
-import MetaTags from '../components/metaTags';
-import ProductList from '../components/productList';
-import ProductFilter from '../components/productFilter';
-import Sort from '../components/sort';
-import * as helper from '../lib/helper';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
+import { text } from '../../lib/settings';
+import MetaTags from '../common/components/metaTags';
+import ProductList from './components/productList';
+import ProductFilter from './components/productFilter';
+import Sort from './components/sort';
 
 const SearchContainer = props => {
 	const {
@@ -99,4 +101,9 @@ SearchContainer.propTypes = {
 	}).isRequired
 };
 
-export default SearchContainer;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(SearchContainer)
+);
