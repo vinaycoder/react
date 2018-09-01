@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import winston from 'winston';
 import settings from '../../../config/server';
 import logger from './logger';
-import robotsRendering from './robotsRendering';
+//import robotsRendering from './robotsRendering';
 import sitemapRendering from './sitemapRendering';
 import redirects from './redirects';
 import pageRendering from './pageRendering';
@@ -41,7 +41,7 @@ app.get(
 		res.status(404).end();
 	}
 );
-app.get('/robots.txt', robotsRendering);
+//app.get('/robots.txt', robotsRendering);
 app.get('/sitemap.xml', sitemapRendering);
 //app.get('*', redirects);
 app.use(responseTime());

@@ -46,9 +46,6 @@ module.exports = {
 	cookieSecretKey: '8669X9P5yI1DAEthy1chc3M9EncyS7SM',
 
 	// path to uploads
-	categoriesUploadPath: 'public/content/images/categories',
-	productsUploadPath: 'public/content/images/products',
-	filesUploadPath: 'public/content',
 	themeAssetsUploadPath: 'theme/assets/images',
 
 	// url to uploads
