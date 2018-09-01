@@ -25,7 +25,10 @@ npm cache clean --force
 
 2. sudo npm run build:watch
 
-3. sudo npm start / pm2 start process.json
+3. sudo npm start /
+
+pm2 start process.json
+sudo pm2 stop all 
 
 
 

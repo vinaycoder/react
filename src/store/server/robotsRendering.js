@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import api from './api';
 
-const ROBOTS_TEMPLATE_PATH = 'public/robots.template';
+const ROBOTS_TEMPLATE_PATH = 'robots.template';
 
 const robotsRendering = (req, res) => {
 	api.settings.retrieve().then(settingsResponse => {
