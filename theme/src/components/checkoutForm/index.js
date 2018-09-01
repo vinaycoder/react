@@ -187,7 +187,8 @@ console.log(this.props.state);
 						onSubmit={this.handleShippingSubmit}
 					/>
 
-					{showPaymentForm && (
+
+						{/*{showPaymentForm && (*/}
 						<CheckoutStepPayment
 							show={step === 3}
 							title={text.payment}
@@ -199,7 +200,8 @@ console.log(this.props.state);
 							handleSuccessPayment={this.handleSuccessPayment}
 							onCreateToken={this.handleCheckoutWithToken}
 						/>
-					)}
+
+					{/*)}*/}
 				</div>
 			);
 		} else {
