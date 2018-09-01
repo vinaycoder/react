@@ -465,5 +465,104 @@ StripeElement
 }
 .checkoutFormContactDetailsPadding .checkout-field
 {
-  margin-bottom: 0px !important;
+  // margin-bottom: 0px !important;
+}
+.checkoutLoginBtn
+{
+  background-color: #f6823c!important;
+  font-weight: bold;
+  height: 45px;
+}
+.loginORDividerText {
+    margin-left: 311px;
+    position: absolute;
+    margin-top: -17px;
+    background: #fff;
+    padding: 5px;
+    color: rgb(154,154,154);
+}
+.loginORDivider {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    background-color: rgb(154,154,154);
+    color: rgb(154,154,154);
+}
+.tab-content-ruler {
+    margin-top: 30px !important;
+}
+.checkoutGPlusSignIn {
+    margin: 10px 0 5px 0;
+}
+.customGPlusSignIn {
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    background: white;
+    color: #444;
+    min-width: 100%;
+    border-radius: 3px;
+    border: 1px solid #888;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-appearance: none;
+}
+span.googleicon {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) left center no-repeat;
+    background-position: -74px -368px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    float: left;
+}
+span.buttonText {
+    display: inline-block;
+    margin-top: 10px;
+    padding-right: 42px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto',sans-serif;
+}
+.login-submit-div .facebookloginbutton {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+.facebookloginbutton {
+    background-color: #3b5998;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: normal;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    border: 0 none;
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 10px;
+    -webkit-appearance: none !important;
+}
+.fb-icon {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) left center no-repeat;
+    display: block;
+    background-position: -358px -254px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+.login-input-link-div {
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+}
+.facebookloginbutton {
+    padding: 10px !important;
+}
+.checkoutLogedUserDetails
+{
+  color: black;
+  font-size: 19px;
 }

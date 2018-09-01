@@ -387,6 +387,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		// 	.list({ enabled: true, fields: CATEGORIES_FIELDS })
 		// 	.then(({ status, json }) => json),
 
+// currently removed loading cart inside server
+/*
 		fetch(
 			'https://indiarush.com/irapi/cart/getShoppingCartInfo?quote_id=' +
 				list.userQuoteId +
@@ -401,6 +403,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			.then(jsonResult => {
 				return jsonResult.data;
 			}),
+			*/
 		getProducts(currentPage, productFilter),
 		getProductsAttributes(currentPage, productFilter),
 		getProduct(currentPage),
@@ -410,7 +413,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		([
 			checkoutFields,
 			categories,
-			cart,
+			//cart,
 			products,
 			productsAttributes,
 			product,
@@ -425,7 +428,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			return {
 				checkoutFields,
 				categories,
-				cart,
+		//		cart,
 				products,
 				productsAttributes,
 				product,
@@ -442,7 +445,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 	const {
 		checkoutFields,
 		categories,
-		cart,
+	//	cart,
 		products,
 		productsAttributes,
 		product,
@@ -515,7 +518,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 						? settings.products_limit
 						: 30
 			},
-			cart: cart,
+			cart: null,
 			saveForLater: [],
 			order: null,
 			checkoutFields: checkoutFields,

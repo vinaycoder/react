@@ -127,44 +127,23 @@ class CheckoutStepContacts extends React.Component {
 		if (isReadOnly) {
 			return (
 				<div className="checkout-step">
-				<div className="step-title">
-						<h2 className="not-log-in-checkout-label">
-							Enter Mobile Number or Email Address :
-						</h2>
-					</div>
 
 					{!this.isFieldHidden('email') && (
-						<ReadOnlyField name={text.email} value={initialValues.email} />
+						<div className="synopsis logged-synopsis newCartDesign">
+						  <div className="synopsisText">
+						     <div className="addNewHeadingCartPage">
+						       <h2 className="without_variation checkoutLogedUserDetails">
+						       Email Address
+						       </h2>
+						     </div>
+						      <strong>vinay.kumar@indiarush.com  </strong>
+						  </div>
+						  <div className="synopsisText">
+						      We will send order details to this email address or mobile number
+						  </div>
+						</div>
 					)}
-					{!this.isFieldHidden('mobile') && (
-						<ReadOnlyField name={text.mobile} value={initialValues.mobile} />
-					)}
-					{!this.isFieldHidden('country') && (
-						<ReadOnlyField
-							name={text.country}
-							value={initialValues.shipping_address.country}
-						/>
-					)}
-					{!this.isFieldHidden('state') && (
-						<ReadOnlyField
-							name={text.state}
-							value={initialValues.shipping_address.state}
-						/>
-					)}
-					{!this.isFieldHidden('city') && (
-						<ReadOnlyField
-							name={text.city}
-							value={initialValues.shipping_address.city}
-						/>
-					)}
-					<ReadOnlyField
-						name={text.shippingMethod}
-						value={initialValues.shipping_method}
-					/>
-					<ReadOnlyField
-						name={text.paymentMethod}
-						value={initialValues.payment_method}
-					/>
+					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
 
 					<div className="checkout-button-wrap">
 						<button
@@ -201,24 +180,43 @@ class CheckoutStepContacts extends React.Component {
 							validate={this.getFieldValidators('mobile')}
 							placeholder={this.getFieldPlaceholder('mobile')}
 						/>
-						)}
-						<div className="variation-checkout variation-login-message">
-              <span >Example: example@example.com or 9999000099</span>
-            </div>
+					)}
+					<div className="variation-checkout variation-login-message">
+						<span>Example: example@example.com or 9999000099</span>
+					</div>
 
-						<div className="checkout-button-wrap">
-							<button
-								type="submit"
-								disabled={invalid}
-								className={buttonClassName}
-							>
-								{text.next}
-							</button>
-						</div>
-					</form>
-				</div>
-			);
+					<div className="checkout-button-wrap">
+						<button
+							type="submit"
+							disabled={invalid}
+							className={buttonClassName + ' checkoutLoginBtn'}
+						>
+							 CONTINUE CHECKOUT <i className="material-icons">keyboard_arrow_right</i>
+						</button>
+					</div>
+					<div className="tab-content-ruler">
+						<p className="loginORDividerText registerORDividerText checkoutORDividerText"> OR</p>
+						<hr className="loginORDivider checkoutORDivider" />
+					</div>
 
+					<div id="gSignInWrapper">
+							<div id="customBtn" className="customGPlusSignIn checkoutGPlusSignIn">
+							    <span className="googleicon"></span>
+							    <span className="buttonText">Sign in with Google</span>
+							</div>
+					</div>
+
+					<div className="login-input-link-div facebook-login-div">
+					    <div className="right login-submit-div">
+					        <span className="fb-icon"></span><span className="facebookloginbutton left ">
+					          Login with Facebook
+					        </span>
+					    </div>
+					</div>
+
+				</form>
+			</div>
+		);
 	}
 }
 

@@ -128,7 +128,8 @@ export default class CheckoutForm extends React.Component {
 			checkoutFields,
 			processingCheckout
 		} = this.props.state;
-
+console.log('vinay in checkout ');
+console.log(this.props.state);
 		const {
 			checkoutInputClass = 'checkout-field',
 			checkoutButtonClass = 'checkout-button',
@@ -147,7 +148,7 @@ export default class CheckoutForm extends React.Component {
 			}
 
 			return (
-				<div className="checkout-form">			
+				<div className="checkout-form">
 					<CheckoutStepContacts
 						isReadOnly={step > 1}
 						title={text.customerDetails}
@@ -171,7 +172,7 @@ export default class CheckoutForm extends React.Component {
 					<CheckoutStepShipping
 						show={step >= 2}
 						isReadOnly={step > 2}
-						title={text.shipping}
+						title={text.checkoutSaveAddressTitle}
 						inputClassName={checkoutInputClass}
 						buttonClassName={checkoutButtonClass}
 						editButtonClassName={checkoutEditButtonClass}
