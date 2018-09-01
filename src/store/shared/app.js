@@ -10,11 +10,11 @@ import SharedContainer from './containers/shared';
 import CategoryContainer from './modules/category/categoryContainer';
 import ProductContainer from './modules/product/productContainer';
 import PageContainer from './modules/pages/pageContainer';
-import CheckoutContainer from './containers/checkout';
-import CheckoutSuccessContainer from './containers/checkoutSuccess';
+import CheckoutContainer from './modules/checkout/checkoutContainer';
+import CheckoutSuccessContainer from './modules/checkout/checkoutSuccessContainer';
 import NotFoundContainer from './modules/pages/notFoundContainer';
 import SearchContainer from './modules/category/searchContainer';
-import LoginContainer from './containers/login';
+import LoginContainer from './modules/customer/loginContainer';
 
 import { setCurrentPage } from './actions';
 import {

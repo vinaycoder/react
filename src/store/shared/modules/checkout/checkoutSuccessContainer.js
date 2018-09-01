@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import * as helper from '../lib/helper';
-import MetaTags from '../components/metaTags';
-import CheckoutSuccess from '../components/checkoutSuccess';
+import * as helper from '../../lib/helper';
+import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
+import MetaTags from '../common/components/metaTags';
+import CheckoutSuccess from './components/checkoutSuccess';
 
 const CheckoutSuccessContainer = props => {
 	const {
@@ -54,4 +57,9 @@ CheckoutSuccessContainer.propTypes = {
 	}).isRequired
 };
 
-export default CheckoutSuccessContainer;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(CheckoutSuccessContainer)
+);

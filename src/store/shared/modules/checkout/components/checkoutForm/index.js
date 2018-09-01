@@ -1,5 +1,5 @@
 import React from 'react';
-import { themeSettings, text } from '../../lib/settings';
+import { themeSettings, text } from '../../../../lib/settings';
 import CheckoutStepContacts from './stepContacts';
 import CheckoutStepShipping from './stepShipping';
 import CheckoutStepPayment from './stepPayment';
@@ -128,8 +128,8 @@ export default class CheckoutForm extends React.Component {
 			checkoutFields,
 			processingCheckout
 		} = this.props.state;
-console.log('vinay in checkout ');
-console.log(this.props.state);
+		console.log('vinay in checkout ');
+		console.log(this.props.state);
 		const {
 			checkoutInputClass = 'checkout-field',
 			checkoutButtonClass = 'checkout-button',

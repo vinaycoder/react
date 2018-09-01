@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router-dom';
-import { PostData } from '../../lib/helper';
+import { PostData } from '../../../../lib/helper';
 
 export default class FacebookLoginWrapper extends React.Component {
 	constructor(props) {

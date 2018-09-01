@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { text } from '../../lib/settings';
-import { formatCurrency } from '../../lib/helper';
+import { text } from '../../../../lib/settings';
+import { formatCurrency } from '../../../../lib/helper';
 import InputField from './inputField';
 
 const validateRequired = value =>
