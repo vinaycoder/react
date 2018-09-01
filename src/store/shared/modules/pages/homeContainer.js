@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import MetaTags from '../components/metaTags';
-import CustomProducts from '../components/products/custom';
-import HomeSlider from '../components/homeSlider';
+import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
+import MetaTags from '../common/components/metaTags';
+import CustomProducts from '../product/components/products/custom';
+import HomeSlider from './components/homeSlider';
 
-const IndexContainer = props => {
+const HomeContainer = props => {
 	const {
 		addCartItem,
 		state: { pageDetails, settings, recommendationProducts }
@@ -38,7 +41,7 @@ const IndexContainer = props => {
 	);
 };
 
-IndexContainer.propTypes = {
+HomeContainer.propTypes = {
 	addCartItem: PropTypes.func.isRequired,
 	state: PropTypes.shape({
 		settings: PropTypes.shape({}),
@@ -47,4 +50,9 @@ IndexContainer.propTypes = {
 	}).isRequired
 };
 
-export default IndexContainer;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(HomeContainer)
+);

@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import MetaTags from '../components/metaTags';
-import PageList from '../components/pageList';
+import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
+import PageList from './components/pageList';
 
 const PageContainer = props => {
 	const {
@@ -48,4 +50,9 @@ PageContainer.propTypes = {
 	}).isRequired
 };
 
-export default PageContainer;
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(PageContainer)
+);

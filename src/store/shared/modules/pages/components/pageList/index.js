@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../../lib/api';
+import api from '../../../../lib/api';
 import PageList from './list';
 
 export default class CustomPageList extends React.Component {

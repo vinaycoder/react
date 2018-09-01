@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { animateScroll } from 'react-scroll';
 import Time from 'react-time';
 
-import IndexContainer from './containers/index';
+import HomeContainer from './modules/pages/homeContainer';
 import SharedContainer from './containers/shared';
 import CategoryContainer from './modules/category/categoryContainer';
 import ProductContainer from './modules/product/productContainer';
-import PageContainer from './containers/page';
+import PageContainer from './modules/pages/pageContainer';
 import CheckoutContainer from './containers/checkout';
 import CheckoutSuccessContainer from './containers/checkoutSuccess';
-import NotFoundContainer from './containers/notfound';
+import NotFoundContainer from './modules/pages/notFoundContainer';
 import SearchContainer from './modules/category/searchContainer';
 import LoginContainer from './containers/login';
 
@@ -117,7 +117,7 @@ class SwitchContainers extends React.Component {
 				return <LoginContainer />;
 			case PAGE:
 				if (locationPathname === '/') {
-					return <IndexContainer />;
+					return <HomeContainer />;
 				} else if (locationPathname === '/checkout') {
 					return <CheckoutContainer />;
 				}
