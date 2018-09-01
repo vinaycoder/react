@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { themeSettings, text } from '../../lib/settings';
+import { text } from '../../lib/settings';
 
 const CartCount = ({ cart }) => {
 	if (cart && cart.items && cart.items.length > 0) {
@@ -22,9 +22,7 @@ const CartIcon = ({ cartIsActive }) => {
 			/>
 		);
 	}
-	return (
-		<i className="material-icons icon">shopping_cart</i>
-	);
+	return <i className="material-icons icon">shopping_cart</i>;
 };
 
 export default class CartIndicator extends React.PureComponent {

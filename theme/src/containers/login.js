@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { themeSettings, text } from '../lib/settings';
 import MetaTags from '../components/metaTags';
 import FormLogin from '../components/login/formLogin';
 import SocialLogin from '../components/login/socialLogin';

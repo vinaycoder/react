@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { themeSettings, text } from '../../lib/settings';
+import { formatCurrency } from '../../lib/helper';
 import InputField from './inputField';
 
 const validateRequired = value =>
@@ -44,7 +45,7 @@ class CheckoutStepContacts extends React.Component {
 		return this.getFieldStatus(fieldName) === 'hidden';
 	};
 
-	getFieldValidators = (fieldName) => {
+	getFieldValidators = fieldName => {
 		const isOptional = this.isFieldOptional(fieldName);
 		let validatorsArray = [];
 		if (!isOptional) {
@@ -52,16 +53,6 @@ class CheckoutStepContacts extends React.Component {
 		}
 		if (fieldName === 'email') {
 			validatorsArray.push(validateEmail);
-		}
-		if (fieldName === 'emailMobile') {
-			if(Number.isInteger(Number(validateEmail)))
-			{
-				return false;
-			}
-			else {
-				validatorsArray.push(validateEmail);
-			}
-
 		}
 
 		return validatorsArray;
@@ -179,15 +170,15 @@ class CheckoutStepContacts extends React.Component {
 							</div>
 					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
 
-						{!this.isFieldHidden('email') && (
+						{!this.isFieldHidden('mobile') && (
 						<Field
 							className={inputClassName + ' input-fields-2'}
-							name="email"
-							id="customer.emailMobile"
+							name="mobile"
+							id="customer.mobile"
 							component={InputField}
 							type="tel"
-							validate={this.getFieldValidators('emailMobile')}
-							placeholder={this.getFieldPlaceholder('email')}
+							validate={this.getFieldValidators('mobile')}
+							placeholder={this.getFieldPlaceholder('mobile')}
 						/>
 					)}
 					<div className="variation-checkout variation-login-message">

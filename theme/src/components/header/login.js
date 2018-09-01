@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import cookie from 'react-cookies';
-import { themeSettings, text } from '../../lib/settings';
+import { text } from '../../lib/settings';
 import * as helper from '../../lib/helper';
 
 export default class LoginWrapper extends React.PureComponent {

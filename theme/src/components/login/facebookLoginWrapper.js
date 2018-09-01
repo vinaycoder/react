@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import api from '../../lib/api';
-import { themeSettings, text } from '../../lib/settings';
 import FacebookLogin from 'react-facebook-login';
 import { Redirect } from 'react-router-dom';
 import { PostData } from '../../lib/helper';

@@ -7,8 +7,8 @@ import Time from 'react-time';
 
 import IndexContainer from './containers/index';
 import SharedContainer from './containers/shared';
-import CategoryContainer from './containers/category';
-import ProductContainer from './containers/product';
+import CategoryContainer from './modules/category/categoryContainer';
+import ProductContainer from './modules/product/productContainer';
 import PageContainer from './containers/page';
 import CheckoutContainer from './containers/checkout';
 import CheckoutSuccessContainer from './containers/checkoutSuccess';
