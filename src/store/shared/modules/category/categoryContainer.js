@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
-import { themeSettings, text } from '../../lib/settings';
+import { text } from '../../lib/settings';
 import MetaTags from '../common/components/metaTags';
 import ProductList from './components/productList';
 import ProductFilter from './components/productFilter';
@@ -188,7 +188,7 @@ const CategoryContainer = props => {
 
 	const jsonld = getJSONLD(state);
 
-	const showFilter = true; // themeSettings.show_product_filter;
+	const showFilter = true;
 
 	return (
 		<Fragment>
