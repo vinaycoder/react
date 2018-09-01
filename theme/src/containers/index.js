@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { themeSettings } from '../lib/settings';
 import MetaTags from '../components/metaTags';
 import CustomProducts from '../components/products/custom';
 import HomeSlider from '../components/homeSlider';
@@ -21,8 +20,6 @@ const IndexContainer = props => {
 				ogDescription={pageDetails.meta_description}
 			/>
 
-			<HomeSlider images={themeSettings.home_slider} />
-
 			{pageDetails.content &&
 				pageDetails.content.length > 10 && (
 					<section className="section">
@@ -37,22 +34,6 @@ const IndexContainer = props => {
 						</div>
 					</section>
 				)}
-
-			<section className="section">
-				<div className="container">
-					<div className="title is-4 has-text-centered">
-						{themeSettings.home_products_title}
-					</div>
-					<CustomProducts
-						sku={themeSettings.home_products_sku}
-						sort={themeSettings.home_products_sort}
-						limit={themeSettings.home_products_limit}
-						settings={settings}
-						addCartItem={addCartItem}
-						recommendationProducts={recommendationProducts}
-					/>
-				</div>
-			</section>
 		</Fragment>
 	);
 };

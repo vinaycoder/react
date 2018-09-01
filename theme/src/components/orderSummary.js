@@ -10,11 +10,6 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 		themeSettings.cartThumbnailWidth
 	);
 	const qtyOptions = [];
-	const maxQty = item.stock_backorder
-		? themeSettings.maxCartItemQty
-		: item.stock_quantity >= themeSettings.maxCartItemQty
-			? themeSettings.maxCartItemQty
-			: item.stock_quantity;
 	for (let i = 0; i <= item.maxQuantity; i++) {
 		const optionText = i === 0 ? text.remove : i;
 		qtyOptions.push(
@@ -23,7 +18,7 @@ const SummaryItem = ({ settings, item, updateCartItemQuantiry }) => {
 			</option>
 		);
 	}
-const productUrl=item.productUrl.split('/');
+	const productUrl = item.productUrl.split('/');
 	return (
 		<div className="columns is-mobile">
 			<div className="column is-3">
@@ -91,7 +86,10 @@ const OrderSummary = props => {
 				style={{ paddingBottom: 0 }}
 			>
 				<div className="title is-4 checkoutTitle">{text.orderSummary}</div>
-				<div className="checkoutCounts">{cart.items.length} Item(s) {helper.formatCurrency(cart.grandtotal, settings)}</div>
+				<div className="checkoutCounts">
+					{cart.items.length} Item(s){' '}
+					{helper.formatCurrency(cart.grandtotal, settings)}
+				</div>
 				<hr className="separator" />
 				{items}
 				<div className="columns is-mobile is-gapless is-multiline summary-block">
@@ -100,7 +98,9 @@ const OrderSummary = props => {
 						{helper.formatCurrency(cart.subtotal, settings)}
 					</div>
 					{cart.discount > 0 && (
-						<div className="column is-7 checkoutLabelColor">{text.discount}</div>
+						<div className="column is-7 checkoutLabelColor">
+							{text.discount}
+						</div>
 					)}
 					{cart.discount > 0 && (
 						<div className="column is-5 has-text-right price checkoutLabelColor">
@@ -109,7 +109,9 @@ const OrderSummary = props => {
 					)}
 
 					{cart.shippingAmount > 0 && (
-						<div className="column is-7 checkoutLabelColor">{text.shipping}</div>
+						<div className="column is-7 checkoutLabelColor">
+							{text.shipping}
+						</div>
 					)}
 					{cart.shippingAmount > 0 && (
 						<div className="column is-5 has-text-right price checkoutLabelColor">
@@ -125,7 +127,6 @@ const OrderSummary = props => {
 							{helper.formatCurrency(cart.codFee, settings)}
 						</div>
 					)}
-
 
 					<div className="column is-12 checkoutGrandTotalPrice">
 						<hr className="separator checkoutSeparator" />
