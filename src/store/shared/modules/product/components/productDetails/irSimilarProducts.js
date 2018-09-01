@@ -4,8 +4,6 @@ import { NavLink } from 'react-router-dom';
 // import 'slick-carousel/slick/slick.css';
 // import 'slick-carousel/slick/slick-theme.css';
 // import SlickCarousel from "slick-carousel";
-import * as helper from '../../../../lib/helper';
-import { themeSettings, text } from '../../../../lib/settings';
 
 import ViewedProducts from '../products/viewed';
 import IRSlickSlider from './irSlickSlider';

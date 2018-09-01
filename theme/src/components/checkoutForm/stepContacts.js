@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { themeSettings, text } from '../../lib/settings';
+import { text } from '../../lib/settings';
 import { formatCurrency } from '../../lib/helper';
 import InputField from './inputField';
 
@@ -127,20 +127,20 @@ class CheckoutStepContacts extends React.Component {
 		if (isReadOnly) {
 			return (
 				<div className="checkout-step">
-
 					{!this.isFieldHidden('email') && (
 						<div className="synopsis logged-synopsis newCartDesign">
-						  <div className="synopsisText">
-						     <div className="addNewHeadingCartPage">
-						       <h2 className="without_variation checkoutLogedUserDetails">
-						       Email Address
-						       </h2>
-						     </div>
-						      <strong>vinay.kumar@indiarush.com  </strong>
-						  </div>
-						  <div className="synopsisText">
-						      We will send order details to this email address or mobile number
-						  </div>
+							<div className="synopsisText">
+								<div className="addNewHeadingCartPage">
+									<h2 className="without_variation checkoutLogedUserDetails">
+										Email Address
+									</h2>
+								</div>
+								<strong>vinay.kumar@indiarush.com </strong>
+							</div>
+							<div className="synopsisText">
+								We will send order details to this email address or mobile
+								number
+							</div>
 						</div>
 					)}
 					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
@@ -157,20 +157,24 @@ class CheckoutStepContacts extends React.Component {
 				</div>
 			);
 		}
-			return (
-				<div className="checkout-step newPadding">
-						<div className="step-title">
-								<h2 className="not-log-in-checkout-label">
-									Enter Mobile Number or Email Address :
-								</h2>
-							</div>
-							<div className="input-box">
-								<label>We will use your Mobile Number or Email Address to send you order confirmation details
-								</label>
-							</div>
-					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
-
-						{!this.isFieldHidden('mobile') && (
+		return (
+			<div className="checkout-step newPadding">
+				<div className="step-title">
+					<h2 className="not-log-in-checkout-label">
+						Enter Mobile Number or Email Address :
+					</h2>
+				</div>
+				<div className="input-box">
+					<label>
+						We will use your Mobile Number or Email Address to send you order
+						confirmation details
+					</label>
+				</div>
+				<form
+					onSubmit={handleSubmit}
+					className="checkoutFormContactDetailsPadding"
+				>
+					{!this.isFieldHidden('mobile') && (
 						<Field
 							className={inputClassName + ' input-fields-2'}
 							name="mobile"
@@ -191,29 +195,36 @@ class CheckoutStepContacts extends React.Component {
 							disabled={invalid}
 							className={buttonClassName + ' checkoutLoginBtn'}
 						>
-							 CONTINUE CHECKOUT <i className="material-icons">keyboard_arrow_right</i>
+							CONTINUE CHECKOUT{' '}
+							<i className="material-icons">keyboard_arrow_right</i>
 						</button>
 					</div>
 					<div className="tab-content-ruler">
-						<p className="loginORDividerText registerORDividerText checkoutORDividerText"> OR</p>
+						<p className="loginORDividerText registerORDividerText checkoutORDividerText">
+							{' '}
+							OR
+						</p>
 						<hr className="loginORDivider checkoutORDivider" />
 					</div>
 
 					<div id="gSignInWrapper">
-							<div id="customBtn" className="customGPlusSignIn checkoutGPlusSignIn">
-							    <span className="googleicon"></span>
-							    <span className="buttonText">Sign in with Google</span>
-							</div>
+						<div
+							id="customBtn"
+							className="customGPlusSignIn checkoutGPlusSignIn"
+						>
+							<span className="googleicon" />
+							<span className="buttonText">Sign in with Google</span>
+						</div>
 					</div>
 
 					<div className="login-input-link-div facebook-login-div">
-					    <div className="right login-submit-div">
-					        <span className="fb-icon"></span><span className="facebookloginbutton left ">
-					          Login with Facebook
-					        </span>
-					    </div>
+						<div className="right login-submit-div">
+							<span className="fb-icon" />
+							<span className="facebookloginbutton left ">
+								Login with Facebook
+							</span>
+						</div>
 					</div>
-
 				</form>
 			</div>
 		);

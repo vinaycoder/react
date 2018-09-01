@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import api from '../../lib/api';
-import { themeSettings, text } from '../../lib/settings';
-import { PostData } from '../../lib/helper';
 // import { GoogleLogout } from 'react-google-login';
 
 export default class GoogleLoginWrapper extends React.Component {

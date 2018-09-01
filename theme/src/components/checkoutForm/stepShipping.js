@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { themeSettings, text } from '../../lib/settings';
+import { text } from '../../lib/settings';
 import InputField from './inputField';
 import TextareaField from './textareaField';
 
@@ -148,10 +148,6 @@ class CheckoutStepShipping extends React.Component {
 				</div>
 			);
 		} else {
-
-
-
-
 			let shippingFields = null;
 			if (
 				shippingMethod &&
@@ -179,20 +175,19 @@ class CheckoutStepShipping extends React.Component {
 				});
 			}
 
-
 			return (
 				<div className="checkout-step newPadding">
-				<div className="step-title">
-						<h2 className="not-log-in-checkout-label">
-							1. {title}
-						</h2>
+					<div className="step-title">
+						<h2 className="not-log-in-checkout-label">1. {title}</h2>
 					</div>
 
-					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
+					<form
+						onSubmit={handleSubmit}
+						className="checkoutFormContactDetailsPadding"
+					>
 						{shippingFields}
 
-						{
-						/*{!hideBillingAddress && (
+						{/*{!hideBillingAddress && (
 
 
 								<h2>{text.billingAddress}</h2>
@@ -207,87 +202,88 @@ class CheckoutStepShipping extends React.Component {
 										{text.sameAsShipping}
 									</label>
 								</div>
-								*/
-							}
+								*/}
 
-             { /*{!this.state.billingAsShipping && (*/}
+						{/*{!this.state.billingAsShipping && (*/}
 
-									<div>
-										<Field
-											className={inputClassName + ' billing-fullname'}
-											name="billing_address.full_name"
-											id="billing_address.full_name"
-											component={InputField}
-											type="text"
-											label={text.fullName + ` (${text.required2})`}
-											validate={[validateRequired]}
-										/>
-												<Field
-													className={inputClassName + ' billing-address1'}
-													name="billing_address.address1"
-													id="billing_address.address1"
-													component={TextareaField}
-													type="text"
-													label={text.address1 + ` (${text.required2})`}
-													placeholder={commentsFieldPlaceholder}
-													validate={validateRequired}
-													rows="3"
-												/>
+						<div>
+							<Field
+								className={inputClassName + ' billing-fullname'}
+								name="billing_address.full_name"
+								id="billing_address.full_name"
+								component={InputField}
+								type="text"
+								label={text.fullName + ` (${text.required2})`}
+								validate={[validateRequired]}
+							/>
+							<Field
+								className={inputClassName + ' billing-address1'}
+								name="billing_address.address1"
+								id="billing_address.address1"
+								component={TextareaField}
+								type="text"
+								label={text.address1 + ` (${text.required2})`}
+								placeholder={commentsFieldPlaceholder}
+								validate={validateRequired}
+								rows="3"
+							/>
 
-										<Field
-											className={inputClassName + ' billing-postalcode'}
-											name="billing_address.postal_code"
-											id="billing_address.postal_code"
-											component={InputField}
-											type="text"
-											label={text.postal_code + ` (${text.required2})`}
-											validate={[validateRequired]}
-										/>
-										<Field
-											className={inputClassName + ' billing-city'}
-											name="billing_address.city"
-											id="billing_address.city"
-											component={InputField}
-											type="text"
-											label={text.city + ` (${text.required2})`}
-											validate={[validateRequired]}
-											readOnly={"readOnly"}
-										/>
-										<Field
-											className={inputClassName + ' billing-state'}
-											name="billing_address.state"
-											id="billing_address.state"
-											component={InputField}
-											type="text"
-											label={text.state + ` (${text.required2})`}
-											validate={[validateRequired]}
-											readOnly={"readOnly"}
-										/>
+							<Field
+								className={inputClassName + ' billing-postalcode'}
+								name="billing_address.postal_code"
+								id="billing_address.postal_code"
+								component={InputField}
+								type="text"
+								label={text.postal_code + ` (${text.required2})`}
+								validate={[validateRequired]}
+							/>
+							<Field
+								className={inputClassName + ' billing-city'}
+								name="billing_address.city"
+								id="billing_address.city"
+								component={InputField}
+								type="text"
+								label={text.city + ` (${text.required2})`}
+								validate={[validateRequired]}
+								readOnly={'readOnly'}
+							/>
+							<Field
+								className={inputClassName + ' billing-state'}
+								name="billing_address.state"
+								id="billing_address.state"
+								component={InputField}
+								type="text"
+								label={text.state + ` (${text.required2})`}
+								validate={[validateRequired]}
+								readOnly={'readOnly'}
+							/>
 
-										<Field
-											className={inputClassName + ' billing-phone'}
-											name="billing_address.phone"
-											id="billing_address.phone"
-											component={InputField}
-											type="text"
-											label={text.phone + ` (${text.required2})`}
-											validate={[validateRequired]}
-										/>
-									</div>
+							<Field
+								className={inputClassName + ' billing-phone'}
+								name="billing_address.phone"
+								id="billing_address.phone"
+								component={InputField}
+								type="text"
+								label={text.phone + ` (${text.required2})`}
+								validate={[validateRequired]}
+							/>
+						</div>
 
-
-									{/* )} */}
-					{/*)}*/}
+						{/* )} */}
+						{/*)}*/}
 
 						<div className="checkout-button-wrap">
 							<button
 								type="submit"
 								disabled={submitting || processingCheckout || invalid}
-								className={`${buttonClassName}${
-									processingCheckout ? ' is-loading' : ''
-								}`+ ' checkoutLoginBtn'}
+								className={
+									`${buttonClassName}${
+										processingCheckout ? ' is-loading' : ''
+									}` + ' checkoutLoginBtn'
+								}
 							>
-								{showPaymentForm ? text.next : text.saveAddress} <i className="material-icons">keyboard_arrow_right</i>
+								{showPaymentForm ? text.next : text.saveAddress}{' '}
+								<i className="material-icons">keyboard_arrow_right</i>
 							</button>
 						</div>
 					</form>

@@ -1,6 +1,4 @@
 import React from 'react';
-import * as helper from '../../../../lib/helper';
-import { themeSettings, text } from '../../../../lib/settings';
 
 const Rating = ({ product, variant, addCartItem, isAllOptionsSelected }) => {
 	return (

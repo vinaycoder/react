@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { themeSettings, text } from '../../../../lib/settings';
 
 export default class Quantity extends React.PureComponent {
 	constructor(props) {

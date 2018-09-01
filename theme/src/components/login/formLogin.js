@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import { themeSettings, text } from '../../lib/settings';
-import * as helper from '../../lib/helper';
 import { Redirect } from 'react-router-dom';
 
 export default class FormLogin extends React.Component {

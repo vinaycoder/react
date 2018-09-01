@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import api from '../../lib/api';
-import { themeSettings, text } from '../../lib/settings';
 import GoogleLoginWrapper from './googleLoginWrapper';
 import FacebookLoginWrapper from './facebookLoginWrapper';
 

@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import * as helper from '../../../../lib/helper';
-import { themeSettings, text } from '../../../../lib/settings';
 
 class Pincode extends Component {
 	constructor(props) {
