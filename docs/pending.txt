@@ -40,3 +40,34 @@ PWA -
 
 https://developers.google.com/web/ilt/pwa/introduction-to-progressive-web-app-architectures
 https://community.magento.com/t5/Magento-DevBlog/Introducing-Magento-PWA-Studio/ba-p/74636
+
+
+
+Folder Structure -
+
+API Central call back and call function + IndiaRush API URL List central (version number)
+
+API_LIST.js (Global definition of all urls with some description)
+api.js - API central call function (Get parameters to pass in the url / parse the basic data / return json/ Also the type of input going in the api url)
+
+
+Config / Hard Coding Centralisation -
+Facebook API Key / Page Count / Google API Key / Payment / Analytics Code / FB ID / Default language
+
+Locale Closure -
+files
+
+
+// Helper for common functions
+
+// Axios
+
+//State Closure
+
+
+
+
+combineReducers
+
+
+Text highlighter animation

@@ -1,0 +1,7 @@
+https://redux.js.org/introduction/threeprinciples
+
+Single source of truth
+
+State is read-only
+
+Changes are made with pure functions
