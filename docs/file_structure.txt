@@ -1,0 +1,5 @@
+https://jaysoo.ca/2016/02/28/organizing-redux-application/#rule-1-organize-by-feature
+
+https://medium.freecodecamp.org/scaling-your-redux-app-with-ducks-6115955638be
+
+https://gist.github.com/nicolas-briemant/0b29950369ec385b16d4b43ca5585e62
