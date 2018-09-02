@@ -2,11 +2,10 @@
 	"apps": [
 		{
 			"name": "store",
-			"script": "./dist/store/server/index.js",
+			"script": "./dist/server/index.js",
 			"node_args": "-r esm",
 			"watch": [
-				"./dist/store/",
-				"./theme/dist/",
+				"./dist/",
 				"./theme/assets/index.html"
 			],
 			"instances": "1",
