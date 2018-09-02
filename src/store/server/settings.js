@@ -8,9 +8,6 @@ const settings = {
 	// Access-Control-Allow-Origin
 	storeBaseUrl: `http://localhost:3000`,
 
-	// used by API
-	adminLoginUrl: '/admin/login',
-
 	apiListenPort: 3001,
 	storeListenPort: 3000,
 

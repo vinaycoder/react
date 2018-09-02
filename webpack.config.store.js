@@ -102,7 +102,7 @@ module.exports = {
 			exclude: [/\.html$/],
 			runtimeCaching: [
 				{
-					urlPattern: new RegExp('/(images|assets|admin-assets)/'),
+					urlPattern: new RegExp('/(images|assets)/'),
 					handler: 'cacheFirst'
 				},
 				{
