@@ -6,7 +6,7 @@
 			"node_args": "-r esm",
 			"watch": [
 				"./dist/",
-				"./theme/assets/index.html"
+				"./assets/index.html"
 			],
 			"instances": "1",
 			"exec_mode": "fork",

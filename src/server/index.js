@@ -28,8 +28,8 @@ app.get('/images/:entity/:id/:size/:filename', (req, res, next) => {
 	next();
 });
 app.use(express.static('public/content', STATIC_OPTIONS));
-app.use('/assets', express.static('theme/assets', STATIC_OPTIONS));
-app.use('/sw.js', express.static('theme/assets/sw.js'));
+app.use('/assets', express.static('assets', STATIC_OPTIONS));
+app.use('/sw.js', express.static('assets/sw.js'));
 
 app.get(
 	/^.+\.(jpg|jpeg|gif|png|bmp|ico|webp|svg|css|js|zip|rar|flv|swf|xls)$/,

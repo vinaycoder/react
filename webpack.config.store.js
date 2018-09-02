@@ -8,7 +8,6 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 module.exports = {
 	entry: {
 		app: ['babel-polyfill', './src/client/index.js']
-		//theme: ['./theme']
 	},
 
 	performance: {
@@ -16,10 +15,10 @@ module.exports = {
 	},
 
 	output: {
-		publicPath: '/',
-		path: path.resolve(__dirname, 'theme'),
-		filename: 'assets/js/[name]-[chunkhash].js',
-		chunkFilename: 'assets/js/[name]-[chunkhash].js'
+		publicPath: '/assets/',
+		path: path.resolve(__dirname, 'assets'),
+		filename: 'js/[name]-[chunkhash].js',
+		chunkFilename: 'js/[name]-[chunkhash].js'
 	},
 
 	optimization: {
@@ -77,26 +76,25 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(
 			[
-				'theme/assets/js/app-*.js',
-				'theme/assets/js/theme-*.js',
-				'theme/assets/css/bundle-*.css',
-				'theme/assets/sw.js',
-				'theme/assets/precache-manifest.*.js'
+				'assets/js/app-*.js',
+				'assets/css/bundle-*.css',
+				'assets/sw.js',
+				'assets/precache-manifest.*.js'
 			],
 			{ verbose: false }
 		),
 		new MiniCssExtractPlugin({
-			filename: 'assets/css/bundle-[contenthash].css',
-			chunkFilename: 'assets/css/bundle-[contenthash].css'
+			filename: 'css/bundle-[contenthash].css',
+			chunkFilename: 'css/bundle-[contenthash].css'
 		}),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 			inject: 'body',
-			filename: 'assets/index.html'
+			filename: 'index.html'
 		}),
 		new WorkboxPlugin.GenerateSW({
-			swDest: 'assets/sw.js',
-			precacheManifestFilename: 'assets/precache-manifest.[manifestHash].js',
+			swDest: 'sw.js',
+			precacheManifestFilename: 'precache-manifest.[manifestHash].js',
 			clientsClaim: true,
 			skipWaiting: true,
 			exclude: [/\.html$/],
