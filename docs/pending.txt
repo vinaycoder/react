@@ -71,3 +71,13 @@ combineReducers
 
 
 Text highlighter animation
+
+
+
+Code Splitting for performance improvement -
+
+https://medium.freecodecamp.org/analyzing-the-bundle-size-code-splitting-in-create-react-app-9238e96a5b26
+
+React Code Splitting -
+
+https://reactjs.org/docs/optimizing-performance.html

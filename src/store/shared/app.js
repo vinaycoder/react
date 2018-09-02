@@ -1,3 +1,8 @@
+// combine all css files into one with webpack. Hack to deal with server side rendering.
+if (typeof window !== 'undefined') {
+	require('./modules/common/components/theme.scss');
+}
+
 import React from 'react';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';

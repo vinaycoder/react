@@ -7,8 +7,8 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
 	entry: {
-		app: ['babel-polyfill', './src/store/client/index.js'],
-		theme: ['theme']
+		app: ['babel-polyfill', './src/store/client/index.js']
+		//theme: ['./theme']
 	},
 
 	performance: {
@@ -29,7 +29,7 @@ module.exports = {
 					chunks: 'initial',
 					name: 'theme',
 					test: 'theme',
-					enforce: true
+					enforce: false
 				}
 			}
 		}
@@ -90,7 +90,7 @@ module.exports = {
 			chunkFilename: 'assets/css/bundle-[contenthash].css'
 		}),
 		new HtmlWebpackPlugin({
-			template: 'theme/index.html',
+			template: 'src/store/index.html',
 			inject: 'body',
 			filename: 'assets/index.html'
 		}),

@@ -118,12 +118,11 @@ MOBILE
   }
 }
 
-@import "homeSlider.scss";
-@import "checkout.scss";
-@import "cart.scss";
-@import "header.scss";
-@import "footer.scss";
-@import "category.scss";
-@import "product.scss";
-@import "page.scss";
-@import "custom.scss";
+@import "../../pages/components/homeSlider.scss";
+@import "../../checkout/components/checkout.scss";
+@import "../../shared/components/cart.scss";
+@import "../../shared/components/header.scss";
+@import "../../shared/components/footer.scss";
+@import "../../category/components/category.scss";
+@import "../../product/components/product.scss";
+@import "../../pages/components/page.scss";
