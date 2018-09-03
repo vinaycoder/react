@@ -6,7 +6,8 @@ import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
 import MetaTags from '../common/components/metaTags';
 import CustomProducts from '../product/components/products/custom';
 import HomeSlider from './components/homeSlider';
-// import IRSlickSlider from '../product/components/productDetails/irSlickSlider';
+import DealofDay from './components/dealofDay';
+import BestPick from './components/bestPick';
 
 const HomeContainer = props => {
 	const {
@@ -49,7 +50,11 @@ const HomeContainer = props => {
 
 				*/}
 
-			{pageDetails && <HomeSlider products={pageDetails.slider} />}
+			{pageDetails.slider && <HomeSlider products={pageDetails.slider} />}
+			{pageDetails.promotion && (
+				<DealofDay promotions={pageDetails.promotion} />
+			)}
+			{pageDetails.bestPick && <BestPick promotions={pageDetails.bestPick} />}
 		</Fragment>
 	);
 };

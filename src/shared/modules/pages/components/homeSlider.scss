@@ -113,3 +113,44 @@ Mobile
 {
       padding: 20px 17px !important;
 }
+
+/* Home Page Fast UI changes*/
+.homeHeadingText {
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.homeFinderSearchBtn {
+    margin-bottom: 10px;
+    background: #FF823C;
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+.homeBestPicks, .homeDOD {
+    text-align: center;
+}
+
+.homeBestPickItem, .homeDODItem {
+    display: inline-block;
+    margin: 7px;
+}
+
+.homeBestPickItemImg, .homeDODItemImg {
+    box-shadow: 2px 2px #c1c1c1;
+}
+
+.divider1 {
+    clear: both;
+    display: block;
+    height: 2px;
+    margin: 10px 0;
+    background: #f60;
+    text-indent: -999em;
+    overflow: hidden;
+}
