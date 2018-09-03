@@ -28,7 +28,8 @@ import {
 	PRODUCT,
 	RESERVED,
 	SEARCH,
-	LOGIN
+	LOGIN,
+	HOME
 } from './pageTypes';
 import cookie from 'react-cookies';
 
@@ -122,10 +123,10 @@ class SwitchContainers extends React.Component {
 				return <SearchContainer />;
 			case LOGIN:
 				return <LoginContainer />;
+			case HOME:
+				return <HomeContainer />;
 			case PAGE:
-				if (locationPathname === '/') {
-					return <HomeContainer />;
-				} else if (locationPathname === '/checkout') {
+				if (locationPathname === '/checkout') {
 					return <CheckoutContainer />;
 				}
 				if (locationPathname === '/checkout-success') {

@@ -4,3 +4,4 @@ export const PRODUCT = 'product';
 export const RESERVED = 'reserved';
 export const SEARCH = 'search';
 export const LOGIN = 'login';
+export const HOME = 'home';

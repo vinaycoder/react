@@ -1,64 +1,116 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Slider from 'react-slick';
 import { NavLink } from 'react-router-dom';
-import ImageGallery from 'react-image-gallery';
-import { themeSettings } from '../../../lib/settings';
 
-const renderItem = item => (
-	<div className="image-gallery-image">
-		<NavLink to={item.path || ''}>
-			<img src={item.original} alt={item.title} />
-			<div
-				className="caption"
-				style={{ color: themeSettings.home_slider_color || '#fff' }}
-			>
-				<div className="caption-title">{item.title}</div>
-				<div className="caption-description">{item.description}</div>
-			</div>
-		</NavLink>
-	</div>
-);
+class HomeSlider extends Component {
+	constructor(props) {
+		super(props);
+	}
 
-const HomeSlider = ({ images }) => {
-	if (images && images.length > 0) {
-		const items = images.map(item => ({
-			original: `/assets/images/${item.image}`,
-			title: item.title,
-			description: item.description,
-			path: item.path || '',
-			button: item.button
-		}));
+	render() {
+		const settings = {
+			autoplay: false,
+			autoplaySpeed: 4000,
+			infinite: true,
+			arrow: false,
+			adaptiveHeight: false,
+			draggable: true,
+			pauseOnFocus: true,
+			pauseOnHover: true,
+			lazyLoad: 'progressive',
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			dots: false,
+			responsive: [
+				{
+					breakpoint: 1366,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '0px',
+						slidesToShow: 1
+					}
+				},
+				{
+					breakpoint: 994,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '0px',
+						slidesToShow: 1,
+						dots: true
+					}
+				},
+				{
+					breakpoint: 650,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '0px',
+						slidesToShow: 1,
+						dots: true
+					}
+				},
+				{
+					breakpoint: 480,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '0px',
+						slidesToShow: 1,
+						dots: true
+					}
+				},
+				{
+					breakpoint: 250,
+					settings: {
+						arrows: false,
+						centerMode: true,
+						centerPadding: '0px',
+						slidesToShow: 1,
+						dots: true
+					}
+				}
+			]
+		};
+
+		console.log('props');
+		console.log(this.props.products);
 
 		return (
-			<section className="section" style={{ padding: 0 }}>
-				<div className="container">
-					<div className="home-slider">
-						<ImageGallery
-							items={items}
-							lazyLoad
-							showThumbnails={false}
-							slideInterval={2000}
-							showNav={themeSettings.home_gallery_shownav === true}
-							showBullets={images.length > 1}
-							showPlayButton={false}
-							showFullscreenButton={false}
-							slideOnThumbnailHover={false}
-							renderItem={renderItem}
-						/>
-					</div>
-				</div>
-			</section>
+			<div>
+				{this.props.products && (
+					<p className="similar-li-wrapper">
+						<ul>
+							<Slider {...settings}>
+								{this.props.products.map(irProduct => (
+									<li
+										className="category-landscape-view-li-wrapper"
+										itemType="https://schema.org/Enumeration"
+										itemID={irProduct.id}
+										key={irProduct.id}
+									>
+										<div className="category-landscape-image-wrapper onsale-category-container-list">
+											<NavLink
+												to={`/${irProduct.landing_url}`}
+												id={irProduct.id}
+											>
+												<img
+													data-arg1={irProduct.id}
+													src={irProduct.image_url}
+													alt={irProduct.name}
+												/>
+											</NavLink>
+										</div>
+									</li>
+								))}
+							</Slider>
+						</ul>
+					</p>
+				)}
+			</div>
 		);
 	}
-	return null;
-};
-
-HomeSlider.propTypes = {
-	images: PropTypes.arrayOf(PropTypes.shape({}))
-};
-
-HomeSlider.defaultProps = {
-	images: null
-};
+}
 
 export default HomeSlider;

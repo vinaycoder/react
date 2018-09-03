@@ -6,16 +6,20 @@ import { mapStateToProps, mapDispatchToProps } from '../../containerProps';
 import MetaTags from '../common/components/metaTags';
 import CustomProducts from '../product/components/products/custom';
 import HomeSlider from './components/homeSlider';
+// import IRSlickSlider from '../product/components/productDetails/irSlickSlider';
 
 const HomeContainer = props => {
 	const {
 		addCartItem,
-		state: { pageDetails, settings, recommendationProducts }
+		state: { pageDetails, settings }
 	} = props;
+
+	console.log('HomeContainer pageDetails');
+	console.log(pageDetails);
 
 	return (
 		<Fragment>
-			<MetaTags
+			{/*<MetaTags
 				title={pageDetails.meta_title}
 				description={pageDetails.meta_description}
 				canonicalUrl={pageDetails.url}
@@ -37,6 +41,15 @@ const HomeContainer = props => {
 						</div>
 					</section>
 				)}
+
+				<HomeSlider
+				pageDetails={pageDetails}
+				settings={pageDetails}
+				/>
+
+				*/}
+
+			{pageDetails && <HomeSlider products={pageDetails.slider} />}
 		</Fragment>
 	);
 };
@@ -45,8 +58,7 @@ HomeContainer.propTypes = {
 	addCartItem: PropTypes.func.isRequired,
 	state: PropTypes.shape({
 		settings: PropTypes.shape({}),
-		pageDetails: PropTypes.shape({}),
-		recommendationProducts: PropTypes.shape({})
+		pageDetails: PropTypes.shape({})
 	}).isRequired
 };
 

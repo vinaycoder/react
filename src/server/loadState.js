@@ -18,7 +18,8 @@ import {
 	PRODUCT,
 	RESERVED,
 	SEARCH,
-	LOGIN
+	LOGIN,
+	HOME
 } from '../shared/pageTypes';
 import cookie from 'react-cookies';
 const PRODUCT_FIELDS =
@@ -34,8 +35,13 @@ const getCurrentPage = path => {
 			path: '/checkout',
 			resource: '5b6984d45452db221b4044f2'
 		};
-	}
-	if (path == '/search') {
+	} else if (path == '/') {
+		return {
+			type: 'home',
+			path: '/',
+			resource: ''
+		};
+	} else if (path == '/search') {
 		return {
 			type: 'search',
 			path: '/search',
@@ -141,9 +147,6 @@ const getLoginDetails = (statsCookieId, isLoggedIn) => {
 	// console.log('allloginDetails');
 	// console.log(allloginDetails);
 
-	// console.log('getLoginDetails app');
-	// console.log(app);
-
 	if (data) {
 		const version = 3.81;
 		const isOtp = 0;
@@ -162,6 +165,24 @@ const getLoginDetails = (statsCookieId, isLoggedIn) => {
 			});
 	}
 	return null;
+};
+
+const getHomePageDetails = currentPage => {
+	if (currentPage.type == 'home') {
+		const version = 3.81;
+		const id = 4;
+		const p = 1;
+		const image = 300;
+
+		return fetch(
+			`https://indiarush.com/irapi/promotion/getPromotionData/?id=${id}&p=${p}&image=${image}&version=${version}`
+		)
+			.then(result => result.json())
+			.then(jsonResult => {
+				return jsonResult;
+			});
+	}
+	return {};
 };
 
 const getProductsAttributes = (currentPage, productFilter) => {
@@ -233,6 +254,8 @@ const getPage = currentPage => {
 		// 		.then(({ status, json }) => json);
 		// } else {
 		return {};
+	} else if (currentPage.type === HOME) {
+		return getHomePageDetails(currentPage);
 	}
 };
 
@@ -387,10 +410,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	console.log('cookie');
 	console.log(cookie);
 
-	console.log('list.statsCookieId');
-	console.log(list.statsCookieId);
-	console.log('list.isLoggedIn');
-	console.log(list.isLoggedIn);
+	console.log('currentPage');
+	console.log(currentPage);
 
 	return Promise.all([
 		[], //api.checkoutFields.list().then(({ status, json }) => json),
@@ -438,9 +459,11 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			product,
 			page,
 			themeSettings,
-			loginPost,
 			customerDetails
 		]) => {
+			console.log('pageDataMine');
+			console.log(page);
+
 			let categoryDetails = null;
 			if (currentPage.type === PRODUCT_CATEGORY) {
 				categoryDetails = categories.find(c => c.id === currentPage.resource);
@@ -455,7 +478,6 @@ const getAllData = (currentPage, productFilter, cookie) => {
 				page,
 				categoryDetails,
 				themeSettings,
-				loginPost,
 				customerDetails
 			};
 		}
@@ -473,7 +495,6 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 		page,
 		categoryDetails,
 		themeSettings,
-		loginPost,
 		customerDetails
 	} = allData;
 
