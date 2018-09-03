@@ -79,7 +79,8 @@ module.exports = {
 				'assets/js/app-*.js',
 				'assets/css/bundle-*.css',
 				'assets/sw.js',
-				'assets/precache-manifest.*.js'
+				'assets/precache-manifest.*.js',
+				'assets/index.html'
 			],
 			{ verbose: false }
 		),
