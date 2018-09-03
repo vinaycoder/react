@@ -118,11 +118,11 @@ MOBILE
   }
 }
 
-@import "../../pages/components/homeSlider.scss";
-@import "../../checkout/components/checkout.scss";
-@import "../../shared/components/cart.scss";
-@import "../../shared/components/header.scss";
-@import "../../shared/components/footer.scss";
-@import "../../category/components/category.scss";
-@import "../../product/components/product.scss";
-@import "../../pages/components/page.scss";
+
+@import "./shared/modules/checkout/components/checkout.scss";
+@import "./shared/modules/shared/components/cart.scss";
+@import "./shared/modules/shared/components/header.scss";
+@import "./shared/modules/shared/components/footer.scss";
+@import "./shared/modules/category/components/category.scss";
+@import "./shared/modules/product/components/product.scss";
+@import "./shared/modules/pages/page.scss";
