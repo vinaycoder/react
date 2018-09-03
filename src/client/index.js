@@ -18,7 +18,10 @@ initOnClient({
 	themeSettings: initialState.app.themeSettings,
 	text: themeText,
 	language: clientSettings.language,
-	api: api
+	api: api,
+	customerDetails: initialState.app.customerDetails,
+	isLoggedIn: initialState.app.isLoggedIn,
+	statsCookieId: initialState.app.statsCookieId
 });
 
 const store = createStore(

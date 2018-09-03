@@ -120,28 +120,46 @@ const getProducts = (currentPage, productFilter) => {
 	return null;
 };
 
-const getLoginDetails = app => {
-	let allloginDetails = loginPost(app);
-	console.log('allloginDetails');
-	console.log(allloginDetails);
+const getLoginDetails = (statsCookieId, isLoggedIn) => {
+	return null;
 
-	console.log('getLoginDetails app');
-	console.log(app);
+	console.log('statsCookieId');
+	console.log(statsCookieId);
+	console.log('isLoggedIn');
+	console.log(isLoggedIn);
 
-	if (allloginDetails) {
-		console.log('in allloginDetails enter');
-		// if (currentPage.type === SEARCH) {
-		// 	return fetch(
-		// 		`https://indiarush.com/irapi/search/getSearchResult/?query=${
-		// 			filter.search
-		// 		}&sort=${sortListURl}&page=0&item_count=48&version=3.83${filterListURL}`
-		// 	)
-		// 		.then(result => result.json())
-		// 		.then(jsonResult => {
-		// 			console.log('logging search products data');
-		// 			return jsonResult.data;
-		// 		});
-		// }
+	let username = 'abhinesh.yadav@indiarush.com';
+
+	let data = [];
+	data.push(statsCookieId);
+	data.push(isLoggedIn);
+
+	console.log('data');
+	console.log(data);
+
+	// const allloginDetails = loginPost(data);
+	// console.log('allloginDetails');
+	// console.log(allloginDetails);
+
+	// console.log('getLoginDetails app');
+	// console.log(app);
+
+	if (data) {
+		const version = 3.81;
+		const isOtp = 0;
+		// const { app } = getState();
+		// const loginDetails = getloginDetails(app.customerDetails);
+
+		return fetch(
+			`https://indiarush.com/irapi/customer/checkRegisteredUser/?username=${username}&version=${version}`
+		)
+			.then(result => result.json())
+			.then(jsonResult => {
+				console.log('server side json for login');
+				console.log(jsonResult.data);
+
+				return jsonResult.data;
+			});
 	}
 	return null;
 };
@@ -409,26 +427,39 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		getProductsAttributes(currentPage, productFilter),
 		getProduct(currentPage),
 		getPage(currentPage),
-		getThemeSettings()
-	]).then(([checkoutFields, categories, //cart,
-		products, productsAttributes, product, page, themeSettings, loginPost]) => {
-		let categoryDetails = null;
-		if (currentPage.type === PRODUCT_CATEGORY) {
-			categoryDetails = categories.find(c => c.id === currentPage.resource);
-		}
-		return {
+		getThemeSettings(),
+		getLoginDetails(list.statsCookieId, list.isLoggedIn)
+	]).then(
+		([
 			checkoutFields,
-			categories,
-			//		cart,
+			categories, //cart,
 			products,
 			productsAttributes,
 			product,
 			page,
-			categoryDetails,
 			themeSettings,
-			loginPost
-		};
-	});
+			loginPost,
+			customerDetails
+		]) => {
+			let categoryDetails = null;
+			if (currentPage.type === PRODUCT_CATEGORY) {
+				categoryDetails = categories.find(c => c.id === currentPage.resource);
+			}
+			return {
+				checkoutFields,
+				categories,
+				//		cart,
+				products,
+				productsAttributes,
+				product,
+				page,
+				categoryDetails,
+				themeSettings,
+				loginPost,
+				customerDetails
+			};
+		}
+	);
 };
 
 const getState = (currentPage, settings, allData, location, productFilter) => {
@@ -442,7 +473,8 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 		page,
 		categoryDetails,
 		themeSettings,
-		loginPost
+		loginPost,
+		customerDetails
 	} = allData;
 
 	let productsTotalCount = 0;
@@ -483,7 +515,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			recommendationProducts: [],
 			isLoggedIn: null,
 			statsCookieId: null,
-			customerDetails: [],
+			customerDetails: customerDetails,
 			paymentMethods: [],
 			shippingMethods: [],
 			loadingProducts: false,
@@ -566,25 +598,22 @@ export const loadState = (req, language) => {
 	]).then(([currentPage, settings, themeText, placeholdersResponse]) => {
 		const productFilter = getFilter(currentPage, urlQuery, settings);
 
-		return getAllData(currentPage, productFilter, cookie, loginPost).then(
-			allData => {
-				const state = getState(
-					currentPage,
-					settings,
-					allData,
-					location,
-					productFilter,
-					loginPost
-				);
-				console.log('Final Return Daasdasdta');
-				winston.info(`i am also here`);
-				console.log(state);
-				return {
-					state: state,
-					themeText: themeText,
-					placeholders: placeholdersResponse.json
-				};
-			}
-		);
+		return getAllData(currentPage, productFilter, cookie).then(allData => {
+			const state = getState(
+				currentPage,
+				settings,
+				allData,
+				location,
+				productFilter
+			);
+			console.log('Final Return Daasdasdta');
+			winston.info(`i am also here`);
+			console.log(state);
+			return {
+				state: state,
+				themeText: themeText,
+				placeholders: placeholdersResponse.json
+			};
+		});
 	});
 };

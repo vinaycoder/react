@@ -66,13 +66,15 @@ class SwitchContainers extends React.Component {
 		// console.log(currentPage.type);
 
 		if (!cookie.load('statsCookieId')) {
-			let timeStamp = Math.floor(Date.now());
+			let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
+			let now = new Date();
+
 			// let now = new Date();
 			console.log('Date');
 			console.log(timeStamp);
-			let timesVariable = Math.floor(100000 + Math.random() * 900000);
-			cookie.save('statsCookieId', timesVariable, { path: '/' });
-			this.setState({ statsCookieId: timesVariable });
+			// let timesVariable = Math.floor(100000 + Math.random() * 900000);
+			cookie.save('statsCookieId', timeStamp, { path: '/' });
+			this.setState({ statsCookieId: timeStamp });
 		}
 
 		if (!cookie.load('isLoggedIn')) {
