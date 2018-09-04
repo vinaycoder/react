@@ -21,9 +21,10 @@ header {
 
 header .mobileLogo{
   display: block;
-  background-position: -140px -106px;
-  width: 156px;
-  height: 34px;
+  background-position: -432px -5px;
+  height: 52px;
+  width: 218px;
+  margin: 0 0 0 10px;
 }
 
 .icon-search {
@@ -68,7 +69,7 @@ header .mobileLogo{
     top: 0;
     left: 0;
     width: 100%;
-    height: 3.25rem;
+    height: 4.25rem;
     z-index: 1003;
     padding-top: 0;
     border-bottom: none;
@@ -83,6 +84,17 @@ header .mobileLogo{
   header .logo-image img {
     max-height: 3.25rem;
 
+  }
+
+  header .mobileLogo{
+    display: block;
+    background-position: -140px -106px;
+    width: 156px;
+    height: 34px;
+  }
+
+  .headerStrip-containers{
+          margin: 20px 0 0px 0px;
   }
 
   .cart-button {
@@ -1235,4 +1247,46 @@ hr.tab-content-rulerr-hr:after {
 .right{
 
     float: right;
+}
+
+.globalHeaderStrip {
+    background: #FF823C;
+    width: 100%;
+    height: 20px;
+    color: white;
+    font-size: 13px;
+    position: absolute;
+    top:0px;
+}
+
+.feedbackHeaderStrip {
+    background: #FF823C;
+    width: 100%;
+    height: 30px;
+    color: white;
+    font-size: 90%;
+}
+
+.breadMarginT15 {
+    margin-top: 15px;
+}
+
+.needHelpHeaderStrip {
+
+    float:left;
+    padding-left: 5px;
+}
+.sellOnIrushHeaderStrip {
+  float:right;
+  padding-right: 5px;
+}
+
+.beforeheaderLabelColor{
+  color: white;
+  margin: 0 5px 0 5px;
+}
+
+.mainloginlogo{
+
+    margin: 0 0px 0 12px;
 }

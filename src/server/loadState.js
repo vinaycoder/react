@@ -186,6 +186,22 @@ const getHomePageDetails = currentPage => {
 	return {};
 };
 
+const getHomePageRecommendationDetails = currentPage => {
+	if (currentPage.type === 'home') {
+		const version = 3.81;
+		const customerId = 1296751;
+
+		return fetch(
+			`https://indiarush.com/irapi/product/getRecommendation/?customer_id=${customerId}&version=${version}`
+		)
+			.then(result => result.json())
+			.then(jsonResult => {
+				return jsonResult.data;
+			});
+	}
+	return {};
+};
+
 const getProductsAttributes = (currentPage, productFilter) => {
 	let filter = getParsedProductFilter(productFilter);
 	filter.enabled = true;
@@ -257,6 +273,28 @@ const getPage = currentPage => {
 		return {};
 	} else if (currentPage.type === HOME) {
 		return getHomePageDetails(currentPage);
+
+		// let homePageObject =[];
+
+		// let homePageDetails = getHomePageDetails(currentPage);
+		// let recommendationDetails = getHomePageRecommendationDetails(currentPage);
+
+		// console.log("recommendationDetails");
+		// console.log(recommendationDetails);
+		// console.log("homePageDetails");
+		// console.log(homePageDetails);
+
+		// let homePageObject = Object.assign(homePageDetails, recommendationDetails);
+		// const homePageObject = Object.assign({}, homePageDetails, recommendationDetails);
+
+		// homePageObject.push(getHomePageDetails(currentPage));
+		// homePageObject.push(getHomePageRecommendationDetails(currentPage));
+
+		// console.log("homePageObject");
+		// console.log(homePageObject);
+
+		// return homePageDetails;
+		// return getHomePageDetails(currentPage);
 	}
 };
 
