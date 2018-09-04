@@ -8,9 +8,9 @@ export default class LoginWrapper extends React.PureComponent {
 	render() {
 		const { settings, loginToggle, loginPost } = this.props;
 		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
-
-		console.log('LoginWrapper this.props');
-		console.log(this.props);
+		//
+		// console.log('LoginWrapper this.props');
+		// console.log(this.props);
 		// console.log("LoginWrapper this.state");
 		// console.log(this.state);
 		// const isLoggedIn = cookie.load('isLoggedIn');

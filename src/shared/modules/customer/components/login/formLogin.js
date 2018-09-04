@@ -112,8 +112,8 @@ export default class FormLogin extends React.Component {
 		// console.log("list.isLoggedIn");
 		// console.log(list.isLoggedIn);
 
-		console.log('this.props');
-		console.log(this.props);
+		// console.log('this.props');
+		// console.log(this.props);
 		// const viewedProducts = this.getArrayFromLocalStorage();
 		// this.setState({ viewedProducts });
 		//
@@ -161,10 +161,10 @@ export default class FormLogin extends React.Component {
 	// }
 
 	render() {
-		console.log('in Form Login Render');
-
-		console.log('state');
-		console.log(this.state);
+		// console.log('in Form Login Render');
+		//
+		// console.log('state');
+		// console.log(this.state);
 
 		const { loginPost } = this.props;
 		const { isLoggedIn, statsCookieId, customerDetails } = this.state;

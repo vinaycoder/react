@@ -16,8 +16,8 @@ const LoginContainer = props => {
 		state: { isLoggedIn, statsCookieId, customerDetails }
 	} = props;
 
-	console.log('Logged in js props	');
-	console.log(props);
+	// console.log('Logged in js props	');
+	// console.log(props);
 
 	return (
 		<Fragment>

@@ -38,7 +38,7 @@ class HomeSlider extends Component {
 						centerMode: true,
 						centerPadding: '0px',
 						slidesToShow: 1,
-						dots: true
+						dots: false
 					}
 				},
 				{
@@ -48,7 +48,7 @@ class HomeSlider extends Component {
 						centerMode: true,
 						centerPadding: '0px',
 						slidesToShow: 1,
-						dots: true
+						dots: false
 					}
 				},
 				{
@@ -58,7 +58,7 @@ class HomeSlider extends Component {
 						centerMode: true,
 						centerPadding: '0px',
 						slidesToShow: 1,
-						dots: true
+						dots: false
 					}
 				},
 				{
@@ -68,7 +68,7 @@ class HomeSlider extends Component {
 						centerMode: true,
 						centerPadding: '0px',
 						slidesToShow: 1,
-						dots: true
+						dots: false
 					}
 				}
 			]
