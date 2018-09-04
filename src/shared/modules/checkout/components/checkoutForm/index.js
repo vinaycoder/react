@@ -187,7 +187,8 @@ export default class CheckoutForm extends React.Component {
 						onSubmit={this.handleShippingSubmit}
 					/>
 
-					{showPaymentForm && (
+
+						{/*{showPaymentForm && (*/}
 						<CheckoutStepPayment
 							show={step === 3}
 							title={text.payment}
@@ -199,7 +200,8 @@ export default class CheckoutForm extends React.Component {
 							handleSuccessPayment={this.handleSuccessPayment}
 							onCreateToken={this.handleCheckoutWithToken}
 						/>
-					)}
+
+					{/*)}*/}
 				</div>
 			);
 		} else {
