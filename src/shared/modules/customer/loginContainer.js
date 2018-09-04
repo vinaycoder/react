@@ -8,6 +8,7 @@ import FormLogin from './components/login/formLogin';
 import SocialLogin from './components/login/socialLogin';
 import LogincontentWrapper from './components/login/logincontentWrapper';
 import * as helper from '../../lib/helper';
+import OrDiv from './components/login/orDiv';
 
 const LoginContainer = props => {
 	const {
@@ -25,13 +26,16 @@ const LoginContainer = props => {
 					<h4 className="login-strip-content">Sign In</h4>
 				</div>
 				<div className="hero-body columns">
-					<div className="container column is-6">
+					<div className="container column is-5">
 						<SocialLogin
 							isLoggedIn={isLoggedIn}
 							statsCookieId={statsCookieId}
 							customerDetails={customerDetails}
 							loginPost={loginPost}
 						/>
+
+						<OrDiv />
+
 						<FormLogin
 							isLoggedIn={isLoggedIn}
 							statsCookieId={statsCookieId}
@@ -39,7 +43,7 @@ const LoginContainer = props => {
 							loginPost={loginPost}
 						/>
 					</div>
-					<div className="category-offers-main-wrapper column is-6">
+					<div className="container column is-6 loginExtraContent">
 						<LogincontentWrapper
 							isLoggedIn={isLoggedIn}
 							statsCookieId={statsCookieId}
