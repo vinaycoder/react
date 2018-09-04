@@ -32,18 +32,18 @@
     "url": "https://github.com/cezerin/cezerin"
   },
   "scripts": {
-    "compile": "babel src/store -d dist/store --presets react --plugins transform-class-properties --quiet",
-    "compile:watch": "concurrently -n storeWatcher,themeWatcher \"babel src/store -d dist/store --presets react --plugins transform-class-properties --watch\" \"babel theme/src -d theme/dist --presets react --plugins transform-class-properties --watch\"",
+    "compile": "babel src -d dist --presets react --plugins transform-class-properties --quiet",
+    "compile:watch": "concurrently -n storeWatcher \"babel src -d dist --presets react --plugins transform-class-properties --watch\"",
     "webpack:store": "webpack --config webpack.config.store.js --mode production",
     "webpack:store:watch": "webpack --config webpack.config.store.js --mode development --watch",
-    "theme:build": "babel theme/src -d theme/dist --presets react --plugins transform-class-properties --quiet && npm run webpack:store",
+    "theme:build": "npm run webpack:store",
     "build": "npm run compile && npm run theme:build",
     "build:watch": "concurrently -n compile,webpackStore \"npm run compile:watch\" \"npm run webpack:store:watch\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --write \"src/**/*.js\" \"theme/**/*.js\"",
+    "prettier": "prettier --write \"src/**/*.js\" ",
     "precommit": "lint-staged",
-    "start-store": "node -r esm dist/store/server/index.js",
+    "start-store": "node -r esm dist/server/index.js",
     "start": "concurrently npm:start-*"
   },
   "lint-staged": {

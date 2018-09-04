@@ -2,12 +2,11 @@
 	"apps": [
 		{
 			"name": "store",
-			"script": "./dist/store/server/index.js",
+			"script": "./dist/server/index.js",
 			"node_args": "-r esm",
 			"watch": [
-				"./dist/store/",
-				"./theme/dist/",
-				"./theme/assets/index.html"
+				"./dist/",
+				"./assets/index.html"
 			],
 			"instances": "1",
 			"exec_mode": "fork",
