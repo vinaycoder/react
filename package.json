@@ -140,8 +140,10 @@
     "node-sass": "^4.9.3",
     "react-image-gallery": "^0.8.11",
     "rc-slider": "^8.6.1",
-    "react-image-lightbox": "^5.0.0",
-    "react-lazyload": "^2.3.0"
+    "react-image-lightbox": "^4.6.0",
+    "react-lazyload": "^2.3.0",
+    "isomorphic-fetch": "^2.2.1",
+    "es6-promise": "^4.2.4"
   },
   "engines": {
     "node": "^8.0.0",

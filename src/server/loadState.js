@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import api from './api';
 import queryString from 'query-string';
 import winston from 'winston';
+import 'isomorphic-fetch';
 
 import {
 	getParsedProductFilter,
