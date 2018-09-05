@@ -620,3 +620,126 @@ span.buttonText {
   display: none;
 
 }
+
+/// for checkout newPadding
+//  for dtt
+@media screen and (max-width: 615px) and (min-width: 50px)
+{
+  .sp-methods dt {
+      width: 100%;
+  }
+  .checkout-payment-methods
+  {
+    left: 0;
+    position: relative;
+    width: 100%;
+    top: 0px;
+    background-color: #fff;
+  }
+  .sp-methods .form-list
+  {
+    width: inherit;
+    padding-left: 0px;
+  }
+  #payment_form_cashondelivery, #payment_form_irdebit, #payment_form_ircredit, #payment_form_irpayment {
+    padding: 3px;
+  }
+}
+@media screen and (max-width: 992px) and (min-width: 616px)
+{
+  .sp-methods dt
+  {
+    width: 50%;
+  }
+  .checkout-payment-methods
+  {
+    width: 46%;
+  }
+  .sp-methods .form-list
+  {
+    padding-left: 10px;
+    width: 100%;
+   }
+   .checkout-page-summary-block-mobile-tab
+   {
+    display: block;
+   }
+}
+@media screen and (min-width: 993px)
+{
+  .sp-methods dt
+  {
+    width: 38%;
+  }
+  .checkout-payment-methods
+  {
+    float: left;
+    width: 44%;
+    position: absolute;
+    left: 32%;
+  }
+
+}
+.checkout-payment-methods
+{
+  float: left;
+}
+
+
+.sp-methods dt {
+    // width: 38%;
+    height: 62px;
+    margin: 2px 0px;
+}
+.checkout-page-radio {
+    float: left;
+    position: relative;
+    cursor: pointer;
+    background-color: #d9dfe9;
+}
+#p_method_cashondelivery, #p_method_ircredit, #p_method_irdebit, #p_method_irpayment, #no-method-selected, #p_method_irwallet, #p_method_irstorecredit {
+    float: left;
+    margin-left: 3px;
+    margin-top: 25px;
+}
+input.radio {
+    margin-right: 3px;
+}
+.cashondeliveryPayImageSel {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -535px -994px;
+    width: 38px;
+    height: 38px;
+}
+.checkoutPayIcons {
+    margin-left: 5px;
+    margin-top: 10px;
+    float: left;
+    display: inline-block;
+}
+.checkout-page-radio label {
+    float: left;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+.payMethodsSel {
+    color: #f60;
+}
+.payMethodCashondelivery .payMethodsText {
+    margin-left: 12px;
+}
+.payMethods {
+    font-weight: bold;
+}
+.payMethodsText {
+    padding-top: 15px;
+}
+.form-list li {
+    margin: 0 0 15px;
+}
+.opc h3, .opc h4 {
+    color: #626262;
+}
+.checkout-payment-methods
+{
+  font-size: 80%;
+}
