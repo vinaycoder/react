@@ -59,7 +59,6 @@ const CheckoutStepPayment = props => {
 						<h3>Credit Card</h3>
 						</div>
 
-
 					</div>
 
 

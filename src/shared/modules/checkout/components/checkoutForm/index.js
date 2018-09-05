@@ -220,7 +220,9 @@ evt.currentTarget.className += " active";
 				</div>
 			);
 		} else {
-			return <p>{text.emptyCheckout}</p>;
+			return <p>
+			{text.emptyCheckout}
+			</p>;			
 		}
 	}
 }
