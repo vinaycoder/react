@@ -27,9 +27,16 @@ const CartIcon = ({ cartIsActive }) => {
 
 export default class CartIndicator extends React.PureComponent {
 	render() {
-		const { cart, onClick, cartIsActive } = this.props;
+		const { cart, onClick, cartIsActive, currentPage } = this.props;
+		const showCartMenuIcon =
+			currentPage.type !== 'home' ||
+			currentPage.type !== 'cart' ||
+			currentPage.type === 'checkout';
 		return (
-			<span className="cart-button" onClick={onClick}>
+			<span
+				className={'cart-button ' + (showCartMenuIcon ? '' : '')}
+				onClick={onClick}
+			>
 				<CartIcon cartIsActive={cartIsActive} />
 				<CartCount cart={cart} />
 			</span>

@@ -26,9 +26,24 @@ const CartIcon = ({ saveForLaterIsActive }) => {
 
 export default class SaveIndicator extends React.PureComponent {
 	render() {
-		const { saveForLater, onClick, saveForLaterIsActive } = this.props;
+		const {
+			saveForLater,
+			onClick,
+			saveForLaterIsActive,
+			currentPage
+		} = this.props;
+		const showSaveForLaterMenuIcon =
+			currentPage.type !== 'home' ||
+			currentPage.type !== 'cart' ||
+			currentPage.type === 'checkout';
 		return (
-			<span className="cart-button save-for-later-button" onClick={onClick}>
+			<span
+				className={
+					'cart-button save-for-later-button ' +
+					(showSaveForLaterMenuIcon ? '' : '')
+				}
+				onClick={onClick}
+			>
 				<CartIcon saveForLaterIsActive={saveForLaterIsActive} />
 				<CartCount saveForLater={saveForLater} />
 			</span>
