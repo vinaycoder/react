@@ -80,13 +80,14 @@ export default class FacebookLoginWrapper extends React.Component {
 
 		return (
 			<div className="login-facebook-wrapper">
+				{/*<span className="fb-icon"></span>*/}
 				<FacebookLogin
 					appId="229678163736140"
-					autoLoad={true}
+					autoLoad
 					fields="name,email,picture"
 					onClick={componentClicked}
 					callback={responseFacebook}
-					cssClass="my-facebook-button-class"
+					cssClass="facebookloginbutton left"
 				/>
 			</div>
 		);

@@ -10,6 +10,7 @@ import SaveIndicator from './SaveIndicator';
 import SaveForLater from './saveForLater';
 import LoginWrapper from './login';
 import LoginIndicator from './loginIndicator';
+import BeforeHeaderStrip from './beforeHeaderStrip';
 
 const Logo = ({ src, onClick, alt }) => (
 	<NavLink className="logo-image" to="/" onClick={onClick}>
@@ -306,7 +307,9 @@ export default class Header extends React.Component {
 				<header
 					className={this.state.mobileSearchIsActive ? 'search-active' : ''}
 				>
-					<div className="container">
+					<BeforeHeaderStrip />
+
+					<div className="containers headerStrip-containers">
 						<div className="columns is-gapless is-mobile header-container">
 							<div className="column is-hidden-tablet">
 								{!showBackButton && (
@@ -318,7 +321,7 @@ export default class Header extends React.Component {
 								{showBackButton && <BackButton onClick={this.handleGoBack} />}
 							</div>
 
-							<div className="column has-text-left">
+							<div className="column has-text-left mainloginlogo">
 								<Logo src={settings.logo} onClick={this.closeAll} alt="logo" />
 							</div>
 							<div className="column">

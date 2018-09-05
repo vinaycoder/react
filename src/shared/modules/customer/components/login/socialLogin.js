@@ -58,9 +58,6 @@ export default class SocialLogin extends React.Component {
 					statsCookieId={statsCookieId}
 					customerDetails={customerDetails}
 				/>
-				<p className="tab-content-ruler fb-gplus-separator">
-					<span className="loginORDividerText"> OR </span>
-				</p>
 			</div>
 		);
 	}

@@ -86,6 +86,7 @@ export default class GoogleLoginWrapper extends React.Component {
 					buttonText="Sign in with Google"
 					onSuccess={responseGoogle}
 					onFailure={responseGoogle}
+					className="googleloginbuttonmain"
 				/>
 			</div>
 		);

@@ -112,8 +112,8 @@ export default class FormLogin extends React.Component {
 		// console.log("list.isLoggedIn");
 		// console.log(list.isLoggedIn);
 
-		console.log('this.props');
-		console.log(this.props);
+		// console.log('this.props');
+		// console.log(this.props);
 		// const viewedProducts = this.getArrayFromLocalStorage();
 		// this.setState({ viewedProducts });
 		//
@@ -161,10 +161,10 @@ export default class FormLogin extends React.Component {
 	// }
 
 	render() {
-		console.log('in Form Login Render');
-
-		console.log('state');
-		console.log(this.state);
+		// console.log('in Form Login Render');
+		//
+		// console.log('state');
+		// console.log(this.state);
 
 		const { loginPost } = this.props;
 		const { isLoggedIn, statsCookieId, customerDetails } = this.state;
@@ -178,8 +178,6 @@ export default class FormLogin extends React.Component {
 		return (
 			<div>
 				<p className="product-border-around">
-					<div className="account-login-errors" />
-
 					<Register
 						onClick={this.createFormToggle}
 						createIsActive={this.state.createIsActive}
@@ -314,78 +312,80 @@ export default class FormLogin extends React.Component {
 					</form>
 				</p>
 
-				<p
-					// className="login-account-create-label-p"
-					className={
-						this.state.signInIsActive
-							? 'sub-child-active'
-							: 'sub-child-inactive'
-					}
-				>
-					<span className="login-account-create-label">
-						Dont Have IndiaRush Account ?
-					</span>
-				</p>
-
-				<p
-					// className="login-account-create-label-action-p"
-					className={
-						this.state.signInIsActive
-							? 'sub-child-active'
-							: 'sub-child-inactive'
-					}
-				>
-					<div id="forgotpass">
-						<span className="login-account-create">
-							<button
-								id="createAccountButton"
-								type="button"
-								title="Create Account"
-								onClick={this.createFormToggle}
-								createIsActive={this.state.createIsActive}
-								className="orange-button"
-							>
-								<span>Create Account</span>
-							</button>
+				<div className="login-align-center">
+					<p
+						className={
+							this.state.signInIsActive
+								? 'sub-child-active'
+								: 'sub-child-inactive'
+						}
+					>
+						<span className="login-account-create-label">
+							Dont Have IndiaRush Account ?
 						</span>
-					</div>
-				</p>
+					</p>
 
-				<p
-					// className="login-account-create-label-p"
-					className={
-						this.state.createIsActive
-							? 'sub-child-active'
-							: 'sub-child-inactive'
-					}
-				>
-					<span className="login-account-create-label">
-						Already part of IndiaRush ?
-					</span>
-				</p>
+					<p
+						className={
+							this.state.signInIsActive
+								? 'sub-child-active'
+								: 'sub-child-inactive'
+						}
+					>
+						<div id="forgotpass">
+							<span className="login-account-create">
+								<button
+									id="createAccountButton"
+									type="button"
+									title="Create Account"
+									onClick={this.createFormToggle}
+									createIsActive={this.state.createIsActive}
+									className="orange-button"
+								>
+									<span>Create Account</span>
+								</button>
+							</span>
+						</div>
+					</p>
+				</div>
 
-				<p
-					className={
-						this.state.createIsActive
-							? 'sub-child-active'
-							: 'sub-child-inactive'
-					}
-				>
-					<div>
-						<span className="login-account-signin-redirect">
-							<button
-								id="signInButton"
-								type="button"
-								title="Sign In"
-								onClick={this.signInFormToggle}
-								signInIsActive={this.state.signInIsActive}
-								className="orange-button"
-							>
-								<span>Sign In</span>
-							</button>
+				<div className="login-align-center">
+					<p
+						// className="login-account-create-label-p"
+						className={
+							this.state.createIsActive
+								? 'sub-child-active'
+								: 'sub-child-inactive'
+						}
+					>
+						<span className="login-account-create-label">
+							Already part of IndiaRush ?
 						</span>
-					</div>
-				</p>
+					</p>
+
+					<p
+						className={
+							this.state.createIsActive
+								? 'sub-child-active'
+								: 'sub-child-inactive'
+						}
+					>
+						<div>
+							<span className="login-account-signin-redirect">
+								<button
+									id="signInButton"
+									type="button"
+									title="Sign In"
+									onClick={this.signInFormToggle}
+									signInIsActive={this.state.signInIsActive}
+									className="orange-button"
+								>
+									<span>Sign In</span>
+								</button>
+							</span>
+						</div>
+					</p>
+				</div>
 			</div>
 		);
 	}

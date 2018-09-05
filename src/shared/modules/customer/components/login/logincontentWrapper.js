@@ -34,7 +34,7 @@ export default class LogincontentWrapper extends React.Component {
 		const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
 		return (
-			<div className="extra-content loginExtraContent right">
+			<div className="">
 				<div className="login-content-container">
 					<div className="login-sub-content-wrapper">
 						<p className="login-heading">More options</p>
