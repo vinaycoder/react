@@ -8,9 +8,25 @@ export default class CheckoutForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			step: 1
+			step: 3
 		};
+		this.showPaymentMethod = this.showPaymentMethod.bind(this);
 	}
+	showPaymentMethod(evt,id)
+	{
+		var i, tabcontent, tablinks;
+tabcontent = document.getElementsByClassName("tabcontent");
+for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+}
+tablinks = document.getElementsByClassName("tablinks");
+for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+}
+document.getElementById(id).style.display = "block";
+evt.currentTarget.className += " active";
+}
+
 
 	componentDidMount() {
 		this.props.loadShippingMethods();
@@ -187,8 +203,7 @@ export default class CheckoutForm extends React.Component {
 						onSubmit={this.handleShippingSubmit}
 					/>
 
-
-						{/*{showPaymentForm && (*/}
+					{/*{showPaymentForm && (*/}
 						<CheckoutStepPayment
 							show={step === 3}
 							title={text.payment}
@@ -199,9 +214,9 @@ export default class CheckoutForm extends React.Component {
 							processingCheckout={processingCheckout}
 							handleSuccessPayment={this.handleSuccessPayment}
 							onCreateToken={this.handleCheckoutWithToken}
+							showPaymentMethod={this.showPaymentMethod}
 						/>
-
-					{/*)}*/}
+				{/*	)}*/}
 				</div>
 			);
 		} else {
