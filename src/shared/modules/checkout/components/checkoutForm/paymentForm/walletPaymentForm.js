@@ -3,13 +3,27 @@ import React, { Component } from 'react';
 class netBankingPaymentForm extends Component{
 	constructor(props) {
 	super(props);
+	this.radioCheckUncheck=this.radioCheckUncheck.bind(this);
+	this.selectUncheck=this.selectUncheck.bind(this);
 
 }
 componentDidMount()
 {
 
 }
+radioCheckUncheck()
+{
+	var radio=document.getElementsByClassName('walletRadio');
+	for (var i = 0; i < radio.length; i++) {
+		radio[i].checked=false;
+	}
 
+}
+selectUncheck(val)
+{
+	 document.getElementById('irwallet').value=val;
+
+}
 	render(){
     const {showPaymentMethod}=this.props;
 		return(
@@ -60,7 +74,7 @@ componentDidMount()
                <li>
                    <div className="checkout-card-list" id="topWalletList">
                        <div className="checkout-address-radio paytmDiv">
-                         <input type="radio" className="radio" name="irwallet" id="paytm" value="PAYTM" onClick={e=>selectUncheck(e.target.value)} autoComplete="off" />
+                         <input type="radio" className="radio walletRadio" name="irwallet" id="paytm" value="PAYTM" onClick={e=>this.selectUncheck(e.target.value)} autoComplete="off" />
                                <label name="checkout-address-label" htmlFor="paytm">
 
                                    <div>
@@ -73,7 +87,7 @@ componentDidMount()
                                <div className="clear"></div>
                            </div>
                            <div className="checkout-address-radio mobikwikDiv">
-                               <input type="radio" className="radio" name="irwallet" id="mobikwik" value="MOBIKWIK" onClick={e=>selectUncheck(e.target.value)} autoComplete="off" />
+                               <input type="radio" className="radio walletRadio" name="irwallet" id="mobikwik" value="MOBIKWIK" onClick={e=>this.selectUncheck(e.target.value)} autoComplete="off" />
                                <label name="checkout-address-label" htmlFor="mobikwik">
 
                                    <div>
@@ -86,10 +100,10 @@ componentDidMount()
                                <div className="clear"></div>
                            </div>
                                    </div>
-                   <select size="1" id="irwallet" name="irwallet_select" onChange={e=>radioCheckUncheck(e)} autoComplete="off">
+                   <select size="1" id="irwallet" name="irwallet_select" onChange={e=>this.radioCheckUncheck()} autoComplete="off">
                        <option defaultValue="">Select your Wallet</option>
-                       <option defaultValue="MOBIKWIK">MobiKwik</option>
-                       <option defaultValue="PAYTM">Paytm</option>
+                       <option value="MOBIKWIK">MobiKwik</option>
+                       <option value="PAYTM">Paytm</option>
 
                        <option value="PAYZ">Pay Zap</option>
                        <option value="OLAM">Ola Money</option>

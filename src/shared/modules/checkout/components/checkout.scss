@@ -1041,3 +1041,6 @@ input.radio {
 #irwallet {
     margin-top: 15px;
 }
+.checkout-address-radio input[type="checkbox"]:checked {
+border-color: red;
+}

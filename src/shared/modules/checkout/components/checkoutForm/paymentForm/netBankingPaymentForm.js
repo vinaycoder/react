@@ -3,10 +3,30 @@ import React, { Component } from 'react';
 class netBankingPaymentForm extends Component{
 	constructor(props) {
 	super(props);
-
+	this.selectNetCheckUncheck = this.selectNetCheckUncheck.bind(this);
+	this.radioNetCheckUncheck = this.radioNetCheckUncheck.bind(this);
 }
 componentDidMount()
 {
+
+}
+selectNetCheckUncheck(e,val)
+{
+	var totalSection=document.getElementsByClassName('rmBorder');
+	for (var i = 0; i < totalSection.length; i++) {
+		totalSection[i].style.borderColor='#d9dfe9';
+	}
+  document.getElementById('netBankingCards').value=val;
+  document.getElementById(''+val).style.borderColor = '#f56602';
+}
+radioNetCheckUncheck()
+{
+	var totalSection=document.getElementsByClassName('rmBorder');
+	var radio=document.getElementsByClassName('radio');
+	for (var i = 0; i < totalSection.length; i++) {
+		totalSection[i].style.borderColor='#d9dfe9';
+		radio[i].checked=false;
+	}
 
 }
 
@@ -54,10 +74,9 @@ componentDidMount()
            </table>
          </div>
           <div className="checkout-card-list" id="topNetBanking">
-                 <div className="checkout-address-radio" onClick={e=>selectNetCheckUncheck(e)}>
+                 <div className="checkout-address-radio rmBorder" id="SBIB" onClick={e=>this.selectNetCheckUncheck(e,'SBIB')}>
                        <input type="radio" className="radio" name="netBankingCards" id="sbib" value="SBIB" />
                        <label name="checkout-address-label" htmlFor="sbib">
-
                            <div>
                                <span className="sbi-netbanking" alt="sbi-netbanking" title="sbi-netbanking">
                                </span>
@@ -67,7 +86,7 @@ componentDidMount()
                        <div className="clear"></div>
                  </div>
 
-                 <div className="checkout-address-radio" onClick={e=>selectNetCheckUncheck(e)}>
+                 <div className="checkout-address-radio rmBorder" id="ICIB" onClick={e=>this.selectNetCheckUncheck(e,'ICIB')}>
                      <input type="radio" className="radio" name="netBankingCards" id="icib" value="ICIB" autoComplete="off" />
                      <label name="checkout-address-label" htmlFor="icib">
 
@@ -80,7 +99,7 @@ componentDidMount()
                      <div className="clear"></div>
                </div>
 
-               <div className="checkout-address-radio" onClick={e=>selectNetCheckUncheck(e)}>
+               <div className="checkout-address-radio rmBorder" id="HDFC" onClick={e=>this.selectNetCheckUncheck(e,'HDFC')}>
                      <input type="radio" className="radio" name="netBankingCards" id="hdfc" value="HDFC" autoComplete="off" />
                      <label name="checkout-address-label" htmlFor="hdfc">
 
@@ -93,7 +112,7 @@ componentDidMount()
                      <div className="clear"></div>
                  </div>
 
-                 <div className="checkout-address-radio" onClick={e=>selectNetCheckUncheck(e)}>
+                 <div className="checkout-address-radio rmBorder" id="AXIB" onClick={e=>this.selectNetCheckUncheck(e,'AXIB')}>
                      <input type="radio" className="radio" name="netBankingCards" id="axib" value="AXIB" autoComplete="off" />
                      <label name="checkout-address-label" htmlFor="axib">
 
@@ -106,7 +125,7 @@ componentDidMount()
                      <div className="clear"></div>
                  </div>
 
-                 <div className="checkout-address-radio" onClick={e=>selectNetCheckUncheck(e)}>
+                 <div className="checkout-address-radio rmBorder" id="PNBB" onClick={e=>this.selectNetCheckUncheck(e,'PNBB')}>
                      <input type="radio" className="radio" name="netBankingCards" id="pnbb" value="PNBB" autoComplete="off" />
                      <label name="checkout-address-label" htmlFor="pnbb">
 
@@ -119,7 +138,7 @@ componentDidMount()
                      <div className="clear"></div>
                  </div>
 
-                 <div className="checkout-address-radio" onClick={e=>selectNetCheckUncheck(e)}>
+                 <div className="checkout-address-radio rmBorder" id="YESB" onClick={e=>this.selectNetCheckUncheck(e,'YESB')}>
                      <input type="radio" className="radio" name="netBankingCards" id="yesb" value="YESB" autoComplete="off" />
                      <label name="checkout-address-label" htmlFor="yesb">
 
@@ -135,7 +154,7 @@ componentDidMount()
          </li>
 
          <li>
-           <select size="1" id="netBankingCards" name="netBankingCards_select" className="netBankingCards_select select2-hidden-accessible" onChange={e=>radioNetCheckUncheck()} autoComplete="off" tabIndex="-1" aria-hidden="true">
+           <select size="1" id="netBankingCards" name="netBankingCards_select" className="netBankingCards_select select2-hidden-accessible" onChange={e=>this.radioNetCheckUncheck()} autoComplete="off" tabIndex="-1" aria-hidden="true">
                <optgroup label="Popular banks">
                    <option value="SBIB" id="SBIB">State Bank of India</option>
                    <option value="ICIB" id="ICIB">ICICI Bank</option>
