@@ -240,7 +240,7 @@ export default class Header extends React.Component {
 
 	showCart = () => {
 		this.setState({
-			cartIsActive: true,
+			cartIsActive: false,
 			mobileMenuIsActive: false,
 			saveForLaterIsActive: false
 		});

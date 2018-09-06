@@ -89,8 +89,8 @@ class HomeProductSlider extends Component {
 			]
 		};
 
-		console.log('recommendations');
-		console.log(this.props.recommendations);
+		// console.log('recommendations');
+		// console.log(this.props.recommendations);
 
 		return (
 			<div>

@@ -7,8 +7,8 @@ class BestPick extends Component {
 	}
 
 	render() {
-		console.log('props');
-		console.log(this.props.promotions);
+		// console.log('props');
+		// console.log(this.props.promotions);
 
 		return (
 			<div>

@@ -43,52 +43,53 @@ const CategoryHero = ({
 	productsTotalCount,
 	productsAttributes,
 	productFilter,
-	unsetFilterAttribute
+	unsetFilterAttribute,
+	settings,
+	setSort
 }) => (
-	<section className="hero is-light">
-		<div className="hero-body columns">
-			<div className="container column is-3">
-				<div className="column is-1">
-					{/*
-					<CategoryBreadcrumbs
-						currentCategory={categoryDetails}
-						categories={categories}
-					/>
-					*/}
-				</div>
+	<div className="hero-body columns">
+		<div className="category-offers-main-wrapper">
+			<div className="">
+				<CategoryOffers currentCategory={categoryDetails} />
 			</div>
-			<div className="category-offers-main-wrapper column is-9">
-				<div className="">
-					<CategoryOffers currentCategory={categoryDetails} />
-				</div>
 
-				<div className="column is-12">
-					<div className="category-other-data-main-wrapper column is-9">
+			<div className="">
+				<div className="category-other-data-main-wrapper">
+					<div className="">
 						<div className="">
-							<div className="column is-12">
-								<h1 className="category-title">{categoryDetails.name}</h1>
+							<div className="category-title">{categoryDetails.name} </div>
+							<div className="category-count">
+								{productsTotalCount} Products{' '}
 							</div>
+						</div>
 
-							<h3>{productsTotalCount} Products</h3>
-
-							<div
-								className="category-description is-hidden-mobile content"
-								dangerouslySetInnerHTML={{
-									__html: categoryDetails.description
-								}}
-							/>
-
+						{
 							<AppliedFilters
 								allFilters={productsAttributes}
 								appliedFiltersList={productFilter.attributes.filters}
 								unsetFilterAttribute={unsetFilterAttribute}
 							/>
-						</div>
+						}
+
+						<div
+							className="category-description is-hidden-mobile content"
+							dangerouslySetInnerHTML={{
+								__html: categoryDetails.description
+							}}
+						/>
+					</div>
+
+					<div className="category-sort-align">
+						<Sort
+							defaultSort={settings.default_product_sorting}
+							currentSort={productFilter.sort}
+							setSort={setSort}
+						/>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 );
 
 const AppliedFilters = ({
@@ -108,7 +109,7 @@ const AppliedFilters = ({
 				/>
 			)
 		);
-		return <div className="applied-filters">{appliedFiltersDiv}</div>;
+		return <span className="applied-filters">{appliedFiltersDiv}</span>;
 	}
 	return null;
 };
@@ -139,12 +140,15 @@ class AppliedFilter extends React.Component {
 		}
 
 		return (
-			<div className="applied-filters">
-				<div>
+			<span className="applied-filters">
+				<span>
 					{filterLabel} : {filterValueLabel}
-				</div>
-				<div onClick={this.onChange}>Button</div>
-			</div>
+				</span>
+				{/*<span onClick={this.onChange}>Button</span>*/}
+				<i className="material-icons icon filter-close" onClick={this.onChange}>
+					close
+				</i>
+			</span>
 		);
 	}
 }
@@ -204,49 +208,61 @@ const CategoryContainer = props => {
 				jsonld={jsonld}
 			/>
 
-			<CategoryHero
-				categoryDetails={categoryDetails}
-				categories={categories}
-				productsTotalCount={productsTotalCount}
-				productsAttributes={productsAttributes}
-				productFilter={productFilter}
-				unsetFilterAttribute={unsetFilterAttribute}
-			/>
-
-			<section className="section section-category">
+			<div>
 				<div className="container">
 					<div className="columns">
-						{showFilter === true && (
-							<div className="column is-one-quarter left-sidebar">
-								<ProductFilter {...props} />
-							</div>
-						)}
-
-						<div className="column">
-							<div className="columns">
-								<div className="column" />
-								<div className="column is-5">
-									<Sort
-										defaultSort={settings.default_product_sorting}
-										currentSort={productFilter.sort}
-										setSort={setSort}
-									/>
-								</div>
-							</div>
-							<ProductList
-								products={products}
-								addCartItem={addCartItem}
-								settings={settings}
-								loadMoreProducts={loadMoreProducts}
-								hasMore={productsHasMore}
-								productsPag={productsPage}
-								loadingProducts={loadingProducts}
-								loadingMoreProducts={loadingMoreProducts}
+						<section className="section section-filters column is-3">
+							<CategoryBreadcrumbs
+								currentCategory={categoryDetails}
+								categories={categories}
 							/>
-						</div>
+
+							{showFilter === true && (
+								<div className="">
+									<ProductFilter {...props} />
+								</div>
+							)}
+						</section>
+
+						<section className="section section-category column is-9">
+							<CategoryHero
+								categoryDetails={categoryDetails}
+								categories={categories}
+								productsTotalCount={productsTotalCount}
+								productsAttributes={productsAttributes}
+								productFilter={productFilter}
+								unsetFilterAttribute={unsetFilterAttribute}
+								settings={settings}
+								setSort={setSort}
+							/>
+
+							<div className="column">
+								<div className="columns">
+									<div className="column" />
+									<div className="column is-5">
+										{/*<Sort
+																			defaultSort={settings.default_product_sorting}
+																			currentSort={productFilter.sort}
+																			setSort={setSort}
+																		/>*/}
+									</div>
+								</div>
+
+								<ProductList
+									products={products}
+									addCartItem={addCartItem}
+									settings={settings}
+									loadMoreProducts={loadMoreProducts}
+									hasMore={productsHasMore}
+									productsPag={productsPage}
+									loadingProducts={loadingProducts}
+									loadingMoreProducts={loadingMoreProducts}
+								/>
+							</div>
+						</section>
 					</div>
 				</div>
-			</section>
+			</div>
 		</Fragment>
 	);
 };
