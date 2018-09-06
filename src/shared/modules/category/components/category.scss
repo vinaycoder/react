@@ -1,7 +1,13 @@
 .category-title {
   font-size: 1.5rem;
-  font-weight: 300;
+  // font-weight: 300;
+  font-weight: bold;
   line-height: 1.125;
+  margin-left: 1.5rem;
+}
+
+.category-count{
+  margin-left: 1.5rem;
 }
 
 .category-description {
@@ -210,6 +216,30 @@
   align-items: center;
   font-size: 0.9rem;
 }
+.applied-filters{
+
+  margin-left: 0.8rem;
+      // margin-left: 1.5rem;
+
+}
+.category-count{
+  font-size: 90%;
+}
+
+.filter-close{
+  background: #666;
+  border-radius: 15px;
+  margin-left: 5px;
+  vertical-align: middle;
+  color: white;
+  font-size: 12px;
+  width: 1.0rem;
+  height: 1.0rem;
+}
+
+.category-sort-align{
+  float: right;
+}
 
 /*
 Mobile
@@ -246,5 +276,9 @@ Mobile
 
   .products figure.image {
     height: auto !important;
+  }
+
+  .category-sort-align{
+    // float: none !important;
   }
 }

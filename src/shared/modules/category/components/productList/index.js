@@ -56,7 +56,7 @@ class ProductList extends React.Component {
 
 		return (
 			<Fragment>
-				<div>
+				<div className="is-hidden-tablet">
 					<span onClick={this.onChangeToGrid}>Move To Grid</span>
 					<span onClick={this.onChangeToList}>Move To List</span>
 				</div>

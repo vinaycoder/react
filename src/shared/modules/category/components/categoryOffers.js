@@ -41,8 +41,6 @@ class CategoryOffers extends React.Component {
 	}
 
 	render() {
-		console.log('in offer render');
-
 		if (this.state.finalcategoryOffersResult) {
 			return (
 				<IrCategoryOfferHtml offers={this.state.finalcategoryOffersResult} />

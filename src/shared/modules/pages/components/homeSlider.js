@@ -74,8 +74,8 @@ class HomeSlider extends Component {
 			]
 		};
 
-		console.log('props');
-		console.log(this.props.products);
+		// console.log('props');
+		// console.log(this.props.products);
 
 		return (
 			<div>
