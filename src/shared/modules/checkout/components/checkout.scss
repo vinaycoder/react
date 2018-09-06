@@ -567,63 +567,32 @@ span.buttonText {
 }
 // for payment methods
 
-.tab {
-    float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 30%;
-    height: 300px;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-    display: block;
-    background-color: inherit;
-    color: black;
-    padding: 22px 16px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #ddd;
-}
-
-/* Create an active/current "tab button" class */
-.tab button.active {
-    background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-    float: left;
-    padding: 0px 12px;
-    border: 1px solid #ccc;
-    width: 70%;
-    border-left: none;
-    height: 300px;
-}
-.displayBlock
-{
-  display:block;
-}
-
-.displayNone
-{
-  display: none;
-
-}
 
 /// for checkout newPadding
 //  for dtt
+
+.sp-methods dt {
+    width: 100%;
+}
+.checkout-payment-methods
+{
+  left: 0;
+  position: relative;
+  width: 100%;
+  top: 0px;
+  background-color: #fff;
+}
+.sp-methods .form-list
+{
+  width: inherit;
+  padding-left: 0px;
+}
+#payment_form_cashondelivery, #payment_form_irdebit, #payment_form_ircredit, #payment_form_irpayment {
+  padding: 3px;
+}
 @media screen and (max-width: 615px) and (min-width: 50px)
 {
+  /*
   .sp-methods dt {
       width: 100%;
   }
@@ -643,9 +612,11 @@ span.buttonText {
   #payment_form_cashondelivery, #payment_form_irdebit, #payment_form_ircredit, #payment_form_irpayment {
     padding: 3px;
   }
+  */
 }
 @media screen and (max-width: 992px) and (min-width: 616px)
 {
+  /*
   .sp-methods dt
   {
     width: 50%;
@@ -663,9 +634,11 @@ span.buttonText {
    {
     display: block;
    }
+   */
 }
 @media screen and (min-width: 993px)
 {
+  /*
   .sp-methods dt
   {
     width: 38%;
@@ -677,7 +650,7 @@ span.buttonText {
     position: absolute;
     left: 32%;
   }
-
+*/
 }
 .checkout-payment-methods
 {
@@ -686,7 +659,6 @@ span.buttonText {
 
 
 .sp-methods dt {
-    // width: 38%;
     height: 62px;
     margin: 2px 0px;
 }
@@ -704,11 +676,6 @@ span.buttonText {
 input.radio {
     margin-right: 3px;
 }
-.cashondeliveryPayImageSel {
-    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -535px -994px;
-    width: 38px;
-    height: 38px;
-}
 .checkoutPayIcons {
     margin-left: 5px;
     margin-top: 10px;
@@ -721,13 +688,21 @@ input.radio {
     padding-top: 10px;
 }
 .payMethodsSel {
-    color: #f60;
+    color: #f60 !important;
+}
+.payMethodsLabel
+{
+  color: black;
 }
 .payMethodCashondelivery .payMethodsText {
     margin-left: 12px;
 }
 .payMethods {
-    font-weight: bold;
+  font-weight: bold;
+  font-size: 13px;
+}
+.cardTypeFont{
+  font-size: 12px;
 }
 .payMethodsText {
     padding-top: 15px;
@@ -741,4 +716,328 @@ input.radio {
 .checkout-payment-methods
 {
   font-size: 80%;
+}
+.price {
+    white-space: nowrap !important;
+    color: #f60;
+    font-weight: bold;
+}
+td.CheckoutValue {
+    color: #f46408;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.CheckoutTitle {
+    color: black;
+}
+.checkoutMethodTitle
+{
+  color: #626262;
+    margin-bottom: 15px;
+    font-weight: 900;
+    font-size: 17px;
+    text-align: left;
+}
+.sp-methods .form-list
+{
+  border: none;
+}
+.payment-form.sp-methods
+{
+  padding: 0px 10px;
+  display: inline-block;
+}
+.cashondeliveryPayImage {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -130px -306px;
+    width: 38px;
+    height: 38px;
+}
+.checkoutPayIcons.cashondeliveryPayImage.sel {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -535px -994px;
+    width: 38px;
+    height: 38px;
+}
+.ircreditPayImage {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -67px -308px;
+    width: 51px;
+    height: 35px;
+}
+.checkoutPayIcons.ircreditPayImage.sel
+{
+  background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -425px -994px !important;
+  width: 51px;
+  height: 35px;
+}
+.irdebitPayImage {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat 0 -304px;
+    width: 55px;
+    height: 41px;
+}
+.checkoutPayIcons.irdebitPayImage.sel
+{
+  background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -361px -989px;
+  width: 55px;
+  height: 41px;
+}
+.irpaymentPayImage {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -178px -308px;
+    width: 26px;
+    height: 34px;
+}
+.checkoutPayIcons.irpaymentPayImage.sel
+{
+  background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -591px -998px;
+    width: 26px;
+    height: 34px;
+}
+.irwalletPayImage {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -306px -355px;
+    width: 38px;
+    height: 36px;
+}
+.checkoutPayIcons.irwalletPayImage.sel
+{
+  background: url(https://indiarush.com/skin/frontend/default/theme202/images/sprites.png?v=81) no-repeat -488px -992px;
+    width: 38px;
+    height: 36px;
+}
+
+// for credit cart
+.checkout-address-radio
+{
+      border-color: rgb(255, 102, 0);
+}
+.checkout-card-list .checkout-address-radio .new-radio {
+    float: left;
+    margin-left: 3px;
+    margin-top: 3px;
+}
+#payment_form_cashondelivery, #payment_form_irdebit, #payment_form_ircredit, #payment_form_irpayment {
+    padding: 3px;
+}
+.input-box-new
+{
+  color: #000;
+  font-size: 15px;
+  padding: 0px;
+}
+
+.checkout-card-block.card-select
+{
+  height: auto;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.checkout-card-title
+{
+  font-weight: bold;
+  padding-top: 15px;
+  padding-right: 10px;
+  float: left;
+  margin-bottom: 5px;
+  text-align: left;
+  width: 116px;
+}
+.checkout-card-block.card-name
+{
+      margin-bottom: 5px;
+      height: auto;
+      display: inline-block;
+      width: 100%;
+}
+.checkout-card-container .card-date
+{
+  float: left;
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+
+}
+.checkout-card-select
+{
+  margin-bottom: 5px;
+  float: left;
+  width: 182px;
+}
+#creditCards
+{
+  height: 45px;
+width: 99%;
+}
+.checkout-card-block.card-num
+{
+  margin-bottom: 5px;
+  height: auto;
+    display: inline-block;
+    width: 100%;
+}
+.checkout-card-input input {
+    height: 45px;
+    border: 1px solid #ccc;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.checkout-card-input
+{
+  margin-bottom: 5px;
+  float: left;
+}
+.checkout-card-block.card-cvv
+{
+    margin-bottom: 5px;
+    height: auto;
+    display: inline-block;
+    width: 100%;
+}
+#checkout-step-payment
+{
+  width: 100%;
+}
+#checkout-step-payment select {
+    height: 45px;
+    width: 99%;
+}
+.checkout-card-block.card-cvv-text
+{
+  margin-bottom: 5px;
+  height: auto;
+    display: inline-block;
+    width: 100%;
+}
+.checkoutExpireDate
+{
+  margin-right: 8px;
+}
+.checkoutExpireDateSelect
+{
+  padding-right: 7px;
+}
+.checkoutNewCard
+{
+  margin-top:15px
+}
+.checkoutNewCard label{
+  float: left !important;
+  margin-left: 5px;
+}
+.width100
+{
+  width: 100%;
+}
+.card-cvv-text .checkout-card-input
+{
+  color: #666;
+  font-size: 12px;
+}
+.checkout-payment-methods
+{
+  display: none;
+}
+#payment_form_irpayment .checkout-address-radio {
+  width: 136px;
+  margin-right: 5px;
+    padding: 10px 7px;
+    display: inline-block;
+}
+.checkout-card-list .checkout-address-radio {
+    border: 1px solid #d9dfe9;
+    cursor: pointer;
+}
+.checkout-address-radio {
+    background: #fff;
+}
+.checkout-card-list .checkout-address-radio input.radio {
+    cursor: pointer;
+}
+.checkout-card-list .checkout-address-radio .radio {
+    float: left;
+    margin-left: 3px;
+    margin-top: 12px;
+}
+input.radio {
+    width: 13px;
+    height: 13px;
+}
+#payment_form_irpayment .checkout-address-radio label {
+    width: auto;
+}
+.checkout-card-list .checkout-address-radio label {
+    cursor: pointer;
+}
+.checkout-address-radio label {
+    float: right;
+    left: 0px;
+}
+.checkout-address-radio label
+{
+  top: -1px;
+  padding-bottom: 0px;
+}
+.sbi-netbanking {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/netbankImages/sbi-bank-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 40px;
+    display: block;
+}
+.icici-netbanking {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/netbankImages/icici-bank-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 40px;
+    display: block;
+}
+.hdfc-netbanking {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/netbankImages/hdfc-bank-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 40px;
+    display: block;
+}
+.axis-netbanking {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/netbankImages/axis-bank-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 40px;
+    display: block;
+}
+.pnb-netbanking {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/netbankImages/pnb-bank-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 40px;
+    display: block;
+}
+.yes-netbanking {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/netbankImages/yes-bank-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 40px;
+    display: block;
+}
+.noBorder
+{
+  border: none !important
+}
+.paytm-wallet {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/walletImages/paytm-wallet-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
+    display: block;
+}
+.mobikwik-wallet {
+    background: url(https://indiarush.com/skin/frontend/default/theme202/images/walletImages/mobikwik-wallet-payment-icon.jpg) left center no-repeat;
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
+    display: block;
+}
+.checkout-address-radio {
+    padding: 10px;
+    background: #fff;
+}
+.paytmDiv label {
+    width: 92%;
+}
+.mobikwikDiv label {
+      width: 92%;
+}
+#irwallet {
+    margin-top: 15px;
 }
