@@ -1,0 +1,27 @@
+{
+  app:{
+    currentPage:
+    categories: 'listof all categories',
+    categoryDetails: 'get from the categories detail, should have the updated category flow. ',
+    products: 'for search page / category page',
+    productDetails: 'for current product page',
+    recommendationProducts:'list of all product strips',
+    productFilter: 'list of all available filters'
+
+    categoryFlag:
+
+    productFlag:
+
+    cartFlag:
+
+    cart: updated cart of user
+
+    checkoutFields:
+
+    customerDetails: all customer data
+    customerFlag: isLoggedIn
+
+    settigs: 
+
+  }
+}

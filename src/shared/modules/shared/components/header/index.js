@@ -302,6 +302,8 @@ export default class Header extends React.Component {
 			? 'navbar-burger is-hidden-tablet is-active'
 			: 'navbar-burger is-hidden-tablet';
 		const showBackButton = currentPage.type === 'product'; //&& location.hasHistory;
+		const showSearchMenuIcon = currentPage.type !== 'checkout';
+
 		return (
 			<Fragment>
 				<header
@@ -335,7 +337,10 @@ export default class Header extends React.Component {
 							</div>
 							<div className="column has-text-right header-block-right">
 								<span
-									className="icon icon-search is-hidden-tablet"
+									className={
+										'icon icon-search search-icon-menu ' +
+										(showSearchMenuIcon ? 'is-hidden-tablet' : '')
+									}
 									onClick={this.searchToggle}
 								>
 									<img
@@ -353,6 +358,7 @@ export default class Header extends React.Component {
 									isLoggedIn={isLoggedIn}
 									statsCookieId={statsCookieId}
 									customerDetails={customerDetails}
+									currentPage={currentPage}
 								/>
 								<div
 									className={this.state.loginIsActive ? 'mini-cart-open' : ''}
@@ -371,6 +377,7 @@ export default class Header extends React.Component {
 									saveForLater={saveForLater}
 									onClick={this.saveForLaterToggle}
 									saveForLaterIsActive={this.state.saveForLaterIsActive}
+									currentPage={currentPage}
 								/>
 								<div
 									className={
@@ -390,6 +397,7 @@ export default class Header extends React.Component {
 									cart={cart}
 									onClick={this.cartToggle}
 									cartIsActive={this.state.cartIsActive}
+									currentPage={currentPage}
 								/>
 
 								<div
@@ -404,6 +412,7 @@ export default class Header extends React.Component {
 										saveForLater={this.saveForLater}
 										updateCartItemSize={this.updateCartItemSize}
 										applyCoupon={this.applyCoupon}
+										currentPage={currentPage}
 									/>
 								</div>
 							</div>

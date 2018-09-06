@@ -13,7 +13,8 @@ const CartItem = ({
 	updateCartItemSize,
 	showPincode,
 	checkPincodeOnCart,
-	pincode
+	pincode,
+	currentPage
 }) => {
 	const thumbnail = helper.getThumbnailUrl(
 		item.image_url,
@@ -48,7 +49,7 @@ const CartItem = ({
 		);
 	}
 	return (
-		<div>
+		<div className={' ' + (currentPage ? '' : '')}>
 			<div className="columns is-mobile">
 				<div className="column is-3">
 					<div className="image">
@@ -264,7 +265,8 @@ export default class Cart extends React.PureComponent {
 			updateCartItemQuantiry,
 			saveForLater,
 			updateCartItemSize,
-			applyCoupon
+			applyCoupon,
+			currentPage
 		} = this.props;
 
 		if (cart && cart.items && cart.items.length > 0) {
@@ -281,6 +283,7 @@ export default class Cart extends React.PureComponent {
 					showPincode={this.showPincode}
 					checkPincodeOnCart={this.checkPincodeOnCart}
 					pincode={this.state.pincode}
+					currentPage={currentPage}
 				/>
 			));
 

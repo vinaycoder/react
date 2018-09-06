@@ -1,0 +1,10 @@
+1. Always Use prop-type
+2. Avoid Large render Methods
+3. Redux only connected by Containers
+4. One React Component per File
+5.
+
+
+
+
+State

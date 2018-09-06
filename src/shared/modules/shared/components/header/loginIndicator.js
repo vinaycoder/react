@@ -19,11 +19,16 @@ const LoginIcon = ({ loginIsActive, loginPost }) => {
 
 export default class LoginIndicator extends React.PureComponent {
 	render() {
-		const { onClick, loginIsActive, loginPost } = this.props;
+		const { onClick, loginIsActive, loginPost, currentPage } = this.props;
 		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
-
+		const showLoginMenuIcon = currentPage.type === 'product';
 		return (
-			<span className="cart-button" onClick={onClick}>
+			<span
+				className={
+					'cart-button is-hidden-mobile' + (showLoginMenuIcon ? '' : '')
+				}
+				onClick={onClick}
+			>
 				<LoginIcon loginIsActive={loginIsActive} loginPost={loginPost} />
 			</span>
 		);

@@ -202,6 +202,18 @@ const getHomePageRecommendationDetails = currentPage => {
 	return {};
 };
 
+const getAllHomePageDetails = currentPage => {
+	return Promise.all([
+		getHomePageDetails(currentPage),
+		getHomePageRecommendationDetails(currentPage)
+	]).then(([getHomePageDetails, getHomePageRecommendationDetails]) => {
+		return {
+			getHomePageDetails,
+			getHomePageRecommendationDetails
+		};
+	});
+};
+
 const getProductsAttributes = (currentPage, productFilter) => {
 	let filter = getParsedProductFilter(productFilter);
 	filter.enabled = true;
@@ -272,29 +284,7 @@ const getPage = currentPage => {
 		// } else {
 		return {};
 	} else if (currentPage.type === HOME) {
-		return getHomePageDetails(currentPage);
-
-		// let homePageObject =[];
-
-		// let homePageDetails = getHomePageDetails(currentPage);
-		// let recommendationDetails = getHomePageRecommendationDetails(currentPage);
-
-		// console.log("recommendationDetails");
-		// console.log(recommendationDetails);
-		// console.log("homePageDetails");
-		// console.log(homePageDetails);
-
-		// let homePageObject = Object.assign(homePageDetails, recommendationDetails);
-		// const homePageObject = Object.assign({}, homePageDetails, recommendationDetails);
-
-		// homePageObject.push(getHomePageDetails(currentPage));
-		// homePageObject.push(getHomePageRecommendationDetails(currentPage));
-
-		// console.log("homePageObject");
-		// console.log(homePageObject);
-
-		// return homePageDetails;
-		// return getHomePageDetails(currentPage);
+		return getAllHomePageDetails(currentPage);
 	}
 };
 
