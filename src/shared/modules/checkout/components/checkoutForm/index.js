@@ -12,20 +12,25 @@ export default class CheckoutForm extends React.Component {
 		};
 		this.showPaymentMethod = this.showPaymentMethod.bind(this);
 	}
-	showPaymentMethod(evt,id)
+	showPaymentMethod(evt,labelId,IconId,id,radiaId)
 	{
 		var i, tabcontent, tablinks;
-tabcontent = document.getElementsByClassName("tabcontent");
-for (i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = "none";
-}
-tablinks = document.getElementsByClassName("tablinks");
-for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
-}
-document.getElementById(id).style.display = "block";
-evt.currentTarget.className += " active";
-}
+		tabcontent = document.getElementsByClassName("checkout-payment-methods");
+		for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("payMethodsLabel");
+		var icons = document.getElementsByClassName("checkoutPayIcons");
+		for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" payMethodsSel", "");
+				icons[i].className = icons[i].className.replace(" sel", "");
+		}
+		document.getElementById(""+IconId).classList.add("sel");
+		document.getElementById(""+labelId).classList.add("payMethodsSel");
+		document.getElementById(""+radiaId).checked = true;
+		document.getElementById(id).style.display = "block";
+		// evt.currentTarget.className += " active";
+  }
 
 
 	componentDidMount() {
@@ -222,7 +227,7 @@ evt.currentTarget.className += " active";
 		} else {
 			return <p>
 			{text.emptyCheckout}
-			</p>;			
+			</p>;
 		}
 	}
 }
