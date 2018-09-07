@@ -68,7 +68,9 @@ class CheckoutStepShipping extends React.Component {
 			show,
 			isReadOnly,
 			showPaymentForm,
-			onEdit
+			onEdit,
+			getCityByPincode,
+			onSubmit
 		} = this.props;
 
 		const hideBillingAddress = settings.hide_billing_address === true;
@@ -101,6 +103,8 @@ class CheckoutStepShipping extends React.Component {
 				</div>
 			);
 		} else if (isReadOnly) {
+			console.log('readonly');
+			console.log(shippingMethod);
 			let shippingFields = null;
 			if (
 				shippingMethod &&
@@ -113,6 +117,7 @@ class CheckoutStepShipping extends React.Component {
 
 					return (
 						<div key={index} className="checkout-field-preview">
+						<div>vinay</div>
 							<div className="name">{fieldLabel}</div>
 							<div className="value">{fieldValue}</div>
 						</div>
@@ -181,10 +186,7 @@ class CheckoutStepShipping extends React.Component {
 						<h2 className="not-log-in-checkout-label">1. {title}</h2>
 					</div>
 
-					<form
-						onSubmit={handleSubmit}
-						className="checkoutFormContactDetailsPadding"
-					>
+					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
 						{shippingFields}
 
 						{/*{!hideBillingAddress && (
@@ -236,6 +238,7 @@ class CheckoutStepShipping extends React.Component {
 								type="text"
 								label={text.postal_code + ` (${text.required2})`}
 								validate={[validateRequired]}
+								onChange={e=>getCityByPincode(e)}
 							/>
 							<Field
 								className={inputClassName + ' billing-city'}
@@ -275,7 +278,6 @@ class CheckoutStepShipping extends React.Component {
 						<div className="checkout-button-wrap">
 							<button
 								type="submit"
-								disabled={submitting || processingCheckout || invalid}
 								className={
 									`${buttonClassName}${
 										processingCheckout ? ' is-loading' : ''
