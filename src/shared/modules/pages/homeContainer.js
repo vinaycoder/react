@@ -13,8 +13,8 @@ const HomeContainer = props => {
 		state: { pageDetails, settings }
 	} = props;
 
-	console.log('HomeContainer pageDetails');
-	console.log(pageDetails);
+	// console.log('HomeContainer pageDetails');
+	// console.log(pageDetails);
 
 	return (
 		<Fragment>

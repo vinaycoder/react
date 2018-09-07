@@ -67,6 +67,9 @@
 .image-gallery-bullets .image-gallery-bullet {
   box-shadow: none;
 }
+.center{
+    text-align: center
+}
 
 /*
 Mobile
@@ -132,6 +135,16 @@ Mobile
     cursor: pointer;
 }
 
+.homeDOD{
+
+  margin: 0px 0 0px 0;
+}
+
+.homeDOD-whybuyfromUs-wrapper{
+
+      width: 95%;
+}
+
 .homeBestPicks, .homeDOD {
     text-align: center;
 }
@@ -161,4 +174,202 @@ Mobile
   color: #000;
   margin-bottom: 15px;
 
+}
+
+.lookbook-prev-edit-block-wrapper {
+    margin-top: 10px;
+
+}
+
+.lookbook-prev-edit-block-wrapper .prev-edit-block {
+    width: 32%;
+    margin: 9px;
+    margin-bottom: 20px;
+
+}
+
+.lookbook-prev-edit-block-wrapper .prev-edit-block-first {
+    margin-left: 0;
+}
+
+.lookbook-prev-edit-block-wrapper .prev-edit-block-last {
+    margin-right: 0;
+}
+
+.wedding-page-wrapper {
+    position: relative;
+    margin-top: 10px;
+}
+.wedding-page-wrapper-2 {
+    width: 49%;
+    float: left;
+    margin: 5px;
+}
+
+.wedding-page-wrapper-product-block {
+    width: 32%;
+    float: left;
+}
+
+.wedding-page-wrapper-product-block-2 {
+    margin-right: 19px;
+    margin-left: 19px;
+}
+
+.homeHeadingText {
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+.homeBestPickItem, .homeDODItem {
+    display: inline-block;
+    margin: 7px;
+}
+
+.homeBestPickItemImg, .homeDODItemImg {
+    box-shadow: 2px 2px #c1c1c1;
+}
+
+.homeFinderSearchBtn {
+    margin-bottom: 10px;
+    background: #FF823C;
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+.homeBestPicks, .homeDOD {
+    text-align: center;
+}
+
+.valuePropItem {
+    background: #fff5ee;
+    padding: 5px 0px;
+    box-shadow: 2px 2px #c1c1c1;
+    display: inline-table;
+}
+
+.valuePropHeading {
+    border-bottom: 2px solid black;
+    padding: 5px 0px;
+}
+
+.valuePropDesc {
+    text-align: left;
+    padding: 5px;
+    font-size: 14px;
+    height: 62px;
+}
+
+.valuePropDesc li {
+    margin-left: 15px;
+}
+
+.valuePropHeadingText {
+    margin: 5px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+
+
+.freeShippingIcon {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') no-repeat -5px -471px;
+    width: 36px;
+    height: 19px;
+}
+
+.return14DaysIcon {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') no-repeat -62px -470px;
+    width: 24px;
+    height: 24px;
+}
+
+.securePayIcon {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') no-repeat -63px -508px;
+    width: 20px;
+    height: 24px;
+}
+
+.freeBonusIcon {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') no-repeat -9px -504px;
+    width: 24px;
+    height: 24px;
+}
+
+.manufacturerIcon {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') no-repeat -62px -542px;
+    width: 24px;
+    height: 24px;
+}
+
+.goodPriceIcon {
+    // background: url('/skin/frontend/default/theme202/images/sprites.png?v=81') no-repeat -10px -545px;
+    width: 26px;
+    height: 23px;
+}
+
+.valuePropItem {
+    background: #fff5ee;
+    padding: 5px 0px;
+    box-shadow: 2px 2px #c1c1c1;
+    display: inline-table;
+}
+
+.valuePropHeading {
+    border-bottom: 2px solid black;
+    padding: 5px 0px;
+}
+
+.valuePropDesc {
+    text-align: left;
+    padding: 5px;
+    font-size: 14px;
+    height: 62px;
+}
+
+.valuePropDesc li {
+    margin-left: 15px;
+}
+
+.valuePropHeadingText {
+    margin: 5px;
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.valueProportionIcons {
+    display: inline-block;
+}
+
+.homepage_block1, .homepage_block2, .homepage_block3 {
+    width: 33.33%;
+    background-color: white;
+    margin: 10px 2px;
+    padding: 10px 0px 0px 10px;
+    border: 1px solid #F60;
+    border-radius: 4px;
+}
+
+.homepage_block_row {
+    display: flex;
+}
+
+.homepage_block_header {
+    font-weight: bold;
+    color: #ff6600;
+    text-align: center;
+}
+
+.line_space {
+    margin-bottom: 10px;
+}
+
+.homepage_block_header {
+    font-weight: bold;
+    color: #ff6600;
+    text-align: center;
 }

@@ -128,41 +128,53 @@ const getProducts = (currentPage, productFilter) => {
 };
 
 const getLoginDetails = (statsCookieId, isLoggedIn) => {
-	return null;
+	// return null;
 
 	console.log('statsCookieId');
 	console.log(statsCookieId);
 	console.log('isLoggedIn');
 	console.log(isLoggedIn);
 
-	let username = 'abhinesh.yadav@indiarush.com';
+	// let username = 'abhinesh.yadav@indiarush.com';
 
-	let data = [];
-	data.push(statsCookieId);
-	data.push(isLoggedIn);
-
-	console.log('data');
-	console.log(data);
+	// let data = [];
+	// data.push(statsCookieId);
+	// data.push(isLoggedIn);
+	// console.log('data');
+	// console.log(data);
 
 	// const allloginDetails = loginPost(data);
 	// console.log('allloginDetails');
 	// console.log(allloginDetails);
 
-	if (data) {
+	if (statsCookieId != null) {
+		if (statsCookieId.length >= 10) {
+			return null;
+		}
+	}
+
+	if (statsCookieId != null) {
 		const version = 3.81;
 		const isOtp = 0;
 		// const { app } = getState();
 		// const loginDetails = getloginDetails(app.customerDetails);
 
 		return fetch(
-			`https://indiarush.com/irapi/customer/checkRegisteredUser/?username=${username}&version=${version}`
+			`https://indiarush.com/irapi/customer/initCustomerApi/?customer_id=${statsCookieId}&version=${version}`
 		)
 			.then(result => result.json())
 			.then(jsonResult => {
 				console.log('server side json for login');
 				console.log(jsonResult.data);
 
-				return jsonResult.data;
+				// console.log('app');
+				// console.log(app);
+
+				// if(jsonResult.data.user.customer_id !=''){
+				//
+				// }
+
+				return jsonResult.data.user;
 			});
 	}
 	return null;
@@ -181,6 +193,7 @@ const getHomePageDetails = currentPage => {
 			.then(result => result.json())
 			.then(jsonResult => {
 				return jsonResult;
+				// return {};
 			});
 	}
 	return {};
@@ -197,6 +210,7 @@ const getHomePageRecommendationDetails = currentPage => {
 			.then(result => result.json())
 			.then(jsonResult => {
 				return jsonResult.data;
+				// return {};
 			});
 	}
 	return {};
@@ -490,8 +504,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			themeSettings,
 			customerDetails
 		]) => {
-			console.log('pageDataMine');
-			console.log(page);
+			// console.log('pageDataMine');
+			// console.log(page);
 
 			let categoryDetails = null;
 			if (currentPage.type === PRODUCT_CATEGORY) {

@@ -125,10 +125,14 @@ const appReducer = (state = initialState, action) => {
 			}
 		case t.LOGIN_RECEIVE:
 			console.log('inside the login receive reducer');
+			console.log(action.data);
+
 			if (action.data) {
 				if (action.data.customer_id !== null) {
+					console.log('inside the login receive reducer setting state');
+
 					return Object.assign({}, state, {
-						isLoggedIn: true,
+						isLoggedIn: 1,
 						statsCookieId: action.data.customer_id,
 						customerDetails: action.data
 					});

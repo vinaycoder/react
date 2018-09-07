@@ -17,69 +17,82 @@ export default class LoginWrapper extends React.PureComponent {
 		// const statsCookieId = cookie.load('statsCookieId');
 		// const isLoggedInTest = 0;
 
-		if (this.props.isLoggedIn === true) {
-			return (
-				<div className="mini-cart">
-					<div className="dropdown-login-test mob_drop_loginn-test">
-						<span>
-							<div className="left">
-								<ul className="dropdown-login-block-1">
-									<li className="dropdown-login-block-item">
-										<span className="dropdown-login-block-item-icon" />
-										<NavLink className="ullia" to="/customer/account/">
-											My Account
-										</NavLink>
-									</li>
-									<li className="dropdown-login-block-item">
-										<span className="dropdown-login-block-item-icon" />
-										<i className="material-icons icon logged-in-image">
-											person
-										</i>
-										<NavLink className="ullia" to="/sales/order/history/">
-											My Orders
-										</NavLink>
-									</li>
-								</ul>
-							</div>
-							<div className="right image-box">
-								<NavLink to="/customer/account/">
-									<span className="fb-connect-header-image-inner left sprites" />
-								</NavLink>
-							</div>
-						</span>
-						<span className="clear" />
+		console.log('LoginWrapper props');
+		console.log(this.props);
 
-						<span>
-							<div className="test">
-								<span className="test">
-									<NavLink to="/customer/account/profile/">
-										<div className="dropdown-login-block-2">
-											<span className="dropdown-login-block-2-text">
-												{this.props.customerDetails.email}
-											</span>
-										</div>
-									</NavLink>
+		// console.log('LoginWrapper props customerDetails length');
+		// console.log(Object.keys(this.props.customerDetails).length);
+
+		// console.log('LoginWrapper props customerDetails customer_id');
+		// console.log(this.props.customerDetails.customer_id);
+
+		if (this.props.customerDetails != null) {
+			if (Object.keys(this.props.customerDetails).length > 0) {
+				if (this.props.customerDetails.customer_id !== '') {
+					return (
+						<div className="mini-cart">
+							<div className="dropdown-login-test mob_drop_loginn-test">
+								<span>
+									<div className="left">
+										<ul className="dropdown-login-block-1">
+											<li className="dropdown-login-block-item">
+												<span className="dropdown-login-block-item-icon" />
+												<NavLink className="ullia" to="/customer/account/">
+													My Account
+												</NavLink>
+											</li>
+											<li className="dropdown-login-block-item">
+												<span className="dropdown-login-block-item-icon" />
+												<i className="material-icons icon logged-in-image">
+													person
+												</i>
+												<NavLink className="ullia" to="/sales/order/history/">
+													My Orders
+												</NavLink>
+											</li>
+										</ul>
+									</div>
+									<div className="right image-box">
+										<NavLink to="/customer/account/">
+											<span className="fb-connect-header-image-inner left sprites" />
+										</NavLink>
+									</div>
 								</span>
-								<span className="test">
-									<input
-										type="hidden"
-										id="loggedOutEmail"
-										value={this.props.customerDetails.email}
-									/>
-									<div className="divider" />
-									<NavLink
-										className="gtmUserInfo"
-										id="trackLoggedoutState"
-										to="/customer/account/logout/"
-									>
-										<div className="dropdown-login-block-3">Sign out</div>
-									</NavLink>
+								<span className="clear" />
+
+								<span>
+									<div className="test">
+										<span className="test">
+											<NavLink to="/customer/account/profile/">
+												<div className="dropdown-login-block-2">
+													<span className="dropdown-login-block-2-text">
+														{this.props.customerDetails.email}
+													</span>
+												</div>
+											</NavLink>
+										</span>
+										<span className="test">
+											<input
+												type="hidden"
+												id="loggedOutEmail"
+												value={this.props.customerDetails.email}
+											/>
+											<div className="divider" />
+											<NavLink
+												className="gtmUserInfo"
+												id="trackLoggedoutState"
+												to="/customer/account/logout/"
+											>
+												<div className="dropdown-login-block-3">Sign out</div>
+											</NavLink>
+										</span>
+									</div>
 								</span>
 							</div>
-						</span>
-					</div>
-				</div>
-			);
+						</div>
+					);
+				}
+			}
 		}
 		return (
 			<div className="mini-cart">

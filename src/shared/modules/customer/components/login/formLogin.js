@@ -44,22 +44,27 @@ export default class FormLogin extends React.Component {
 	}
 
 	submitForgotPasswordForm(event) {
-		this.state.data.push(`${this.state.forgetUser}`);
-		const version = 3.81;
-		const isOtp = 0;
+		console.log('submitForgotPasswordForm state');
+		console.log(this.state);
 
-		fetch(
-			`https://indiarush.com/irapi/customer/getforgotPasswordOtp/?email=${
-				this.state.forgetUser
-			}&version=${version}`
-		)
-			.then(result => result.json())
-			.then(jsonResult => {
-				console.log('submitForgotPasswordForm jsonResult');
-				console.log(jsonResult);
-			});
+		if (this.state.forgetUser) {
+			this.state.data.push(`${this.state.forgetUser}`);
+			const version = 3.81;
+			const isOtp = 0;
 
-		event.preventDefault();
+			fetch(
+				`https://indiarush.com/irapi/customer/getforgotPasswordOtp/?email=${
+					this.state.forgetUser
+				}&version=${version}`
+			)
+				.then(result => result.json())
+				.then(jsonResult => {
+					console.log('submitForgotPasswordForm jsonResult');
+					console.log(jsonResult);
+				});
+
+			event.preventDefault();
+		}
 	}
 
 	handleSubmitForm(event) {

@@ -925,17 +925,19 @@ export const loginPost = data => async (dispatch, getState) => {
 	)
 		.then(result => result.json())
 		.then(jsonResult => {
-			// console.log(jsonResult);
+			console.log('in loginPost action');
+			console.log(jsonResult);
 
 			if (jsonResult.customer_id !== '') {
-				if (cookie.load('statsCookieId').length > 10) {
+				console.log('in loginPost action cookie before length');
+				if (cookie.load('statsCookieId').length >= 10) {
+					console.log('in loginPost action cookie update');
 					cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
 					cookie.save('isLoggedIn', 1, { path: '/' });
 				}
+				dispatch(receiveLoginPost(jsonResult));
 			}
 
-			// dispatch(requestLoginPost(jsonResult));
-			dispatch(receiveLoginPost(jsonResult));
 			return jsonResult;
 		});
 };

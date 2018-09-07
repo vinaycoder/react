@@ -295,9 +295,6 @@ export default class Header extends React.Component {
 			customerDetails
 		} = this.props.state;
 
-		console.log('in Index Login render');
-		console.log(this.props.state);
-
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
 			: 'navbar-burger is-hidden-tablet';
@@ -418,7 +415,7 @@ export default class Header extends React.Component {
 							</div>
 						</div>
 
-						<div className="primary-nav is-hidden-mobile">
+						<div className="primary-nav is-hidden-mobile primary-menu-border">
 							<HeadMenu
 								categories={categories}
 								location={location}

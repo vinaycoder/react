@@ -51,10 +51,10 @@ export default class Register extends React.Component {
 			customerDetails
 		} = this.props;
 
-		console.log('in Register Render');
+		// console.log('in Register Render');
 
-		console.log('props');
-		console.log(this.props);
+		// console.log('props');
+		// console.log(this.props);
 
 		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
