@@ -8,9 +8,10 @@ export default class CheckoutForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			step: 3
+			step: 2
 		};
 		this.showPaymentMethod = this.showPaymentMethod.bind(this);
+		this.getCityByPincode = this.getCityByPincode.bind(this);
 	}
 	showPaymentMethod(evt,labelId,IconId,id,radiaId)
 	{
@@ -31,7 +32,22 @@ export default class CheckoutForm extends React.Component {
 		document.getElementById(id).style.display = "block";
 		// evt.currentTarget.className += " active";
   }
+getCityByPincode(e)
+{
+	if (e.target.value.length == 6 &&	Number.isInteger(Number(e.target.value)))
+	{
+		fetch('https://indiarush.com/irapi/customer/getCityStateByPincode/?pincode='+e.target.value+'&version=3.87')
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log(jsonResult);
+				document.getElementById('billing_address.city').value=jsonResult.data.city;
+				document.getElementById('billing_address.state').value=jsonResult.data.state;
+			});
+	}
 
+}
 
 	componentDidMount() {
 		this.props.loadShippingMethods();
@@ -107,6 +123,10 @@ export default class CheckoutForm extends React.Component {
 	};
 
 	handleShippingSubmit = values => {
+		// console.log(values);
+		// console.log('vinay in shipping');
+		// return false;
+		/*
 		if (this.isShowPaymentForm()) {
 			const { shipping_address, billing_address, comments } = values;
 
@@ -119,6 +139,8 @@ export default class CheckoutForm extends React.Component {
 		} else {
 			this.props.checkout(values);
 		}
+		*/
+		this.handleShippingSave();
 	};
 
 	handleSuccessPayment = () => {
@@ -206,6 +228,7 @@ export default class CheckoutForm extends React.Component {
 						onSave={this.handleShippingSave}
 						onEdit={this.handleShippingEdit}
 						onSubmit={this.handleShippingSubmit}
+						getCityByPincode={this.getCityByPincode}
 					/>
 
 					{/*{showPaymentForm && (*/}

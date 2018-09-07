@@ -12,7 +12,7 @@ const InputField = field => (
 			placeholder={field.placeholder}
 			type={field.type}
 			id={field.id}
-			readOnly={field.readOnly}
+			readOnly={field.readOnly}			
 			className={field.meta.touched && field.meta.error ? 'invalid' : ''}
 		/>
 	</div>
