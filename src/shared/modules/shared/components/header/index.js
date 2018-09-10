@@ -292,8 +292,15 @@ export default class Header extends React.Component {
 			loginPost,
 			isLoggedIn,
 			statsCookieId,
-			customerDetails
+			customerDetails,
+			logoutPost
 		} = this.props.state;
+
+		console.log('LoginWrapper this.props');
+		console.log(this.props);
+
+		console.log('LoginWrapper this.state');
+		console.log(this.state);
 
 		const classToggle = this.state.mobileMenuIsActive
 			? 'navbar-burger is-hidden-tablet is-active'
@@ -352,10 +359,11 @@ export default class Header extends React.Component {
 									onClick={this.loginToggle}
 									loginIsActive={this.state.loginIsActive}
 									loginPost={loginPost}
-									isLoggedIn={isLoggedIn}
+									isLoggedIn={this.props.isLoggedIn}
 									statsCookieId={statsCookieId}
 									customerDetails={customerDetails}
 									currentPage={currentPage}
+									logoutPost={this.props.logoutPost}
 								/>
 								<div
 									className={this.state.loginIsActive ? 'mini-cart-open' : ''}
@@ -364,9 +372,10 @@ export default class Header extends React.Component {
 										settings={settings}
 										loginToggle={this.loginToggle}
 										loginPost={loginPost}
-										isLoggedIn={isLoggedIn}
+										isLoggedIn={this.props.isLoggedIn}
 										statsCookieId={statsCookieId}
 										customerDetails={customerDetails}
+										logoutPost={this.props.logoutPost}
 									/>
 								</div>
 

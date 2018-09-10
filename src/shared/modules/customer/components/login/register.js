@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import cookie from 'react-cookies';
+
+import { Field, reduxForm } from 'redux-form';
+import { text } from '../../../../lib/settings';
+import InputField from '../../../checkout/components/checkoutForm/inputField';
+import TextareaField from '../../../checkout/components/checkoutForm/textareaField';
 
 export default class Register extends React.Component {
 	constructor(props) {

@@ -183,14 +183,16 @@ export default class FormLogin extends React.Component {
 		return (
 			<div>
 				<p className="product-border-around">
-					<Register
-						onClick={this.createFormToggle}
-						createIsActive={this.state.createIsActive}
-						loginPost={loginPost}
-						isLoggedIn={isLoggedIn}
-						statsCookieId={statsCookieId}
-						customerDetails={customerDetails}
-					/>
+					{
+						<Register
+							onClick={this.createFormToggle}
+							createIsActive={this.state.createIsActive}
+							loginPost={loginPost}
+							isLoggedIn={isLoggedIn}
+							statsCookieId={statsCookieId}
+							customerDetails={customerDetails}
+						/>
+					}
 
 					<form
 						method="post"

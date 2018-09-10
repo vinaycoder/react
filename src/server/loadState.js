@@ -10,7 +10,8 @@ import {
 	getParsedProductFilter,
 	getProductFilterForCategory,
 	getProductFilterForSearch,
-	loginPost
+	loginPost,
+	logoutPost
 } from '../shared/actions';
 import * as themeLocales from './themeLocales';
 import {

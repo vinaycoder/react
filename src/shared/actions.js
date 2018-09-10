@@ -941,3 +941,10 @@ export const loginPost = data => async (dispatch, getState) => {
 			return jsonResult;
 		});
 };
+
+// const requestLogoutPost = data => ({ type: t.LOGOUT_REQUEST, data });
+
+export const logoutPost = data => ({
+	type: t.LOGOUT_REQUEST,
+	data
+});

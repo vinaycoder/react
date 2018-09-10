@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import * as t from './actionTypes';
+import cookie from 'react-cookies';
 
 const initialState = {};
 
@@ -111,7 +112,7 @@ const appReducer = (state = initialState, action) => {
 			if (action.data) {
 				if (action.data.customer_id !== null) {
 					return Object.assign({}, state, {
-						isLoggedIn: true,
+						isLoggedIn: 1,
 						statsCookieId: action.data.customer_id,
 						customerDetails: action.data
 					});
@@ -119,7 +120,7 @@ const appReducer = (state = initialState, action) => {
 					return Object.assign({}, state, {
 						isLoggedIn: null,
 						statsCookieId: null,
-						customerDetails: []
+						customerDetails: {}
 					});
 				}
 			}
@@ -140,10 +141,28 @@ const appReducer = (state = initialState, action) => {
 					return Object.assign({}, state, {
 						isLoggedIn: null,
 						statsCookieId: null,
-						customerDetails: []
+						customerDetails: {}
 					});
 				}
 			}
+		case t.LOGOUT_REQUEST:
+			// console.log('inside LOGOUT_REQUEST reducer');
+			// console.log(action);
+			// console.log(state);
+
+			if (action.type == 'LOGOUT_REQUEST') {
+				let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
+
+				cookie.save('statsCookieId', timeStamp, { path: '/' });
+				cookie.save('isLoggedIn', 0, { path: '/' });
+
+				return Object.assign({}, state, {
+					isLoggedIn: 0,
+					statsCookieId: timeStamp,
+					customerDetails: {}
+				});
+			}
+
 		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
 		default:
