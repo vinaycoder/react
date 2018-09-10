@@ -5,8 +5,44 @@ import { text } from '../../../../lib/settings';
 import * as helper from '../../../../lib/helper';
 
 export default class LoginWrapper extends React.PureComponent {
+	constructor(props) {
+		super(props);
+	}
+	customerLogout(props) {
+		this.props.logoutPost(props);
+
+		console.log('after logoutPost this props');
+		console.log(this.props);
+		console.log(Object.keys(this.props.customerDetails).length);
+
+		if (Object.keys(this.props.customerDetails).length < 0) {
+			const statsCookieId = cookie.load('statsCookieId');
+			const timeStamp = Math.round(Math.floor(Date.now()) / 1000);
+			// if (cookie.load('statsCookieId').length < 10) {
+			console.log('in cookie setter');
+			cookie.save('statsCookieId', timeStamp, { path: '/' });
+			cookie.save('isLoggedIn', 0, { path: '/' });
+			// }
+		}
+
+		// console.log("this.props");
+		// console.log(props);
+
+		// let customerDetails = Object.assign({}, props.customerDetails);
+		// let customerDetails = {...this.state.customerDetails, [customerDetails]: {}};
+
+		// customerDetails = {};
+		// this.setState({customerDetails : {}});
+		//
+		// console.log("customerDetails");
+		// console.log(customerDetails);
+		//
+		// console.log("this.props");
+		// console.log(props);
+	}
+
 	render() {
-		const { settings, loginToggle, loginPost } = this.props;
+		const { settings, loginToggle, loginPost, logoutPost } = this.props;
 		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 		//
 		// console.log('LoginWrapper this.props');
@@ -20,7 +56,7 @@ export default class LoginWrapper extends React.PureComponent {
 		console.log('LoginWrapper props');
 		console.log(this.props);
 
-		// console.log('LoginWrapper props customerDetails length');
+		console.log('LoginWrapper props customerDetails length');
 		// console.log(Object.keys(this.props.customerDetails).length);
 
 		// console.log('LoginWrapper props customerDetails customer_id');
@@ -31,24 +67,15 @@ export default class LoginWrapper extends React.PureComponent {
 				if (this.props.customerDetails.customer_id !== '') {
 					return (
 						<div className="mini-cart">
-							<div className="dropdown-login-test mob_drop_loginn-test">
-								<span>
+							<div className="">
+								<div>
 									<div className="left">
-										<ul className="dropdown-login-block-1">
+										<ul className="">
 											<li className="dropdown-login-block-item">
-												<span className="dropdown-login-block-item-icon" />
-												<NavLink className="ullia" to="/customer/account/">
-													My Account
-												</NavLink>
+												<NavLink to="/customer/account/">My Account</NavLink>
 											</li>
 											<li className="dropdown-login-block-item">
-												<span className="dropdown-login-block-item-icon" />
-												<i className="material-icons icon logged-in-image">
-													person
-												</i>
-												<NavLink className="ullia" to="/sales/order/history/">
-													My Orders
-												</NavLink>
+												<NavLink to="/sales/order/history/">My Orders</NavLink>
 											</li>
 										</ul>
 									</div>
@@ -57,10 +84,10 @@ export default class LoginWrapper extends React.PureComponent {
 											<span className="fb-connect-header-image-inner left sprites" />
 										</NavLink>
 									</div>
-								</span>
-								<span className="clear" />
+								</div>
+								<div className="clear" />
 
-								<span>
+								<div>
 									<div className="test">
 										<span className="test">
 											<NavLink to="/customer/account/profile/">
@@ -78,16 +105,15 @@ export default class LoginWrapper extends React.PureComponent {
 												value={this.props.customerDetails.email}
 											/>
 											<div className="divider" />
-											<NavLink
+											<div
 												className="gtmUserInfo"
-												id="trackLoggedoutState"
-												to="/customer/account/logout/"
+												onClick={() => this.customerLogout(this.props)}
 											>
 												<div className="dropdown-login-block-3">Sign out</div>
-											</NavLink>
+											</div>
 										</span>
 									</div>
-								</span>
+								</div>
 							</div>
 						</div>
 					);

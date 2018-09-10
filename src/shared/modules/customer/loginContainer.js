@@ -9,15 +9,42 @@ import SocialLogin from './components/login/socialLogin';
 import LogincontentWrapper from './components/login/logincontentWrapper';
 import * as helper from '../../lib/helper';
 import OrDiv from './components/login/orDiv';
+import Dashboard from './components/myAccount/dashboard';
 
 const LoginContainer = props => {
 	const {
 		loginPost,
+		logoutPost,
 		state: { isLoggedIn, statsCookieId, customerDetails }
 	} = props;
 
 	// console.log('Logged in js props	');
-	// console.log(props);
+	// console.log(props.state);
+	// console.log(Object.keys(this.props.customerDetails).length);
+	// if(props.customerDetails != null)
+	if (props.state.customerDetails != null) {
+		if (Object.keys(props.state.customerDetails).length > 0) {
+			return (
+				<Fragment>
+					<section className="hero is-light">
+						<div className="login-strip font-large">
+							<h4 className="login-strip-content">Sign In</h4>
+						</div>
+						<div className="hero-body columns">
+							<div className="container column is-5">
+								<Dashboard
+									isLoggedIn={isLoggedIn}
+									statsCookieId={statsCookieId}
+									customerDetails={customerDetails}
+									loginPost={loginPost}
+								/>
+							</div>
+						</div>
+					</section>
+				</Fragment>
+			);
+		}
+	}
 
 	return (
 		<Fragment>
@@ -59,6 +86,7 @@ const LoginContainer = props => {
 
 LoginContainer.propTypes = {
 	loginPost: PropTypes.func,
+	logoutPost: PropTypes.func,
 	state: PropTypes.shape({
 		isLoggedIn: PropTypes.shape({}),
 		statsCookieId: PropTypes.shape({}),

@@ -12,7 +12,8 @@ import {
 	fetchCart,
 	checkout,
 	couponCode,
-	loginPost
+	loginPost,
+	logoutPost
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -125,6 +126,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		loginPost: data => {
 			dispatch(loginPost(data, ownProps.history));
+		},
+		logoutPost: data => {
+			dispatch(logoutPost(data, ownProps.history));
 		}
 	};
 };
