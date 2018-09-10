@@ -43,16 +43,15 @@ const CheckoutStepPayment = props => {
 
 			<div className="checkout-button-wrap">
 				<div className="payment-form sp-methods" id="checkout-step-payment">
+					<CodPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} />
 
-					<CodPaymentForm showPaymentMethod={showPaymentMethod} />
+					<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} />
 
-					<CreditPaymentForm showPaymentMethod={showPaymentMethod} />
+					<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />
 
-					<DebitPaymentForm showPaymentMethod={showPaymentMethod} />
+					<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />
 
-					<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} />
-
-					<WalletPaymentForm showPaymentMethod={showPaymentMethod} />
+					<WalletPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} />
 
 				</div>
 			</div>

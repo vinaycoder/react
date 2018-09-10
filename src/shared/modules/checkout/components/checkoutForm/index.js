@@ -8,7 +8,7 @@ export default class CheckoutForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			step: 2
+			step: 3
 		};
 		this.showPaymentMethod = this.showPaymentMethod.bind(this);
 		this.getCityByPincode = this.getCityByPincode.bind(this);
@@ -41,7 +41,6 @@ getCityByPincode(e)
 				return result.json();
 			})
 			.then(jsonResult => {
-				console.log(jsonResult);
 				document.getElementById('billing_address.city').value=jsonResult.data.city;
 				document.getElementById('billing_address.state').value=jsonResult.data.state;
 			});
@@ -123,10 +122,11 @@ getCityByPincode(e)
 	};
 
 	handleShippingSubmit = values => {
-		// console.log(values);
-		// console.log('vinay in shipping');
+		console.log(values);
+		console.log('vinay in shipping');
+		// this.props.shippingMethods=values.billing_address;
 		// return false;
-		/*
+
 		if (this.isShowPaymentForm()) {
 			const { shipping_address, billing_address, comments } = values;
 
@@ -139,9 +139,11 @@ getCityByPincode(e)
 		} else {
 			this.props.checkout(values);
 		}
-		*/
+
 		this.handleShippingSave();
 	};
+
+
 
 	handleSuccessPayment = () => {
 		this.props.checkout(null);
@@ -179,16 +181,14 @@ getCityByPincode(e)
 			checkoutEditButtonClass = 'checkout-button-edit'
 		} = themeSettings;
 
+		var obj1 = { food: 'pizza', car: 'ford' }
+		const allRules = {obj1, cart};
+
 		if (cart && cart.items.length > 0) {
 			const showPaymentForm = this.isShowPaymentForm();
 
 			let shippingMethod = null;
 			const { shipping_method_id } = cart;
-			if (shipping_method_id && shippingMethods && shippingMethods.length > 0) {
-				shippingMethod = shippingMethods.find(
-					method => method.id === shipping_method_id
-				);
-			}
 
 			return (
 				<div className="checkout-form">
@@ -219,10 +219,10 @@ getCityByPincode(e)
 						inputClassName={checkoutInputClass}
 						buttonClassName={checkoutButtonClass}
 						editButtonClassName={checkoutEditButtonClass}
-						initialValues={cart}
+						initialValues={allRules}
 						settings={settings}
 						processingCheckout={processingCheckout}
-						shippingMethod={shippingMethod}
+						shippingMethod={this.props.state.shippingMethods}
 						checkoutFields={checkoutFields}
 						showPaymentForm={showPaymentForm}
 						onSave={this.handleShippingSave}

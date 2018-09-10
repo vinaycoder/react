@@ -104,26 +104,37 @@ class CheckoutStepShipping extends React.Component {
 			);
 		} else if (isReadOnly) {
 			console.log('readonly');
+			console.log(initialValues);
 			console.log(shippingMethod);
 			let shippingFields = null;
 			if (
 				shippingMethod &&
-				shippingMethod.fields &&
-				shippingMethod.fields.length > 0
+				shippingMethod.length > 0
 			) {
-				shippingFields = shippingMethod.fields.map((field, index) => {
-					const fieldLabel = getFieldLabel(field);
-					const fieldValue = initialValues.shipping_address[field.key];
-
+				let shippingAddress=[];
+				shippingAddress.push(shippingMethod[shippingMethod.length-1]);
+				shippingFields = shippingAddress.map((field, index) => {
 					return (
-						<div key={index} className="checkout-field-preview">
-						<div>vinay</div>
-							<div className="name">{fieldLabel}</div>
-							<div className="value">{fieldValue}</div>
+						<div key={index} className="checkout-field-preview amit">
+							<div className="name">Name</div>
+							<div className="value">{field.firstname}</div>
+							<div className="name">Address</div>
+							<div className="value">{field.street}</div>
+							<div className="name">Pincode</div>
+							<div className="value">{field.postcode}</div>
+							<div className="name">City</div>
+							<div className="value">{field.city}</div>
+							<div className="name">State</div>
+							<div className="value">{field.region}</div>
+							<div className="name">Mobile</div>
+							<div className="value">{field.telephone}</div>
 						</div>
 					);
+
 				});
 			}
+
+
 
 			return (
 				<div className="checkout-step">
@@ -135,7 +146,7 @@ class CheckoutStepShipping extends React.Component {
 
 					{!hideCommentsField &&
 						initialValues.comments !== '' && (
-							<div className="checkout-field-preview">
+							<div className="checkout-field-preview vinay">
 								<div className="name">{commentsFieldLabel}</div>
 								<div className="value">{initialValues.comments}</div>
 							</div>
@@ -189,33 +200,15 @@ class CheckoutStepShipping extends React.Component {
 					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
 						{shippingFields}
 
-						{/*{!hideBillingAddress && (
-
-
-								<h2>{text.billingAddress}</h2>
-								<div className="billing-as-shipping">
-									<input
-										id="billingAsShipping"
-										type="checkbox"
-										onChange={this.onChangeBillingAsShipping}
-										checked={this.state.billingAsShipping}
-									/>
-									<label htmlFor="billingAsShipping">
-										{text.sameAsShipping}
-									</label>
-								</div>
-								*/}
-
-						{/*{!this.state.billingAsShipping && (*/}
-
 						<div>
 							<Field
 								className={inputClassName + ' billing-fullname'}
-								name="billing_address.full_name"
-								id="billing_address.full_name"
+								name="obj1.car"
+								id="obj1.car"
+								value={initialValues.obj1.car}
 								component={InputField}
 								type="text"
-								label={text.fullName + ` (${text.required2})`}
+								label={text.subtotal + ` (${text.required2})`}
 								validate={[validateRequired]}
 							/>
 							<Field

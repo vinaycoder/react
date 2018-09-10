@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { themeSettings, text } from '../../../../../lib/settings';
+import * as helper from '../../../../../lib/helper';
 class creditPaymentForm extends Component{
 	constructor(props) {
 	super(props);
@@ -11,7 +12,7 @@ componentDidMount()
 }
 
 	render(){
-    const {showPaymentMethod}=this.props;
+    const {showPaymentMethod , cart, settings}=this.props;
 		return(
 	     <div>
        <dt className="checkout-page-radio" onClick={e => showPaymentMethod(e,'labelIdCredit','iconIdCredit', 'irCredit','p_method_ircredit')}>
@@ -27,27 +28,50 @@ componentDidMount()
        <fieldset className="form-list">
        <ul id="payment_form_ircredit">
          <li>
-               <div className="checkout-page-summary-block-mobile-tab">
-                   <h3 className="checkoutMethodTitle">Order Summary</h3>
-       		            <table className="order-summary-table">
-       								<tbody>
-       								<tr>
-       								<td className="CheckoutTitle">Subtotal</td>
-       								<td className="CheckoutValue"><span className="price">Rs. 6,270</span></td>
-       								</tr>
-       								<tr>
-       								<td className="CheckoutTitle">Discount (IRFLAT100)</td>
-       								<td className="CheckoutValue"><span className="price">-Rs. 100</span></td>
-       								</tr><tr><td className="CheckoutTitle">Shipping</td>
-       								<td className="CheckoutValue"><span className="price">Free</span></td>
-       								</tr>
-       								<tr className="grand-total">
-       								<td className="CheckoutTitle">Grand Total</td>
-       								<td className="CheckoutValue"><span className="price">Rs. 6,170</span></td>
-       								</tr>
-       								</tbody>
-       								</table>
-                 </div>
+				 <div className="checkout-page-summary-block-mobile-tab">
+					 <h3 className="checkoutMethodTitle">Order Summary</h3>
+					 <table className="order-summary-table">
+					 <tbody>
+					 <tr>
+					 <td className="CheckoutTitle">Subtotal</td>
+					 <td className="CheckoutValue"><span className="price">{helper.formatCurrency(cart.subtotal, settings)}</span></td>
+
+					 </tr>
+				 <tr>
+				 {cart.discount > 0 && (
+					 <td className="CheckoutTitle">	{text.discount}</td>
+				 )}
+				 {cart.discount > 0 && (
+					 <td className="CheckoutValue"><span className="price">-{helper.formatCurrency(cart.discount, settings)}</span></td>
+				 )}
+					 </tr>
+					 <tr>
+
+				 <td className="CheckoutTitle">	Shipping</td>
+				 {cart.shippingAmount > 0 && (
+					 <td className="CheckoutValue"><span className="price">-{helper.formatCurrency(cart.shippingAmount, settings)}</span></td>
+				 )}
+				 {cart.shippingAmount <= 0 && (
+					 <td className="CheckoutValue"><span className="price">Free</span></td>
+				 )}
+					 </tr>
+					 <tr>
+				 {cart.codFee > 0 && (
+					 <td className="CheckoutTitle">Cash On Delivery</td>
+					 )}
+					 {cart.codFee > 0 && (
+						 <td className="CheckoutValue"><span className="price">{helper.formatCurrency(cart.codFee, settings)}</span></td>
+					 )}
+
+
+					 </tr>
+					 <tr className="grand-total">
+					 <td className="CheckoutTitle">Grand Total</td>
+					 <td className="CheckoutValue"><span className="price">{helper.formatCurrency(cart.grandtotal, settings)}</span></td>
+					 </tr>
+					 </tbody>
+					 </table>
+				 </div>
              <div className="input-box-new">
                        <div className="checkout-card-list">
                          <div className="checkout-address-radio noBorder" id="new-card">
