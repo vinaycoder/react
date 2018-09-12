@@ -748,6 +748,8 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 	}
 
 	const { app } = getState();
+	console.log(app);
+	console.log('changes for app');
 	let statePathname = '/404';
 	let stateSearch = '';
 	let stateHash = '';
@@ -766,6 +768,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 
 	if (currentPageAlreadyInState) {
 		// same page
+		console.log('i am in same page');
 	} else {
 		dispatch(
 			setCurrentLocation({
@@ -776,80 +779,70 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			})
 		);
 
-		//Instead of category page we can get data from all categories list
-		//const category = app.categories.find(c => c.path === locationPathname);
-		// if (category) {
-		// const newCurrentPage = {
-		// 	type: 'product-category',
-		// 	path: category.path,
-		// 	resource: category.id
-		// };
-		// dispatch(receiveSitemap(newCurrentPage)); // remove .data
-		// dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		// } else {
-		const newCurrentPage = await fetch(
-			`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
-		)
-			.then(result => {
-				return result.json();
-			})
-			.then(jsonResult => {
-				if (jsonResult == 'null') {
-					return {
-						type: 404,
-						path: locationPathname,
-						resource: null
-					};
-				} else {
-					if (locationPathname == '/checkout') {
-						return {
-							type: 'page',
-							path: '/checkout',
-							resource: '5b6984d45452db221b4044f2'
+		let newCurrentPage = {};
+		if (location.state) {
+			newCurrentPage = {
+				type: location.state.type,
+				path: locationPathname,
+				resource: location.state.id
+			};
+			console.log('inside the new page');
+			console.log(newCurrentPage);
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else if (locationPathname == '/checkout') {
+			newCurrentPage = {
+				type: 'page',
+				path: '/checkout',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else if (locationPathname == '/search') {
+			newCurrentPage = {
+				type: 'search',
+				path: '/search',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else if (locationPathname == '/customer/account/login') {
+			newCurrentPage = {
+				type: 'login',
+				path: '/customer/account/login',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else {
+			await fetch(
+				`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
+			)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					if (jsonResult == 'null') {
+						newCurrentPage = {
+							type: 404,
+							path: locationPathname,
+							resource: null
 						};
-					} else if (locationPathname == '/search') {
-						return {
-							type: 'search',
-							path: '/search',
-							resource: ''
-						};
-					} else if (locationPathname == '/customer/account/login') {
-						return {
-							type: 'login',
-							path: '/customer/account/login',
-							resource: ''
-						};
+						dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+						dispatch(receiveSitemap(newCurrentPage));
 					} else {
-						return {
+						newCurrentPage = {
 							type: jsonResult.type,
 							path: locationPathname,
 							resource: jsonResult.id
 						};
+						dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+						dispatch(receiveSitemap(newCurrentPage));
 					}
-				}
-			});
+				});
+		}
 		console.log('returning new page type');
 		console.log(newCurrentPage);
-		dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		dispatch(receiveSitemap(newCurrentPage));
-
-		// const sitemapResponse = await api.ajax.sitemap.retrieve({
-		// 	path: locationPathname
-		// });
-		// if (sitemapResponse.status === 404) {
-		// 	dispatch(
-		// 		receiveSitemap({
-		// 			type: 404,
-		// 			path: locationPathname,
-		// 			resource: null
-		// 		})
-		// 	);
-		// } else {
-		// 	const newCurrentPage = sitemapResponse.json;
-		// 	dispatch(receiveSitemap(newCurrentPage));
-		// 	dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		// }
-		//}
 	}
 };
 
@@ -934,12 +927,16 @@ const requestLoginPost = data => ({ type: t.LOGIN_REQUEST, data });
 const receiveLoginPost = data => ({ type: t.LOGIN_RECEIVE, data });
 
 export const loginPost = data => async (dispatch, getState) => {
-	console.log('in loginPost action');
-	dispatch(requestLoginPost());
+	// console.log('in loginPost action');
+	// dispatch(requestLoginPost());
 	const version = 3.81;
 	const isOtp = 0;
 	// const { app } = getState();
 	// const loginDetails = getloginDetails(app.customerDetails);
+
+	if (data[0] === '' && data[1] === '') {
+		return {};
+	}
 
 	fetch(
 		`https://indiarush.com/irapi/customer/customerLoginReact/?email=${
@@ -951,14 +948,16 @@ export const loginPost = data => async (dispatch, getState) => {
 			console.log('in loginPost action');
 			console.log(jsonResult);
 
-			if (jsonResult.customer_id !== '') {
-				console.log('in loginPost action cookie before length');
-				if (cookie.load('statsCookieId').length >= 10) {
-					console.log('in loginPost action cookie update');
-					cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
-					cookie.save('isLoggedIn', 1, { path: '/' });
+			if (jsonResult.status !== 'fail') {
+				if (jsonResult.customer_id !== '') {
+					console.log('in loginPost action cookie before length');
+					// if (cookie.load('statsCookieId').length >= 10) {
+					// 	console.log('in loginPost action cookie update');
+					// 	cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
+					// 	cookie.save('isLoggedIn', 1, { path: '/' });
+					// }
+					dispatch(receiveLoginPost(jsonResult));
 				}
-				dispatch(receiveLoginPost(jsonResult));
 			}
 
 			return jsonResult;
@@ -979,20 +978,11 @@ export const logoutPost = data => ({
 
 const receiveCreateUserPost = data => ({ type: t.CREATE_USER_REQUEST, data });
 
-export const createUserPost = data => async (dispatch, getState) => {
-	console.log('in createUserPost action');
-	// dispatch(receiveCreateUserPost());
-	console.log('data');
-	console.log(data);
+export const createUserPost = (data, history) => async (dispatch, getState) => {
 	const version = 3.83;
 	const type = `${data[0]}`;
 
-	// console.log('version');
-	// console.log("firstname");
-	// console.log(`${data[0]}`);
-	// const password =
-
-	if (type == 'Form') {
+	if (type === 'Form') {
 		const name = `${data[1]}`;
 		const email = `${data[2]}`;
 		const telephone_number = `${data[3]}`;
@@ -1019,11 +1009,9 @@ export const createUserPost = data => async (dispatch, getState) => {
 
 				return jsonResult;
 			});
-	} else if (type == 'Facebook') {
+	} else if (type === 'Facebook') {
 		console.log('in Facebook login');
-	} else if (type == 'google') {
-		console.log('in Google login');
-
+	} else if (type === 'google') {
 		const name = `${data[1]}`;
 		const email = `${data[2]}`;
 		const fbid = `${data[3]}`;
@@ -1037,22 +1025,38 @@ export const createUserPost = data => async (dispatch, getState) => {
 		)
 			.then(result => result.json())
 			.then(jsonResult => {
-				console.log('in createUserPost action');
-				console.log(jsonResult);
-
 				if (jsonResult.customer_id !== '') {
-					console.log('in createUserPost action');
-					console.log(jsonResult);
-					// 	console.log('in loginPost action cookie before length');
-					// 	if (cookie.load('statsCookieId').length >= 10) {
-					// 		console.log('in loginPost action cookie update');
-					// 		cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
-					// 		cookie.save('isLoggedIn', 1, { path: '/' });
-					// 	}
-					// 	dispatch(receiveLoginPost(jsonResult));
-				}
+					const customerId = jsonResult.customer_id;
+					return fetch(
+						`https://indiarush.com/irapi/customer/initCustomerApi/?customer_id=${customerId}&version=${version}`
+					)
+						.then(result => result.json())
+						.then(jsonResult => {
+							dispatch(receiveCreateUserPost(jsonResult.data.user));
+							console.log('after dispatch');
+							return fetch(
+								`https://indiarush.com/irapi/customer/getCustomerQuoteId/?customerId=${customerId}&version=${version}`
+							)
+								.then(result => result.json())
+								.then(jsonResult => {
+									// return jsonResult.data.quoteId;
 
-				return jsonResult;
+									const quoteId = jsonResult.data.quoteId;
+									const tempQuoteId = cookie.load('userQuoteId');
+									return fetch(
+										`https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=${quoteId}&tempQuoteId=${tempQuoteId}&version=${version}`
+									)
+										.then(result => result.json())
+										.then(jsonResult => {
+											// dispatch(receiveCreateUserPost(jsonResult.data.user));
+											// return jsonResult.data.user;
+											// history.push('/');
+										});
+								});
+
+							return jsonResult.data.user;
+						});
+				}
 			});
 	}
 };

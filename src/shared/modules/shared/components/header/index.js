@@ -35,7 +35,6 @@ const BackButton = ({ onClick }) => (
 			className="icon"
 			src="/assets/images/arrow_back.svg"
 			style={{ width: 18 }}
-			Shipping
 		/>
 	</span>
 );

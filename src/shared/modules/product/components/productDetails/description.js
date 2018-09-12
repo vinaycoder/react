@@ -5,7 +5,7 @@ class Description extends React.Component {
 		return (
 			<div className="columns">
 				<div className="column is-4">
-					<div class="productTestMobItem">
+					<div className="productTestMobItem">
 						<h3>Directly from Manufacturer</h3>
 						<p>
 							No more bad quality. Get the best quality every time you shop from
@@ -15,7 +15,7 @@ class Description extends React.Component {
 				</div>
 
 				<div className="column is-4">
-					<div class="productTestMobItem">
+					<div className="productTestMobItem">
 						<h3>14 Days Return Policy</h3>
 						<p>
 							No Questions Asked Return, IndiaRush will ensure a quick, easy and
@@ -24,7 +24,7 @@ class Description extends React.Component {
 					</div>
 				</div>
 				<div className="column is-4">
-					<div class="productTestMobItem">
+					<div className="productTestMobItem">
 						<h3>Shop with confidence!</h3>
 						<p>
 							IndiaRush source directly from manufacturers in offering Genuine

@@ -24,11 +24,6 @@ export default class FormLogin extends React.Component {
 		this.PasswordChange = this.PasswordChange.bind(this);
 		this.handleSubmitForm = this.handleSubmitForm.bind(this);
 		this.forgetUserChange = this.forgetUserChange.bind(this);
-
-		// console.log('FormLogin this.props');
-		// console.log(this.props);
-		// console.log('FormLogin this.state');
-		// console.log(this.state);
 	}
 
 	handleChange(event) {
@@ -44,8 +39,8 @@ export default class FormLogin extends React.Component {
 	}
 
 	submitForgotPasswordForm(event) {
-		console.log('submitForgotPasswordForm state');
-		console.log(this.state);
+		// console.log('submitForgotPasswordForm state');
+		// console.log(this.state);
 
 		if (this.state.forgetUser) {
 			this.state.data.push(`${this.state.forgetUser}`);
@@ -59,8 +54,8 @@ export default class FormLogin extends React.Component {
 			)
 				.then(result => result.json())
 				.then(jsonResult => {
-					console.log('submitForgotPasswordForm jsonResult');
-					console.log(jsonResult);
+					// console.log('submitForgotPasswordForm jsonResult');
+					// console.log(jsonResult);
 				});
 
 			event.preventDefault();
@@ -68,9 +63,14 @@ export default class FormLogin extends React.Component {
 	}
 
 	handleSubmitForm(event) {
-		this.state.data.push(`${this.state.email}`);
-		this.state.data.push(`${this.state.password}`);
-		this.props.loginPost(this.state.data);
+		if (this.state.email != '' && this.state.password != '') {
+			if (this.state.data.length > 0) {
+				this.state.data = [];
+			}
+			this.state.data.push(`${this.state.email}`);
+			this.state.data.push(`${this.state.password}`);
+			this.props.loginPost(this.state.data);
+		}
 	}
 
 	forgotPasswordFormToggle = () => {
@@ -171,7 +171,7 @@ export default class FormLogin extends React.Component {
 		// console.log('state');
 		// console.log(this.state);
 
-		const { loginPost } = this.props;
+		const { loginPost, createUserPost } = this.props;
 		const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
 		if (this.props.isLoggedIn == true) {
@@ -191,6 +191,7 @@ export default class FormLogin extends React.Component {
 							isLoggedIn={isLoggedIn}
 							statsCookieId={statsCookieId}
 							customerDetails={customerDetails}
+							createUserPost={this.props.createUserPost}
 						/>
 					}
 
@@ -206,9 +207,7 @@ export default class FormLogin extends React.Component {
 						<label>Mobile number or Email Address</label>
 
 						<div className="login-input-div">
-							<i className="material-icons icon login-email-image">
-								mail_outline
-							</i>
+							<i className="material-icons icon login-email-image">email</i>
 							<input
 								className="input-field input-field-login  required-entry validate-email"
 								type="text"
@@ -244,7 +243,6 @@ export default class FormLogin extends React.Component {
 						<div className="login-input-link-div">
 							<div className="login-submit-div">
 								<button
-									id="loginAccountButton"
 									type="button"
 									title="Sign in"
 									onClick={this.handleSubmitForm}
@@ -258,7 +256,6 @@ export default class FormLogin extends React.Component {
 						<div className="login-input-link-div">
 							<div id="forgotpass">
 								<button
-									id="loginAccountButton"
 									type="button"
 									title="Sign in"
 									onClick={this.forgotPasswordFormToggle}

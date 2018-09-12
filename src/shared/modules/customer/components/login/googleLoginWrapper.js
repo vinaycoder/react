@@ -10,29 +10,27 @@ export default class GoogleLoginWrapper extends React.Component {
 		this.state = {
 			loginError: false,
 			redirect: false
-			// customerDetails: [],
-			// statsCookieId: undefined,
-			// isLoggedIn: false
 		};
 		this.signup = this.signup.bind(this);
 	}
 
-	// static propTypes = {
-	// 	settings: PropTypes.shape({}).isRequired
-	// };
-
 	signup(res, type) {
 		let postData;
-		// if (res.w3.U3) {
-		// 	postData = {
-		// 		name: res.w3.ig,
-		// 		provider: type,
-		// 		email: res.w3.U3,
-		// 		provider_id: res.El,
-		// 		token: res.Zi.access_token,
-		// 		provider_pic: res.w3.Paa
-		// 	};
-		// }
+		if (res.w3.U3) {
+			postData = {
+				provider: type,
+				name: res.w3.ig,
+				email: res.w3.U3,
+				provider_id: res.El,
+				token: res.Zi.access_token,
+				provider_pic: res.w3.Paa,
+				firstname: res.w3.ofa,
+				lastname: res.w3.wea
+			};
+		}
+
+		// console.log("postData");
+		// console.log(postData);
 
 		if (postData) {
 			// PostData('signup', postData).then(result => {
@@ -41,7 +39,16 @@ export default class GoogleLoginWrapper extends React.Component {
 			// 	this.setState({ redirect: true });
 			// });
 
-			this.setState({ redirect: true });
+			// this.setState({ redirect: true });
+
+			const result = Object.values(postData);
+			// console.log("result");
+			// console.log(result);
+			// var result = Object.keys(postData).map(function(key,value) {
+			//   return [key, postData[key]];
+			// });
+
+			this.props.createUserPost(result);
 		} else {
 		}
 	}
@@ -62,7 +69,7 @@ export default class GoogleLoginWrapper extends React.Component {
 	render() {
 		// console.log('in Google Login js render');
 
-		const { loginPost } = this.props;
+		const { loginPost, createUserPost } = this.props;
 		const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
 		if (this.state.redirect) {

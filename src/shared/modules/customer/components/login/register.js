@@ -1,49 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import cookie from 'react-cookies';
-
-import { Field, reduxForm } from 'redux-form';
-import { text } from '../../../../lib/settings';
-import InputField from '../../../checkout/components/checkoutForm/inputField';
-import TextareaField from '../../../checkout/components/checkoutForm/textareaField';
 
 export default class Register extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			name: '',
+			mobile_number: '',
+			male: 2,
+			female: 1,
 			email: '',
 			password: '',
-			registerData: []
+			data: []
 		};
 
-		// const { onClick, loginPost, signInIsActive, createIsActive, forgotPasswordFormIsActive } = this.props;
-		// this.handleChange = this.handleChange.bind(this);
-		// this.PasswordChange = this.PasswordChange.bind(this);
+		this.nameChange = this.nameChange.bind(this);
+		this.mobilenumberChange = this.mobilenumberChange.bind(this);
+		this.genderChange = this.genderChange.bind(this);
+		this.emailChange = this.emailChange.bind(this);
+		this.PasswordChange = this.PasswordChange.bind(this);
 		this.handleSubmitForm = this.handleSubmitForm.bind(this);
-
-		// console.log('FormLogin this.props');
-		// console.log(this.props);
-		// console.log('FormLogin this.state');
-		// console.log(this.state);
 	}
 
-	handleChange(event) {
+	nameChange(event) {
+		this.setState({ name: event.target.value });
+	}
+
+	mobilenumberChange(event) {
+		this.setState({ mobile_number: event.target.value });
+	}
+
+	genderChange(event) {
+		this.setState({ gender: event.target.value });
+	}
+
+	emailChange(event) {
 		this.setState({ email: event.target.value });
 	}
 
-	handleSubmitForm(event) {
-		this.state.data.push(`${this.state.email}`);
-		this.state.data.push(`${this.state.password}`);
-		// this.props.loginPost(this.state.data);
+	PasswordChange(event) {
+		this.setState({ password: event.target.value });
 	}
 
-	// createFormToggle = () => {
-	// 	this.setState({
-	// 		createIsActive: !this.state.createIsActive,
-	// 		signInIsActive: !this.state.signInIsActive
-	// 	});
-	// };
+	handleSubmitForm(event) {
+		this.state.data.push('Form');
+		this.state.data.push(`${this.state.name}`);
+		this.state.data.push(`${this.state.email}`);
+		this.state.data.push(`${this.state.mobile_number}`);
+		this.state.data.push(`${this.state.gender}`);
+		this.state.data.push(`${this.state.password}`);
+		this.props.createUserPost(this.state.data);
+	}
 
 	render() {
 		const {
@@ -52,15 +62,9 @@ export default class Register extends React.Component {
 			createIsActive,
 			isLoggedIn,
 			statsCookieId,
-			customerDetails
+			customerDetails,
+			createUserPost
 		} = this.props;
-
-		// console.log('in Register Render');
-
-		// console.log('props');
-		// console.log(this.props);
-
-		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
 		return (
 			<form
@@ -74,26 +78,29 @@ export default class Register extends React.Component {
 				<div>
 					<label>Name</label>
 					<div className="login-input-div account-create-name">
-						<span className="login-people-image" />
-						<div className="left login-input-div-block1 signUpNameDiv">
+						<i className="material-icons icon register-form-image">
+							account_circle
+						</i>
+						<div className="left register-form-input">
 							<input
 								type="text"
 								placeholder="Name"
 								className="input-field signup-field-lname-input signup-input-field required-entry registerNameField"
 								title="Name"
-								value=""
+								value={this.state.name}
 								name="firstname"
 								id="firstname"
 								autoComplete="on"
+								onChange={this.nameChange}
 							/>
 						</div>
 						<div className="clear" />
 					</div>
 
 					<label>Email</label>
-					<div className="login-input-div account-create-full-field">
-						<span className="login-email-image" />
-						<div className="left">
+					<div className="login-input-div account-create-name">
+						<i className="material-icons icon register-form-image">email</i>
+						<div className="left register-form-input">
 							<input
 								type="text"
 								placeholder="Email Address"
@@ -101,19 +108,20 @@ export default class Register extends React.Component {
 								id="email_address"
 								className="input-field signup-input-field validate-email required-entry"
 								title="Email Address"
-								value=""
+								value={this.state.email}
+								onChange={this.emailChange}
 							/>
-
-							<div className="clear" />
 						</div>
+						<div className="clear" />
 					</div>
 
 					<label>Mobile Number</label>
 					<div className="login-input-div account-create-full-field">
-						<span className="login-mobile-image" />
-						<div className="left">
+						<i className="material-icons icon register-form-image">
+							phone_iphone
+						</i>
+						<div className="left register-form-input">
 							<input
-								onKeyPress="return isNumber(event)"
 								type="tel"
 								placeholder="Enter Your Mobile Number"
 								name="telephone_number"
@@ -121,7 +129,8 @@ export default class Register extends React.Component {
 								title="Enter Your Mobile Number"
 								className="input-field required-entry signup-input-field validate-numeric"
 								maxLength="10"
-								value=""
+								value={this.state.mobile_number}
+								onChange={this.mobilenumberChange}
 							/>
 							<div className="clear" />
 						</div>
@@ -131,15 +140,15 @@ export default class Register extends React.Component {
 					<div className="clear" />
 					<label>Gender</label>
 					<div className="login-input-div">
-						<div className="signup-gender-image left" />
 						<div className="signup-gender-container left">
 							<div className="signup-gender-male-container">
 								<input
 									className="input-field validate-one-required signup-radio-button signup-female-radio"
 									type="radio"
 									name="gender"
-									value="2"
 									title="Gender"
+									value={this.state.male}
+									onChange={this.genderChange}
 								/>
 								<span className="signup-gender-span signup-female-span">
 									Female
@@ -149,8 +158,9 @@ export default class Register extends React.Component {
 									className="input-field signup-radio-button signup-male-radio"
 									type="radio"
 									name="gender"
-									value="1"
+									value={this.state.female}
 									title="Gender"
+									onChange={this.genderChange}
 								/>
 								<span className="signup-gender-span signup-male-span">
 									Male
@@ -162,8 +172,8 @@ export default class Register extends React.Component {
 
 					<label>Password</label>
 					<div className="login-input-div account-create-full-field">
-						<span className="login-password-image" />
-						<div className="left">
+						<i className="material-icons icon register-form-image">lock</i>
+						<div className="left register-form-input">
 							<input
 								type="password"
 								placeholder="Choose a Password"
@@ -172,7 +182,8 @@ export default class Register extends React.Component {
 								title="Choose a Password"
 								className="input-field required-entry  signup-input-field validate-password"
 								readOnly=""
-								onFocus="this.removeAttribute('readonly');"
+								value={this.state.password}
+								onChange={this.PasswordChange}
 							/>
 							<div className="clear" />
 						</div>
@@ -184,8 +195,9 @@ export default class Register extends React.Component {
 							<input
 								id="createAccountButton"
 								className="orange-button left gtmUserInfo"
-								type="submit"
+								type="button"
 								value="Create Account"
+								onClick={this.handleSubmitForm}
 							/>
 						</div>
 					</div>

@@ -111,15 +111,20 @@ const appReducer = (state = initialState, action) => {
 
 			if (action.data) {
 				if (action.data.customer_id !== null) {
+					cookie.save('statsCookieId', action.data.customer_id, { path: '/' });
+					cookie.save('isLoggedIn', 1, { path: '/' });
+
 					return Object.assign({}, state, {
 						isLoggedIn: 1,
 						statsCookieId: action.data.customer_id,
 						customerDetails: action.data
 					});
 				} else {
+					let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
+
 					return Object.assign({}, state, {
-						isLoggedIn: null,
-						statsCookieId: null,
+						isLoggedIn: 0,
+						statsCookieId: timeStamp,
 						customerDetails: {}
 					});
 				}
@@ -127,29 +132,35 @@ const appReducer = (state = initialState, action) => {
 		case t.LOGIN_RECEIVE:
 			console.log('inside the login receive reducer');
 			console.log(action.data);
+			console.log(action.type);
 
-			if (action.data) {
-				if (action.data.customer_id !== null) {
-					console.log('inside the login receive reducer setting state');
+			if (action.type == 'LOGIN_RECEIVE') {
+				if (action.data.status != 'fail') {
+					if (action.data.customer_id !== null) {
+						console.log('inside the login receive reducer setting state');
 
-					return Object.assign({}, state, {
-						isLoggedIn: 1,
-						statsCookieId: action.data.customer_id,
-						customerDetails: action.data
-					});
-				} else {
-					return Object.assign({}, state, {
-						isLoggedIn: null,
-						statsCookieId: null,
-						customerDetails: {}
-					});
+						cookie.save('statsCookieId', action.data.customer_id, {
+							path: '/'
+						});
+						cookie.save('isLoggedIn', 1, { path: '/' });
+
+						return Object.assign({}, state, {
+							isLoggedIn: 1,
+							statsCookieId: action.data.customer_id,
+							customerDetails: action.data
+						});
+					}
+					// else {
+					// 	let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
+					// 	return Object.assign({}, state, {
+					// 		isLoggedIn: 0,
+					// 		statsCookieId: timeStamp,
+					// 		customerDetails: {}
+					// 	});
+					// }
 				}
 			}
 		case t.LOGOUT_REQUEST:
-			// console.log('inside LOGOUT_REQUEST reducer');
-			// console.log(action);
-			// console.log(state);
-
 			if (action.type == 'LOGOUT_REQUEST') {
 				let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
 
@@ -164,18 +175,29 @@ const appReducer = (state = initialState, action) => {
 			}
 
 		case t.CREATE_USER_REQUEST:
-			console.log('in here');
-			console.log('CREATE_USER_REQUEST');
 			if (action.type == 'CREATE_USER_REQUEST') {
-				console.log('inside CREATE_USER_REQUEST reducer');
-				console.log(action);
-				console.log(state);
+				if (action.data) {
+					if (action.data.customer_id !== null) {
+						cookie.save('statsCookieId', action.data.customer_id, {
+							path: '/'
+						});
+						cookie.save('isLoggedIn', 1, { path: '/' });
 
-				// return Object.assign({}, state, {
-				// 	isLoggedIn: 0,
-				// 	statsCookieId: timeStamp,
-				// 	customerDetails: {}
-				// });
+						return Object.assign({}, state, {
+							isLoggedIn: 1,
+							statsCookieId: action.data.customer_id,
+							customerDetails: action.data
+						});
+					}
+					// else {
+					// 	let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
+					// 	return Object.assign({}, state, {
+					// 		isLoggedIn: 0,
+					// 		statsCookieId: timeStamp,
+					// 		customerDetails: {}
+					// 	});
+					// }
+				}
 			}
 
 		case t.COUPON_CODE_REQUEST:
