@@ -3,6 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import { text } from '../../../../lib/settings';
 import { formatCurrency } from '../../../../lib/helper';
 import InputField from './inputField';
+import SocialLogin from '../../../customer/components/login/socialLogin';
+// import FacebookLoginWrapper from '../../../customer/components/login/facebookLoginWrapper';
+import OrDiv from '../../../customer/components/login/orDiv';
 
 const validateRequired = value =>
 	value && value.length > 0 ? undefined : text.required;
@@ -121,7 +124,10 @@ class CheckoutStepContacts extends React.Component {
 			editButtonClassName,
 			onEdit,
 			isReadOnly,
-			title
+			title,
+			loginPost,
+			logoutPost,
+			state: { isLoggedIn, statsCookieId, customerDetails }
 		} = this.props;
 
 		if (isReadOnly) {
@@ -170,21 +176,14 @@ class CheckoutStepContacts extends React.Component {
 						confirmation details
 					</label>
 				</div>
-				<form
-					onSubmit={handleSubmit}
+				<form onSubmit={handleSubmit}
 					className="checkoutFormContactDetailsPadding"
 				>
-					{!this.isFieldHidden('mobile') && (
-						<Field
-							className={inputClassName + ' input-fields-2'}
-							name="mobile"
-							id="customer.mobile"
-							component={InputField}
-							type="tel"
-							validate={this.getFieldValidators('mobile')}
-							placeholder={this.getFieldPlaceholder('mobile')}
-						/>
-					)}
+
+						<div className="checkout-field input-fields-2">
+						   <input name="userName" placeholder="" type="tel" id="userName"/>
+						</div>
+
 					<div className="variation-checkout variation-login-message">
 						<span>Example: example@example.com or 9999000099</span>
 					</div>
@@ -192,47 +191,45 @@ class CheckoutStepContacts extends React.Component {
 					<div className="checkout-button-wrap">
 						<button
 							type="submit"
-							disabled={invalid}
 							className={buttonClassName + ' checkoutLoginBtn'}
 						>
 							CONTINUE CHECKOUT{' '}
 							<i className="material-icons">keyboard_arrow_right</i>
 						</button>
 					</div>
+
+
+
 					<div className="tab-content-ruler">
-						<p className="loginORDividerText registerORDividerText checkoutORDividerText">
-							{' '}
-							OR
-						</p>
-						<hr className="loginORDivider checkoutORDivider" />
+						<OrDiv />
 					</div>
+
+
+
 
 					<div id="gSignInWrapper">
-						<div
-							id="customBtn"
-							className="customGPlusSignIn checkoutGPlusSignIn"
-						>
-							<span className="googleicon" />
-							<span className="buttonText">Sign in with Google</span>
-						</div>
+
+					<SocialLogin
+						isLoggedIn={isLoggedIn}
+						statsCookieId={statsCookieId}
+						customerDetails={customerDetails}
+						loginPost={loginPost}
+					/>
+
+
 					</div>
 
+
 					<div className="login-input-link-div facebook-login-div">
-						<div className="right login-submit-div">
-							<span className="fb-icon" />
-							<span className="facebookloginbutton left ">
-								Login with Facebook
-							</span>
-						</div>
+						
 					</div>
+
+
+
 				</form>
 			</div>
 		);
 	}
 }
 
-export default reduxForm({
-	form: 'CheckoutStepContacts',
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: true
-})(CheckoutStepContacts);
+export default CheckoutStepContacts
