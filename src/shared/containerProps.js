@@ -14,7 +14,8 @@ import {
 	couponCode,
 	loginPost,
 	logoutPost,
-	createUserPost
+	createUserPost,
+	setUserSelectedAddress
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -133,6 +134,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		createUserPost: data => {
 			dispatch(createUserPost(data, ownProps.history));
+		},
+		setUserSelectedAddress: data => {
+			dispatch(setUserSelectedAddress(data));
 		}
 	};
 };

@@ -61,6 +61,7 @@ class CheckoutStepShipping extends React.Component {
 
 	setShippingAddress(data)
 	{
+		this.props.userSelectedAddressFun(data);
 		this.setState({name: data.name});
 		this.setState({address: data.address});
 		this.setState({postal_code: data.postal_code});
@@ -68,7 +69,7 @@ class CheckoutStepShipping extends React.Component {
 		this.setState({state: data.state});
 		this.setState({phone: data.phone});
 		this.setState({entity_id: data.entity_id});
-		console.log(this.state);
+
 	}
 
 	addActiveClass(e,id,shippingD,addressId)
@@ -147,7 +148,8 @@ class CheckoutStepShipping extends React.Component {
 			showPaymentForm,
 			onEdit,
 			getCityByPincode,
-			onSubmit
+			onSubmit,
+			userSelectedAddress
 		} = this.props;
 
 	const hideBillingAddress = settings.hide_billing_address === true;
@@ -181,7 +183,7 @@ class CheckoutStepShipping extends React.Component {
 			);
 		} else if (isReadOnly) {
 			console.log('readonly');
-			console.log(isReadOnly);
+			console.log(userSelectedAddress);
 			console.log(initialValues);
 			console.log(shippingMethod);
 			let shippingFields = null;
@@ -194,7 +196,8 @@ class CheckoutStepShipping extends React.Component {
 				shippingFields = shippingMethod.map((field, index) => {
 					var checked="";
 					var ActiveClas="";
-					if(index===0)
+					//if(userSelectedAddress.entity_id == field.entity_id )
+					if(index === 0 )
 					{
 						 checked="checked";
 						 ActiveClas="address-active";

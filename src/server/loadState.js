@@ -608,6 +608,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			},
 			cart: null,
 			saveForLater: [],
+			userSelectedAddress:{},
 			order: null,
 			checkoutFields: checkoutFields,
 			themeSettings: themeSettings

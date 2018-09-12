@@ -256,6 +256,8 @@ getCityByPincode(e)
 						settings={settings}
 						processingCheckout={processingCheckout}
 						shippingMethod={this.props.state.shippingMethods}
+						userSelectedAddress={this.props.state.userSelectedAddress}
+						userSelectedAddressFun={this.props.setUserSelectedAddress}
 						checkoutFields={checkoutFields}
 						showPaymentForm={showPaymentForm}
 						onSave={this.handleShippingSave}

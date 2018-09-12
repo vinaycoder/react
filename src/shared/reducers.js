@@ -180,6 +180,10 @@ const appReducer = (state = initialState, action) => {
 
 		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
+
+			case t.SET_SELECTED_USER_ADDRESS:			
+				return Object.assign({}, state, { userSelectedAddress: action.data });
+
 		default:
 			return state;
 	}
