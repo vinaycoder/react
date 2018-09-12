@@ -38,8 +38,85 @@ class CheckoutStepShipping extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			billingAsShipping: true
+			billingAsShipping: true,
+			name:null,
+			address:null,
+			postal_code:null,
+			city:null,
+			state:null,
+			phone:null,
+			entity_id:null,
+			newAddress:false
 		};
+		this.addActiveClass=this.addActiveClass.bind(this);
+		this.setShippingAddress=this.setShippingAddress.bind(this);
+		this.editAddress=this.editAddress.bind(this);
+		this.newAddress=this.newAddress.bind(this);
+		this.cancelEditAddress=this.cancelEditAddress.bind(this);
+	}
+
+	componentDidMount() {
+		this.setShippingAddress(this.props.initialValues);
+	}
+
+	setShippingAddress(data)
+	{
+		this.setState({name: data.name});
+		this.setState({address: data.address});
+		this.setState({postal_code: data.postal_code});
+		this.setState({city: data.city});
+		this.setState({state: data.state});
+		this.setState({phone: data.phone});
+		this.setState({entity_id: data.entity_id});
+		console.log(this.state);
+	}
+
+	addActiveClass(e,id,shippingD,addressId)
+	{
+		var i, tabcontent, tablinks;
+		tablinks = document.getElementsByClassName("checkoutAddresses");
+		for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" address-active", "");
+		}
+		document.getElementById("div"+id).classList.add("address-active");
+		document.getElementById("div-new-address").className = document.getElementById("div-new-address").className.replace(" address-active", "");
+    this.setShippingAddress(shippingD);
+		this.setState({newAddress:false});
+  }
+
+
+
+	editAddress(e,id,shippingD,addressId)
+	{
+		var i, tabcontent, tablinks;
+		tablinks = document.getElementsByClassName("checkoutAddresses");
+		for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" address-active", "");
+		}
+		document.getElementById("div"+id).classList.add("address-active");
+		document.getElementById("div-new-address").className = document.getElementById("div-new-address").className.replace(" address-active", "");
+		document.getElementById(""+id).checked=true;
+	 this.setShippingAddress(shippingD);
+	 this.props.onEdit();
+	 this.setState({newAddress:false});
+	}
+
+	newAddress()
+	{
+		var i, tabcontent, tablinks;
+		tablinks = document.getElementsByClassName("checkoutAddresses");
+		for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" address-active", "");
+		}
+		document.getElementById("div-new-address").classList.add("address-active");
+		document.getElementById("new-address").checked=true;
+		this.setState({newAddress:true});
+		this.props.onEdit();
+	}
+
+	cancelEditAddress()
+	{
+		this.props.onSave();
 	}
 
 	onChangeBillingAsShipping = event => {
@@ -73,7 +150,7 @@ class CheckoutStepShipping extends React.Component {
 			onSubmit
 		} = this.props;
 
-		const hideBillingAddress = settings.hide_billing_address === true;
+	const hideBillingAddress = settings.hide_billing_address === true;
 		const commentsField = checkoutFields.find(f => f.name === 'comments');
 		const commentsFieldPlaceholder =
 			commentsField &&
@@ -87,7 +164,7 @@ class CheckoutStepShipping extends React.Component {
 				: text.comments;
 		const commentsFieldStatus =
 			commentsField && commentsField.status.length > 0
-				? commentsField.status
+				? commentsField.statusshippingMethod.length-1===index
 				: null;
 		const commentsValidate =
 			commentsFieldStatus === 'required' ? validateRequired : null;
@@ -104,6 +181,7 @@ class CheckoutStepShipping extends React.Component {
 			);
 		} else if (isReadOnly) {
 			console.log('readonly');
+			console.log(isReadOnly);
 			console.log(initialValues);
 			console.log(shippingMethod);
 			let shippingFields = null;
@@ -112,22 +190,38 @@ class CheckoutStepShipping extends React.Component {
 				shippingMethod.length > 0
 			) {
 				let shippingAddress=[];
-				shippingAddress.push(shippingMethod[shippingMethod.length-1]);
-				shippingFields = shippingAddress.map((field, index) => {
+				shippingAddress.push(shippingMethod[0]);
+				shippingFields = shippingMethod.map((field, index) => {
+					var checked="";
+					var ActiveClas="";
+					if(index===0)
+					{
+						 checked="checked";
+						 ActiveClas="address-active";
+					}
+					var shippingD= {name:field.firstname,address:field.street,postal_code:field.postcode,city:field.city,state:field.region,phone:field.telephone,entity_id:field.entity_id
+				 };
 					return (
-						<div key={index} className="checkout-field-preview amit">
-							<div className="name">Name</div>
-							<div className="value">{field.firstname}</div>
-							<div className="name">Address</div>
-							<div className="value">{field.street}</div>
-							<div className="name">Pincode</div>
-							<div className="value">{field.postcode}</div>
-							<div className="name">City</div>
-							<div className="value">{field.city}</div>
-							<div className="name">State</div>
-							<div className="value">{field.region}</div>
-							<div className="name">Mobile</div>
-							<div className="value">{field.telephone}</div>
+						<div key={index} className="checkout-field-preview--old">
+
+						<div className={"checkoutAddresses " +ActiveClas} id={"div"+index} >
+					    <div className="checkout-address-radio billing-checkout-address-wrapper" id={field.entity_id}>
+					        <div style={{fontWeight:'bold'}}>
+					            <input type="radio" defaultChecked={checked} name="checkout-address" id={index} defaultValue={field.entity_id} />&nbsp; Address&nbsp;{index+1}
+					         </div>
+					    <label name="checkout-address-label" htmlFor={index} style={{float:'left'}} onClick={e=>this.addActiveClass(e,index,shippingD,field.entity_id)}>
+					        {field.firstname} , {field.street} , {field.city}, {field.region} {field.postcode}, India
+					    </label>
+
+					        <div className="clear"></div>
+
+					    </div>
+					    <div className="editAddressCheckout">
+					        <span id="checkoutEditAddress948949" className="checkoutEditAddress" onClick={e=>this.editAddress(e,index,shippingD,field.entity_id)} style={{display: 'inline'}}>Edit Address</span>
+					        <span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>billing.cancelEditAddress(948949)} style={{display: 'none'}}>Cancel</span>
+					    </div>
+					</div>
+
 						</div>
 					);
 
@@ -144,152 +238,151 @@ class CheckoutStepShipping extends React.Component {
 					</h1>
 					{shippingFields}
 
-					{!hideCommentsField &&
-						initialValues.comments !== '' && (
-							<div className="checkout-field-preview vinay">
-								<div className="name">{commentsFieldLabel}</div>
-								<div className="value">{initialValues.comments}</div>
-							</div>
-						)}
 
 					<div className="checkout-button-wrap">
-						<button
-							type="button"
-							onClick={onEdit}
-							className={editButtonClassName}
-						>
-							{text.edit}
-						</button>
+
+					<div className="checkoutAddresses" onClick={e=>this.newAddress()}>
+					    <div className="checkout-address-radio billing-checkout-address-wrapper has-text-left" id="div-new-address">
+					        <div>
+					            <input type="radio" name="checkout-address" id="new-address" value="new-address" />&nbsp; New Address
+					        </div>
+					        <label name="checkout-address-label" htmlFor="new-address"></label>
+					        <div className="clear"></div>
+					    </div>
+					</div>
+
 					</div>
 				</div>
 			);
 		} else {
-			let shippingFields = null;
-			if (
-				shippingMethod &&
-				shippingMethod.fields &&
-				shippingMethod.fields.length > 0
-			) {
-				shippingFields = shippingMethod.fields.map((field, index) => {
-					const fieldLabel = getFieldLabel(field);
-					const fieldId = `shipping_address.${field.key}`;
-					const fieldClassName = `${inputClassName} shipping-${field.key}`;
-					const validate = field.required === true ? validateRequired : null;
-
-					return (
-						<Field
-							key={index}
-							className={fieldClassName}
-							name={fieldId}
-							id={fieldId}
-							component={InputField}
-							type="text"
-							label={fieldLabel}
-							validate={validate}
-						/>
-					);
-				});
-			}
+			console.log('readonly 3333');
+			console.log(this.state.newAddress);
+			console.log(isReadOnly);
 
 			return (
-				<div className="checkout-step newPadding">
-					<div className="step-title">
-						<h2 className="not-log-in-checkout-label">1. {title}</h2>
-					</div>
-
-					<form onSubmit={handleSubmit} className="checkoutFormContactDetailsPadding">
-						{shippingFields}
-
-						<div>
-							<Field
-								className={inputClassName + ' billing-fullname'}
-								name="obj1.car"
-								id="obj1.car"
-								value={initialValues.obj1.car}
-								component={InputField}
-								type="text"
-								label={text.subtotal + ` (${text.required2})`}
-								validate={[validateRequired]}
-							/>
-							<Field
-								className={inputClassName + ' billing-address1'}
-								name="billing_address.address1"
-								id="billing_address.address1"
-								component={TextareaField}
-								type="text"
-								label={text.address1 + ` (${text.required2})`}
-								placeholder={commentsFieldPlaceholder}
-								validate={validateRequired}
-								rows="3"
-							/>
-
-							<Field
-								className={inputClassName + ' billing-postalcode'}
-								name="billing_address.postal_code"
-								id="billing_address.postal_code"
-								component={InputField}
-								type="text"
-								label={text.postal_code + ` (${text.required2})`}
-								validate={[validateRequired]}
-								onChange={e=>getCityByPincode(e)}
-							/>
-							<Field
-								className={inputClassName + ' billing-city'}
-								name="billing_address.city"
-								id="billing_address.city"
-								component={InputField}
-								type="text"
-								label={text.city + ` (${text.required2})`}
-								validate={[validateRequired]}
-								readOnly={'readOnly'}
-							/>
-							<Field
-								className={inputClassName + ' billing-state'}
-								name="billing_address.state"
-								id="billing_address.state"
-								component={InputField}
-								type="text"
-								label={text.state + ` (${text.required2})`}
-								validate={[validateRequired]}
-								readOnly={'readOnly'}
-							/>
-
-							<Field
-								className={inputClassName + ' billing-phone'}
-								name="billing_address.phone"
-								id="billing_address.phone"
-								component={InputField}
-								type="text"
-								label={text.phone + ` (${text.required2})`}
-								validate={[validateRequired]}
-							/>
-						</div>
-
-						{/* )} */}
-						{/*)}*/}
-
-						<div className="checkout-button-wrap">
-							<button
-								type="submit"
-								className={
-									`${buttonClassName}${
-										processingCheckout ? ' is-loading' : ''
-									}` + ' checkoutLoginBtn'
-								}
-							>
-								{showPaymentForm ? text.next : text.saveAddress}{' '}
-								<i className="material-icons">keyboard_arrow_right</i>
-							</button>
-						</div>
-					</form>
+			<div className="checkout-step newPadding">
+				<div className="step-title">
+					<h2 className="not-log-in-checkout-label">1. {title}</h2>
 				</div>
-			);
+
+				<form onSubmit={e=>handleSubmit(e)} className="checkoutFormContactDetailsPadding" id="submit" name="submit">
+
+				{this.state.newAddress ? (
+						<div>
+						{shippingMethod.length > 0 && (
+						<div className={"checkoutAddresses address-active"} >
+							<div className="checkout-address-radio billing-checkout-address-wrapper">
+									<div style={{fontWeight:'bold'}}>
+											<input type="radio" defaultChecked="checked" name="checkout-address" />&nbsp; New Address&nbsp;
+									 </div>
+							<label name="checkout-address-label" style={{float:'left'}} >
+							</label>
+									<div className="clear"></div>
+							</div>
+							<div className="editAddressCheckout">
+							<span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>this.cancelEditAddress()} >Cancel</span>
+							</div>
+					</div>
+					)}
+
+						<input type="hidden" id="entity_id" name="entity_id" defaultValue="new"/>
+						<div className="checkout-field billing-fullname">
+						<label htmlFor="name">Name ( Required )</label>
+						<input name="name" type="text" id="name" className="" />
+						</div>
+						<div className="checkout-field billing-address1">
+						<label htmlFor="address">Address ( Required )</label>
+						<textarea name="address" rows="3" id="address" className="">
+						</textarea>
+						</div>
+						<div className="checkout-field billing-postalcode">
+						<label htmlFor="postal_code">Pin Code  ( Required )</label>
+						<input name="postal_code" type="text" id="postal_code" onChange={e=>getCityByPincode(e)} className=""/>
+						</div>
+						<div className="checkout-field billing-city">
+						<label htmlFor="city">City ( Required )</label>
+						<input name="city" type="text" id="city" readOnly className="" />
+						</div>
+						<div className="checkout-field billing-state">
+						<label htmlFor="state">State ( Required )</label>
+						<input name="state" type="text" id="state" readOnly className="" />
+						</div>
+						<div className="checkout-field billing-phone">
+						<label htmlFor="phone">Mobile Number (10 digits only) ( Required )</label>
+						<input name="phone" type="text" id="phone" className="" />
+						</div>
+						</div>
+						) : (
+
+							<div>
+
+
+
+							<div className={"checkoutAddresses address-active"} >
+								<div className="checkout-address-radio billing-checkout-address-wrapper">
+										<div style={{fontWeight:'bold'}}>
+												<input type="radio" defaultChecked="checked" name="checkout-address"  defaultValue={this.state.entity_id} />&nbsp; Address&nbsp;
+										 </div>
+								<label name="checkout-address-label" style={{float:'left'}} >
+										{this.state.name} , {this.state.address} , {this.state.city}, {this.state.state} {this.state.postal_code}, India
+								</label>
+										<div className="clear"></div>
+								</div>
+								<div className="editAddressCheckout">
+								<span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>this.cancelEditAddress()} >Cancel</span>
+								</div>
+						</div>
+
+
+
+							<input type="hidden" id="entity_id" name="entity_id" defaultValue={this.state.entity_id} />
+							<div className="checkout-field billing-fullname">
+							<label htmlFor="name">Name ( Required )</label>
+							<input name="name" type="text" id="name" className="" defaultValue={this.state.name} />
+							</div>
+							<div className="checkout-field billing-address1">
+							<label htmlFor="address">Address ( Required )</label>
+							<textarea name="address" rows="3" id="address" className="" defaultValue={this.state.address}>
+							</textarea>
+							</div>
+							<div className="checkout-field billing-postalcode">
+							<label htmlFor="postal_code">Pin Code  ( Required )</label>
+							<input name="postal_code" type="text" id="postal_code" defaultValue={this.state.postal_code} onChange={e=>getCityByPincode(e)} className=""/>
+							</div>
+							<div className="checkout-field billing-city">
+							<label htmlFor="city">City ( Required )</label>
+							<input name="city" type="text" id="city" readOnly className="" defaultValue={this.state.city} />
+							</div>
+							<div className="checkout-field billing-state">
+							<label htmlFor="state">State ( Required )</label>
+							<input name="state" type="text" id="state" readOnly className="" defaultValue={this.state.state} />
+							</div>
+							<div className="checkout-field billing-phone">
+							<label htmlFor="phone">Mobile Number (10 digits only) ( Required )</label>
+							<input name="phone" type="text" id="phone" className="" defaultValue={this.state.phone} />
+							</div>
+							</div>
+
+						)}
+
+					<div className="checkout-button-wrap">
+						<button
+							type="submit"
+							className={
+								`${buttonClassName}${
+									processingCheckout ? ' is-loading' : ''
+								}` + ' checkoutLoginBtn'
+							}
+						>
+							{showPaymentForm ? text.next : text.saveAddress}{' '}
+							<i className="material-icons">keyboard_arrow_right</i>
+						</button>
+					</div>
+				</form>
+			</div>
+		);
 		}
 	}
 }
 
-export default reduxForm({
-	form: 'CheckoutStepShipping',
-	enableReinitialize: true,
-	keepDirtyOnReinitialize: false
-})(CheckoutStepShipping);
+export default CheckoutStepShipping

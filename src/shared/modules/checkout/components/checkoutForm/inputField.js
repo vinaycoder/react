@@ -14,7 +14,6 @@ const InputField = field => (
 			id={field.id}
 			readOnly={field.readOnly}
 			className={field.meta.touched && field.meta.error ? 'invalid' : ''}
-			value={field.value}
 		/>
 	</div>
 );

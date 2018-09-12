@@ -12,6 +12,31 @@ export default class CheckoutForm extends React.Component {
 		};
 		this.showPaymentMethod = this.showPaymentMethod.bind(this);
 		this.getCityByPincode = this.getCityByPincode.bind(this);
+		this.submitShipping = this.submitShipping.bind(this);
+	}
+	submitShipping(event)
+	{
+		event.preventDefault();
+			var myForm = document.getElementById('submit');
+			var formData = new FormData(myForm);
+			if(formData.get('entity_id')=='new')
+			{
+				var url='https://indiarush.com/irapi/customer/postUserAddress/?customer_id=1280427'+'&firstname='+formData.get('name')+'&city='+formData.get('city')+'&street='+formData.get('address')+'&postcode='+formData.get('postal_code')+'&telephone='+formData.get('phone')+'&region='+formData.get('state')+'&version=3.99';
+			}
+			else {
+				var url='https://indiarush.com/irapi/customer/postUserAddress/?customer_id=1280427'+'&entity_id='+formData.get('entity_id')+'&firstname='+formData.get('name')+'&city='+formData.get('city')+'&street='+formData.get('address')+'&postcode='+formData.get('postal_code')+'&telephone='+formData.get('phone')+'&region='+formData.get('state')+'&version=3.99';
+			}
+			fetch(url)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					console.log('vinay in update address');
+					console.log(jsonResult);
+					this.handleShippingSave();
+				 this.props.loadShippingMethods();
+				});
+
 	}
 	showPaymentMethod(evt,labelId,IconId,id,radiaId)
 	{
@@ -41,8 +66,8 @@ getCityByPincode(e)
 				return result.json();
 			})
 			.then(jsonResult => {
-				document.getElementById('billing_address.city').value=jsonResult.data.city;
-				document.getElementById('billing_address.state').value=jsonResult.data.state;
+				document.getElementById('city').value=jsonResult.data.city;
+				document.getElementById('state').value=jsonResult.data.state;
 			});
 	}
 
@@ -122,14 +147,8 @@ getCityByPincode(e)
 	};
 
 	handleShippingSubmit = values => {
-		console.log(values);
-		console.log('vinay in shipping');
-		// this.props.shippingMethods=values.billing_address;
-		// return false;
-
 		if (this.isShowPaymentForm()) {
 			const { shipping_address, billing_address, comments } = values;
-
 			this.props.updateCart({
 				shipping_address,
 				billing_address,
@@ -181,15 +200,29 @@ getCityByPincode(e)
 			checkoutEditButtonClass = 'checkout-button-edit'
 		} = themeSettings;
 
-		var obj1 = { food: 'pizza', car: 'ford' }
-		const allRules = {obj1, cart};
+		// for shipping initialValues
+		let shippingAddressSel = null;
+		if (shippingMethods && 	shippingMethods.length > 0) {
+			let shippingAddress=[];
+			shippingAddress.push(shippingMethods[0]);
+		  shippingAddressSel=	shippingAddress.map((field, index) => {
+				return {name:field.firstname,address:field.street,postal_code:field.postcode,city:field.city,state:field.region,phone:field.telephone,entity_id:field.entity_id
+       };
+				});
+		}
+		if(shippingAddressSel)
+		{
+			var shippignSelectAddress=shippingAddressSel[0];
+		}
+		else {
+			var shippignSelectAddress={name:null,address:null,postal_code:null,city:null,state:null,phone:null,entity_id:null};
+		}
 
 		if (cart && cart.items.length > 0) {
 			const showPaymentForm = this.isShowPaymentForm();
 
 			let shippingMethod = null;
 			const { shipping_method_id } = cart;
-
 			return (
 				<div className="checkout-form">
 					<CheckoutStepContacts
@@ -219,7 +252,7 @@ getCityByPincode(e)
 						inputClassName={checkoutInputClass}
 						buttonClassName={checkoutButtonClass}
 						editButtonClassName={checkoutEditButtonClass}
-						initialValues={allRules}
+						initialValues={shippignSelectAddress}
 						settings={settings}
 						processingCheckout={processingCheckout}
 						shippingMethod={this.props.state.shippingMethods}
@@ -227,7 +260,7 @@ getCityByPincode(e)
 						showPaymentForm={showPaymentForm}
 						onSave={this.handleShippingSave}
 						onEdit={this.handleShippingEdit}
-						onSubmit={this.handleShippingSubmit}
+						handleSubmit={this.submitShipping}
 						getCityByPincode={this.getCityByPincode}
 					/>
 

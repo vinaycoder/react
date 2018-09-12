@@ -1044,3 +1044,30 @@ input.radio {
 .checkout-address-radio input[type="checkbox"]:checked {
 border-color: red;
 }
+.address-active {
+    border: 2px solid #4CAF50 !important;
+}
+.checkout-address-radio {
+    padding: 10px;
+    background: #fff;
+        font-size: 13px;
+}
+.checkout-address-label{
+    margin-left: 20px;
+    left: 0px;
+    float: left !important;
+}
+.checkoutEditAddress, .checkoutCancelEditAddress {
+    color: #FF823C;
+    background: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+}
+.editAddressCheckout {
+    margin: 0px 0px 4px 19px;
+}
+.checkoutAddresses {
+    border: 2px solid #ccc;
+    margin: 10px 0px;
+}
