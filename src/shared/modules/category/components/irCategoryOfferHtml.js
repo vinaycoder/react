@@ -14,8 +14,8 @@ class IrCategoryOfferHtml extends Component {
 
 		return (
 			<div className="column is-12">
-				{offers.map(offer => (
-					<span className="categoryOfferBannerItem column is-4">
+				{offers.map((offer, i) => (
+					<span className="categoryOfferBannerItem column is-4" key={i}>
 						<NavLink to={`/${offer.new_landing_url}`} id={offer.landing_url.id}>
 							<img className="categoryOfferBannerImg" src={offer.image} />
 						</NavLink>

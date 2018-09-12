@@ -741,6 +741,8 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 	}
 
 	const { app } = getState();
+	console.log(app);
+	console.log('changes for app');
 	let statePathname = '/404';
 	let stateSearch = '';
 	let stateHash = '';
@@ -759,6 +761,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 
 	if (currentPageAlreadyInState) {
 		// same page
+		console.log('i am in same page');
 	} else {
 		dispatch(
 			setCurrentLocation({
@@ -769,80 +772,70 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			})
 		);
 
-		//Instead of category page we can get data from all categories list
-		//const category = app.categories.find(c => c.path === locationPathname);
-		// if (category) {
-		// const newCurrentPage = {
-		// 	type: 'product-category',
-		// 	path: category.path,
-		// 	resource: category.id
-		// };
-		// dispatch(receiveSitemap(newCurrentPage)); // remove .data
-		// dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		// } else {
-		const newCurrentPage = await fetch(
-			`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
-		)
-			.then(result => {
-				return result.json();
-			})
-			.then(jsonResult => {
-				if (jsonResult == 'null') {
-					return {
-						type: 404,
-						path: locationPathname,
-						resource: null
-					};
-				} else {
-					if (locationPathname == '/checkout') {
-						return {
-							type: 'page',
-							path: '/checkout',
-							resource: '5b6984d45452db221b4044f2'
+		let newCurrentPage = {};
+		if (location.state) {
+			newCurrentPage = {
+				type: location.state.type,
+				path: locationPathname,
+				resource: location.state.id
+			};
+			console.log('inside the new page');
+			console.log(newCurrentPage);
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else if (locationPathname == '/checkout') {
+			newCurrentPage = {
+				type: 'page',
+				path: '/checkout',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else if (locationPathname == '/search') {
+			newCurrentPage = {
+				type: 'search',
+				path: '/search',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else if (locationPathname == '/customer/account/login') {
+			newCurrentPage = {
+				type: 'login',
+				path: '/customer/account/login',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		} else {
+			await fetch(
+				`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${locationPathname}&version=3.64`
+			)
+				.then(result => {
+					return result.json();
+				})
+				.then(jsonResult => {
+					if (jsonResult == 'null') {
+						newCurrentPage = {
+							type: 404,
+							path: locationPathname,
+							resource: null
 						};
-					} else if (locationPathname == '/search') {
-						return {
-							type: 'search',
-							path: '/search',
-							resource: ''
-						};
-					} else if (locationPathname == '/customer/account/login') {
-						return {
-							type: 'login',
-							path: '/customer/account/login',
-							resource: ''
-						};
+						dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+						dispatch(receiveSitemap(newCurrentPage));
 					} else {
-						return {
+						newCurrentPage = {
 							type: jsonResult.type,
 							path: locationPathname,
 							resource: jsonResult.id
 						};
+						dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+						dispatch(receiveSitemap(newCurrentPage));
 					}
-				}
-			});
+				});
+		}
 		console.log('returning new page type');
 		console.log(newCurrentPage);
-		dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		dispatch(receiveSitemap(newCurrentPage));
-
-		// const sitemapResponse = await api.ajax.sitemap.retrieve({
-		// 	path: locationPathname
-		// });
-		// if (sitemapResponse.status === 404) {
-		// 	dispatch(
-		// 		receiveSitemap({
-		// 			type: 404,
-		// 			path: locationPathname,
-		// 			resource: null
-		// 		})
-		// 	);
-		// } else {
-		// 	const newCurrentPage = sitemapResponse.json;
-		// 	dispatch(receiveSitemap(newCurrentPage));
-		// 	dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
-		// }
-		//}
 	}
 };
 

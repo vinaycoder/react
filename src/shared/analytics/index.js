@@ -30,7 +30,7 @@ export const pageView = ({ path, title }) => {
 };
 
 export const productView = ({ product }) => {
-	googleAnalytics.viewItem({ product });
+	//googleAnalytics.viewItem({ product });
 };
 
 export const search = ({ searchText }) => {

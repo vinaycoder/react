@@ -9,7 +9,7 @@ export default class ViewedProducts extends React.Component {
 		settings: PropTypes.shape({}).isRequired,
 		addCartItem: PropTypes.func.isRequired,
 		product: PropTypes.shape({}).isRequired,
-		recommendationProducts: PropTypes.shape({}).isRequired
+		recommendationProducts: PropTypes.arrayOf(PropTypes.shape({}))
 	};
 
 	state = {

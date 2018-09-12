@@ -99,70 +99,72 @@ class IRSlickSlider extends Component {
 		return (
 			<div>
 				{this.props.products && (
-					<p className="similar-li-wrapper">
+					<div>
 						<h2>{this.props.recommendationLabel}</h2>
-						<ul>
-							<Slider {...settings}>
-								{this.props.products.map(irSimilarProduct => (
-									<li
-										className="category-landscape-view-li-wrapper"
-										itemType="https://schema.org/Enumeration"
-										itemID={irSimilarProduct.product_id}
-										key={irSimilarProduct.product_id}
-									>
-										<div className="category-landscape-image-wrapper onsale-category-container-list">
-											<NavLink
-												to={`/${irSimilarProduct.product_urlpath}`}
-												id={irSimilarProduct.product_id}
-											>
-												<img
-													data-arg1={irSimilarProduct.product_id}
-													src={irSimilarProduct.product_img}
-													alt={irSimilarProduct.product_name}
-												/>
-											</NavLink>
-										</div>
+						<div className="similar-li-wrapper">
+							<ul>
+								<Slider {...settings}>
+									{this.props.products.map(irSimilarProduct => (
+										<li
+											className="category-landscape-view-li-wrapper"
+											itemType="https://schema.org/Enumeration"
+											itemID={irSimilarProduct.product_id}
+											key={irSimilarProduct.product_id}
+										>
+											<div className="category-landscape-image-wrapper onsale-category-container-list">
+												<NavLink
+													to={`/${irSimilarProduct.product_urlpath}`}
+													id={irSimilarProduct.product_id}
+												>
+													<img
+														data-arg1={irSimilarProduct.product_id}
+														src={irSimilarProduct.product_img}
+														alt={irSimilarProduct.product_name}
+													/>
+												</NavLink>
+											</div>
 
-										<div className="listview">
-											<div className="category-landscape-content-wrapper">
-												<div className="products-grid-price-name category-landscape-price-name-wrapper">
-													<NavLink
-														to={`/${irSimilarProduct.product_urlpath}`}
-														id={irSimilarProduct.product_id}
-													>
-														<div className="product-price-discount price_variation_test price_variation_test_convert_v1 convert-cart-v1-test-show">
-															<span className="original-category-price original-category-price-add-css similar_price">
-																{irSimilarProduct.product_offer}
-															</span>
-															<span className="product-discount">
-																{irSimilarProduct.discount && (
-																	<span>({irSimilarProduct.discount})</span>
-																)}
-															</span>
-														</div>
-														<div className="clear" />
-													</NavLink>
-												</div>
-
-												<div className="products-grid-newblock category-landscape-grid-new-block">
-													<div className="product-name">
+											<div className="listview">
+												<div className="category-landscape-content-wrapper">
+													<div className="products-grid-price-name category-landscape-price-name-wrapper">
 														<NavLink
 															to={`/${irSimilarProduct.product_urlpath}`}
 															id={irSimilarProduct.product_id}
 														>
-															{irSimilarProduct.product_name}
+															<div className="product-price-discount price_variation_test price_variation_test_convert_v1 convert-cart-v1-test-show">
+																<span className="original-category-price original-category-price-add-css similar_price">
+																	{irSimilarProduct.product_offer}
+																</span>
+																<span className="product-discount">
+																	{irSimilarProduct.discount && (
+																		<span>({irSimilarProduct.discount})</span>
+																	)}
+																</span>
+															</div>
+															<div className="clear" />
 														</NavLink>
 													</div>
-												</div>
 
-												<div className="clear" />
+													<div className="products-grid-newblock category-landscape-grid-new-block">
+														<div className="product-name">
+															<NavLink
+																to={`/${irSimilarProduct.product_urlpath}`}
+																id={irSimilarProduct.product_id}
+															>
+																{irSimilarProduct.product_name}
+															</NavLink>
+														</div>
+													</div>
+
+													<div className="clear" />
+												</div>
 											</div>
-										</div>
-									</li>
-								))}
-							</Slider>
-						</ul>
-					</p>
+										</li>
+									))}
+								</Slider>
+							</ul>
+						</div>
+					</div>
 				)}
 			</div>
 		);
