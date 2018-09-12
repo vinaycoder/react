@@ -1039,10 +1039,13 @@ export const createUserPost = (data, history) => async (dispatch, getState) => {
 							)
 								.then(result => result.json())
 								.then(jsonResult => {
-									// return jsonResult.data.quoteId;
-
 									const quoteId = jsonResult.data.quoteId;
 									const tempQuoteId = cookie.load('userQuoteId');
+
+									cookie.save('userQuoteId', jsonResult.data.quoteId, {
+										path: '/'
+									});
+
 									return fetch(
 										`https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=${quoteId}&tempQuoteId=${tempQuoteId}&version=${version}`
 									)
