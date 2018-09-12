@@ -498,9 +498,9 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			// console.log(page);
 
 			let categoryDetails = null;
-			// if (currentPage.type === PRODUCT_CATEGORY) {
-			// 	categoryDetails = categories.find(c => c.id === currentPage.resource);
-			// }
+			if (currentPage.type === PRODUCT_CATEGORY) {
+				categoryDetails = categories.find(c => c.id === currentPage.resource);
+			}
 			return {
 				checkoutFields,
 				categories,
