@@ -11,7 +11,8 @@ import {
 	getProductFilterForCategory,
 	getProductFilterForSearch,
 	loginPost,
-	logoutPost
+	logoutPost,
+	createUserPost
 } from '../shared/actions';
 import * as themeLocales from './themeLocales';
 import {
