@@ -127,6 +127,7 @@ class CheckoutStepContacts extends React.Component {
 			title,
 			loginPost,
 			logoutPost,
+			createUserPost,
 			state: { isLoggedIn, statsCookieId, customerDetails }
 		} = this.props;
 
@@ -214,6 +215,7 @@ class CheckoutStepContacts extends React.Component {
 						statsCookieId={statsCookieId}
 						customerDetails={customerDetails}
 						loginPost={loginPost}
+						createUserPost={createUserPost}
 					/>
 
 
@@ -221,7 +223,7 @@ class CheckoutStepContacts extends React.Component {
 
 
 					<div className="login-input-link-div facebook-login-div">
-						
+
 					</div>
 
 
