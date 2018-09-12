@@ -8,7 +8,7 @@ export default class CheckoutForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			step: 3
+			step: 1
 		};
 		this.showPaymentMethod = this.showPaymentMethod.bind(this);
 		this.getCityByPincode = this.getCityByPincode.bind(this);
@@ -243,6 +243,7 @@ getCityByPincode(e)
 						saveShippingLocation={this.handleLocationSave}
 						saveShippingMethod={this.handleShippingMethodSave}
 						savePaymentMethod={this.handlePaymentMethodSave}
+						{...this.props}
 					/>
 
 					<CheckoutStepShipping
@@ -256,6 +257,8 @@ getCityByPincode(e)
 						settings={settings}
 						processingCheckout={processingCheckout}
 						shippingMethod={this.props.state.shippingMethods}
+						userSelectedAddress={this.props.state.userSelectedAddress}
+						userSelectedAddressFun={this.props.setUserSelectedAddress}
 						checkoutFields={checkoutFields}
 						showPaymentForm={showPaymentForm}
 						onSave={this.handleShippingSave}

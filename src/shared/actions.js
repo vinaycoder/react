@@ -298,6 +298,13 @@ export const couponCode = (type, coupon) => async (dispatch, getState) => {
 };
 const requestCouponCode = () => ({ type: t.COUPON_CODE_REQUEST });
 
+
+export const setUserSelectedAddress = data => async (dispatch, getState) => {
+	dispatch(requestsetUserSelectedAddress(data));
+
+};
+const requestsetUserSelectedAddress = data => ({ type: t.SET_SELECTED_USER_ADDRESS , data });
+
 const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 
 export const addCartItem = (item, history) => async (dispatch, getState) => {
