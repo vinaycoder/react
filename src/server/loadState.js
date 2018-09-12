@@ -132,11 +132,6 @@ const getProducts = (currentPage, productFilter) => {
 const getLoginDetails = (statsCookieId, isLoggedIn) => {
 	// return null;
 
-	console.log('statsCookieId');
-	console.log(statsCookieId);
-	console.log('isLoggedIn');
-	console.log(isLoggedIn);
-
 	// let username = 'abhinesh.yadav@indiarush.com';
 
 	// let data = [];
@@ -166,15 +161,8 @@ const getLoginDetails = (statsCookieId, isLoggedIn) => {
 		)
 			.then(result => result.json())
 			.then(jsonResult => {
-				console.log('server side json for login');
-				console.log(jsonResult.data);
-
-				// console.log('app');
-				// console.log(app);
-
-				// if(jsonResult.data.user.customer_id !=''){
-				//
-				// }
+				// console.log('server side json for login');
+				// console.log(jsonResult.data);
 
 				return jsonResult.data.user;
 			});
@@ -510,9 +498,9 @@ const getAllData = (currentPage, productFilter, cookie) => {
 			// console.log(page);
 
 			let categoryDetails = null;
-			if (currentPage.type === PRODUCT_CATEGORY) {
-				categoryDetails = categories.find(c => c.id === currentPage.resource);
-			}
+			// if (currentPage.type === PRODUCT_CATEGORY) {
+			// 	categoryDetails = categories.find(c => c.id === currentPage.resource);
+			// }
 			return {
 				checkoutFields,
 				categories,
@@ -579,7 +567,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			productsMaxPrice: productsMaxPrice,
 			productsAttributes: productsAttributes,
 			recommendationProducts: [],
-			isLoggedIn: null,
+			isLoggedIn: 0,
 			statsCookieId: null,
 			customerDetails: customerDetails,
 			paymentMethods: [],

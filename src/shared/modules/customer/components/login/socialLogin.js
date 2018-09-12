@@ -1,62 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink, Redirect } from 'react-router-dom';
 import GoogleLoginWrapper from './googleLoginWrapper';
 import FacebookLoginWrapper from './facebookLoginWrapper';
 
 export default class SocialLogin extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			// customerDetails: [],
-			// statsCookieId: null,
-			// isLoggedIn: null
-		};
-		// this.onOptionChange = this.onOptionChange.bind(this);
-		// this.findVariantBySelectedOptions = this.findVariantBySelectedOptions.bind(
-		// 	this
-		// );
-		// this.addToCart = this.addToCart.bind(this);
-		// this.checkSelectedOptions = this.checkSelectedOptions.bind(this);
-	}
-
-	// static propTypes = {
-	// 	settings: PropTypes.shape({}).isRequired
-	// };
-
-	// state = {
-	// 	// products: []
-	// };
-
-	componentDidMount() {
-		// this.isCancelled = false;
-		// this.fetchProducts(this.props);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		// this.fetchProducts(nextProps);
-	}
-
-	componentWillUnmount() {
-		// this.isCancelled = true;
 	}
 
 	render() {
 		// console.log('in SocialLogin js render');
 
-		const { loginPost } = this.props;
-		const { isLoggedIn, statsCookieId, customerDetails } = this.state;
+		const {
+			loginPost,
+			createUserPost,
+			isLoggedIn,
+			statsCookieId,
+			customerDetails
+		} = this.props;
+		// const { isLoggedIn, statsCookieId, customerDetails } = this.state;
 
 		return (
 			<div className="account-login">
 				<GoogleLoginWrapper
-					isLoggedIn={isLoggedIn}
-					statsCookieId={statsCookieId}
-					customerDetails={customerDetails}
+					isLoggedIn={this.props.isLoggedIn}
+					statsCookieId={this.props.statsCookieId}
+					customerDetails={this.props.customerDetails}
+					createUserPost={this.props.createUserPost}
 				/>
 				<FacebookLoginWrapper
-					isLoggedIn={isLoggedIn}
-					statsCookieId={statsCookieId}
-					customerDetails={customerDetails}
+					isLoggedIn={this.props.isLoggedIn}
+					statsCookieId={this.props.statsCookieId}
+					customerDetails={this.props.customerDetails}
+					createUserPost={this.props.createUserPost}
 				/>
 			</div>
 		);

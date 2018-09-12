@@ -15,6 +15,7 @@ const LoginContainer = props => {
 	const {
 		loginPost,
 		logoutPost,
+		createUserPost,
 		state: { isLoggedIn, statsCookieId, customerDetails }
 	} = props;
 
@@ -37,6 +38,7 @@ const LoginContainer = props => {
 									statsCookieId={statsCookieId}
 									customerDetails={customerDetails}
 									loginPost={loginPost}
+									createUserPost={createUserPost}
 								/>
 							</div>
 						</div>
@@ -59,6 +61,7 @@ const LoginContainer = props => {
 							statsCookieId={statsCookieId}
 							customerDetails={customerDetails}
 							loginPost={loginPost}
+							createUserPost={createUserPost}
 						/>
 
 						<OrDiv />
@@ -68,6 +71,7 @@ const LoginContainer = props => {
 							statsCookieId={statsCookieId}
 							customerDetails={customerDetails}
 							loginPost={loginPost}
+							createUserPost={createUserPost}
 						/>
 					</div>
 					<div className="container column is-6 loginExtraContent">
@@ -76,6 +80,7 @@ const LoginContainer = props => {
 							statsCookieId={statsCookieId}
 							customerDetails={customerDetails}
 							loginPost={loginPost}
+							createUserPost={createUserPost}
 						/>
 					</div>
 				</div>
@@ -87,6 +92,7 @@ const LoginContainer = props => {
 LoginContainer.propTypes = {
 	loginPost: PropTypes.func,
 	logoutPost: PropTypes.func,
+	createUserPost: PropTypes.func,
 	state: PropTypes.shape({
 		isLoggedIn: PropTypes.shape({}),
 		statsCookieId: PropTypes.shape({}),
