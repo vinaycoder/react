@@ -163,6 +163,21 @@ const appReducer = (state = initialState, action) => {
 				});
 			}
 
+		case t.CREATE_USER_REQUEST:
+			console.log('in here');
+			console.log('CREATE_USER_REQUEST');
+			if (action.type == 'CREATE_USER_REQUEST') {
+				console.log('inside CREATE_USER_REQUEST reducer');
+				console.log(action);
+				console.log(state);
+
+				// return Object.assign({}, state, {
+				// 	isLoggedIn: 0,
+				// 	statsCookieId: timeStamp,
+				// 	customerDetails: {}
+				// });
+			}
+
 		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
 		default:

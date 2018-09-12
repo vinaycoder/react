@@ -13,7 +13,8 @@ import {
 	checkout,
 	couponCode,
 	loginPost,
-	logoutPost
+	logoutPost,
+	createUserPost
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -129,6 +130,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		logoutPost: data => {
 			dispatch(logoutPost(data, ownProps.history));
+		},
+		createUserPost: data => {
+			dispatch(createUserPost(data, ownProps.history));
 		}
 	};
 };

@@ -590,12 +590,14 @@ const requestDeleteCartItem = () => ({ type: t.CART_ITEM_DELETE_REQUEST });
 export const fetchShippingMethods = () => async (dispatch, getState) => {
 	dispatch(requestShippingMethods());
 
-	fetch('https://indiarush.com/irapi/customer/getUserAddress/?customer_id=1280427&version=3.99')
+	fetch(
+		'https://indiarush.com/irapi/customer/getUserAddress/?customer_id=1280427&version=3.99'
+	)
 		.then(result => {
 			return result.json();
 		})
 		.then(jsonResult => {
-		dispatch(receiveShippingMethods(jsonResult.data));
+			dispatch(receiveShippingMethods(jsonResult.data));
 		});
 };
 
@@ -609,12 +611,14 @@ const receivePaymentMethods = methods => ({
 export const fetchPaymentMethods = () => async (dispatch, getState) => {
 	dispatch(requestPaymentMethods());
 	const quoteId = cookie.load('userQuoteId');
-	fetch('https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId=14717071&version=3.90')
+	fetch(
+		'https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId=14717071&version=3.90'
+	)
 		.then(result => {
 			return result.json();
 		})
 		.then(jsonResult => {
-					dispatch(receivePaymentMethods(jsonResult));
+			dispatch(receivePaymentMethods(jsonResult));
 		});
 };
 
@@ -960,3 +964,88 @@ export const logoutPost = data => ({
 	type: t.LOGOUT_REQUEST,
 	data
 });
+
+// export const createUserPost = data => ({
+// 	type: t.CREATE_USER_REQUEST,
+// 	data
+// });
+
+const receiveCreateUserPost = data => ({ type: t.CREATE_USER_REQUEST, data });
+
+export const createUserPost = data => async (dispatch, getState) => {
+	console.log('in createUserPost action');
+	// dispatch(receiveCreateUserPost());
+	console.log('data');
+	console.log(data);
+	const version = 3.83;
+	const type = `${data[0]}`;
+
+	// console.log('version');
+	// console.log("firstname");
+	// console.log(`${data[0]}`);
+	// const password =
+
+	if (type == 'Form') {
+		const name = `${data[1]}`;
+		const email = `${data[2]}`;
+		const telephone_number = `${data[3]}`;
+		const gender = `${data[4]}`;
+		const password = `${data[5]}`;
+
+		fetch(
+			`https://indiarush.com/irapi/customer/createCustomer/?firstname=${name}&password=${password}&gender=${gender}&telephone_number=${telephone_number}&email=${email}&version_name=${version}`
+		)
+			.then(result => result.json())
+			.then(jsonResult => {
+				console.log('in createUserPost action');
+				console.log(jsonResult);
+
+				if (jsonResult === 1) {
+					// 	console.log('in loginPost action cookie before length');
+					// 	if (cookie.load('statsCookieId').length >= 10) {
+					// 		console.log('in loginPost action cookie update');
+					// 		cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
+					// 		cookie.save('isLoggedIn', 1, { path: '/' });
+					// 	}
+					// 	dispatch(receiveLoginPost(jsonResult));
+				}
+
+				return jsonResult;
+			});
+	} else if (type == 'Facebook') {
+		console.log('in Facebook login');
+	} else if (type == 'google') {
+		console.log('in Google login');
+
+		const name = `${data[1]}`;
+		const email = `${data[2]}`;
+		const fbid = `${data[3]}`;
+		const accessToken = `${data[4]}`;
+		const profilePicUrl = `${data[5]}`;
+		const firstname = `${data[6]}`;
+		const lastname = `${data[7]}`;
+
+		fetch(
+			`https://indiarush.com/irapi/customer/byFacebook/?firstname=${firstname}&lastname=${lastname}&email=${email}&fbid=${fbid}&profilePicUrl=${profilePicUrl}`
+		)
+			.then(result => result.json())
+			.then(jsonResult => {
+				console.log('in createUserPost action');
+				console.log(jsonResult);
+
+				if (jsonResult.customer_id !== '') {
+					console.log('in createUserPost action');
+					console.log(jsonResult);
+					// 	console.log('in loginPost action cookie before length');
+					// 	if (cookie.load('statsCookieId').length >= 10) {
+					// 		console.log('in loginPost action cookie update');
+					// 		cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
+					// 		cookie.save('isLoggedIn', 1, { path: '/' });
+					// 	}
+					// 	dispatch(receiveLoginPost(jsonResult));
+				}
+
+				return jsonResult;
+			});
+	}
+};
