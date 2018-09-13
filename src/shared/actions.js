@@ -298,12 +298,13 @@ export const couponCode = (type, coupon) => async (dispatch, getState) => {
 };
 const requestCouponCode = () => ({ type: t.COUPON_CODE_REQUEST });
 
-
 export const setUserSelectedAddress = data => async (dispatch, getState) => {
 	dispatch(requestsetUserSelectedAddress(data));
-
 };
-const requestsetUserSelectedAddress = data => ({ type: t.SET_SELECTED_USER_ADDRESS , data });
+const requestsetUserSelectedAddress = data => ({
+	type: t.SET_SELECTED_USER_ADDRESS,
+	data
+});
 
 const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 
@@ -966,10 +967,27 @@ export const loginPost = data => async (dispatch, getState) => {
 
 // const requestLogoutPost = data => ({ type: t.LOGOUT_REQUEST, data });
 
-export const logoutPost = data => ({
+const dispatchlogoutPost = data => ({
 	type: t.LOGOUT_REQUEST,
 	data
 });
+
+export const logoutPost = (data, history) => async (dispatch, getState) => {
+	dispatch(dispatchlogoutPost(data));
+	if (!cookie.load('userQuoteId')) {
+		fetch(
+			'https://indiarush.com/irapi/customer/getGuestCurrentQuoteId/?version=99.99'
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				//	return jsonResult;
+				cookie.save('userQuoteId', jsonResult.data.quoteId, { path: '/' });
+				// this.setState({ quoteId: jsonResult.data.quoteId });
+			});
+	}
+};
 
 // export const createUserPost = data => ({
 // 	type: t.CREATE_USER_REQUEST,
