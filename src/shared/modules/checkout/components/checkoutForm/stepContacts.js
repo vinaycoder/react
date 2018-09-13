@@ -27,8 +27,24 @@ const ReadOnlyField = ({ name, value }) => {
 class CheckoutStepContacts extends React.Component {
 	constructor(props) {
 		super(props);
+		this.handleSubmit=this.handleSubmit.bind(this);
+	}
+	handleSubmit(e)
+	{
+		var username=document.getElementById('userName').value;
+		console.log(username);
+		console.log('testste');
 	}
 
+componentDidMount()
+{
+	if (this.props.state.customerDetails != null) {
+   if (Object.keys(this.props.state.customerDetails).length > 0) {
+		this.props.onSave();
+	}
+}
+
+}
 	getField = fieldName => {
 		const fields = this.props.checkoutFields || [];
 		const field = fields.find(item => item.name === fieldName);
@@ -130,7 +146,8 @@ class CheckoutStepContacts extends React.Component {
 			createUserPost,
 			state: { isLoggedIn, statsCookieId, customerDetails }
 		} = this.props;
-
+console.log('vkkk in contact');
+console.log(this.props);
 		if (isReadOnly) {
 			return (
 				<div className="checkout-step">
@@ -142,7 +159,16 @@ class CheckoutStepContacts extends React.Component {
 										Email Address
 									</h2>
 								</div>
-								<strong>vinay.kumar@indiarush.com </strong>
+								<strong>
+								 {this.props.state.customerDetails != null && Object.keys(this.props.state.customerDetails).length > 0 && (
+									<span>{this.props.state.customerDetails.email}</span>
+									)}
+
+									{this.props.state.customerDetails != null && Object.keys(this.props.state.customerDetails).length > 0 && (
+										<span> / {this.props.state.customerDetails.telephone_number}</span>
+										)}
+
+								 </strong>
 							</div>
 							<div className="synopsisText">
 								We will send order details to this email address or mobile
@@ -152,15 +178,20 @@ class CheckoutStepContacts extends React.Component {
 					)}
 					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
 
-					<div className="checkout-button-wrap">
-						<button
-							type="button"
-							onClick={onEdit}
-							className={editButtonClassName}
-						>
-							{text.edit}
-						</button>
-					</div>
+					{this.props.state.customerDetails == null && Object.keys(this.props.state.customerDetails).length < 0 && (
+						<div className="checkout-button-wrap">
+							<button
+								type="button"
+								onClick={onEdit}
+								className={editButtonClassName}
+							>
+								{text.edit}
+							</button>
+						</div>
+						)}
+
+
+
 				</div>
 			);
 		}
@@ -177,8 +208,7 @@ class CheckoutStepContacts extends React.Component {
 						confirmation details
 					</label>
 				</div>
-				<form onSubmit={handleSubmit}
-					className="checkoutFormContactDetailsPadding"
+				<div 	className="checkoutFormContactDetailsPadding"
 				>
 
 						<div className="checkout-field input-fields-2">
@@ -189,7 +219,7 @@ class CheckoutStepContacts extends React.Component {
 						<span>Example: example@example.com or 9999000099</span>
 					</div>
 
-					<div className="checkout-button-wrap">
+					<div className="checkout-button-wrap" onClick={e=>this.handleSubmit(e)}>
 						<button
 							type="submit"
 							className={buttonClassName + ' checkoutLoginBtn'}
@@ -228,7 +258,7 @@ class CheckoutStepContacts extends React.Component {
 
 
 
-				</form>
+				</div>
 			</div>
 		);
 	}

@@ -244,6 +244,7 @@ getCityByPincode(e)
 						saveShippingMethod={this.handleShippingMethodSave}
 						savePaymentMethod={this.handlePaymentMethodSave}
 						{...this.props}
+						onSave={this.handleContactsSave}
 					/>
 
 					<CheckoutStepShipping
