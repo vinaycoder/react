@@ -104,11 +104,9 @@ const appReducer = (state = initialState, action) => {
 		case t.CART_ITEM_UPDATE_REQUEST:
 		case t.SITEMAP_REQUEST:
 		case t.LOGIN_REQUEST:
-			// return Object.assign({}, state, { location: action.location });
 			// console.log('inside LOGIN_REQUEST reducer');
 			// console.log(action);
 			// console.log(state);
-
 			if (action.data) {
 				if (action.data.customer_id !== null) {
 					cookie.save('statsCookieId', action.data.customer_id, { path: '/' });
@@ -150,14 +148,6 @@ const appReducer = (state = initialState, action) => {
 							customerDetails: action.data
 						});
 					}
-					// else {
-					// 	let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
-					// 	return Object.assign({}, state, {
-					// 		isLoggedIn: 0,
-					// 		statsCookieId: timeStamp,
-					// 		customerDetails: {}
-					// 	});
-					// }
 				}
 			}
 		case t.LOGOUT_REQUEST:
@@ -166,7 +156,7 @@ const appReducer = (state = initialState, action) => {
 
 				cookie.save('statsCookieId', timeStamp, { path: '/' });
 				cookie.save('isLoggedIn', 0, { path: '/' });
-
+				cookie.save('userQuoteId', '', { path: '/' });
 				return Object.assign({}, state, {
 					isLoggedIn: 0,
 					statsCookieId: timeStamp,
@@ -203,8 +193,8 @@ const appReducer = (state = initialState, action) => {
 		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
 
-			case t.SET_SELECTED_USER_ADDRESS:			
-				return Object.assign({}, state, { userSelectedAddress: action.data });
+		case t.SET_SELECTED_USER_ADDRESS:
+			return Object.assign({}, state, { userSelectedAddress: action.data });
 
 		default:
 			return state;

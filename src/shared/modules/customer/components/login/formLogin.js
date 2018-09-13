@@ -108,10 +108,11 @@ export default class FormLogin extends React.Component {
 		let customerId = null;
 
 		console.log('statsCookieIdCookie');
-		console.log(statsCookieIdCookie.length);
-
-		if (statsCookieIdCookie.length < 10) {
-			customerId = statsCookieIdCookie;
+		console.log(statsCookieIdCookie);
+		if (statsCookieIdCookie != undefined) {
+			if (statsCookieIdCookie.length < 10) {
+				customerId = statsCookieIdCookie;
+			}
 		}
 
 		// console.log("list.isLoggedIn");
