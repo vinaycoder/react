@@ -16,15 +16,17 @@ export default class CheckoutForm extends React.Component {
 	}
 	submitShipping(event)
 	{
-		event.preventDefault();
+		 event.preventDefault();
 			var myForm = document.getElementById('submit');
 			var formData = new FormData(myForm);
+			if (this.props.state.customerDetails != null) {
+			 if (Object.keys(this.props.state.customerDetails).length > 0) {
 			if(formData.get('entity_id')=='new')
 			{
-				var url='https://indiarush.com/irapi/customer/postUserAddress/?customer_id=1280427'+'&firstname='+formData.get('name')+'&city='+formData.get('city')+'&street='+formData.get('address')+'&postcode='+formData.get('postal_code')+'&telephone='+formData.get('phone')+'&region='+formData.get('state')+'&version=3.99';
+				var url='https://indiarush.com/irapi/customer/postUserAddress/?customer_id='+this.props.state.customerDetails.customer_id+'&firstname='+formData.get('name')+'&city='+formData.get('city')+'&street='+formData.get('address')+'&postcode='+formData.get('postal_code')+'&telephone='+formData.get('phone')+'&region='+formData.get('state')+'&version=3.99';
 			}
 			else {
-				var url='https://indiarush.com/irapi/customer/postUserAddress/?customer_id=1280427'+'&entity_id='+formData.get('entity_id')+'&firstname='+formData.get('name')+'&city='+formData.get('city')+'&street='+formData.get('address')+'&postcode='+formData.get('postal_code')+'&telephone='+formData.get('phone')+'&region='+formData.get('state')+'&version=3.99';
+				var url='https://indiarush.com/irapi/customer/postUserAddress/?customer_id='+this.props.state.customerDetails.customer_id+'&entity_id='+formData.get('entity_id')+'&firstname='+formData.get('name')+'&city='+formData.get('city')+'&street='+formData.get('address')+'&postcode='+formData.get('postal_code')+'&telephone='+formData.get('phone')+'&region='+formData.get('state')+'&version=3.99';
 			}
 			fetch(url)
 				.then(result => {
@@ -36,6 +38,8 @@ export default class CheckoutForm extends React.Component {
 					this.handleShippingSave();
 				 this.props.loadShippingMethods();
 				});
+			}
+		}
 
 	}
 	showPaymentMethod(evt,labelId,IconId,id,radiaId)
@@ -73,10 +77,17 @@ getCityByPincode(e)
 
 }
 
-	componentDidMount() {
+	componentDidMount()
+	{
 		this.props.loadShippingMethods();
 		this.props.loadPaymentMethods();
+		if (this.props.state.customerDetails == null) {
+		 //if (Object.keys(this.props.state.customerDetails).length < 1) {
+			this.setState({ step: 1 });
+		//}
+    }
 	}
+
 
 	changeStep = step => {
 		this.setState({ step: step });
@@ -266,6 +277,7 @@ getCityByPincode(e)
 						onEdit={this.handleShippingEdit}
 						handleSubmit={this.submitShipping}
 						getCityByPincode={this.getCityByPincode}
+						{...this.props}
 					/>
 
 					{/*{showPaymentForm && (*/}
@@ -280,6 +292,7 @@ getCityByPincode(e)
 							handleSuccessPayment={this.handleSuccessPayment}
 							onCreateToken={this.handleCheckoutWithToken}
 							showPaymentMethod={this.showPaymentMethod}
+							{...this.props}
 						/>
 				{/*	)}*/}
 				</div>

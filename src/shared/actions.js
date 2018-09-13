@@ -263,6 +263,7 @@ export const fetchCart = () => async (dispatch, getState) => {
 		})
 		.then(jsonResult => {
 			dispatch(receiveCart(jsonResult.data));
+			dispatch(fetchShippingMethods());
 		});
 };
 
@@ -596,16 +597,22 @@ const requestDeleteCartItem = () => ({ type: t.CART_ITEM_DELETE_REQUEST });
 
 export const fetchShippingMethods = () => async (dispatch, getState) => {
 	dispatch(requestShippingMethods());
+	const isLoggedIn = cookie.load('isLoggedIn');
+if(isLoggedIn==1)
+{
+		var customerId = cookie.load('statsCookieId');
+		var version=3.90;
 
-	fetch(
-		'https://indiarush.com/irapi/customer/getUserAddress/?customer_id=1280427&version=3.99'
-	)
-		.then(result => {
-			return result.json();
-		})
-		.then(jsonResult => {
-			dispatch(receiveShippingMethods(jsonResult.data));
-		});
+		fetch(
+			`https://indiarush.com/irapi/customer/getUserAddress/?customer_id=${customerId}&version=${version}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				dispatch(receiveShippingMethods(jsonResult.data));
+			});
+	}
 };
 
 const requestPaymentMethods = () => ({ type: t.PAYMENT_METHODS_REQUEST });
@@ -619,7 +626,7 @@ export const fetchPaymentMethods = () => async (dispatch, getState) => {
 	dispatch(requestPaymentMethods());
 	const quoteId = cookie.load('userQuoteId');
 	fetch(
-		'https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId=14717071&version=3.90'
+		'https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId='+quoteId+'&version=3.90'
 	)
 		.then(result => {
 			return result.json();

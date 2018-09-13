@@ -56,6 +56,15 @@ class CheckoutStepShipping extends React.Component {
 	}
 
 	componentDidMount() {
+		if (this.props.state.customerDetails != null) {
+		 if (Object.keys(this.props.state.customerDetails).length > 0) {
+			 if(this.props.state.shippingMethods.length > 0)
+				 {
+					 this.props.onSave();
+				 }
+		}
+	}
+
 		this.setShippingAddress(this.props.initialValues);
 	}
 
