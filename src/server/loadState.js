@@ -537,6 +537,17 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 	let productsMaxPrice = 0;
 	let productsPage = 0;
 	let productsList = null;
+	let isLoggedIn = 0;
+	let statsCookieId = null;
+
+	if (customerDetails != null || customerDetails != undefined) {
+		if (Object.keys(customerDetails).length > 0) {
+			if (customerDetails.customer_id != '') {
+				isLoggedIn = 1;
+				statsCookieId = customerDetails.customer_id;
+			}
+		}
+	}
 
 	if (products) {
 		productsTotalCount = products.products_count;
@@ -567,8 +578,8 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			productsMaxPrice: productsMaxPrice,
 			productsAttributes: productsAttributes,
 			recommendationProducts: [],
-			isLoggedIn: 0,
-			statsCookieId: null,
+			isLoggedIn: isLoggedIn,
+			statsCookieId: statsCookieId,
 			customerDetails: customerDetails,
 			paymentMethods: [],
 			shippingMethods: [],
@@ -596,7 +607,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			},
 			cart: null,
 			saveForLater: [],
-			userSelectedAddress:{},
+			userSelectedAddress: {},
 			order: null,
 			checkoutFields: checkoutFields,
 			themeSettings: themeSettings

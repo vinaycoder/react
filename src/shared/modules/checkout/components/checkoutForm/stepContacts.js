@@ -27,24 +27,32 @@ const ReadOnlyField = ({ name, value }) => {
 class CheckoutStepContacts extends React.Component {
 	constructor(props) {
 		super(props);
-		this.handleSubmit=this.handleSubmit.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
-	handleSubmit(e)
-	{
-		var username=document.getElementById('userName').value;
-		console.log(username);
-		console.log('testste');
+	handleSubmit(e) {
+		var username = document.getElementById('userName').value;
+
+		let postData;
+		if (username) {
+			postData = {
+				type: 'checkout',
+				username: username
+			};
+		}
+
+		if (postData) {
+			const result = Object.values(postData);
+			this.props.createUserPost(result);
+		}
 	}
 
-componentDidMount()
-{
-	if (this.props.state.customerDetails != null) {
-   if (Object.keys(this.props.state.customerDetails).length > 0) {
-		this.props.onSave();
+	componentDidMount() {
+		if (this.props.state.customerDetails != null) {
+			if (Object.keys(this.props.state.customerDetails).length > 0) {
+				this.props.onSave();
+			}
+		}
 	}
-}
-
-}
 	getField = fieldName => {
 		const fields = this.props.checkoutFields || [];
 		const field = fields.find(item => item.name === fieldName);
@@ -146,54 +154,55 @@ componentDidMount()
 			createUserPost,
 			state: { isLoggedIn, statsCookieId, customerDetails }
 		} = this.props;
-console.log('vkkk in contact');
-console.log(this.props);
-		if (isReadOnly) {
-			return (
-				<div className="checkout-step">
-					{!this.isFieldHidden('email') && (
-						<div className="synopsis logged-synopsis newCartDesign">
-							<div className="synopsisText">
-								<div className="addNewHeadingCartPage">
-									<h2 className="without_variation checkoutLogedUserDetails">
-										Email Address
-									</h2>
-								</div>
-								<strong>
-								 {this.props.state.customerDetails != null && Object.keys(this.props.state.customerDetails).length > 0 && (
-									<span>{this.props.state.customerDetails.email}</span>
-									)}
+		console.log('this.props in checkout');
+		console.log(this.props);
+		if (this.props.state.isLoggedIn == 1) {
+			if (isReadOnly) {
+				return (
+					<div className="checkout-step">
+						{!this.isFieldHidden('email') && (
+							<div className="synopsis logged-synopsis newCartDesign">
+								<div className="synopsisText">
+									<div className="addNewHeadingCartPage">
+										<h2 className="without_variation checkoutLogedUserDetails">
+											Email Address
+										</h2>
+									</div>
+									<strong>
 
-									{this.props.state.customerDetails != null && Object.keys(this.props.state.customerDetails).length > 0 && (
-										<span> / {this.props.state.customerDetails.telephone_number}</span>
+										{this.props.state.isLoggedIn == 1 && (
+											<span>{this.props.state.customerDetails.email}</span>
 										)}
-
-								 </strong>
+										{this.props.state.isLoggedIn == 1 && (
+											<span>
+												{' '}
+												/ {this.props.state.customerDetails.telephone_number}
+											</span>
+										)}
+									</strong>
+								</div>
+								<div className="synopsisText">
+									We will send order details to this email address or mobile
+									number
+								</div>
 							</div>
-							<div className="synopsisText">
-								We will send order details to this email address or mobile
-								number
-							</div>
-						</div>
-					)}
-					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
-
-					{this.props.state.customerDetails == null && Object.keys(this.props.state.customerDetails).length < 0 && (
-						<div className="checkout-button-wrap">
-							<button
-								type="button"
-								onClick={onEdit}
-								className={editButtonClassName}
-							>
-								{text.edit}
-							</button>
-						</div>
 						)}
+						{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
 
-
-
-				</div>
-			);
+						{this.props.state.isLoggedIn == 2 && (
+							<div className="checkout-button-wrap">
+								<button
+									type="button"
+									onClick={onEdit}
+									className={editButtonClassName}
+								>
+									{text.edit}
+								</button>
+							</div>
+						)}
+					</div>
+				);
+			}
 		}
 		return (
 			<div className="checkout-step newPadding">
@@ -208,18 +217,19 @@ console.log(this.props);
 						confirmation details
 					</label>
 				</div>
-				<div 	className="checkoutFormContactDetailsPadding"
-				>
-
-						<div className="checkout-field input-fields-2">
-						   <input name="userName" placeholder="" type="tel" id="userName"/>
-						</div>
+				<div className="checkoutFormContactDetailsPadding">
+					<div className="checkout-field input-fields-2">
+						<input name="userName" placeholder="" type="tel" id="userName" />
+					</div>
 
 					<div className="variation-checkout variation-login-message">
 						<span>Example: example@example.com or 9999000099</span>
 					</div>
 
-					<div className="checkout-button-wrap" onClick={e=>this.handleSubmit(e)}>
+					<div
+						className="checkout-button-wrap"
+						onClick={e => this.handleSubmit(e)}
+					>
 						<button
 							type="submit"
 							className={buttonClassName + ' checkoutLoginBtn'}
@@ -229,39 +239,25 @@ console.log(this.props);
 						</button>
 					</div>
 
-
-
 					<div className="tab-content-ruler">
 						<OrDiv />
 					</div>
 
-
-
-
 					<div id="gSignInWrapper">
-
-					<SocialLogin
-						isLoggedIn={isLoggedIn}
-						statsCookieId={statsCookieId}
-						customerDetails={customerDetails}
-						loginPost={loginPost}
-						createUserPost={createUserPost}
-					/>
-
-
+						<SocialLogin
+							isLoggedIn={isLoggedIn}
+							statsCookieId={statsCookieId}
+							customerDetails={customerDetails}
+							loginPost={loginPost}
+							createUserPost={createUserPost}
+						/>
 					</div>
 
-
-					<div className="login-input-link-div facebook-login-div">
-
-					</div>
-
-
-
+					<div className="login-input-link-div facebook-login-div" />
 				</div>
 			</div>
 		);
 	}
 }
 
-export default CheckoutStepContacts
+export default CheckoutStepContacts;

@@ -599,10 +599,9 @@ const requestDeleteCartItem = () => ({ type: t.CART_ITEM_DELETE_REQUEST });
 export const fetchShippingMethods = () => async (dispatch, getState) => {
 	dispatch(requestShippingMethods());
 	const isLoggedIn = cookie.load('isLoggedIn');
-if(isLoggedIn==1)
-{
+	if (isLoggedIn == 1) {
 		var customerId = cookie.load('statsCookieId');
-		var version=3.90;
+		var version = 3.9;
 
 		fetch(
 			`https://indiarush.com/irapi/customer/getUserAddress/?customer_id=${customerId}&version=${version}`
@@ -627,7 +626,9 @@ export const fetchPaymentMethods = () => async (dispatch, getState) => {
 	dispatch(requestPaymentMethods());
 	const quoteId = cookie.load('userQuoteId');
 	fetch(
-		'https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId='+quoteId+'&version=3.90'
+		'https://indiarush.com/irapi/checkout/getpaymentmethodslist/?quoteId=' +
+			quoteId +
+			'&version=3.90'
 	)
 		.then(result => {
 			return result.json();
@@ -964,7 +965,32 @@ export const loginPost = data => async (dispatch, getState) => {
 					// 	cookie.save('statsCookieId', jsonResult.customer_id, { path: '/' });
 					// 	cookie.save('isLoggedIn', 1, { path: '/' });
 					// }
+					console.log('in login jsonResult');
+					console.log(jsonResult);
+
 					dispatch(receiveLoginPost(jsonResult));
+
+					// return fetch(
+					// 	`https://indiarush.com/irapi/customer/getCustomerQuoteId/?customerId=${jsonResult.customer_id}&version=${version}`
+					// )
+					// 	.then(result => result.json())
+					// 	.then(jsonResult => {
+					// 		const quoteId = jsonResult.data.quoteId;
+					// 		const tempQuoteId = cookie.load('userQuoteId');
+					//
+					// 		cookie.save('userQuoteId', jsonResult.data.quoteId, {
+					// 			path: '/'
+					// 		});
+					//
+					// 		return fetch(
+					// 			`https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=${quoteId}&tempQuoteId=${tempQuoteId}&version=${version}`
+					// 		)
+					// 			.then(result => result.json())
+					// 			.then(jsonResult => {
+					// 				// return jsonResult.data.user;
+					// 				// history.push('/');
+					// 			});
+					// 	});
 				}
 			}
 
@@ -1006,6 +1032,9 @@ const receiveCreateUserPost = data => ({ type: t.CREATE_USER_REQUEST, data });
 export const createUserPost = (data, history) => async (dispatch, getState) => {
 	const version = 3.83;
 	const type = `${data[0]}`;
+
+	// console.log(data);
+	// return false;
 
 	if (type === 'Form') {
 		const name = `${data[1]}`;
@@ -1076,6 +1105,60 @@ export const createUserPost = (data, history) => async (dispatch, getState) => {
 									)
 										.then(result => result.json())
 										.then(jsonResult => {
+											// return jsonResult.data.user;
+											// history.push('/');
+										});
+								});
+
+							return jsonResult.data.user;
+						});
+				}
+			});
+	} else if (type === 'checkout') {
+		const username = `${data[1]}`;
+
+		fetch(
+			`https://indiarush.com/irapi/customer/checkRegisteredUser/?username=${username}&version=${version}`
+		)
+			.then(result => result.json())
+			.then(jsonResult => {
+				console.log('in checkout action');
+				console.log(jsonResult);
+
+				if (Object.keys(jsonResult.data).length > 0) {
+					var customerId = jsonResult.data.customer_id;
+
+					if (
+						customerId == '' ||
+						customerId == 'null' ||
+						customerId == undefined
+					) {
+						return {};
+					}
+
+					return fetch(
+						`https://indiarush.com/irapi/customer/initCustomerApi/?customer_id=${customerId}&version=${version}`
+					)
+						.then(result => result.json())
+						.then(jsonResult => {
+							dispatch(requestLoginPost(jsonResult.data.user));
+							return fetch(
+								`https://indiarush.com/irapi/customer/getCustomerQuoteId/?customerId=${customerId}&version=${version}`
+							)
+								.then(result => result.json())
+								.then(jsonResult => {
+									const quoteId = jsonResult.data.quoteId;
+									const tempQuoteId = cookie.load('userQuoteId');
+
+									cookie.save('userQuoteId', jsonResult.data.quoteId, {
+										path: '/'
+									});
+
+									return fetch(
+										`https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=${quoteId}&tempQuoteId=${tempQuoteId}&version=${version}`
+									)
+										.then(result => result.json())
+										.then(jsonResult => {
 											// dispatch(receiveCreateUserPost(jsonResult.data.user));
 											// return jsonResult.data.user;
 											// history.push('/');
@@ -1084,6 +1167,9 @@ export const createUserPost = (data, history) => async (dispatch, getState) => {
 
 							return jsonResult.data.user;
 						});
+				} else {
+					let jsonResult = {};
+					return jsonResult;
 				}
 			});
 	}

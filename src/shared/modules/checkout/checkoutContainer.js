@@ -9,7 +9,10 @@ import CheckoutForm from './components/checkoutForm';
 
 const CheckoutContainer = props => {
 	const {
-		state: { pageDetails }
+		loginPost,
+		logoutPost,
+		createUserPost,
+		state: { pageDetails, isLoggedIn, statsCookieId, customerDetails }
 	} = props;
 
 	return (

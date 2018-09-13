@@ -104,9 +104,9 @@ const appReducer = (state = initialState, action) => {
 		case t.CART_ITEM_UPDATE_REQUEST:
 		case t.SITEMAP_REQUEST:
 		case t.LOGIN_REQUEST:
-			// console.log('inside LOGIN_REQUEST reducer');
-			// console.log(action);
-			// console.log(state);
+			console.log('inside LOGIN_REQUEST reducer');
+			console.log(action);
+			console.log(state);
 			if (action.data) {
 				if (action.data.customer_id !== null) {
 					cookie.save('statsCookieId', action.data.customer_id, { path: '/' });
@@ -116,14 +116,7 @@ const appReducer = (state = initialState, action) => {
 						isLoggedIn: 1,
 						statsCookieId: action.data.customer_id,
 						customerDetails: action.data
-					});
-				} else {
-					let timeStamp = Math.round(Math.floor(Date.now()) / 1000);
-
-					return Object.assign({}, state, {
-						isLoggedIn: 0,
-						statsCookieId: timeStamp,
-						customerDetails: {}
+						// isReadOnly: true
 					});
 				}
 			}
@@ -146,6 +139,7 @@ const appReducer = (state = initialState, action) => {
 							isLoggedIn: 1,
 							statsCookieId: action.data.customer_id,
 							customerDetails: action.data
+							// isReadOnly : true
 						});
 					}
 				}
@@ -161,6 +155,7 @@ const appReducer = (state = initialState, action) => {
 					isLoggedIn: 0,
 					statsCookieId: timeStamp,
 					customerDetails: {}
+					// isReadOnly : false
 				});
 			}
 
@@ -177,6 +172,7 @@ const appReducer = (state = initialState, action) => {
 							isLoggedIn: 1,
 							statsCookieId: action.data.customer_id,
 							customerDetails: action.data
+							// isReadOnly : true
 						});
 					}
 					// else {
