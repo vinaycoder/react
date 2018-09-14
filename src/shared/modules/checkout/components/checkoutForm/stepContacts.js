@@ -43,10 +43,31 @@ class CheckoutStepContacts extends React.Component {
 		if (postData) {
 			const result = Object.values(postData);
 			this.props.createUserPost(result);
+
+			if (
+				this.props.state.isLoggedIn === 1 ||
+				this.props.state.isLoggedIn === 2
+			) {
+				console.log('on saving data handleSubmit');
+				// this.setState({"isReadOnly":true});
+				if (this.props.state.isLoggedIn === 2) {
+					if (this.props.state.customerDetails == null) {
+						// console.log("gang");
+						// this.props.state.customerDetails ={};
+						// this.props.state.customerDetails.email =username;
+						// console.log("gang props");
+						// console.log(this.props.state);
+					}
+				}
+
+				this.props.onSave();
+			}
 		}
 	}
 
 	componentDidMount() {
+		console.log('in stepContacts componentDidMount');
+		console.log(this.props.state);
 		if (this.props.state.customerDetails != null) {
 			if (Object.keys(this.props.state.customerDetails).length > 0) {
 				this.props.onSave();
@@ -156,53 +177,67 @@ class CheckoutStepContacts extends React.Component {
 		} = this.props;
 		console.log('this.props in checkout');
 		console.log(this.props);
-		if (this.props.state.isLoggedIn == 1) {
-			if (isReadOnly) {
-				return (
-					<div className="checkout-step">
-						{!this.isFieldHidden('email') && (
-							<div className="synopsis logged-synopsis newCartDesign">
-								<div className="synopsisText">
-									<div className="addNewHeadingCartPage">
-										<h2 className="without_variation checkoutLogedUserDetails">
-											Email Address
-										</h2>
-									</div>
-									<strong>
-
-										{this.props.state.isLoggedIn == 1 && (
+		if (
+			this.props.state.isLoggedIn === 1 ||
+			this.props.state.isLoggedIn === 2
+		) {
+			// if (isReadOnly) {
+			return (
+				<div className="checkout-step">
+					{!this.isFieldHidden('email') && (
+						<div className="synopsis logged-synopsis newCartDesign">
+							<div className="synopsisText">
+								<div className="addNewHeadingCartPage">
+									<h2 className="without_variation checkoutLogedUserDetails">
+										Email Address
+									</h2>
+								</div>
+								<strong>
+									{this.props.state.isLoggedIn == 1 ||
+										(this.props.state.isLoggedIn === 2 && (
 											<span>{this.props.state.customerDetails.email}</span>
-										)}
-										{this.props.state.isLoggedIn == 1 && (
+										))}
+
+									{(this.props.state.isLoggedIn == 1 ||
+										this.props.state.isLoggedIn === 2) &&
+										(this.props.state.customerDetails.hasOwnProperty(
+											'telephone_number'
+										) &&
+											this.props.state.customerDetails.hasOwnProperty(
+												'email'
+											)) && <span>/</span>}
+
+									{this.props.state.isLoggedIn == 1 ||
+										(this.props.state.isLoggedIn === 2 && (
 											<span>
 												{' '}
-												/ {this.props.state.customerDetails.telephone_number}
+												{this.props.state.customerDetails.telephone_number}
 											</span>
-										)}
-									</strong>
-								</div>
-								<div className="synopsisText">
-									We will send order details to this email address or mobile
-									number
-								</div>
+										))}
+								</strong>
 							</div>
-						)}
-						{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
+							<div className="synopsisText">
+								We will send order details to this email address or mobile
+								number
+							</div>
+						</div>
+					)}
+					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
 
-						{this.props.state.isLoggedIn == 2 && (
-							<div className="checkout-button-wrap">
-								<button
-									type="button"
-									onClick={onEdit}
-									className={editButtonClassName}
-								>
-									{text.edit}
-								</button>
-							</div>
-						)}
-					</div>
-				);
-			}
+					{this.props.state.isLoggedIn == 2 && (
+						<div className="checkout-button-wrap">
+							<button
+								type="button"
+								onClick={onEdit}
+								className={editButtonClassName}
+							>
+								{text.edit}
+							</button>
+						</div>
+					)}
+				</div>
+			);
+			// }
 		}
 		return (
 			<div className="checkout-step newPadding">

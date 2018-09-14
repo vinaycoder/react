@@ -185,7 +185,23 @@ const appReducer = (state = initialState, action) => {
 					// }
 				}
 			}
+		case t.CREATE__GUEST_USER_REQUEST:
+			console.log('inside CREATE__GUEST_USER_REQUEST reducer');
+			console.log(action);
+			console.log(state);
+			if (action.type === 'CREATE__GUEST_USER_REQUEST') {
+				cookie.save('isLoggedIn', 2, { path: '/' });
 
+				Object.assign({}, state, {
+					customerDetails: {}
+				});
+
+				return Object.assign({}, state, {
+					isLoggedIn: 2,
+					customerDetails: action.data,
+					isReadOnly: true
+				});
+			}
 		case t.COUPON_CODE_REQUEST:
 			return Object.assign({}, state, { location: action.location });
 

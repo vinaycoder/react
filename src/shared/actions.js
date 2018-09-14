@@ -970,27 +970,29 @@ export const loginPost = data => async (dispatch, getState) => {
 
 					dispatch(receiveLoginPost(jsonResult));
 
-					// return fetch(
-					// 	`https://indiarush.com/irapi/customer/getCustomerQuoteId/?customerId=${jsonResult.customer_id}&version=${version}`
-					// )
-					// 	.then(result => result.json())
-					// 	.then(jsonResult => {
-					// 		const quoteId = jsonResult.data.quoteId;
-					// 		const tempQuoteId = cookie.load('userQuoteId');
-					//
-					// 		cookie.save('userQuoteId', jsonResult.data.quoteId, {
-					// 			path: '/'
-					// 		});
-					//
-					// 		return fetch(
-					// 			`https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=${quoteId}&tempQuoteId=${tempQuoteId}&version=${version}`
-					// 		)
-					// 			.then(result => result.json())
-					// 			.then(jsonResult => {
-					// 				// return jsonResult.data.user;
-					// 				// history.push('/');
-					// 			});
-					// 	});
+					return fetch(
+						`https://indiarush.com/irapi/customer/getCustomerQuoteId/?customerId=${
+							jsonResult.customer_id
+						}&version=${version}`
+					)
+						.then(result => result.json())
+						.then(jsonResult => {
+							const quoteId = jsonResult.data.quoteId;
+							const tempQuoteId = cookie.load('userQuoteId');
+
+							cookie.save('userQuoteId', jsonResult.data.quoteId, {
+								path: '/'
+							});
+
+							return fetch(
+								`https://indiarush.com/irapi/customer/getCustomertoCustomerMerge/?quoteId=${quoteId}&tempQuoteId=${tempQuoteId}&version=${version}`
+							)
+								.then(result => result.json())
+								.then(jsonResult => {
+									// return jsonResult.data.user;
+									// history.push('/');
+								});
+						});
 				}
 			}
 
@@ -1169,8 +1171,19 @@ export const createUserPost = (data, history) => async (dispatch, getState) => {
 						});
 				} else {
 					let jsonResult = {};
-					return jsonResult;
+					if (!isNaN(username)) {
+						jsonResult = { telephone_number: username };
+					} else {
+						jsonResult = { email: username };
+					}
+					dispatch(receiveGuestLoginUserPost(jsonResult));
+					// return jsonResult;
 				}
 			});
 	}
 };
+
+const receiveGuestLoginUserPost = data => ({
+	type: t.CREATE__GUEST_USER_REQUEST,
+	data
+});

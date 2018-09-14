@@ -92,12 +92,12 @@ class HomeSlider extends Component {
 									>
 										<div className="category-landscape-image-wrapper onsale-category-container-list">
 											<NavLink
-												to={`/${irProduct.landing_url}`}
+												to={`/${irProduct.new_landing_url}`}
 												id={irProduct.id}
 											>
 												<img
 													data-arg1={irProduct.id}
-													src={irProduct.image_url}
+													src={irProduct.big_image_url}
 													alt={irProduct.name}
 												/>
 											</NavLink>
