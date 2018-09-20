@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { themeSettings, text } from '../../../../../lib/settings';
 import * as helper from '../../../../../lib/helper';
+
 class creditPaymentForm extends Component{
 	constructor(props) {
 	super(props);
