@@ -173,6 +173,7 @@ class CheckoutStepContacts extends React.Component {
 			loginPost,
 			logoutPost,
 			createUserPost,
+			changeStep,
 			state: { isLoggedIn, statsCookieId, customerDetails }
 		} = this.props;
 		console.log('this.props in checkout');
@@ -193,12 +194,11 @@ class CheckoutStepContacts extends React.Component {
 									</h2>
 								</div>
 								<strong>
-									{this.props.state.isLoggedIn == 1 ||
-										(this.props.state.isLoggedIn === 2 && (
+									{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
 											<span>{this.props.state.customerDetails.email}</span>
-										))}
+										)}
 
-									{(this.props.state.isLoggedIn == 1 ||
+									{(this.props.state.isLoggedIn === 1 ||
 										this.props.state.isLoggedIn === 2) &&
 										(this.props.state.customerDetails.hasOwnProperty(
 											'telephone_number'
@@ -207,13 +207,12 @@ class CheckoutStepContacts extends React.Component {
 												'email'
 											)) && <span>/</span>}
 
-									{this.props.state.isLoggedIn == 1 ||
-										(this.props.state.isLoggedIn === 2 && (
+									{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
 											<span>
 												{' '}
 												{this.props.state.customerDetails.telephone_number}
 											</span>
-										))}
+										)}
 								</strong>
 							</div>
 							<div className="synopsisText">
@@ -224,7 +223,7 @@ class CheckoutStepContacts extends React.Component {
 					)}
 					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
 
-					{this.props.state.isLoggedIn == 2 && (
+					{this.props.state.isLoggedIn === 2 && (
 						<div className="checkout-button-wrap">
 							<button
 								type="button"

@@ -17,11 +17,56 @@ class CheckoutStepPayment extends React.Component
 			irPayment: false,
 			cod: false
 		};
-		this.someFunction=this.someFunction.bind(this);
+		this.saveCard = this.saveCard.bind(this);
 	}
+
+
 	componentDidMount()
 	{
 
+	}
+
+	saveCard(event,paymentType)
+	{
+		event.preventDefault();
+		if(paymentType=='creditCard')
+		{
+			const myForm = document.getElementById('submitCredit');
+			const formData = new FormData(myForm);
+			var url =`https://indiarush.com/irapi/customer/addNewCard/?customerId=1271489&paymentType=${paymentType}&expirationMonth=${formData.get('newccexpmon')}&expirationYear=${formData.get('newccexpyr')}&version=3.81&cardType=${formData.get('newcreditCards')}&cardNumber=${formData.get('newccnum')}&name=${formData.get('newccname')}`;
+
+		}
+		if(paymentType=='debitCard')
+		{
+			const myForm = document.getElementById('submitDebit');
+			const formData = new FormData(myForm);
+			var url =`https://indiarush.com/irapi/customer/addNewCard/?customerId=1271489&paymentType=${paymentType}&expirationMonth=${formData.get('newccexpmonDebit')}&expirationYear=${formData.get('newccexpyrDebit')}&version=3.81&cardType=${formData.get('newdebitCards')}&cardNumber=${formData.get('newccnumDebit')}&name=${formData.get('newccnameDebit')}`;
+		}
+
+
+//this.props.state.customerDetails.customer_id
+    fetch(url)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				if(jsonResult.metadata.message == 'success')
+				{
+					 if(paymentType=='creditCard' && jsonResult.data.creditCardList.length > 0)
+					 {
+						 console.log('Credit card saved');
+		 				console.log(jsonResult);
+
+					 }
+					 if(paymentType=='debitCard' && jsonResult.data.debitCardList.length > 0)
+					 {
+						 console.log('Debit card saved');
+		 				console.log(jsonResult);
+					 }
+
+				}
+
+			});
 	}
 
 	someFunction()
@@ -57,6 +102,10 @@ class CheckoutStepPayment extends React.Component
 		);
 	}
 
+	if (
+		this.props.state.isLoggedIn === 1 ||
+		this.props.state.isLoggedIn === 2
+	) {
 	return (
 		<div className="checkout-step newPadding">
 		<div className="step-title">
@@ -69,10 +118,10 @@ class CheckoutStepPayment extends React.Component
 			   {this.props.state.paymentMethods.map(fields => (
 					 	<div key={fields.code}>
 						{fields.code=='irdebit' && (
-							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />
+							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  />
 							)}
 							{fields.code=='ircredit' && (
-								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} />
+								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} />
 								)}
 								{fields.code=='irpayment' && (
 									<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />
@@ -89,6 +138,15 @@ class CheckoutStepPayment extends React.Component
 				</div>
 			</div>
 )}
+		</div>
+	);
+}
+	return (
+		<div className="checkout-step">
+			<h1>
+				<span>3</span>
+				{title}
+			</h1>
 		</div>
 	);
 	}

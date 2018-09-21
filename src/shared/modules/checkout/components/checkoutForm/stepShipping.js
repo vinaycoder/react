@@ -192,13 +192,11 @@ class CheckoutStepShipping extends React.Component {
 			);
 		} else if (isReadOnly) {
 			console.log('readonly');
-			console.log(userSelectedAddress);
-			console.log(initialValues);
-			console.log(shippingMethod);
+
 			let shippingFields = null;
 			if (
 				shippingMethod &&
-				shippingMethod.length > 0
+				shippingMethod.length > 0 && (this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2)
 			) {
 				let shippingAddress=[];
 				shippingAddress.push(shippingMethod[0]);
@@ -251,7 +249,9 @@ class CheckoutStepShipping extends React.Component {
 					{shippingFields}
 
 
+
 					<div className="checkout-button-wrap">
+					{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
 
 					<div className="checkoutAddresses" onClick={e=>this.newAddress()}>
 					    <div className="checkout-address-radio billing-checkout-address-wrapper has-text-left" id="div-new-address">
@@ -262,14 +262,14 @@ class CheckoutStepShipping extends React.Component {
 					        <div className="clear"></div>
 					    </div>
 					</div>
-
+					)}
 					</div>
+
 				</div>
+
 			);
 		} else {
-			console.log('readonly 3333');
-			console.log(this.state.newAddress);
-			console.log(isReadOnly);
+
 
 			return (
 			<div className="checkout-step newPadding">

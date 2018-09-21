@@ -12,7 +12,7 @@ componentDidMount()
 }
 
 	render(){
-  const {showPaymentMethod , cart, settings}=this.props;
+  const {showPaymentMethod , cart, settings, saveCard}=this.props;
 		return(
 	     <div>
        <dt className="checkout-page-radio" onClick={e => showPaymentMethod(e,'labelIdDebit','iconIdDebit', 'irDabit','p_method_irdebit')}>
@@ -27,6 +27,9 @@ componentDidMount()
        <div className="clear"></div>
        <dd className="checkout-payment-methods" id="irDabit">
        <fieldset className="form-list">
+
+			 <form onSubmit={e=>saveCard(e,'debitCard')} className="checkoutFormContactDetailsPadding" id="submitDebit" name="submit">
+
        <ul id="payment_form_irdebit">
        <li>
 			 <div className="checkout-page-summary-block-mobile-tab">
@@ -78,7 +81,7 @@ componentDidMount()
          <div className="checkout-card-list">
        		    <div className="checkout-address-radio noBorder" id="new-card">
        						<div className="checkoutNewCard">
-       						<input type="radio" className="new-radio" name="storecard[id]" id="newcard" />
+       						<input type="radio" className="new-radio" name="storecard" id="newcardDebit" />
        						<label name="checkout-address-label" htmlFor="newcard">New Credit Card</label>
        						</div>
                                <div className="clear"></div>
@@ -95,11 +98,11 @@ componentDidMount()
                                                <div className="checkout-card-select">
                                                    <select size="1" id="debitCards" name="newdebitCards" className="validate-select" autcomplete="off">
                                                        <option defaultValue="">Select Card Type</option>
-                                                       <option value="VISA">Visa Cards</option>
-                                                       <option value="MAST">Master Card</option>
-                                                       <option value="SMAE">SBI Maestro</option>
-                                                       <option value="MAES">Other Maestro</option>
-                                                       <option value="RUPAY">Rupay</option>
+                                                       <option value="Visa Cards">Visa Cards</option>
+                                                       <option value="Master Card">Master Card</option>
+                                                       <option value="SBI Maestro">SBI Maestro</option>
+                                                       <option value="Other Maestro">Other Maestro</option>
+                                                       <option value="Rupay">Rupay</option>
                                                    </select>
                                                </div>
                                            </div>
@@ -108,7 +111,7 @@ componentDidMount()
                                                    <span>Card Number</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <input type="tel" name="newccnum" value="" className="input-field required-entry" maxLength="19" id="ccnum-debit" onChange={e=>debitcardtype()} placeholder="Card Number" autcomplete="off" />
+                                                   <input type="tel" name="newccnumDebit" className="input-field required-entry" maxLength="19" id="ccnum-debit" onChange={e=>debitcardtype()} placeholder="Card Number" autcomplete="off" />
                                                </div>
                                            </div>
                                            <div className="checkout-card-block card-name">
@@ -116,7 +119,7 @@ componentDidMount()
                                                    <span>Name on card</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <input type="text" name="newccname" placeholder="Name on card" autcomplete="off" />
+                                                   <input type="text" name="newccnameDebit" placeholder="Name on card" autcomplete="off" />
                                                </div>
                                            </div>
                                            <div className="checkout-card-block card-date">
@@ -124,7 +127,7 @@ componentDidMount()
                                                    <span>Expire Date</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <select size="1" name="newccexpmon" className="validate-select" autcomplete="off" >
+                                                   <select size="1" name="newccexpmonDebit" className="validate-select" autcomplete="off" >
                                                        <option value="01">01</option>
                                                        <option value="02">02</option>
                                                        <option value="03">03</option>
@@ -140,7 +143,7 @@ componentDidMount()
                                                    </select>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <select size="1" name="newccexpyr" className="validate-select" autcomplete="off">
+                                                   <select size="1" name="newccexpyrDebit" className="validate-select" autcomplete="off">
                                                        <option value="2017">2017</option>
                                                        <option value="2018">2018</option>
                                                        <option value="2019">2019</option>
@@ -183,7 +186,7 @@ componentDidMount()
                                                    <span>CVV</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <input id="checkoutDebitCVVNew" type="tel" name="newccvv" maxLength="3" size="5" className="input-field required-entry debit-new-cvv" placeholder="CVV" autcomplete="off" />
+                                                   <input id="checkoutDebitCVVNew" type="tel" name="newccvvDebit" maxLength="3" size="5" className="input-field required-entry debit-new-cvv" placeholder="CVV" autcomplete="off" />
                                                    <span className="cvv-logo">
                                                        <img src="https://indiarush.com/skin/frontend/default/theme202/images/Checkout-cvv.png" />
                                                    </span>
@@ -216,9 +219,10 @@ componentDidMount()
 
                </li>
        				<li>
-       			 		<div className="checkout-button-wrap"><button type="submit" className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
+       			 		<div className="checkout-button-wrap" ><button type="submit" className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
        			  </li>
        </ul>
+			 </form>
        </fieldset>
        </dd>
 
