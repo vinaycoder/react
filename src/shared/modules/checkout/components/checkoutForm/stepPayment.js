@@ -12,17 +12,35 @@ class CheckoutStepPayment extends React.Component
 	{
 		super(props);
 		this.state = {
-			irDabit: false,
-			irCredit: false,
-			irPayment: false,
-			cod: false
+			creditCardList:[],
+			debitCardList:[],
 		};
 		this.saveCard = this.saveCard.bind(this);
+		this.getCardList = this.getCardList.bind(this);
 	}
 
 
 	componentDidMount()
 	{
+
+		this.getCardList();
+	}
+
+	getCardList()
+	{
+		if (
+			this.props.state.isLoggedIn === 1 ||
+			this.props.state.isLoggedIn === 2
+		) {
+				fetch(`https://indiarush.com/irapi/customer/getCardList/?customerId=${this.props.state.customerDetails.customer_id}&version=3.79`)
+					.then(result => {
+						return result.json();
+					})
+					.then(jsonResult => {
+						this.setState({creditCardList:jsonResult.data.creditCardList});
+						this.setState({debitCardList:jsonResult.data.debitCardList});
+					});
+     }
 
 	}
 
@@ -112,16 +130,16 @@ class CheckoutStepPayment extends React.Component
 			<h2 className="not-log-in-checkout-label">3. {title}</h2>
 		</div>
 
-{this.props.state.isLoggedIn == 1 && (
+{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
 			<div className="checkout-button-wrap">
 				<div className="payment-form sp-methods" id="checkout-step-payment">
 			   {this.props.state.paymentMethods.map(fields => (
 					 	<div key={fields.code}>
 						{fields.code=='irdebit' && (
-							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  />
+							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  creditCardList={this.state.creditCardList}/>
 							)}
 							{fields.code=='ircredit' && (
-								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} />
+								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} creditCardList={this.state.creditCardList} />
 								)}
 								{fields.code=='irpayment' && (
 									<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />

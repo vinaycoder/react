@@ -86,6 +86,67 @@ componentDidMount()
        						</div>
                                <div className="clear"></div>
                                <div className="checkout-card-container" id="debit-checkout-card-container">
+
+
+
+
+
+
+															 <div className="input-box-old">
+															   <div className="checkout-card-list">
+															     <div className="checkout-address-radio cardList" id="22773" >
+															           <input type="radio" className="radio" name="storecard[id]" id="storecard-id-22773" value="22773" defaultChecked="checked" onclick="hideNewCreditCard()" autoComplete="off" />
+															                 <label name="checkout-address-label newLabelForCardList" htmlFor="storecard-id-22773" onclick="hideNewCreditCard()">
+															                     <div className="left">
+															                         <div>
+															                           <span className="font-large">1234  </span>
+															                                         <span className="font-large">**** ****</span>
+															                                         <span className="font-large">3456  </span>
+															                         </div>
+															                                 <div className="font-medium">
+															                                         <span> DINERS </span>
+															                                 </div>
+															                     </div>
+															                     <div className="checkout-card-input right">
+															                         <div>
+															                             <span>CVV</span>
+															                             <input id="checkoutCreditCVV22773" type="password" name="ccvv[22773]" value="" maxlength="3" size="5" className="input-field credit-cvv cardListCvv" placeholder="CVV" />
+															                         </div>
+
+															                     </div>
+															                 </label>
+															       <div className="clear"></div>
+															     </div>
+
+															   </div>
+															 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                    <div className="checkout-card-title width100">
                                        <span>Enter Card Details</span>
                                    </div>

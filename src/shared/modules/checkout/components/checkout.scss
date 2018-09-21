@@ -1083,3 +1083,20 @@ border-color: red;
     border: 2px solid #ccc;
     margin: 10px 0px;
 }
+
+// for card list
+.checkout-card-list .checkout-address-radio {
+    border: 1px solid #d9dfe9;
+    cursor: pointer;
+}
+.cardList label {
+    width: 92%;
+}
+.cardList
+{
+  border-color: rgb(255, 102, 0) !important;
+}
+.cardListCvv
+{
+  height: 35px !important;
+}

@@ -41,7 +41,12 @@ class CheckoutStepContacts extends React.Component {
 		}
 
 		if (postData) {
+
 			const result = Object.values(postData);
+			console.log('vinay in checkout login');
+			console.log(postData);
+			console.log(result);
+			return false;
 			this.props.createUserPost(result);
 
 			if (
@@ -49,14 +54,9 @@ class CheckoutStepContacts extends React.Component {
 				this.props.state.isLoggedIn === 2
 			) {
 				console.log('on saving data handleSubmit');
-				// this.setState({"isReadOnly":true});
 				if (this.props.state.isLoggedIn === 2) {
 					if (this.props.state.customerDetails == null) {
-						// console.log("gang");
-						// this.props.state.customerDetails ={};
-						// this.props.state.customerDetails.email =username;
-						// console.log("gang props");
-						// console.log(this.props.state);
+
 					}
 				}
 
@@ -74,44 +74,6 @@ class CheckoutStepContacts extends React.Component {
 			}
 		}
 	}
-	getField = fieldName => {
-		const fields = this.props.checkoutFields || [];
-		const field = fields.find(item => item.name === fieldName);
-		return field;
-	};
-
-	getFieldStatus = fieldName => {
-		const field = this.getField(fieldName);
-		return field && field.status ? field.status : 'required';
-	};
-
-	isFieldOptional = fieldName => {
-		return this.getFieldStatus(fieldName) === 'optional';
-	};
-
-	isFieldHidden = fieldName => {
-		return this.getFieldStatus(fieldName) === 'hidden';
-	};
-
-	getFieldValidators = fieldName => {
-		const isOptional = this.isFieldOptional(fieldName);
-		let validatorsArray = [];
-		if (!isOptional) {
-			validatorsArray.push(validateRequired);
-		}
-		if (fieldName === 'email') {
-			validatorsArray.push(validateEmail);
-		}
-
-		return validatorsArray;
-	};
-
-	getFieldPlaceholder = fieldName => {
-		const field = this.getField(fieldName);
-		return field && field.placeholder && field.placeholder.length > 0
-			? field.placeholder
-			: '';
-	};
 
 	getFieldLabelText = fieldName => {
 		const field = this.getField(fieldName);
@@ -140,12 +102,6 @@ class CheckoutStepContacts extends React.Component {
 		}
 	};
 
-	getFieldLabel = fieldName => {
-		const labelText = this.getFieldLabelText(fieldName);
-		return this.isFieldOptional(fieldName)
-			? `${labelText} (${text.optional})`
-			: labelText;
-	};
 
 	render() {
 		const {
@@ -185,7 +141,7 @@ class CheckoutStepContacts extends React.Component {
 			// if (isReadOnly) {
 			return (
 				<div className="checkout-step">
-					{!this.isFieldHidden('email') && (
+				
 						<div className="synopsis logged-synopsis newCartDesign">
 							<div className="synopsisText">
 								<div className="addNewHeadingCartPage">
@@ -220,8 +176,7 @@ class CheckoutStepContacts extends React.Component {
 								number
 							</div>
 						</div>
-					)}
-					{/*<ReadOnlyField name={text.email} value={initialValues.email} />*/}
+
 
 					{this.props.state.isLoggedIn === 2 && (
 						<div className="checkout-button-wrap">
