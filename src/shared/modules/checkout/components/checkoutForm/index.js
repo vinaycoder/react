@@ -9,7 +9,7 @@ export default class CheckoutForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			step: 1
+			step: 3
 		};
 		this.showPaymentMethod = this.showPaymentMethod.bind(this);
 		this.getCityByPincode = this.getCityByPincode.bind(this);

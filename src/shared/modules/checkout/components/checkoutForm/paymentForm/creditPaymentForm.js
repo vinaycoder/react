@@ -5,11 +5,25 @@ import * as helper from '../../../../../lib/helper';
 class creditPaymentForm extends Component{
 	constructor(props) {
 	super(props);
-	}
+		this.state = {
+			newCard:false
+		};
+	this.hideNewDebitCard=this.hideNewDebitCard.bind(this);
+	this.selectDebitCard=this.selectDebitCard.bind(this);
 
+}
 componentDidMount()
 {
 
+}
+
+hideNewDebitCard()
+{
+	this.setState({newCard:true});
+}
+selectDebitCard()
+{
+	this.setState({newCard:false});
 }
 
 	render(){
@@ -79,8 +93,69 @@ componentDidMount()
              <div className="input-box-new">
                        <div className="checkout-card-list">
                          <div className="checkout-address-radio noBorder" id="new-card">
+												 {this.props.creditCardList.length > 0  && (
+													 <div>
+													 {this.props.creditCardList.map(fields => (
+
+														 <div className="checkout-card-list" key={fields.cardId}>
+														 <input type="hidden" name="debitCardId" defaultValue={fields.cardId} />
+															 <div className="checkout-address-radio cardList active_old" id="22773" >
+																		 <input type="radio" className="radio" name="storecard" id={"storecard-id-"+fields.cardId} defaultValue={fields.cardId}  onClick={e=>this.selectDebitCard()} autoComplete="off" />
+																					 <label name="checkout-address-label newLabelForCardList" htmlFor={"storecard-id-"+fields.cardId} onClick={e=>this.selectDebitCard()}>
+																							 <div className="left">
+																									 <div>
+																										 <span className="font-large">{fields.cardNumber.substring(0,4)}  </span>
+																																	 <span className="font-large">**** ****</span>
+																																	 <span className="font-large">{fields.cardNumber.substring(fields.cardNumber.length -4)}  </span>
+																									 </div>
+																													 <div className="font-medium">
+																																	 <span> {fields.cardType} </span>
+																													 </div>
+																							 </div>
+																							 <div className="checkout-card-input right">
+																									 <div>
+																											 <span>CVV</span>
+																											 <input id={"checkoutCreditCVV"+fields.cardId} type="password" name={"checkoutCreditCVV"+fields.cardId} maxLength="3" size="5" className="input-field credit-cvv cardListCvv" placeholder="CVV" />
+																									 </div>
+
+																							 </div>
+																					 </label>
+																 <div className="clear"></div>
+															 </div>
+														 </div>
+
+												))}
+
+												{/* for new card if list exists*/}
+
+												<div className="input-box-old">
+													 <div className="checkout-card-list">
+														 <div className="checkout-address-radio cardList" id="newDebitCard" >
+																	 <input type="radio" className="radio" name="storecard" id="new-debit-card-default" onClick={e=>this.hideNewDebitCard()} autoComplete="off" />
+																				 <label name="checkout-address-label newLabelForCardList" htmlFor="new-debit-card-default" onClick={e=>this.hideNewDebitCard()}>
+																						 <div className="left">
+																								 <div>
+																									 <span className="font-large">New Debit Card {this.state.newCard} </span>
+																								 </div>
+
+																						 </div>
+
+																				 </label>
+															 <div className="clear"></div>
+														 </div>
+													 </div>
+												 </div>
+
+												 {/* end new card if list*/}
+
+													 </div>
+
+												 )}
+
+												 {(this.props.creditCardList.length < 1 || this.state.newCard)   && (
+															<div>
                              <div className="checkoutNewCard">
-       													<input type="radio" className="new-radio" name="storecard" id="newcard" defaultChecked autoComplete="off" />
+       													<input type="radio" className="new-radio" name="storecard" defaultChecked="checked" id="newcard" defaultChecked autoComplete="off" />
        													<label name="checkout-address-label" htmlFor="newcard" >
        															New Credit Card
        													</label>
@@ -216,8 +291,10 @@ componentDidMount()
                                            </div>
                                        </li>
                                    </ul>
-
+																	 </div>
                                </div>
+															 
+															 )}
                            </div>
                        </div>
                    </div>

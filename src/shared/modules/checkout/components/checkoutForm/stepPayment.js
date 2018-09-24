@@ -136,7 +136,7 @@ class CheckoutStepPayment extends React.Component
 			   {this.props.state.paymentMethods.map(fields => (
 					 	<div key={fields.code}>
 						{fields.code=='irdebit' && (
-							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  creditCardList={this.state.creditCardList}/>
+							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  debitCardList={this.state.debitCardList}/>
 							)}
 							{fields.code=='ircredit' && (
 								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} creditCardList={this.state.creditCardList} />

@@ -46,7 +46,8 @@ class CheckoutStepShipping extends React.Component {
 			state:null,
 			phone:null,
 			entity_id:null,
-			newAddress:false
+			newAddress:false,
+			showShippingReadonly:false
 		};
 		this.addActiveClass=this.addActiveClass.bind(this);
 		this.setShippingAddress=this.setShippingAddress.bind(this);
@@ -56,14 +57,10 @@ class CheckoutStepShipping extends React.Component {
 	}
 
 	componentDidMount() {
-		if (this.props.state.customerDetails != null) {
-		 if (Object.keys(this.props.state.customerDetails).length > 0) {
-			 if(this.props.state.shippingMethods.length > 0)
-				 {
-					 this.props.onSave();
-				 }
-		}
-	}
+		if(this.props.state.isLoggedIn == 0)
+		{
+			this.setState({newAddress:true});
+		}	
 
 		this.setShippingAddress(this.props.initialValues);
 	}
@@ -92,6 +89,7 @@ class CheckoutStepShipping extends React.Component {
 		document.getElementById("div-new-address").className = document.getElementById("div-new-address").className.replace(" address-active", "");
     this.setShippingAddress(shippingD);
 		this.setState({newAddress:false});
+		document.getElementById('divUpdateAddress').style.display='none';
   }
 
 
@@ -109,6 +107,9 @@ class CheckoutStepShipping extends React.Component {
 	 this.setShippingAddress(shippingD);
 	 this.props.onEdit();
 	 this.setState({newAddress:false});
+	 this.setState({showShippingReadonly:true});
+	 document.getElementById('divSavedAddressList').style.display='none';
+	 document.getElementById('divUpdateAddress').style.display='block';
 	}
 
 	newAddress()
@@ -121,12 +122,15 @@ class CheckoutStepShipping extends React.Component {
 		document.getElementById("div-new-address").classList.add("address-active");
 		document.getElementById("new-address").checked=true;
 		this.setState({newAddress:true});
+		this.setState({showShippingReadonly:false});
 		this.props.onEdit();
 	}
 
 	cancelEditAddress()
 	{
-		this.props.onSave();
+		 document.getElementById('divSavedAddressList').style.display='block';
+		 	 document.getElementById('divUpdateAddress').style.display='none';
+		// this.props.onSave();
 	}
 
 	onChangeBillingAsShipping = event => {
@@ -193,83 +197,79 @@ class CheckoutStepShipping extends React.Component {
 		} else if (isReadOnly) {
 			console.log('readonly');
 
-			let shippingFields = null;
-			if (
-				shippingMethod &&
-				shippingMethod.length > 0 && (this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2)
-			) {
-				let shippingAddress=[];
-				shippingAddress.push(shippingMethod[0]);
-				shippingFields = shippingMethod.map((field, index) => {
-					var checked="";
-					var ActiveClas="";
-					//if(userSelectedAddress.entity_id == field.entity_id )
-					if(index === 0 )
-					{
-						 checked="checked";
-						 ActiveClas="address-active";
-					}
-					var shippingD= {name:field.firstname,address:field.street,postal_code:field.postcode,city:field.city,state:field.region,phone:field.telephone,entity_id:field.entity_id
-				 };
-					return (
-						<div key={index} className="checkout-field-preview--old">
-
-						<div className={"checkoutAddresses " +ActiveClas} id={"div"+index} >
-					    <div className="checkout-address-radio billing-checkout-address-wrapper" id={field.entity_id}>
-					        <div style={{fontWeight:'bold'}}>
-					            <input type="radio" defaultChecked={checked} name="checkout-address" id={index} defaultValue={field.entity_id} />&nbsp; Address&nbsp;{index+1}
-					         </div>
-					    <label name="checkout-address-label" htmlFor={index} style={{float:'left'}} onClick={e=>this.addActiveClass(e,index,shippingD,field.entity_id)}>
-					        {field.firstname} , {field.street} , {field.city}, {field.region} {field.postcode}, India
-					    </label>
-
-					        <div className="clear"></div>
-
-					    </div>
-					    <div className="editAddressCheckout">
-					        <span id="checkoutEditAddress948949" className="checkoutEditAddress" onClick={e=>this.editAddress(e,index,shippingD,field.entity_id)} style={{display: 'inline'}}>Edit Address</span>
-					        <span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>billing.cancelEditAddress(948949)} style={{display: 'none'}}>Cancel</span>
-					    </div>
-					</div>
-
-						</div>
-					);
-
-				});
-			}
-
-
-
 			return (
-				<div className="checkout-step">
+				<div className="checkout-step" >
 					<h1>
 						<span>1. </span>
 						{title}
 					</h1>
-					{shippingFields}
 
+							<div className="ShippingReadOnly1" style={{display:'block'}}>
+							<label name="checkout-address-label" style={{float:'left'}} >
+									{userSelectedAddress.name} , {userSelectedAddress.address} , {userSelectedAddress.city}, {userSelectedAddress.state} {userSelectedAddress.postal_code}, India
+							</label>
+							</div>
+						<div className="checkout-button-wrap">
+							<button
+								type="button"
+								onClick={onEdit}
+								className={editButtonClassName}
+							>
+								{text.edit}
+							</button>
+						</div>
+						</div>
 
-
-					<div className="checkout-button-wrap">
-					{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
-
-					<div className="checkoutAddresses" onClick={e=>this.newAddress()}>
-					    <div className="checkout-address-radio billing-checkout-address-wrapper has-text-left" id="div-new-address">
-					        <div>
-					            <input type="radio" name="checkout-address" id="new-address" value="new-address" />&nbsp; New Address
-					        </div>
-					        <label name="checkout-address-label" htmlFor="new-address"></label>
-					        <div className="clear"></div>
-					    </div>
-					</div>
-					)}
-					</div>
-
-				</div>
 
 			);
 		} else {
 
+
+
+						let shippingFields = null;
+						if (
+							shippingMethod &&
+							shippingMethod.length > 0 && (this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2)
+						) {
+							let shippingAddress=[];
+							shippingAddress.push(shippingMethod[0]);
+							shippingFields = shippingMethod.map((field, index) => {
+								var checked="";
+								var ActiveClas="";
+								//if(userSelectedAddress.entity_id == field.entity_id )
+								if(index === 0 )
+								{
+									 checked="checked";
+									 ActiveClas="address-active";
+								}
+								var shippingD= {name:field.firstname,address:field.street,postal_code:field.postcode,city:field.city,state:field.region,phone:field.telephone,entity_id:field.entity_id
+							 };
+								return (
+									<div key={index} className="checkout-field-preview--old">
+
+									<div className={"checkoutAddresses " +ActiveClas} id={"div"+index} >
+								    <div className="checkout-address-radio billing-checkout-address-wrapper" id={field.entity_id}>
+								        <div style={{fontWeight:'bold'}}>
+								            <input type="radio" defaultChecked={checked} name="checkout-address" id={index} defaultValue={field.entity_id} />&nbsp; Address&nbsp;{index+1}
+								         </div>
+								    <label name="checkout-address-label" htmlFor={index} style={{float:'left'}} onClick={e=>this.addActiveClass(e,index,shippingD,field.entity_id)}>
+								        {field.firstname} , {field.street} , {field.city}, {field.region} {field.postcode}, India
+								    </label>
+
+								        <div className="clear"></div>
+
+								    </div>
+								    <div className="editAddressCheckout">
+								        <span id="checkoutEditAddress948949" className="checkoutEditAddress" onClick={e=>this.editAddress(e,index,shippingD,field.entity_id)} style={{display: 'inline'}}>Edit Address</span>
+								        <span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>billing.cancelEditAddress(948949)} style={{display: 'none'}}>Cancel</span>
+								    </div>
+								</div>
+
+									</div>
+								);
+
+							});
+						}
 
 			return (
 			<div className="checkout-step newPadding">
@@ -277,25 +277,29 @@ class CheckoutStepShipping extends React.Component {
 					<h2 className="not-log-in-checkout-label">1. {title}</h2>
 				</div>
 
+				<div className="checkoutFormContactDetailsPadding" id="divSavedAddressList">
+									{shippingFields}
+
+									<div className="checkout-button-wrap">
+									{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
+
+									<div className="checkoutAddresses" onClick={e=>this.newAddress()}>
+											<div className="checkout-address-radio billing-checkout-address-wrapper has-text-left" id="div-new-address">
+													<div>
+															<input type="radio" name="checkout-address" id="new-address" value="new-address" />&nbsp; New Address
+													</div>
+													<label name="checkout-address-label" htmlFor="new-address"></label>
+													<div className="clear"></div>
+											</div>
+									</div>
+									)}
+									</div>
+				</div>
+
 				<form onSubmit={e=>handleSubmit(e)} className="checkoutFormContactDetailsPadding" id="submit" name="submit">
 
 				{this.state.newAddress ? (
 						<div>
-						{shippingMethod.length > 0 && (
-						<div className={"checkoutAddresses address-active"} >
-							<div className="checkout-address-radio billing-checkout-address-wrapper">
-									<div style={{fontWeight:'bold'}}>
-											<input type="radio" defaultChecked="checked" name="checkout-address" />&nbsp; New Address&nbsp;
-									 </div>
-							<label name="checkout-address-label" style={{float:'left'}} >
-							</label>
-									<div className="clear"></div>
-							</div>
-							<div className="editAddressCheckout">
-							<span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>this.cancelEditAddress()} >Cancel</span>
-							</div>
-					</div>
-					)}
 
 						<input type="hidden" id="entity_id" name="entity_id" defaultValue="new"/>
 						<div className="checkout-field billing-fullname">
@@ -327,8 +331,8 @@ class CheckoutStepShipping extends React.Component {
 						) : (
 
 							<div>
-
-
+							{this.state.showShippingReadonly && (
+								<div id="divUpdateAddress">
 
 							<div className={"checkoutAddresses address-active"} >
 								<div className="checkout-address-radio billing-checkout-address-wrapper">
@@ -373,7 +377,12 @@ class CheckoutStepShipping extends React.Component {
 							<label htmlFor="phone">Mobile Number (10 digits only) ( Required )</label>
 							<input name="phone" type="text" id="phone" className="" defaultValue={this.state.phone} />
 							</div>
+
 							</div>
+
+								)}
+							</div>
+
 
 						)}
 
