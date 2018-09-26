@@ -300,6 +300,18 @@ export const couponCode = (type, coupon) => async (dispatch, getState) => {
 const requestCouponCode = () => ({ type: t.COUPON_CODE_REQUEST });
 
 export const setUserSelectedAddress = data => async (dispatch, getState) => {
+	// map quote id to user address
+	const quoteId = cookie.load('userQuoteId');
+	fetch(`https://indiarush.com/irapi/checkout/mapQuoteAddress?quote_id=${quoteId}&address_id=${data.entity_id}&version=3.75`)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+			console.log('rtttttttttttttttttttttttttttttttttttttttttttttttttt');
+			console.log(jsonResult);
+			dispatch(fetchCart());
+		});
+
 	dispatch(requestsetUserSelectedAddress(data));
 };
 const requestsetUserSelectedAddress = data => ({
