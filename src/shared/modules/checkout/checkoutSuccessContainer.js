@@ -18,6 +18,7 @@ const CheckoutSuccessContainer = props => {
 
 	return (
 		<Fragment>
+		{/*
 			<MetaTags
 				title={pageDetails.meta_title}
 				description={pageDetails.meta_description}
@@ -25,6 +26,7 @@ const CheckoutSuccessContainer = props => {
 				ogTitle={pageDetails.meta_title}
 				ogDescription={pageDetails.meta_description}
 			/>
+			*/}
 
 			<section className="section section-checkout">
 				<div className="container">
@@ -47,15 +49,15 @@ const CheckoutSuccessContainer = props => {
 	);
 };
 
-CheckoutSuccessContainer.propTypes = {
-	state: PropTypes.shape({
-		settings: PropTypes.shape({}),
-		pageDetails: PropTypes.shape({}),
-		order: PropTypes.shape({}),
-		shippingMethods: PropTypes.arrayOf(PropTypes.shape({})),
-		checkoutFields: PropTypes.arrayOf(PropTypes.shape({}))
-	}).isRequired
-};
+// CheckoutSuccessContainer.propTypes = {
+// 	state: PropTypes.shape({
+// 		settings: PropTypes.shape({}),
+// 		pageDetails: PropTypes.shape({}),
+// 		order: PropTypes.shape({}),
+// 		shippingMethods: PropTypes.arrayOf(PropTypes.shape({})),
+// 		checkoutFields: PropTypes.arrayOf(PropTypes.shape({}))
+// 	}).isRequired
+// };
 
 export default withRouter(
 	connect(

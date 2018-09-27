@@ -46,10 +46,22 @@ export default class CheckoutForm extends React.Component {
 				fetch(url)
 					.then(result => result.json())
 					.then(jsonResult => {
-						console.log('vinay in update address');
-						console.log(jsonResult);
+						var latestEntityID = Object.values(jsonResult)[1][0].entity_id;
 						this.handleShippingSave();
 						this.props.loadShippingMethods();
+
+
+						var setSelectedShipping= {name:formData.get(
+							'name'
+						),address:formData.get(
+							'address'
+						),postal_code:formData.get('postal_code'),city:formData.get('city'),state:formData.get('state'),phone:formData.get(
+							'phone'
+						),entity_id:latestEntityID
+					 };
+						this.props.setUserSelectedAddress(setSelectedShipping);
+						// for selected address and map shipping to quote
+
 					});
 			}
 		}

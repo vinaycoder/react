@@ -4,71 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { text } from '../../../lib/settings';
 import * as helper from '../../../lib/helper';
 
-const getCheckoutField = (checkoutFields, fieldName) => {
-	if (checkoutFields && checkoutFields.length > 0) {
-		return checkoutFields.find(
-			f => f.name === fieldName && f.status !== 'hidden'
-		);
-	}
-	return null;
-};
 
-const MobileField = ({ order, checkoutFields }) => {
-	const checkoutField = getCheckoutField(checkoutFields, 'mobile');
-	return checkoutField && order.mobile !== '' ? (
-		<ShippingFieldDiv
-			label={helper.getCheckoutFieldLabel(checkoutField)}
-			value={order.mobile}
-		/>
-	) : null;
-};
 
-const CityField = ({ order, checkoutFields }) => {
-	const checkoutField = getCheckoutField(checkoutFields, 'city');
-	return checkoutField && order.shipping_address.city !== '' ? (
-		<ShippingFieldDiv
-			label={helper.getCheckoutFieldLabel(checkoutField)}
-			value={order.shipping_address.city}
-		/>
-	) : null;
-};
-
-const CommentsField = ({ order, checkoutFields }) => {
-	const checkoutField = getCheckoutField(checkoutFields, 'comments');
-	return checkoutField && order.comments !== '' ? (
-		<ShippingFieldDiv
-			label={helper.getCheckoutFieldLabel(checkoutField)}
-			value={order.comments}
-		/>
-	) : null;
-};
-
-const ShippingFields = ({ order, shippingMethod }) => {
-	let shippingFields = null;
-	if (
-		shippingMethod &&
-		shippingMethod.fields &&
-		shippingMethod.fields.length > 0
-	) {
-		shippingFields = shippingMethod.fields.map((field, index) => {
-			const fieldLabel = helper.getShippingFieldLabel(field);
-			const fieldValue = order.shipping_address[field.key];
-
-			return (
-				<ShippingFieldDiv key={index} label={fieldLabel} value={fieldValue} />
-			);
-		});
-	}
-
-	return <div>{shippingFields}</div>;
-};
-
-const ShippingFieldDiv = ({ label, value }) => (
-	<div className="shipping-field">
-		<label>{label}: </label>
-		{value}
-	</div>
-);
 
 const OrderItem = ({ item, settings }) => (
 	<div className="columns is-mobile is-gapless checkout-success-row">
@@ -90,7 +27,7 @@ const OrderItem = ({ item, settings }) => (
 const OrderItems = ({ items, settings }) => {
 	if (items && items.length > 0) {
 		const rows = items.map(item => (
-			<OrderItem key={item.id} item={item} settings={settings} />
+			<OrderItem key={item.item_id} item={item} settings={settings} />
 		));
 		return <div>{rows}</div>;
 	}
@@ -99,11 +36,9 @@ const OrderItems = ({ items, settings }) => {
 
 const CheckoutSuccess = ({
 	order,
-	settings,
-	pageDetails,
-	shippingMethod,
-	checkoutFields
+	settings
 }) => {
+
 	if (order && order.items && order.items.length > 0) {
 		return (
 			<div className="checkout-success-details">
@@ -114,28 +49,16 @@ const CheckoutSuccess = ({
 				<br />
 					Thank you for your purchase!
 				</h1>
-
-				<div
-					dangerouslySetInnerHTML={{
-						__html: pageDetails.content
-					}}
-				/>
-
 				<hr />
 
 				<div className="columns" style={{ marginBottom: '3rem' }}>
 					<div className="column is-6">
-						<b>{text.shipping}</b>
-						<MobileField order={order} checkoutFields={checkoutFields} />
-						<CityField order={order} checkoutFields={checkoutFields} />
-						<ShippingFields order={order} shippingMethod={shippingMethod} />
-						<CommentsField order={order} checkoutFields={checkoutFields} />
 					</div>
 
 					<div className="column is-6">
 						<b>Order Id</b>: {order.increment_id}
 						<br />
-						<b>Shipping Address</b>: {order.shipping_method}
+						<b>Shipping Address</b>: {order.billing_address.firstname}, {order.billing_address.city}, {order.billing_address.region}, {order.billing_address.postcode}, 'India', {order.billing_address.telephone}
 						<br />
 						<b>Payment Method</b>: {order.payment_method}
 						<br />
@@ -194,7 +117,7 @@ const CheckoutSuccess = ({
 
 						<div>
 							<b>{text.grandTotal}:</b>
-							<b>{helper.formatCurrency(order.grandtotal, settings)}</b>
+							<b>{helper.formatCurrency(order.grand_total, settings)}</b>
 						</div>
 					</div>
 				</div>
@@ -203,14 +126,14 @@ const CheckoutSuccess = ({
 	}
 	return <div className="has-text-centered">{text.cartEmpty}</div>;
 };
-
+/*
 CheckoutSuccess.propTypes = {
 	order: PropTypes.shape({}),
 	settings: PropTypes.shape({}).isRequired,
 	pageDetails: PropTypes.shape({}).isRequired,
 	checkoutFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
-
+*/
 CheckoutSuccess.defaultProps = {
 	order: null
 };

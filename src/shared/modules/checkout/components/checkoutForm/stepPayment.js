@@ -220,7 +220,7 @@ goTo()
 		</div>
 
 {(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
-			<div className="checkout-button-wrap">  <span onClick={e=>this.goTo()}> got to success page</span>
+			<div className="checkout-button-wrap"> 
 				<div className="payment-form sp-methods" id="checkout-step-payment">
 			   {this.props.state.paymentMethods.map(fields => (
 					 	<div key={fields.code}>

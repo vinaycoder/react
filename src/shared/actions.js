@@ -831,7 +831,16 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			};
 			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
 			dispatch(receiveSitemap(newCurrentPage));
-		} else if (locationPathname == '/search') {
+		}else if (locationPathname == '/checkout-success') {
+			newCurrentPage = {
+				type: 'page',
+				path: '/checkout-success',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		}
+		 else if (locationPathname == '/search') {
 			newCurrentPage = {
 				type: 'search',
 				path: '/search',

@@ -54,6 +54,7 @@ class CheckoutStepShipping extends React.Component {
 		this.editAddress=this.editAddress.bind(this);
 		this.newAddress=this.newAddress.bind(this);
 		this.cancelEditAddress=this.cancelEditAddress.bind(this);
+		this.hideUpdateDiv=this.hideUpdateDiv.bind(this);
 	}
 
 	componentDidMount() {
@@ -63,6 +64,12 @@ class CheckoutStepShipping extends React.Component {
 		}
 
 		this.setShippingAddress(this.props.initialValues);
+	}
+
+	hideUpdateDiv(e)
+	{
+		this.props.handleSubmit(e)
+		this.setState({showShippingReadonly:false});
 	}
 
 	setShippingAddress(data)
@@ -96,6 +103,7 @@ class CheckoutStepShipping extends React.Component {
 
 	editAddress(e,id,shippingD,addressId)
 	{
+
 		var i, tabcontent, tablinks;
 		tablinks = document.getElementsByClassName("checkoutAddresses");
 		for (i = 0; i < tablinks.length; i++) {
@@ -294,6 +302,23 @@ class CheckoutStepShipping extends React.Component {
 									</div>
 									)}
 									</div>
+									{!this.state.newAddress && (
+									<div className="checkout-button-wrap">
+										<button
+											type="button"
+											onClick={this.props.onSave}
+											className={
+												`${buttonClassName}${
+													processingCheckout ? ' is-loading' : ''
+												}` + ' checkoutLoginBtn'
+											}
+										>
+											{showPaymentForm ? text.next : text.saveAddress}{' '}
+											<i className="material-icons">keyboard_arrow_right</i>
+										</button>
+									</div>
+									)}
+
 				</div>
 
 				<form onSubmit={e=>handleSubmit(e)} className="checkoutFormContactDetailsPadding" id="submit" name="submit">
@@ -327,6 +352,21 @@ class CheckoutStepShipping extends React.Component {
 						<label htmlFor="phone">Mobile Number (10 digits only) ( Required )</label>
 						<input name="phone" type="text" id="phone" className="" />
 						</div>
+
+						<div className="checkout-button-wrap">
+							<button
+								type="submit"
+								className={
+									`${buttonClassName}${
+										processingCheckout ? ' is-loading' : ''
+									}` + ' checkoutLoginBtn'
+								}
+							>
+								{showPaymentForm ? text.next : text.saveAddress}{' '}
+								<i className="material-icons">keyboard_arrow_right</i>
+							</button>
+						</div>
+
 						</div>
 						) : (
 
@@ -378,6 +418,23 @@ class CheckoutStepShipping extends React.Component {
 							<input name="phone" type="text" id="phone" className="" defaultValue={this.state.phone} />
 							</div>
 
+							<div className="checkout-button-wrap">
+								<button
+									type="submit"
+									onClick={e=>this.hideUpdateDiv(e)}
+									className={
+										`${buttonClassName}${
+											processingCheckout ? ' is-loading' : ''
+										}` + ' checkoutLoginBtn'
+									}
+								>
+									{showPaymentForm ? text.next : text.saveAddress}{' '}
+									<i className="material-icons">keyboard_arrow_right</i>
+								</button>
+							</div>
+
+
+
 							</div>
 
 								)}
@@ -386,19 +443,7 @@ class CheckoutStepShipping extends React.Component {
 
 						)}
 
-					<div className="checkout-button-wrap">
-						<button
-							type="submit"
-							className={
-								`${buttonClassName}${
-									processingCheckout ? ' is-loading' : ''
-								}` + ' checkoutLoginBtn'
-							}
-						>
-							{showPaymentForm ? text.next : text.saveAddress}{' '}
-							<i className="material-icons">keyboard_arrow_right</i>
-						</button>
-					</div>
+
 				</form>
 			</div>
 		);
