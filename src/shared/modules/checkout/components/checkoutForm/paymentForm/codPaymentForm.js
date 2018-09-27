@@ -12,7 +12,7 @@ componentDidMount()
 }
 
 	render(){
-    const {showPaymentMethod , cart, settings}=this.props;
+    const {showPaymentMethod, cart, settings ,createOrder}=this.props;
 		return(
 	     <div>
        <dt className="checkout-page-radio checkout-page-hover checkout-radio-selected" onClick={e => showPaymentMethod(e,'labelIdCod','iconIdCod', 'cod','p_method_cashondelivery')}>
@@ -80,7 +80,7 @@ componentDidMount()
      					</li>
      					  <li className="variation-checkout"> </li>
      					    <li>
-     					       <div className="checkout-button-wrap"><button type="submit" className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
+     					       <div className="checkout-button-wrap"><button type="submit" onClick={e=>createOrder('cashondelivery')} className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
      					    </li>
      					</ul>
      </fieldset>

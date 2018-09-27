@@ -307,8 +307,6 @@ export const setUserSelectedAddress = data => async (dispatch, getState) => {
 			return result.json();
 		})
 		.then(jsonResult => {
-			console.log('rtttttttttttttttttttttttttttttttttttttttttttttttttt');
-			console.log(jsonResult);
 			dispatch(fetchCart());
 		});
 
@@ -318,6 +316,20 @@ const requestsetUserSelectedAddress = data => ({
 	type: t.SET_SELECTED_USER_ADDRESS,
 	data
 });
+
+export const currentOrder = orderId => async (dispatch, getState) =>
+{
+	fetch(`https://indiarush.com/irapi/customer/getSalesOrderInfo/?order_id=${orderId}&version=3.95`)
+		.then(result => {
+			return result.json();
+		})
+		.then(jsonResult => {
+		//	dispatch(fetchCart());
+		dispatch(requestNewOrder(jsonResult));
+		});
+};
+
+const requestNewOrder = data => ({ type: t.CURRENT_ORDER, data });
 
 const receiveCart = cart => ({ type: t.CART_RECEIVE, cart });
 

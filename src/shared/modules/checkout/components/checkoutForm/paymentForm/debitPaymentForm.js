@@ -41,7 +41,7 @@ selectDebitCard()
        <dd className="checkout-payment-methods" id="irDabit">
        <fieldset className="form-list">
 
-			 <form onSubmit={e=>saveCard(e,'debitCard')} className="checkoutFormContactDetailsPadding" id="submitDebit" name="submit">
+			 <form className="checkoutFormContactDetailsPadding" id="submitDebit" name="submit">
 
        <ul id="payment_form_irdebit">
        <li>
@@ -97,7 +97,7 @@ selectDebitCard()
                                <div className="checkout-card-container" id="debit-checkout-card-container">
 
 
-													{this.props.debitCardList.length > 0  && (
+													{typeof this.props.debitCardList != "undefined" && this.props.debitCardList.length > 0  && (
 
 
 
@@ -187,7 +187,7 @@ selectDebitCard()
 
 
 
-															 {(this.props.debitCardList.length < 1 || this.state.newCard)   && (
+															 {typeof this.props.debitCardList == "undefined" || (this.props.debitCardList.length < 1 || this.state.newCard)   && (
 																 <div>
                                    <div className="checkout-card-title width100">
 																			 <div className="checkoutNewCard">
@@ -205,11 +205,11 @@ selectDebitCard()
                                                <div className="checkout-card-select">
                                                    <select size="1" id="debitCards" name="newdebitCards" className="validate-select" autcomplete="off">
                                                        <option defaultValue="">Select Card Type</option>
-                                                       <option value="Visa Cards">Visa Cards</option>
-                                                       <option value="Master Card">Master Card</option>
-                                                       <option value="SBI Maestro">SBI Maestro</option>
-                                                       <option value="Other Maestro">Other Maestro</option>
-                                                       <option value="Rupay">Rupay</option>
+                                                       <option value="VISA">Visa Cards</option>
+                                                       <option value="MAST">Master Card</option>
+                                                       <option value="SMAE">SBI Maestro</option>
+                                                       <option value="MAES">Other Maestro</option>
+                                                       <option value="RUPAY">Rupay</option>
                                                    </select>
                                                </div>
                                            </div>
@@ -336,7 +336,7 @@ selectDebitCard()
 
                </li>
        				<li>
-       			 		<div className="checkout-button-wrap" ><button type="submit" className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
+       			 		<div className="checkout-button-wrap" ><button type="submit" onClick={e=>saveCard(e,'debitCard')} className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
        			  </li>
        </ul>
 			 </form>

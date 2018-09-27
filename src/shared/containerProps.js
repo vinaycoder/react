@@ -15,7 +15,8 @@ import {
 	loginPost,
 	logoutPost,
 	createUserPost,
-	setUserSelectedAddress
+	setUserSelectedAddress,
+	currentOrder
 } from './actions';
 
 const setQuery = (history, query) => {
@@ -137,6 +138,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		setUserSelectedAddress: data => {
 			dispatch(setUserSelectedAddress(data));
+		},
+		currentOrder: orderId => {
+			dispatch(currentOrder(orderId));
 		}
 	};
 };

@@ -42,7 +42,7 @@ selectDebitCard()
        <dd className="checkout-payment-methods" id="irCredit">
        <fieldset className="form-list">
 
-			 <form onSubmit={e=>saveCard(e,'creditCard')} className="checkoutFormContactDetailsPadding" id="submitCredit" name="submit">
+			 <form className="checkoutFormContactDetailsPadding" id="submitCredit" name="submit">
 
        <ul id="payment_form_ircredit">
          <li>
@@ -135,7 +135,7 @@ selectDebitCard()
 																				 <label name="checkout-address-label newLabelForCardList" htmlFor="new-debit-card-default" onClick={e=>this.hideNewDebitCard()}>
 																						 <div className="left">
 																								 <div>
-																									 <span className="font-large">New Debit Card {this.state.newCard} </span>
+																									 <span className="font-large">New Credit Card {this.state.newCard} </span>
 																								 </div>
 
 																						 </div>
@@ -175,15 +175,9 @@ selectDebitCard()
                                                <div className="checkout-card-select">
                                                    <select size="1" id="creditCards" name="newcreditCards" className="validate-select" autoComplete="off">
                                                        <option value="">Select Card Type</option>
-                                                       <option value="Visa/Master Card">
-                                                           Visa/Master Card
-                                                       </option>
-                                                       <option value="AMEX Cards">
-                                                           AMEX Cards
-                                                       </option>
-                                                       <option value="Diners">
-                                                           Diners
-                                                       </option>
+                                                       <option value="CC"> Visa/Master Card </option>
+                                                       <option value="AMEX"> AMEX Cards</option>
+                                                       <option value="DINR">   Diners </option>
                                                    </select>
                                                </div>
                                            </div>
@@ -192,7 +186,7 @@ selectDebitCard()
                                                    <span>Card Number</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <input type="tel" name="newccnum" defaultValue="" className="input-field required-entry" id="ccnum-credit"  maxLength="19" placeholder="Card Number" autoComplete="off" />
+                                                   <input type="tel" name="newccnum" className="input-field required-entry" id="ccnum-credit"  maxLength="19" placeholder="Card Number" autoComplete="off" />
                                                </div>
                                            </div>
                                            <div className="checkout-card-block card-name">
@@ -200,7 +194,7 @@ selectDebitCard()
                                                    <span>Name on card</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <input type="text" name="newccname" className="input-field required-entry" placeholder="Name on card" autoComplete="off" />
+                                                   <input type="text" name="newccname" id="newccname" className="input-field required-entry" placeholder="Name on card" autoComplete="off" />
                                                </div>
                                            </div>
                                            <div className="checkout-card-block card-date">
@@ -208,7 +202,7 @@ selectDebitCard()
                                                    <span>Expire Date</span>
                                                </div>
                                                <div className="checkout-card-input checkoutExpireDate" >
-                                                   <select size="1" name="newccexpmon" className="validate-select checkoutExpireDateSelect" autoComplete="off">
+                                                   <select size="1" name="newccexpmon" id="newccexpmon" className="validate-select checkoutExpireDateSelect" autoComplete="off">
                                                        <option value="01">01</option>
                                                        <option value="02">02</option>
                                                        <option value="03">03</option>
@@ -224,7 +218,7 @@ selectDebitCard()
                                                    </select>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <select size="1" name="newccexpyr" className="validate-select" autoComplete="off">
+                                                   <select size="1" name="newccexpyr" id="newccexpyr" className="validate-select" autoComplete="off">
                                                        <option value="2017">2017</option>
                                                        <option value="2018">2018</option>
                                                        <option value="2019">2019</option>
@@ -267,7 +261,7 @@ selectDebitCard()
                                                    <span>CVV</span>
                                                </div>
                                                <div className="checkout-card-input">
-                                                   <input id="checkoutCreditCVVNew" type="password" name="newccvv" maxLength="3" size="5" className="input-field required-entry credit-new-cvv" placeholder="CVV" autoComplete="off" />
+                                                   <input id="checkoutCreditCVVNew" type="password" name="newccvv" id="newccvv" maxLength="3" size="5" className="input-field required-entry credit-new-cvv" placeholder="CVV" autoComplete="off" />
                                                    <span className="cvv-logo">
                                                        <img src="https://indiarush.com/skin/frontend/default/theme202/images/Checkout-cvv.png" />
                                                    </span>
@@ -284,7 +278,7 @@ selectDebitCard()
                                            <div className="has-text-left">
                                                <div>
                                                    <span>
-                                                       <input type="checkbox" name="allow-storecard" defaultChecked autoComplete="off" />
+                                                       <input type="checkbox" name="allow-storecard" id="" defaultChecked autoComplete="off" />
                                                    </span>
                                                    <span>Save Card</span>
                                                </div>
@@ -293,7 +287,7 @@ selectDebitCard()
                                    </ul>
 																	 </div>
                                </div>
-															 
+
 															 )}
                            </div>
                        </div>
@@ -306,7 +300,7 @@ selectDebitCard()
                        <span>Note: </span> International credit cards are accepted
                   </div>
 
-       					  <div className="checkout-button-wrap"><button type="submit" className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
+       					  <div className="checkout-button-wrap"><button type="submit" onClick={e=>saveCard(e,'creditCard')} className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
 
 
                </li>

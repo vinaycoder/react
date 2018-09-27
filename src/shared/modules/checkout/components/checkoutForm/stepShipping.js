@@ -60,7 +60,7 @@ class CheckoutStepShipping extends React.Component {
 		if(this.props.state.isLoggedIn == 0)
 		{
 			this.setState({newAddress:true});
-		}	
+		}
 
 		this.setShippingAddress(this.props.initialValues);
 	}

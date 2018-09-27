@@ -56,7 +56,14 @@ const getCurrentPage = path => {
 			path: '/customer/account/login',
 			resource: ''
 		};
-	} else {
+	}else if (path == '/checkout-success') {
+		return {
+			type: 'page',
+			path: 'checkout-success',
+			resource: ''
+		};
+	}
+	 else {
 		return fetch(
 			`https://indiarush.com/irapi/promotion/getProductCategoryUrl/?url=https://indiarush.com/${path}&version=3.64`
 		)
@@ -608,6 +615,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			cart: null,
 			saveForLater: [],
 			userSelectedAddress: {},
+			currentOrder:{},
 			order: null,
 			checkoutFields: checkoutFields,
 			themeSettings: themeSettings

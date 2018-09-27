@@ -208,6 +208,9 @@ const appReducer = (state = initialState, action) => {
 		case t.SET_SELECTED_USER_ADDRESS:
 			return Object.assign({}, state, { userSelectedAddress: action.data });
 
+		case t.CURRENT_ORDER:
+				return Object.assign({}, state, { currentOrder: action.data });
+
 		default:
 			return state;
 	}

@@ -80,9 +80,9 @@ const OrderItem = ({ item, settings }) => (
 		<div className="column is-2 has-text-right">
 			{helper.formatCurrency(item.price, settings)}
 		</div>
-		<div className="column is-2 has-text-centered">{item.quantity}</div>
+		<div className="column is-2 has-text-centered">{item.qty_ordered}</div>
 		<div className="column is-2 has-text-right">
-			{helper.formatCurrency(item.price_total, settings)}
+			{helper.formatCurrency(item.price, settings)}
 		</div>
 	</div>
 );
@@ -108,9 +108,11 @@ const CheckoutSuccess = ({
 		return (
 			<div className="checkout-success-details">
 				<h1 className="checkout-success-title">
-					<img src="/assets/images/success.svg" alt="" />
-					<br />
-					{text.checkoutSuccessTitle}
+				<img src="https://indiarush.com//skin/frontend/default/theme202/images/success-page-green-tick-icon.png" alt="" />
+				<br />
+				<div className="my-account-green orderPlaceFnt">Order Placed</div>
+				<br />
+					Thank you for your purchase!
 				</h1>
 
 				<div
@@ -131,11 +133,11 @@ const CheckoutSuccess = ({
 					</div>
 
 					<div className="column is-6">
-						<b>{text.orderNumber}</b>: {order.number}
+						<b>Order Id</b>: {order.increment_id}
 						<br />
-						<b>{text.shippingMethod}</b>: {order.shipping_method}
+						<b>Shipping Address</b>: {order.shipping_method}
 						<br />
-						<b>{text.paymentMethod}</b>: {order.payment_method}
+						<b>Payment Method</b>: {order.payment_method}
 						<br />
 					</div>
 				</div>
@@ -164,14 +166,35 @@ const CheckoutSuccess = ({
 							<span>{helper.formatCurrency(order.subtotal, settings)}</span>
 						</div>
 						<div>
-							<span>{text.shipping}:</span>
+						{order.discount > 0 && ( 	<span>{text.discount}:</span>	)}
+						{order.discount > 0 && (
 							<span>
 								{helper.formatCurrency(order.shipping_total, settings)}
 							</span>
+						)}
+
 						</div>
 						<div>
+						{order.shippingAmount > 0 && ( 	<span>{text.shipping}:</span>	)}
+						{order.shippingAmount > 0 && (
+							<span>
+								{helper.formatCurrency(order.shippingAmount, settings)}
+							</span>
+						)}
+						</div>
+
+						<div>
+						{order.codFee > 0 && ( 	<span>Cod Fee:</span>	)}
+						{order.codFee > 0 && (
+							<span>
+								{helper.formatCurrency(order.codFee, settings)}
+							</span>
+						)}
+						</div>
+
+						<div>
 							<b>{text.grandTotal}:</b>
-							<b>{helper.formatCurrency(order.grand_total, settings)}</b>
+							<b>{helper.formatCurrency(order.grandtotal, settings)}</b>
 						</div>
 					</div>
 				</div>
@@ -185,7 +208,6 @@ CheckoutSuccess.propTypes = {
 	order: PropTypes.shape({}),
 	settings: PropTypes.shape({}).isRequired,
 	pageDetails: PropTypes.shape({}).isRequired,
-	shippingMethod: PropTypes.shape({}).isRequired,
 	checkoutFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
