@@ -6,10 +6,12 @@ class creditPaymentForm extends Component{
 	constructor(props) {
 	super(props);
 		this.state = {
-			newCard:false
+			newCard:false,
+			cardId:null
 		};
 	this.hideNewDebitCard=this.hideNewDebitCard.bind(this);
 	this.selectDebitCard=this.selectDebitCard.bind(this);
+	this.validateCard=this.validateCard.bind(this);
 
 }
 componentDidMount()
@@ -17,13 +19,75 @@ componentDidMount()
 
 }
 
+
+validateCard(e,type)
+{
+	e.preventDefault();
+	if(document.getElementById('new-debit-card').checked)
+	{
+		console.log('checked in new');
+		var cardType=document.getElementById('debitCards').value;
+		var ccnumDebit=document.getElementById('ccnum-debit').value;
+		var newccnameDebit=document.getElementById('newccnameDebit').value;
+		var newccexpmonDebit=document.getElementById('newccexpmonDebit').value;
+		var newccexpyrDebit=document.getElementById('newccexpyrDebit').value;
+		var checkoutDebitCVVNew=document.getElementById('checkoutDebitCVVNew').value;
+
+     // check the validation
+		if(cardType!='' && ccnumDebit!='' && newccnameDebit!='' && newccexpmonDebit!='' && newccexpyrDebit!='' && checkoutDebitCVVNew!='')
+		{
+			this.props.setCardProps({cardId:'',cardNumber:ccnumDebit,cardType:cardType,expirationMonth:newccexpmonDebit,expirationYear:newccexpyrDebit,name:newccnameDebit});
+			this.props.setCardPropsCvv(checkoutDebitCVVNew);
+			// for saved the card
+			if(document.getElementById('allow-storecard-debit').checked)
+			{
+				this.props.saveCard('debitCard');
+			}
+
+		}
+		else {
+			console.log('please enter all valid fields');
+		}
+
+
+	}
+	else {
+		var off_payment_method = document.getElementsByName('storecard');
+    var ischecked_method = false;
+    var cardValue = '';
+				for ( var i = 0; i < off_payment_method.length; i++)
+				{
+				    if(off_payment_method[i].checked) {
+				        ischecked_method = true;
+								cardValue=off_payment_method[i].value;
+				        break;
+				    }
+		    }
+
+			if(!ischecked_method)   { //payment method button is not checked
+			    console.log('please select a payment methods');
+			}
+			else {
+				console.log('saved card');
+				var cvvNumber = document.getElementById('checkoutCreditCVV'+this.state.cardId).value;
+				this.props.setCardPropsCvv(checkoutDebitCVVNew);
+				console.log(cvvNumber);
+				console.log(cardValue);
+				console.log(this.state);
+
+			}
+	}
+}
+
 hideNewDebitCard()
 {
 	this.setState({newCard:true});
 }
-selectDebitCard()
+selectDebitCard(cardData)
 {
 	this.setState({newCard:false});
+	this.setState({cardId:cardData.cardId});
+	this.props.setCardProps(cardData);
 }
 
 	render(){
@@ -100,8 +164,8 @@ selectDebitCard()
 														 <div className="checkout-card-list" key={fields.cardId}>
 														 <input type="hidden" name="debitCardId" defaultValue={fields.cardId} />
 															 <div className="checkout-address-radio cardList active_old" id="22773" >
-																		 <input type="radio" className="radio" name="storecard" id={"storecard-id-"+fields.cardId} defaultValue={fields.cardId}  onClick={e=>this.selectDebitCard()} autoComplete="off" />
-																					 <label name="checkout-address-label newLabelForCardList" htmlFor={"storecard-id-"+fields.cardId} onClick={e=>this.selectDebitCard()}>
+																		 <input type="radio" className="radio" name="storecard" id={"storecard-id-"+fields.cardId} defaultValue={fields.cardId}  onClick={e=>this.selectDebitCard({cardId:fields.cardId,cardNumber:fields.cardNumber,cardType:fields.cardType,expirationMonth:fields.expirationMonth,expirationYear:fields.expirationYear,name:fields.name})} autoComplete="off" />
+																					 <label name="checkout-address-label newLabelForCardList" htmlFor={"storecard-id-"+fields.cardId} >
 																							 <div className="left">
 																									 <div>
 																										 <span className="font-large">{fields.cardNumber.substring(0,4)}  </span>
@@ -115,7 +179,7 @@ selectDebitCard()
 																							 <div className="checkout-card-input right">
 																									 <div>
 																											 <span>CVV</span>
-																											 <input id={"checkoutCreditCVV"+fields.cardId} type="password" name={"checkoutCreditCVV"+fields.cardId} maxLength="3" size="5" className="input-field credit-cvv cardListCvv" placeholder="CVV" />
+																											 <input id={"checkoutCreditCVV"+fields.cardId} type="password" name={"checkoutCreditCVV"+fields.cardId} maxLength="3" size="5" className="input-field credit-cvv cardListCvv" placeholder="CVV" onChange={e=>this.props.setCardPropsCvv(e.target.value)} />
 																									 </div>
 
 																							 </div>
@@ -300,7 +364,7 @@ selectDebitCard()
                        <span>Note: </span> International credit cards are accepted
                   </div>
 
-       					  <div className="checkout-button-wrap"><button type="submit" onClick={e=>saveCard(e,'creditCard')} className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
+       					  <div className="checkout-button-wrap"><button type="submit" onClick={e=>this.validateCard(e,'creditCard')} className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
 
 
                </li>
