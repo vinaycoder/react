@@ -125,8 +125,11 @@ this.PayUAction(methodId);
 		const payUBaseUrl = "https://test.payu.in/_payment";
 		const payUResponseUrl = "https://indiarush.org/payment/response/payU";
 
-		const surl='http://dev.indiarush.com:3000/checkout-success';
-		const furl='http://dev.indiarush.com:3000/checkout-success';
+		const surl='http://dev.indiarush.com/fail.php';
+		const furl='http://dev.indiarush.com/fail.php';
+		// const surl='http://dev.indiarush.com/fail.php';
+		// const furl='http://dev.indiarush.com/fail.php';
+		const taxId=101040643;
 
 		// for PG
 		var netBankingId='';
@@ -173,7 +176,7 @@ this.PayUAction(methodId);
 		console.log('Your card details is not found');
 		return false;
 	}
-
+/*
 		const hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
 		const hashVarsSeq = hashSequence.split('|');
 
@@ -193,7 +196,23 @@ this.PayUAction(methodId);
 		}
 
 		hash_string += payUSalt;
-		hash ='';//sha512(hash_string).toLowerCase();
+		*/
+		fetch(
+			`https://indiarush.com/irapi/checkout/getPayUHash?version=3.90&key=${payUMerchantKey}&txnid=${taxId}&amount=${this.props.state.cart.grandtotal}&productinfo=${fieldsList.productinfo}&firstname=${fieldsList.firstname}&email=${fieldsList.email}&salt=${payUSalt}`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				console.log('logging category products data');
+				fieldsList.hash=jsonResult.hash;
+				console.log(jsonResult.hash);
+			});
+
+
+
+
+var		hash ='24d5a758386abfba26094dcfb6b24237c3f9950695141cbe3d24ce807989b68e947fc174010a06fda2164a19fb7acb520d931a0aba7fe4a1471c31a7cdf6ea50';//sha512(
 		fieldsList.hash=hash;
 
 console.log('viiiiiiiiiiiiiiiiiiiiiiiiii');
@@ -213,7 +232,7 @@ console.log(fieldsList);
 		for (var key in fieldsList) {
 			 var element1 = document.createElement("input");
 			 element1.value=fieldsList[key];
-			 element1.type="hidden";
+			 element1.type="input";
 			 element1.name=key;
 			 form.appendChild(element1);
 		   // console.log("User " + fieldsList[key] + " is #" + key); // "User john is #234"
@@ -222,7 +241,7 @@ console.log(fieldsList);
 
 		document.body.appendChild(form);
 
-		//form.submit();
+		form.submit();
 
 	}
 

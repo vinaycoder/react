@@ -10,8 +10,12 @@ import logger from './logger';
 import sitemapRendering from './sitemapRendering';
 import redirects from './redirects';
 import pageRendering from './pageRendering';
+import payUPostData from './payUPostData';
+
+import bodyParser from 'body-parser';
 
 const app = express();
+
 
 const STATIC_OPTIONS = {
 	maxAge: 31536000000 // One year
@@ -31,6 +35,9 @@ app.use(express.static('public/content', STATIC_OPTIONS));
 app.use('/assets', express.static('assets', STATIC_OPTIONS));
 app.use('/sw.js', express.static('assets/sw.js'));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get(
 	/^.+\.(jpg|jpeg|gif|png|bmp|ico|webp|svg|css|js|zip|rar|flv|swf|xls)$/,
 	(req, res) => {
@@ -39,6 +46,10 @@ app.get(
 );
 //app.get('/robots.txt', robotsRendering);
 app.get('/sitemap.xml', sitemapRendering);
+
+app.all('/checkoutpostdata', payUPostData);
+
+
 //app.get('*', redirects);
 app.use(responseTime());
 app.use(cookieParser(settings.cookieSecretKey));
