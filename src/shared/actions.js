@@ -317,6 +317,15 @@ const requestsetUserSelectedAddress = data => ({
 	data
 });
 
+export const setUserSelectedCard = data => async (dispatch, getState) => {
+	dispatch(requestsetUserSelectedCard(data));
+};
+
+const requestsetUserSelectedCard = data => ({
+	type: t.SET_SELECTED_USER_CARD_DETAILS,
+	data
+});
+
 export const currentOrder = orderId => async (dispatch, getState) =>
 {
 	fetch(`https://indiarush.com/irapi/customer/getSalesOrderInfo/?order_id=${orderId}&version=3.95`)

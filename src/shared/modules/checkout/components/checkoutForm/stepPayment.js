@@ -16,12 +16,8 @@ class CheckoutStepPayment extends React.Component
 			creditCardList:[],
 			debitCardList:[],
 			currentOrderId:null,
-			cardId:null,
-			cardNumber:null,
-			expirationMonth:null,
-			expirationYear:null,
-			name:null,
-			cvv:null
+			cvv:null,
+			formValuesDebit: {}
 		};
 		this.saveCard = this.saveCard.bind(this);
 		this.getCardList = this.getCardList.bind(this);
@@ -32,7 +28,19 @@ class CheckoutStepPayment extends React.Component
 		this.setCardProps = this.setCardProps.bind(this);
 		this.setCardPropsCvv = this.setCardPropsCvv.bind(this);
 
+		this.handleChange = this.handleChange.bind(this);
 
+
+	}
+
+	handleChange(event)
+	{
+		event.preventDefault();
+		let formValuesDebit = this.state.formValuesDebit;
+		let name = event.target.name;
+		let value = event.target.value;
+		formValuesDebit[name] = value;
+		this.setState({formValuesDebit})
 	}
 
 
@@ -43,14 +51,13 @@ class CheckoutStepPayment extends React.Component
 	// this function is called for set the state of card details from debit or credit componentDidMount
 	setCardProps(cardData)
 	{
-		this.setState({cardId:cardData.cardId});
-		this.setState({cardNumber:cardData.cardNumber});
-		this.setState({cardType:cardData.cardType});
-		this.setState({expirationMonth:cardData.expirationMonth});
-		this.setState({expirationYear:cardData.expirationYear});
-		this.setState({name:cardData.name});
-		console.log(this.state);
-		console.log('set the parent state');
+   let formValuesDebit = this.state.formValuesDebit;
+		formValuesDebit['newccexpmonDebit'] =cardData.expirationMonth;
+		formValuesDebit['newccexpyrDebit'] = cardData.expirationYear;
+		formValuesDebit['newccnameDebit'] = cardData.name;
+		formValuesDebit['newccnumDebit'] = cardData.cardNumber;
+		formValuesDebit['newdebitCards'] = cardData.cardType;
+        this.setState({formValuesDebit})
 	}
 	setCardPropsCvv(cvv)
 	{
@@ -67,7 +74,8 @@ class CheckoutStepPayment extends React.Component
 					if(i%4 == 0 && i > 0) newval = newval.concat(' ');
 					newval = newval.concat(val[i]);
 			}
-			document.getElementById('ccnum-debit').value=newval;
+			e.target.value=newval;
+			this.handleChange(e);  // for changing the value and set the props
 	}
 
 
@@ -110,6 +118,7 @@ this.PayUAction(methodId);
 
 	PayUAction(methodId)
 	{
+		console.log('in payU Actionsssssssssssssssssssssssssssss');
 		/*test credentials */
 		const payUMerchantKey = "gtKFFx";
 		const payUSalt = "eCwWELxi";
@@ -125,10 +134,16 @@ this.PayUAction(methodId);
 		{
 			netBankingId='DC';
 		}
-		else if(methodId=='irdebit')
+		else if(methodId=='ircredit')
 		{
 				netBankingId='CC';
 		}
+
+		const PaymentCardDetails = localStorage.getItem('PaymentCardDetails');
+
+   if (PaymentCardDetails && PaymentCardDetails.length > 0)
+	 {
+		 const PaymentCardDetailsParsed = JSON.parse(PaymentCardDetails);
 
 		var fieldsList=
 		{
@@ -143,17 +158,21 @@ this.PayUAction(methodId);
 			furl:furl,
 			lastname:'',
 			pg:netBankingId,
-			bankcode:this.state.cardType,
-			ccnum:this.state.cardNumber,
-			ccname:this.state.name,
-			ccvv:this.state.cvv,
-			ccexpmon:this.state.expirationMonth,
-			ccexpyr:this.state.expirationYear,
+			bankcode:PaymentCardDetailsParsed.cardType,
+			ccnum:PaymentCardDetailsParsed.cardNu,
+			ccname:PaymentCardDetailsParsed.name,
+			ccvv:PaymentCardDetailsParsed.cvv,
+			ccexpmon:PaymentCardDetailsParsed.exMon,
+			ccexpyr:PaymentCardDetailsParsed.exYr,
 			user_credentials:payUMerchantKey+':'+this.props.state.customerDetails.email,
 			store_card:0,
 			one_click_checkout:1,
 			hash:null
 		};
+	}else {
+		console.log('Your card details is not found');
+		return false;
+	}
 
 		const hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
 		const hashVarsSeq = hashSequence.split('|');
@@ -178,7 +197,7 @@ this.PayUAction(methodId);
 		fieldsList.hash=hash;
 
 console.log('viiiiiiiiiiiiiiiiiiiiiiiiii');
-console.log(hashVarsSeq);
+// console.log(hashVarsSeq);
 console.log(fieldsList);
 
 
@@ -244,7 +263,7 @@ console.log(fieldsList);
 		{
 			const myForm = document.getElementById('submitCredit');
 			const formData = new FormData(myForm);
-			var cardType=formData.get('newcreditCards');
+			var cardType=formData.get('newdebitCards');
 			var sentCardType='';
 			if(cardType=='CC')
 			{
@@ -257,7 +276,7 @@ console.log(fieldsList);
 			{
 				sentCardType='Diners';
 			}
-			var url =`https://indiarush.com/irapi/customer/addNewCard/?customerId=${this.props.state.customerDetails.customer_id}&paymentType=${paymentType}&expirationMonth=${formData.get('newccexpmon')}&expirationYear=${formData.get('newccexpyr')}&version=3.81&cardType=${sentCardType}&cardNumber=${formData.get('newccnum')}&name=${formData.get('newccname')}`;
+			var url =`https://indiarush.com/irapi/customer/addNewCard/?customerId=${this.props.state.customerDetails.customer_id}&paymentType=${paymentType}&expirationMonth=${formData.get('newccexpmonDebit')}&expirationYear=${formData.get('newccexpyrDebit')}&version=3.81&cardType=${sentCardType}&cardNumber=${formData.get('newccnumDebit')}&name=${formData.get('newccnameDebit')}`;
 
 		}
 		if(paymentType=='debitCard')
@@ -364,10 +383,10 @@ console.log(fieldsList);
 			   {this.props.state.paymentMethods.map(fields => (
 					 	<div key={fields.code}>
 						{fields.code=='irdebit' && (
-							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  debitCardList={this.state.debitCardList} debitcardtype={this.debitcardtype} setCardProps={this.setCardProps} setCardPropsCvv={this.setCardPropsCvv} createOrder={this.createOrder} fetchCart={this.props.fetchCart}/>
+							<DebitPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard}  debitCardList={this.state.debitCardList} debitcardtype={this.debitcardtype} setCardProps={this.setCardProps} setCardPropsCvv={this.setCardPropsCvv} createOrder={this.createOrder} handleChange={this.handleChange}/>
 							)}
 							{fields.code=='ircredit' && (
-								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} creditCardList={this.state.creditCardList} debitcardtype={this.debitcardtype} setCardPropsCvv={this.setCardPropsCvv} />
+								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} creditCardList={this.state.creditCardList} debitcardtype={this.debitcardtype}  setCardProps={this.setCardProps} setCardPropsCvv={this.setCardPropsCvv} createOrder={this.createOrder} handleChange={this.handleChange} />
 								)}
 								{fields.code=='irpayment' && (
 									<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />

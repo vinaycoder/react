@@ -16,6 +16,7 @@ import {
 	logoutPost,
 	createUserPost,
 	setUserSelectedAddress,
+	setUserSelectedCard,
 	currentOrder
 } from './actions';
 
@@ -138,6 +139,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
 		},
 		setUserSelectedAddress: data => {
 			dispatch(setUserSelectedAddress(data));
+		},
+		setUserSelectedCard: data => {
+			dispatch(setUserSelectedCard(data));
 		},
 		currentOrder: orderId => {
 			dispatch(currentOrder(orderId));

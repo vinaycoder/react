@@ -6,7 +6,8 @@ class debitPaymentForm extends Component{
 	super(props);
 		this.state = {
 			newCard:false,
-			cardId:null
+			cardId:null,
+			cardDetails:{cardType:null,cardNu:null,name:null,exMon:null,exYr:null,cvv:null,methods:'irdebit'}
 		};
 	this.hideNewDebitCard=this.hideNewDebitCard.bind(this);
 	this.selectDebitCard=this.selectDebitCard.bind(this);
@@ -33,14 +34,15 @@ validateCard(e,type)
      // check the validation
 		if(cardType!='' && ccnumDebit!='' && newccnameDebit!='' && newccexpmonDebit!='' && newccexpyrDebit!='' && checkoutDebitCVVNew!='')
 		{
-			this.props.setCardProps({cardId:'',cardNumber:ccnumDebit,cardType:cardType,expirationMonth:newccexpmonDebit,expirationYear:newccexpyrDebit,name:newccnameDebit});
-			this.props.setCardPropsCvv(checkoutDebitCVVNew);
 			// for saved the card
+			let cardDetails ={}; cardDetails={cardType:cardType,cardNu:ccnumDebit,name:newccnameDebit,exMon:newccexpmonDebit,exYr:newccexpyrDebit,cvv:checkoutDebitCVVNew,methods:'ircredit'};
+			localStorage.setItem('PaymentCardDetails', JSON.stringify(cardDetails));
+
 			if(document.getElementById('allow-storecard-debit').checked)
 			{
-				//this.props.saveCard('debitCard');
+				this.props.saveCard('debitCard');
 				this.props.createOrder('irdebit');
-				this.props.fetchCart();
+
 			}
 			else {
 				this.props.createOrder('irdebit');
@@ -69,9 +71,19 @@ validateCard(e,type)
 			else {
 				console.log('saved card');
 				var cvvNumber = document.getElementById('checkoutCreditCVV'+this.state.cardId).value;
-				this.props.setCardPropsCvv(cvvNumber);
-				console.log(this.state);
-				this.props.createOrder('irdebit');
+				if(cvvNumber!='')
+				{
+					let cardDetails = this.state.cardDetails;
+					cardDetails['cvv']=cvvNumber;
+					localStorage.setItem('PaymentCardDetails', JSON.stringify(cardDetails));
+
+					this.props.createOrder('irdebit');
+				}
+				else {
+					console.log('please enter cvv number');
+				}
+
+
 
 			}
 	}
@@ -82,6 +94,16 @@ hideNewDebitCard()
 }
 selectDebitCard(cardData)
 {
+	// set selected card in state
+	let cardDetails = this.state.cardDetails;
+	cardDetails['cardType']=cardData.cardType;
+	cardDetails['cardNu']=cardData.cardNumber;
+	cardDetails['name']=cardData.name;
+	cardDetails['exMon']=cardData.expirationMonth;
+	cardDetails['exYr']=cardData.expirationYear;
+	this.setState({cardDetails})
+// end setting the cards
+
   this.props.setCardProps(cardData);  // calling the set the parent component state
 	this.setState({cardId:cardData.cardId});
 	this.setState({newCard:false});
@@ -186,7 +208,7 @@ selectDebitCard(cardData)
 															                     <div className="checkout-card-input right">
 															                         <div>
 															                             <span>CVV</span>
-															                             <input id={"checkoutCreditCVV"+fields.cardId} type="password" name={"checkoutCreditCVV"+fields.cardId} maxLength="3" size="5" className="input-field credit-cvv cardListCvv" onChange={e=>this.props.setCardPropsCvv(e.target.value)} placeholder="CVV" />
+															                             <input id={"checkoutCreditCVV"+fields.cardId} type="password" name={"checkoutCreditCVV"+fields.cardId} maxLength="3" size="5" className="input-field credit-cvv cardListCvv" placeholder="CVV" />
 															                         </div>
 
 															                     </div>
@@ -298,6 +320,7 @@ selectDebitCard(cardData)
                                                </div>
                                                <div className="checkout-card-input">
                                                    <select size="1" name="newccexpmonDebit" id="newccexpmonDebit" className="validate-select" autcomplete="off" >
+																									 	<option value="">M</option>
                                                        <option value="01">01</option>
                                                        <option value="02">02</option>
                                                        <option value="03">03</option>
@@ -314,7 +337,7 @@ selectDebitCard(cardData)
                                                </div>
                                                <div className="checkout-card-input">
                                                    <select size="1" name="newccexpyrDebit" id="newccexpyrDebit" className="validate-select" autcomplete="off">
-                                                       <option value="2017">2017</option>
+																								    	 <option value="">Year</option>
                                                        <option value="2018">2018</option>
                                                        <option value="2019">2019</option>
                                                        <option value="2020">2020</option>

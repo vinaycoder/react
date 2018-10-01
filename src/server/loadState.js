@@ -615,6 +615,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			cart: null,
 			saveForLater: [],
 			userSelectedAddress: {},
+			userSelectedCard: {},
 			currentOrder:{},
 			order: null,
 			checkoutFields: checkoutFields,
