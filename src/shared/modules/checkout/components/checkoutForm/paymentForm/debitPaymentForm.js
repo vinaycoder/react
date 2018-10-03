@@ -182,7 +182,7 @@ selectDebitCard(cardData)
                                <div className="checkout-card-container" id="debit-checkout-card-container">
 
 
-													{typeof this.props.debitCardList != "undefined" && this.props.debitCardList.length > 0  && (
+													{this.props.debitCardList.length > 0  && (
 
 
 
@@ -208,8 +208,10 @@ selectDebitCard(cardData)
 															                     <div className="checkout-card-input right">
 															                         <div>
 															                             <span>CVV</span>
+{
 															                             <input id={"checkoutCreditCVV"+fields.cardId} type="password" name={"checkoutCreditCVV"+fields.cardId} maxLength="3" size="5" className="input-field credit-cvv cardListCvv" placeholder="CVV" />
-															                         </div>
+
+}															                         </div>
 
 															                     </div>
 															                 </label>
@@ -272,7 +274,7 @@ selectDebitCard(cardData)
 
 
 
-															 {typeof this.props.debitCardList == "undefined" || (this.props.debitCardList.length < 1 || this.state.newCard)   && (
+															 {(this.props.debitCardList.length < 1 || this.state.newCard)   && (
 																 <div>
                                    <div className="checkout-card-title width100">
 																			 <div className="checkoutNewCard">

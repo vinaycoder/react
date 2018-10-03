@@ -438,6 +438,22 @@ const getThemeSettings = () => {
 	};
 };
 
+const getCurrentOrdersDetails = orderId => {
+	if (orderId) {
+		return fetch(
+		`https://indiarush.com/irapi/customer/getSalesOrderInfo/?order_id=${orderId}&version=3.95`
+		)
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+				return jsonResult;
+			});
+	} else {
+		return {};
+	}
+};
+
 const getAllData = (currentPage, productFilter, cookie) => {
 	var list = {};
 	cookie &&
@@ -447,8 +463,6 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		});
 	console.log('get all data function in load state');
 
-	console.log('cookie');
-	console.log(cookie);
 
 	console.log('currentPage');
 	console.log(currentPage);
@@ -484,6 +498,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 				return jsonResult.data;
 			}),
 			*/
+
+		getCurrentOrdersDetails(list.currentOrderId),
 		getProducts(currentPage, productFilter),
 		getProductsAttributes(currentPage, productFilter),
 		getProduct(currentPage),
@@ -493,7 +509,9 @@ const getAllData = (currentPage, productFilter, cookie) => {
 	]).then(
 		([
 			checkoutFields,
-			categories, //cart,
+			categories,
+			 //cart,
+			currentOrder,
 			products,
 			productsAttributes,
 			product,
@@ -503,6 +521,8 @@ const getAllData = (currentPage, productFilter, cookie) => {
 		]) => {
 			// console.log('pageDataMine');
 			// console.log(page);
+			console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+			console.log(currentOrder);
 
 			let categoryDetails = null;
 			if (currentPage.type === PRODUCT_CATEGORY) {
@@ -512,6 +532,7 @@ const getAllData = (currentPage, productFilter, cookie) => {
 				checkoutFields,
 				categories,
 				//		cart,
+				currentOrder,
 				products,
 				productsAttributes,
 				product,
@@ -529,6 +550,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 		checkoutFields,
 		categories,
 		//	cart,
+		currentOrder,
 		products,
 		productsAttributes,
 		product,
@@ -616,7 +638,7 @@ const getState = (currentPage, settings, allData, location, productFilter) => {
 			saveForLater: [],
 			userSelectedAddress: {},
 			userSelectedCard: {},
-			currentOrder:{},
+			currentOrder: currentOrder,
 			order: null,
 			checkoutFields: checkoutFields,
 			themeSettings: themeSettings

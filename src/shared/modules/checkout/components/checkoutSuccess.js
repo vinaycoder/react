@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import cookie from 'react-cookies';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { text } from '../../../lib/settings';
@@ -34,11 +35,16 @@ const OrderItems = ({ items, settings }) => {
 	return null;
 };
 
-const CheckoutSuccess = ({
-	order,
-	settings
-}) => {
-
+class CheckoutSuccess extends Component{
+	constructor(props) {
+	super(props);
+}
+	componentDidMount()
+	{
+		cookie.save('currentOrderId', '', { path: '/' });
+	}
+render(){
+const {order,settings}=this.props;
 	if (order && order.items && order.items.length > 0) {
 		return (
 			<div className="checkout-success-details">
@@ -125,7 +131,8 @@ const CheckoutSuccess = ({
 		);
 	}
 	return <div className="has-text-centered">{text.cartEmpty}</div>;
-};
+}
+}
 /*
 CheckoutSuccess.propTypes = {
 	order: PropTypes.shape({}),
