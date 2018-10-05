@@ -14,8 +14,8 @@ await fetch(`https://indiarush.com/irapi/customer/getSalesOrderInfo/?order_id=${
 }
 
 async function payUPostData(req, res) {
-	// const OrderId=req.body.txnid;
-	const OrderId=101040643;
+	const OrderId=req.body.txnid;
+	// const OrderId=101040678;
 	if(OrderId=='')
 	{
 		var errorMessage='Something went wrong with your order id. Please try again for payment.'
@@ -23,8 +23,16 @@ async function payUPostData(req, res) {
 		return false;
 	}
 	else {
-		/*
-     let ordersDetails = await getOrderDetails(OrderId);
+
+     const ordersDetails = await getOrderDetails(OrderId);
+
+		 if(req.body.status === 'failure')
+		 {
+			 var errorMessage='Something went wrong with your order id. Please try again for payment.'
+				return res.redirect('/checkout');
+				return false;
+		 }
+
 		 if(req.body.txnid != ordersDetails.increment_id)
 		 {
 			 var errorMessage='Something went wrong with your order id. Please try again for payment.'
@@ -37,18 +45,28 @@ async function payUPostData(req, res) {
 				return res.redirect('/checkout');
 				return false;
 		 }
-		 */
-		 res.cookie('currentOrderId',OrderId,{ path: '/' });
-		 res.redirect('/checkout-success');
+
+    /* for successfull transaction*/
+		 if(req.body.status === 'success')
+		 {
+			 var errorMessage='Something went wrong with your order id. Please try again for payment.'
+
+			 if(parseInt(req.body.amount) == parseInt(ordersDetails.grand_total))
+			 {
+				 var errorMessage='Your Order is successfully placed'
+				 res.cookie('currentOrderId',OrderId,{ path: '/' });
+				 res.redirect('/checkout-success');
+			 }
+			 else {
+				 var errorMessage='Something went wrong with your order id. Please try again for payment.'
+					return res.redirect('/checkout');
+					return false;
+			 }
+
+		 }
 
 	}
 
-
-  console.log(ordersDetails);
-	console.log('testing 2');
-  // console.log(getOrderDetails(req.body.txnid));
-	// currentOrder(ordersDetails);
-	// return res.redirect('/checkout-success');
 	res.end();
 }
 

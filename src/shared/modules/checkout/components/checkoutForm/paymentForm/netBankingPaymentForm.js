@@ -6,9 +6,23 @@ class netBankingPaymentForm extends Component{
 	super(props);
 	this.selectNetCheckUncheck = this.selectNetCheckUncheck.bind(this);
 	this.radioNetCheckUncheck = this.radioNetCheckUncheck.bind(this);
+	this.validateNetBanking = this.validateNetBanking.bind(this);
 }
 componentDidMount()
 {
+
+}
+validateNetBanking(e,type)
+{
+		var codeValue=document.getElementById('netBankingCards').value;
+		if(codeValue!='' || codeValue!='null' || codeValue!='undefined')
+		{
+			this.props.createOrder('irpayment');
+		}
+		else {
+			console.log('Please select net banking bank');
+		}
+
 
 }
 selectNetCheckUncheck(e,val)
@@ -258,7 +272,7 @@ radioNetCheckUncheck()
                </li>
        				<li className="variation-checkout"> </li>
        					<li>
-       						 <div className="checkout-button-wrap"><button type="submit" className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
+       						 <div className="checkout-button-wrap"><button type="submit" onClick={e=>this.validateNetBanking(e,'irpayment')} className="checkout-button button is-primary checkoutLoginBtn">PLACE ORDER <i className="material-icons">keyboard_arrow_right</i></button></div>
        					</li>
        </ul>
        </fieldset>
@@ -266,7 +280,12 @@ radioNetCheckUncheck()
 
      <div className="clear"></div>
 
+
+
+
        </div>
+
+
 		);
 	}
 

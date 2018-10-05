@@ -23,6 +23,7 @@ class CheckoutStepPayment extends React.Component
 		this.getCardList = this.getCardList.bind(this);
 		this.codOrder = this.codOrder.bind(this);
 		this.PayUAction = this.PayUAction.bind(this);
+		this.hdfcAction = this.hdfcAction.bind(this);
 		this.createOrder = this.createOrder.bind(this);
 		this.debitcardtype = this.debitcardtype.bind(this);
 		this.setCardProps = this.setCardProps.bind(this);
@@ -81,8 +82,9 @@ class CheckoutStepPayment extends React.Component
 
 	createOrder(methodId)
 	{
-this.PayUAction(methodId);
-		/*
+		// this.PayUAction(methodId);
+		this.hdfcAction(methodId);
+/*
 		const quoteId = cookie.load('userQuoteId');
 	fetch(`https://indiarush.com/irapi/checkout/setPaymentMethod/?quoteId=${quoteId}&method=${methodId}&version=3.79`)
 			.then(result => {
@@ -110,14 +112,100 @@ this.PayUAction(methodId);
 											{
 												this.codOrder();
 											}
+											if(methodId=='ircredit' || methodId=='irdebit')
+											{
+												this.PayUAction(methodId);
+											}
+											if(methodId=='irpayment')
+											{
+											  var codeValue=document.getElementById('netBankingCards').value;
+												if(codeValue=='HDFC')
+												{
+														this.hdfcAction(methodId);
+												}else {
+													this.PayUAction(methodId);
+												}
+
+											}
 										}
 							});
 
-							*/
+*/
+	}
+
+	async hdfcAction(methodId)
+	{
+		var fieldsList=
+		{
+			account_id:"22727",
+			address:"delhi,South Delhi,Delhi", // order id
+			amount:200,
+			channel:"10",
+			city:"South Delhi",//this.props.state.customerDetails.firstname,
+			country:"IND",//this.props.state.customerDetails.email,
+			currency:"INR",//this.props.state.customerDetails.phone_number,
+			description:"Order #100995736",
+			email:"vinay@indiarush.com",
+			mode:"LIVE",
+			name:"vinay",
+			phone:8888888881,
+			postal_code:110044,
+			reference_no:100995736,
+			return_url:"https://dev.indiarush.com/payment/response/hdfc/",
+			ship_address:"delhi",
+			ship_city:"South Delhi",
+			ship_country:"IND",
+			ship_name:"vinay",
+			ship_phone:8888888881,
+			ship_postal_code:110044,
+			ship_state:'Delhi',
+			state:'Delhi'
+		};
+
+		var url = 'https://indiarush.com/irapi/checkout/getPayUHashForHdfc';
+		await	fetch(url, {
+			  method: 'POST', // or 'PUT'
+			  body: JSON.stringify(fieldsList), // data can be `string` or {object}!
+			  headers:{
+			    'Content-Type': 'application/json'
+			  }
+			})
+			.then(result => {
+				return result.json();
+			})
+			.then(jsonResult => {
+			console.log(jsonResult);
+			fieldsList['secure_hash']=jsonResult.hash;
+			});
+
+		console.log('viiiiiiiiiiiiiiiiiiiiiiiiii');
+		console.log(fieldsList);
+
+		var form = document.createElement("form");
+		form.method = "POST";
+		form.action = 'https://secure.ebs.in/pg/ma/payment/request/';
+
+		for (var key in fieldsList) {
+			 var element1 = document.createElement("input");
+			 element1.value=fieldsList[key];
+			 element1.type="text";
+			 element1.name=key;
+			 form.appendChild(element1);
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+
+		// this.setState({currentOrderId:null});
+
+
 	}
 
 	async PayUAction(methodId)
 	{
+
+		if(this.state.currentOrderId!=null || this.state.currentOrderId!='')
+		{
 		console.log('in payU Actionsssssssssssssssssssssssssssss');
 		/*test credentials */
 		const payUMerchantKey = "gtKFFx";
@@ -125,21 +213,35 @@ this.PayUAction(methodId);
 		const payUBaseUrl = "https://test.payu.in/_payment";
 		const payUResponseUrl = "https://indiarush.org/payment/response/payU";
 
-		const surl='http://dev.indiarush.com/fail.php';
-		const furl='http://dev.indiarush.com/fail.php';
-		// const surl='http://localhost:3000/checkoutpostdata';
-		// const furl='http://localhost:3000/checkoutpostdata';
-		const taxId=101040643;
+		// const surl='http://dev.indiarush.com/fail.php';
+		// const furl='http://dev.indiarush.com/fail.php';
+		const surl='http://localhost:3000/checkoutpostdata';
+		const furl='http://localhost:3000/checkoutpostdata';
+
+		// const taxId=this.state.currentOrderId;
+
+		const taxId=101040699;
 
 		// for PG
 		var netBankingId='';
+		var bankCode='';
 		if(methodId=='irdebit')
 		{
+		  bankCode=	PaymentCardDetailsParsed.cardType
 			netBankingId='DC';
 		}
 		else if(methodId=='ircredit')
 		{
+			  bankCode=	PaymentCardDetailsParsed.cardType
 				netBankingId='CC';
+		}
+		else if(methodId!='ircredit' && methodId!='irdebit')
+		{
+			var codeValue=document.getElementById('netBankingCards').value;
+			  bankCode=	codeValue;
+				netBankingId="NB";
+				let cardDetails ={}; cardDetails={cardType:"",cardNu:"",name:"",exMon:"",exYr:"",cvv:"",methods:'irpayment'};
+				localStorage.setItem('PaymentCardDetails', JSON.stringify(cardDetails));
 		}
 
 		const PaymentCardDetails = localStorage.getItem('PaymentCardDetails');
@@ -153,7 +255,7 @@ this.PayUAction(methodId);
 		var fieldsList=
 		{
 			key:payUMerchantKey,
-			txnid:101040643, // order id
+			txnid:taxId, // order id
 			amount:this.props.state.cart.grandtotal,
 			productinfo:productInfo,
 			firstname:this.props.state.customerDetails.firstname,
@@ -163,7 +265,7 @@ this.PayUAction(methodId);
 			furl:furl,
 			lastname:'',
 			pg:netBankingId,
-			bankcode:PaymentCardDetailsParsed.cardType,
+			bankcode:bankCode,
 			ccnum:PaymentCardDetailsParsed.cardNu,
 			ccname:PaymentCardDetailsParsed.name,
 			ccvv:PaymentCardDetailsParsed.cvv,
@@ -178,27 +280,6 @@ this.PayUAction(methodId);
 		console.log('Your card details is not found');
 		return false;
 	}
-/*
-		const hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
-		const hashVarsSeq = hashSequence.split('|');
-
-			var keys='';
-			var hash = '';
-			var hash_string = '';
-		for (var i = 0; i < hashVarsSeq.length; i++) {
-			  keys=hashVarsSeq[i];
-				if(fieldsList[keys]!='')
-				{
-					hash_string += fieldsList[keys];
-				}
-				else {
-						hash_string += '';
-				}
-				hash_string += '|';
-		}
-
-		hash_string += payUSalt;
-		*/
 
 	await fetch(
 			`https://indiarush.com/irapi/checkout/getPayUHash?version=3.90&key=${payUMerchantKey}&txnid=${taxId}&amount=${this.props.state.cart.grandtotal}&productinfo=${fieldsList.productinfo}&firstname=${fieldsList.firstname}&email=${fieldsList.email}&salt=${payUSalt}`
@@ -238,6 +319,8 @@ console.log(fieldsList);
 		document.body.appendChild(form);
 		form.submit();
 
+		this.setState({currentOrderId:null});
+	}
 	}
 
 
@@ -247,6 +330,7 @@ console.log(fieldsList);
 		if(this.state.currentOrderId!=null || this.state.currentOrderId!='')
 		{
 			this.props.currentOrder(this.state.currentOrderId);
+			this.setState({currentOrderId:null});
 			this.props.history.push('/checkout-success');
 
 		}
@@ -405,7 +489,7 @@ console.log(fieldsList);
 								<CreditPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} saveCard={this.saveCard} creditCardList={this.state.creditCardList} debitcardtype={this.debitcardtype}  setCardProps={this.setCardProps} setCardPropsCvv={this.setCardPropsCvv} createOrder={this.createOrder} handleChange={this.handleChange} />
 								)}
 								{fields.code=='irpayment' && (
-									<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings}  />
+									<NetBankingPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} createOrder={this.createOrder} />
 									)}
 									{fields.code=='cashondelivery' && (
 										<CodPaymentForm showPaymentMethod={showPaymentMethod} cart={cart} settings={settings} createOrder={this.createOrder}/>
