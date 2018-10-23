@@ -10,3 +10,4 @@ assets/precache-manifest.*.js
 logs/*.log
 npm-debug.log*
 *.zip
+vendor
