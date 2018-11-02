@@ -47,7 +47,8 @@ class CheckoutStepShipping extends React.Component {
 			phone:null,
 			entity_id:null,
 			newAddress:false,
-			showShippingReadonly:false
+			showShippingReadonly:false,
+			showMoreAddress:false
 		};
 		this.addActiveClass=this.addActiveClass.bind(this);
 		this.setShippingAddress=this.setShippingAddress.bind(this);
@@ -55,6 +56,7 @@ class CheckoutStepShipping extends React.Component {
 		this.newAddress=this.newAddress.bind(this);
 		this.cancelEditAddress=this.cancelEditAddress.bind(this);
 		this.hideUpdateDiv=this.hideUpdateDiv.bind(this);
+		this.showAddress=this.showAddress.bind(this);
 	}
 
 	componentDidMount() {
@@ -64,6 +66,10 @@ class CheckoutStepShipping extends React.Component {
 		}
 
 		this.setShippingAddress(this.props.initialValues);
+	}
+	showAddress()
+	{
+		this.setState({showMoreAddress:true});
 	}
 
 	hideUpdateDiv(e)
@@ -254,25 +260,43 @@ class CheckoutStepShipping extends React.Component {
 							 };
 								return (
 									<div key={index} className="checkout-field-preview--old">
+										{index <=1 &&(
+												<div className={"checkoutAddresses " +ActiveClas} id={"div"+index} >
+											    <div className="checkout-address-radio billing-checkout-address-wrapper" id={field.entity_id}>
+											        <div style={{fontWeight:'bold'}}>
+											            <input type="radio" defaultChecked={checked} name="checkout-address" id={index} defaultValue={field.entity_id} />&nbsp; Address&nbsp;{index+1}
+											         </div>
+											    <label name="checkout-address-label" htmlFor={index} style={{float:'left'}} onClick={e=>this.addActiveClass(e,index,shippingD,field.entity_id)}>
+											        {field.firstname} , {field.street} , {field.city}, {field.region} {field.postcode}, India
+											    </label>
+											        <div className="clear"></div>
+											    </div>
+											    <div className="editAddressCheckout">
+											        <span id="checkoutEditAddress948949" className="checkoutEditAddress" onClick={e=>this.editAddress(e,index,shippingD,field.entity_id)} style={{display: 'inline'}}>Edit Address</span>
+											        <span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>billing.cancelEditAddress(948949)} style={{display: 'none'}}>Cancel</span>
+											    </div>
+											</div>
+											)}
+											{index > 2 && this.state.showMoreAddress &&(
+												<div>
+																<div className={"checkoutAddresses " +ActiveClas} id={"div"+index} >
+																	<div className="checkout-address-radio billing-checkout-address-wrapper" id={field.entity_id}>
+																			<div style={{fontWeight:'bold'}}>
+																					<input type="radio" defaultChecked={checked} name="checkout-address" id={index} defaultValue={field.entity_id} />&nbsp; Address&nbsp;{index+1}
+																			 </div>
+																	<label name="checkout-address-label" htmlFor={index} style={{float:'left'}} onClick={e=>this.addActiveClass(e,index,shippingD,field.entity_id)}>
+																			{field.firstname} , {field.street} , {field.city}, {field.region} {field.postcode}, India
+																	</label>
+																			<div className="clear"></div>
+																	</div>
+																	<div className="editAddressCheckout">
+																			<span id="checkoutEditAddress948949" className="checkoutEditAddress" onClick={e=>this.editAddress(e,index,shippingD,field.entity_id)} style={{display: 'inline'}}>Edit Address</span>
+																			<span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>billing.cancelEditAddress(948949)} style={{display: 'none'}}>Cancel</span>
+																	</div>
+															</div>
+													</div>
 
-									<div className={"checkoutAddresses " +ActiveClas} id={"div"+index} >
-								    <div className="checkout-address-radio billing-checkout-address-wrapper" id={field.entity_id}>
-								        <div style={{fontWeight:'bold'}}>
-								            <input type="radio" defaultChecked={checked} name="checkout-address" id={index} defaultValue={field.entity_id} />&nbsp; Address&nbsp;{index+1}
-								         </div>
-								    <label name="checkout-address-label" htmlFor={index} style={{float:'left'}} onClick={e=>this.addActiveClass(e,index,shippingD,field.entity_id)}>
-								        {field.firstname} , {field.street} , {field.city}, {field.region} {field.postcode}, India
-								    </label>
-
-								        <div className="clear"></div>
-
-								    </div>
-								    <div className="editAddressCheckout">
-								        <span id="checkoutEditAddress948949" className="checkoutEditAddress" onClick={e=>this.editAddress(e,index,shippingD,field.entity_id)} style={{display: 'inline'}}>Edit Address</span>
-								        <span id="checkoutCancelEditAddress948949" className="checkoutCancelEditAddress" onClick={e=>billing.cancelEditAddress(948949)} style={{display: 'none'}}>Cancel</span>
-								    </div>
-								</div>
-
+											)}
 									</div>
 								);
 
@@ -287,6 +311,10 @@ class CheckoutStepShipping extends React.Component {
 
 				<div className="checkoutFormContactDetailsPadding" id="divSavedAddressList">
 									{shippingFields}
+									{shippingMethod.length > 1 && !this.state.showMoreAddress &&(
+									<div style={{color: '#5289cb'}} id="more_address" onClick={e=>this.showAddress()}>View More Saved address
+											</div>
+										)}
 
 									<div className="checkout-button-wrap">
 									{(this.props.state.isLoggedIn == 1 || this.props.state.isLoggedIn == 2) && (
