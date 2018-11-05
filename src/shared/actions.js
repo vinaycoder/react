@@ -8,7 +8,8 @@ import {
 	PRODUCT,
 	RESERVED,
 	SEARCH,
-	LOGIN
+	LOGIN,
+	HOME
 } from './pageTypes';
 import api from '../client/api';
 import * as analytics from './analytics';
@@ -450,7 +451,7 @@ export const getLoginDetails = currentPage => async (dispatch, getState) => {
 };
 
 export const getProductDetails = currentPage => async (dispatch, getState) => {
-	dispatch(requestProduct());
+	// dispatch(requestProduct());
 	const { app } = getState();
 	console.log(app);
 	let product = {};
@@ -778,6 +779,7 @@ export const updateCart = (data, callback) => async (dispatch, getState) => {
 
 export const setCurrentPage = location => async (dispatch, getState) => {
 	console.log('calling set current opage');
+	console.log(location);
 	let locationPathname = '/404';
 	let locationSearch = '';
 	let locationHash = '';
@@ -792,6 +794,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 	const { app } = getState();
 	console.log(app);
 	console.log('changes for app');
+	console.log(app);
 	let statePathname = '/404';
 	let stateSearch = '';
 	let stateHash = '';
@@ -840,7 +843,16 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			};
 			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
 			dispatch(receiveSitemap(newCurrentPage));
-		}else if (locationPathname == '/checkout-success') {
+		}else if (locationPathname == '/') {
+			newCurrentPage = {
+				type: 'home',
+				path: '/',
+				resource: ''
+			};
+			dispatch(fetchDataOnCurrentPageChange(newCurrentPage));
+			dispatch(receiveSitemap(newCurrentPage));
+		}
+		else if (locationPathname == '/checkout-success') {
 			newCurrentPage = {
 				type: 'page',
 				path: '/checkout-success',
@@ -896,11 +908,37 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 		console.log(newCurrentPage);
 	}
 };
+// gettting the getHomePageDetails
+const receiveHomePage = currentPage => async (dispatch, getState)=>{
+	console.log('jsdddddddddddddddddd');
+	console.log(currentPage);
+	if(currentPage.type=='home')
+	{
+		// const version = 3.81;
+		// const id = 4;
+		// const p = 1;
+		// const image = 300;
+		//
+		// const ttttt = await  fetch(
+		// 	`https://indiarush.com/irapi/promotion/getPromotionData/?id=${id}&p=${p}&image=${image}&version=${version}`
+		// )
+		// 	.then(result => result.json())
+		// 	.then(jsonResult => {
+		// 		return jsonResult;
+		// 		// return {};
+		// 	});
+		var getHomePageDetails ={};
+		getHomePageDetails={getHomePageDetails:{},getHomePageRecommendationDetails:{}};
+		dispatch(requestHomePage(getHomePageDetails))
+	}
+}
+const requestHomePage = getHomePageDetails => ({ type: t.HOMEPAGE_DETAILS,getHomePageDetails });
 
 const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 	const { app } = getState();
 	let productFilter = null;
-
+console.log('tyyyyyyyyyyyyyyyyyyyyyyyyy');
+console.log(currentPage);
 	// clear product data
 	dispatch(receiveProduct(null));
 
@@ -946,6 +984,9 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 			// dispatch(receiveProduct(productData));
 			// analytics.productView({ product: productData });
 			break;
+		case HOME:
+		dispatch(receiveHomePage(currentPage));
+		break;
 		case PAGE:
 			const pageData = currentPage.data;
 			dispatch(receivePage(pageData));

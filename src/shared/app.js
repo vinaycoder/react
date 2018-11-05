@@ -38,7 +38,7 @@ class SwitchContainers extends React.Component {
 		super(props);
 	}
 
-	componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps(nextProps) {	
 		this.props.setCurrentPage(nextProps.location);
 		console.log(nextProps.location);
 		console.log('inside the next props');

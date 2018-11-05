@@ -13,15 +13,18 @@ import HomePerfectProduct from './homePerfectProduct';
 class HomePageMain extends Component {
 	constructor(props) {
 		super(props);
+		this.state={getHomePageDetails:[],getHomePageRecommendationDetails:[]};
+		this.getHomePageDetails=this.getHomePageDetails.bind(this);
+		this.getHomePageRecommendationDetails = this.getHomePageRecommendationDetails.bind(this);
+
 	}
 
-	getHomePageDetails() {
+	async getHomePageDetails() {
 		const version = 3.81;
 		const id = 4;
 		const p = 1;
 		const image = 300;
-
-		return fetch(
+	return	await fetch(
 			`https://indiarush.com/irapi/promotion/getPromotionData/?id=${id}&p=${p}&image=${image}&version=${version}`
 		)
 			.then(result => result.json())
@@ -30,11 +33,11 @@ class HomePageMain extends Component {
 			});
 	}
 
-	getHomePageRecommendationDetails() {
+	async getHomePageRecommendationDetails() {
 		const version = 3.81;
 		const customerId = 1296751;
 
-		return fetch(
+	return	await fetch(
 			`https://indiarush.com/irapi/product/getRecommendation/?customer_id=${customerId}&version=${version}`
 		)
 			.then(result => result.json())
@@ -43,50 +46,22 @@ class HomePageMain extends Component {
 			});
 	}
 
-	getAllHomePageDetails() {
-		const version = 3.81;
-		const id = 4;
-		const p = 1;
-		const image = 300;
-		const customerId = 1296751;
-
-		return Promise.all([
-			fetch(
-				`https://indiarush.com/irapi/promotion/getPromotionData/?id=${id}&p=${p}&image=${image}&version=${version}`
-			)
-				.then(result => result.json())
-				.then(jsonResult => {
-					return jsonResult;
-				}),
-			fetch(
-				`https://indiarush.com/irapi/product/getRecommendation/?customer_id=${customerId}&version=${version}`
-			)
-				.then(result => result.json())
-				.then(jsonResult => {
-					return jsonResult.data;
-				})
-		]).then(([getHomePageDetails, getHomePageRecommendationDetails]) => {
-			if (Object.keys(this.props.pageDetails.getHomePageDetails).length <= 0) {
-				this.props.pageDetails.getHomePageDetails = getHomePageDetails;
-			}
-
-			if (
-				Object.keys(this.props.pageDetails.getHomePageRecommendationDetails)
-					.length <= 0
-			) {
-				this.props.pageDetails.getHomePageRecommendationDetails = getHomePageRecommendationDetails;
-			}
-
-			return {
-				getHomePageDetails,
-				getHomePageRecommendationDetails
-			};
-		});
-	}
 
 	async componentDidMount(): Promise<void> {
 		if (Object.keys(this.props.pageDetails.getHomePageDetails).length <= 0) {
-			let getAllHomePageDetails = this.getAllHomePageDetails();
+				const homepageDetails=await this.getHomePageDetails();
+			this.setState({getHomePageDetails:homepageDetails});
+		}
+		else {
+			this.setState({getHomePageDetails:this.props.pageDetails.getHomePageDetails});
+		}
+
+		if (Object.keys(this.props.pageDetails.getHomePageRecommendationDetails).length <= 0) {
+			const Remondad = await this.getHomePageRecommendationDetails();
+			this.setState({getHomePageRecommendationDetails:Remondad});
+		}
+		else {
+			this.setState({getHomePageRecommendationDetails:this.props.pageDetails.getHomePageRecommendationDetails});
 		}
 	}
 
@@ -102,19 +77,21 @@ class HomePageMain extends Component {
 		const isSoldIn24hours = 0;
 		const isCategoryRecommendation = 0;
 		const isOtherRecommendation = 0;
-
+console.log('in homepage ----------------');
+console.log('sddddddddddddddddddddd');
+console.log(this.state);
 		if (
-			Object.keys(this.props.pageDetails.getHomePageRecommendationDetails)
+			Object.keys(this.state.getHomePageRecommendationDetails)
 				.length > 0
 		) {
-			this.props.pageDetails.getHomePageRecommendationDetails.map(
+			this.state.getHomePageRecommendationDetails.map(
 				getHomePageRecommendationDetail =>
 					getHomePageRecommendationDetail.head_title === 'Trending BestSeller'
 						? trendingBestSeller.push(getHomePageRecommendationDetail)
 						: trendingBestSeller.push()
 			);
 
-			this.props.pageDetails.getHomePageRecommendationDetails.map(
+			this.state.getHomePageRecommendationDetails.map(
 				getHomePageRecommendationDetail =>
 					getHomePageRecommendationDetail.head_title ===
 					"Sold In 24 Hours, Don't Miss Out On These"
@@ -122,14 +99,14 @@ class HomePageMain extends Component {
 						: soldIn24hours.push()
 			);
 
-			this.props.pageDetails.getHomePageRecommendationDetails.map(
+			this.state.getHomePageRecommendationDetails.map(
 				getHomePageRecommendationDetail =>
 					getHomePageRecommendationDetail.head_title === 'Most Loved Kurtis'
 						? categoryRecommendation.push(getHomePageRecommendationDetail)
 						: categoryRecommendation.push()
 			);
 
-			this.props.pageDetails.getHomePageRecommendationDetails.map(
+			this.state.getHomePageRecommendationDetails.map(
 				getHomePageRecommendationDetail =>
 					getHomePageRecommendationDetail.head_title ===
 					'You may also interested in the following producs'
@@ -140,22 +117,22 @@ class HomePageMain extends Component {
 
 		return (
 			<div>
-				{this.props.pageDetails.getHomePageDetails.slider && (
+				{this.state.getHomePageDetails.slider && (
 					<HomeSlider
-						products={this.props.pageDetails.getHomePageDetails.slider}
+						products={this.state.getHomePageDetails.slider}
 					/>
 				)}
 				{trendingBestSeller && (
 					<HomeProductSlider recommendations={trendingBestSeller} />
 				)}
-				{this.props.pageDetails.getHomePageDetails.promotion && (
+				{this.state.getHomePageDetails.promotion && (
 					<DealofDay
-						promotions={this.props.pageDetails.getHomePageDetails.promotion}
+						promotions={this.state.getHomePageDetails.promotion}
 					/>
 				)}
-				{this.props.pageDetails.getHomePageDetails.bestPick && (
+				{this.state.getHomePageDetails.bestPick && (
 					<BestPick
-						promotions={this.props.pageDetails.getHomePageDetails.bestPick}
+						promotions={this.state.getHomePageDetails.bestPick}
 					/>
 				)}
 				{soldIn24hours && <HomeProductSlider recommendations={soldIn24hours} />}

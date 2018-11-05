@@ -95,6 +95,10 @@ const appReducer = (state = initialState, action) => {
 
 		case t.LOCATION_CHANGED:
 			return Object.assign({}, state, { location: action.location });
+		case t.HOMEPAGE_DETAILS:
+			return Object.assign({}, state, {
+				pageDetails: action.getHomePageDetails
+			});
 
 		case t.PRODUCT_REQUEST:
 		case t.PAGE_REQUEST:
