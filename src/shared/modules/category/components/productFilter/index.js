@@ -10,8 +10,33 @@ export default class ProductFilter extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			sidebarIsActive: false
+			sidebarIsActive: false,
+			ProductAttributeFilter:[]
 		};
+			this.getProductAttributeFilter = this.getProductAttributeFilter.bind(this);
+	}
+
+async getProductAttributeFilter() {
+return	await fetch(
+	`https://indiarush.com/irapi/category/getCategoryFilters/?category_id=${this.props.state.currentPage.resource}&version=3.81`
+	)
+		.then(result => result.json())
+		.then(jsonResult => {
+			return jsonResult.data.filters;
+		});
+}
+
+
+
+	async componentDidMount(){
+		if (this.props.state.productsAttributes!='null' && this.props.state.productsAttributes!='') {
+			const Remondad = await this.getProductAttributeFilter();
+			this.setState({ProductAttributeFilter:Remondad});
+		}
+		else {
+			this.setState({ProductAttributeFilter:this.props.state.productsAttributes});
+		}
+
 	}
 
 	sidebarToggle = () => {
@@ -71,11 +96,21 @@ export default class ProductFilter extends React.Component {
 								/>
 							</div>
 						*/}
-							<AttributeFilter
-								attributes={productsAttributes}
-								setFilterAttribute={this.props.setFilterAttribute}
-								unsetFilterAttribute={this.props.unsetFilterAttribute}
-							/>
+
+
+					<AttributeFilter
+						attributes={this.state.ProductAttributeFilter}
+						setFilterAttribute={this.props.setFilterAttribute}
+						unsetFilterAttribute={this.props.unsetFilterAttribute}
+
+					/>
+
+
+
+
+
+
+
 
 							{/*
 							// <PriceSlider

@@ -77,9 +77,7 @@ class HomePageMain extends Component {
 		const isSoldIn24hours = 0;
 		const isCategoryRecommendation = 0;
 		const isOtherRecommendation = 0;
-console.log('in homepage ----------------');
-console.log('sddddddddddddddddddddd');
-console.log(this.state);
+
 		if (
 			Object.keys(this.state.getHomePageRecommendationDetails)
 				.length > 0
