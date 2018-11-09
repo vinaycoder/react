@@ -30,7 +30,8 @@ import {
 	SEARCH,
 	LOGIN,
 	HOME,
-	CHECKOUT
+	CHECKOUT,
+	CHECKOUTSUCCESS
 } from './pageTypes';
 import cookie from 'react-cookies';
 
@@ -128,6 +129,8 @@ class SwitchContainers extends React.Component {
 				return <HomeContainer />;
 			case CHECKOUT:
 				return <CheckoutContainer />;
+			case CHECKOUTSUCCESS:
+				return <CheckoutSuccessContainer />;
 			case PAGE:
 				if (locationPathname === '/checkout') {
 					return <CheckoutContainer />;

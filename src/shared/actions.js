@@ -10,7 +10,8 @@ import {
 	SEARCH,
 	LOGIN,
 	HOME,
-	CHECKOUT
+	CHECKOUT,
+	CHECKOUTSUCCESS
 } from './pageTypes';
 import api from '../client/api';
 import * as analytics from './analytics';
@@ -855,7 +856,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 		}
 		else if (locationPathname == '/checkout-success') {
 			newCurrentPage = {
-				type: 'page',
+				type: 'checkoutsuccess',
 				path: '/checkout-success',
 				resource: ''
 			};
@@ -988,6 +989,10 @@ const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 		const pageDataN = currentPage.data;
 		dispatch(receivePage(pageDataN));
 		analytics.checkoutView({ order: app.cart });
+		break;
+		case CHECKOUTSUCCESS:
+		const pageDataNN = currentPage.data;
+		dispatch(receivePage(pageDataNN));
 		break;
 		case PAGE:
 			const pageData = currentPage.data;

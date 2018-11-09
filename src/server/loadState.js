@@ -58,7 +58,7 @@ const getCurrentPage = path => {
 		};
 	}else if (path == '/checkout-success') {
 		return {
-			type: 'page',
+			type: 'checkoutsuccess',
 			path: 'checkout-success',
 			resource: ''
 		};
