@@ -18,7 +18,7 @@ class BestPick extends Component {
 				<div className="divider1" />
 				<div className="homeBestPicks">
 					{this.props.promotions.map(promotion => (
-						<span
+						<span key={promotion.name}
 							className="homeBestPickItem homeBestPickItemImg"
 							id={promotion.id}
 						>

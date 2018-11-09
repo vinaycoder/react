@@ -18,7 +18,7 @@ class DealofDay extends Component {
 				<div className="divider1" />
 				<div className="homeDOD">
 					{this.props.promotions.map(promotion => (
-						<span className="homeDODItem">
+						<span className="homeDODItem" key={promotion.name}>
 							<NavLink to={promotion.landing_url}>
 								<img
 									className="homeDODItemImg"

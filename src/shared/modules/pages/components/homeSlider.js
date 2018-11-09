@@ -80,7 +80,7 @@ class HomeSlider extends Component {
 		return (
 			<div>
 				{this.props.products && (
-					<p className="similar-li-wrapper">
+					<div className="similar-li-wrapper">
 						<ul>
 							<Slider {...settings}>
 								{this.props.products.map(irProduct => (
@@ -106,7 +106,7 @@ class HomeSlider extends Component {
 								))}
 							</Slider>
 						</ul>
-					</p>
+					</div>
 				)}
 			</div>
 		);

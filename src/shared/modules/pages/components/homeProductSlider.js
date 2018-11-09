@@ -97,7 +97,7 @@ class HomeProductSlider extends Component {
 				{this.props.recommendations && (
 					<div className="similar-li-wrapper">
 						{this.props.recommendations.map(recommendation => (
-							<div>
+							<div key={recommendation.head_title}>
 								<h3 className="homeStripsHeading">
 									{recommendation.head_title}
 								</h3>
