@@ -83,8 +83,8 @@ class CheckoutStepPayment extends React.Component
 	createOrder(methodId)
 	{
 		// this.PayUAction(methodId);
-		this.hdfcAction(methodId);
-/*
+	//	this.hdfcAction(methodId);
+
 		const quoteId = cookie.load('userQuoteId');
 	fetch(`https://indiarush.com/irapi/checkout/setPaymentMethod/?quoteId=${quoteId}&method=${methodId}&version=3.79`)
 			.then(result => {
@@ -130,7 +130,7 @@ class CheckoutStepPayment extends React.Component
 										}
 							});
 
-*/
+
 	}
 
 	async hdfcAction(methodId)
