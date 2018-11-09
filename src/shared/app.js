@@ -29,7 +29,8 @@ import {
 	RESERVED,
 	SEARCH,
 	LOGIN,
-	HOME
+	HOME,
+	CHECKOUT
 } from './pageTypes';
 import cookie from 'react-cookies';
 
@@ -38,7 +39,7 @@ class SwitchContainers extends React.Component {
 		super(props);
 	}
 
-	componentWillReceiveProps(nextProps) {	
+	componentWillReceiveProps(nextProps) {
 		this.props.setCurrentPage(nextProps.location);
 		console.log(nextProps.location);
 		console.log('inside the next props');
@@ -125,6 +126,8 @@ class SwitchContainers extends React.Component {
 				return <LoginContainer />;
 			case HOME:
 				return <HomeContainer />;
+			case CHECKOUT:
+				return <CheckoutContainer />;
 			case PAGE:
 				if (locationPathname === '/checkout') {
 					return <CheckoutContainer />;

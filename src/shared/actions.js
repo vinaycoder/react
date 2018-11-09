@@ -9,7 +9,8 @@ import {
 	RESERVED,
 	SEARCH,
 	LOGIN,
-	HOME
+	HOME,
+	CHECKOUT
 } from './pageTypes';
 import api from '../client/api';
 import * as analytics from './analytics';
@@ -837,7 +838,7 @@ export const setCurrentPage = location => async (dispatch, getState) => {
 			dispatch(receiveSitemap(newCurrentPage));
 		} else if (locationPathname == '/checkout') {
 			newCurrentPage = {
-				type: 'page',
+				type: 'checkout',
 				path: '/checkout',
 				resource: ''
 			};
@@ -937,13 +938,9 @@ const requestHomePage = getHomePageDetails => ({ type: t.HOMEPAGE_DETAILS,getHom
 const fetchDataOnCurrentPageChange = currentPage => (dispatch, getState) => {
 	const { app } = getState();
 	let productFilter = null;
-console.log('tyyyyyyyyyyyyyyyyyyyyyyyyy');
-console.log(currentPage);
+
 	// clear product data
 	dispatch(receiveProduct(null));
-
-	console.log('app data on fetchDataOnCurrentPageChange');
-	console.log(app);
 
 	analytics.pageView({
 		path: currentPage.path,
@@ -986,6 +983,11 @@ console.log(currentPage);
 			break;
 		case HOME:
 		dispatch(receiveHomePage(currentPage));
+		break;
+		case CHECKOUT:
+		const pageDataN = currentPage.data;
+		dispatch(receivePage(pageDataN));
+		analytics.checkoutView({ order: app.cart });
 		break;
 		case PAGE:
 			const pageData = currentPage.data;

@@ -34,9 +34,9 @@ const getCurrentPage = path => {
 	console.log('in current page');
 	if (path == '/checkout') {
 		return {
-			type: 'page',
+			type: 'checkout',
 			path: '/checkout',
-			resource: '5b6984d45452db221b4044f2'
+			resource: ''
 		};
 	} else if (path == '/') {
 		return {

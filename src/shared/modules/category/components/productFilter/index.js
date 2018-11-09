@@ -11,7 +11,8 @@ export default class ProductFilter extends React.Component {
 		super(props);
 		this.state = {
 			sidebarIsActive: false,
-			ProductAttributeFilter:[]
+			ProductAttributeFilter:[],
+			currentCategory:null
 		};
 			this.getProductAttributeFilter = this.getProductAttributeFilter.bind(this);
 	}
@@ -29,16 +30,20 @@ return	await fetch(
 
 
 	async componentDidMount(){
-		if (this.props.state.productsAttributes!='null' && this.props.state.productsAttributes!='') {
-			const Remondad = await this.getProductAttributeFilter();
-			this.setState({ProductAttributeFilter:Remondad});
-		}
-		else {
-			this.setState({ProductAttributeFilter:this.props.state.productsAttributes});
-		}
-
+		const filtersData = await this.getProductAttributeFilter();
+		this.setState({ProductAttributeFilter:filtersData});
+		this.setState({prevState:this.props.state.currentPage.resource});
 	}
 
+async componentDidUpdate(nextProps)
+{
+	if(this.state.prevState!==this.props.state.currentPage.resource)
+	{
+		const filtersData = await this.getProductAttributeFilter();
+		this.setState({ProductAttributeFilter:filtersData});
+		this.setState({prevState:this.props.state.currentPage.resource});
+	}
+}
 	sidebarToggle = () => {
 		this.setState({
 			sidebarIsActive: !this.state.sidebarIsActive
