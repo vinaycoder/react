@@ -108,35 +108,37 @@ const AddToCartButton = ({
 					</div>
 				</button>
 
+
 				<button
 					id="buy-now-button"
 					type="button"
-					title="Buy Now"
+					title="Add to My Cart"
 					onClick={e => {
 						addCartItem('buyNow');
 					}}
-					className="orange-button btn-buy"
+					className="orange-button btn-cart product-page-add-to-cart-button btn-cart-product btn-cart-product-main proAddToCartBtn"
 				>
-					<div id="buy-now-label">
+					<div id="buy-now">
 						<span
-							className="right product-page-add-to-cart-button"
+							className="product-page-add-to-cart-button product-page-add-to-cart-text addToCartBtn productAddToCartText "
 							data-content="bar"
 						>
-							<span
-								className="product-page-add-to-cart-button product-page-add-to-cart-text productBuyNowText"
-								data-content="bar"
-							>
-								Buy Now
-							</span>
-							<span
-								className="buyNowBtnIcon productCTAIcons"
-								data-content="bar"
-							>
-								<i className="material-icons">play_arrow</i>
-							</span>
+						Buy Now
+						</span>
+						<span
+							className="addToCartBtnIcon productCTAIcons"
+							data-content="bar"
+						>
+						  <i className="material-icons">play_arrow</i>
+
 						</span>
 					</div>
 				</button>
+
+
+
+
+
 			</div>
 		);
 	}
