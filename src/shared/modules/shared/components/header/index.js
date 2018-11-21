@@ -184,7 +184,8 @@ export default class Header extends React.Component {
 		this.setState({
 			mobileMenuIsActive: !this.state.mobileMenuIsActive,
 			cartIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive:false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -205,7 +206,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive:false
 		});
 		document.body.classList.remove('noscroll');
 	};
@@ -214,7 +216,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: !this.state.cartIsActive,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive:false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -223,7 +226,8 @@ export default class Header extends React.Component {
 		this.setState({
 			saveForLaterIsActive: !this.state.saveForLaterIsActive,
 			mobileMenuIsActive: false,
-			cartIsActive: false
+			cartIsActive: false,
+			loginIsActive:false
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -232,7 +236,8 @@ export default class Header extends React.Component {
 		this.setState({
 			loginIsActive: !this.state.loginIsActive,
 			mobileMenuIsActive: false,
-			cartIsActive: false
+			cartIsActive: false,
+			saveForLaterIsActive: false,
 		});
 		document.body.classList.toggle('noscroll');
 	};
@@ -241,7 +246,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive:false
 		});
 		document.body.classList.add('noscroll');
 	};
@@ -249,7 +255,8 @@ export default class Header extends React.Component {
 		this.setState({
 			cartIsActive: false,
 			mobileMenuIsActive: false,
-			saveForLaterIsActive: false
+			saveForLaterIsActive: false,
+			loginIsActive:false
 		});
 		document.body.classList.add('noscroll');
 	};
