@@ -76,6 +76,30 @@ class HomeSlider extends Component {
 
 		// console.log('props');
 		// console.log(this.props.products);
+		const sliders= this.props.products.map((irProduct) => {
+			var landingUrl=irProduct.new_landing_url.split('https://indiarush.com/');
+			return(
+				<li
+					className="category-landscape-view-li-wrapper"
+					itemType="https://schema.org/Enumeration"
+					itemID={irProduct.id}
+					key={irProduct.id}
+				>
+					<div className="category-landscape-image-wrapper onsale-category-container-list">
+						<NavLink
+							to={`/${landingUrl[1]}`}
+							id={irProduct.id}
+						>
+							<img
+								data-arg1={irProduct.id}
+								src={irProduct.big_image_url}
+								alt={irProduct.name}
+							/>
+						</NavLink>
+					</div>
+				</li>
+			)
+		})
 
 		return (
 			<div>
@@ -83,27 +107,7 @@ class HomeSlider extends Component {
 					<div className="similar-li-wrapper">
 						<ul>
 							<Slider {...settings}>
-								{this.props.products.map(irProduct => (
-									<li
-										className="category-landscape-view-li-wrapper"
-										itemType="https://schema.org/Enumeration"
-										itemID={irProduct.id}
-										key={irProduct.id}
-									>
-										<div className="category-landscape-image-wrapper onsale-category-container-list">
-											<NavLink
-												to={`/${irProduct.new_landing_url}`}
-												id={irProduct.id}
-											>
-												<img
-													data-arg1={irProduct.id}
-													src={irProduct.big_image_url}
-													alt={irProduct.name}
-												/>
-											</NavLink>
-										</div>
-									</li>
-								))}
+							{sliders}
 							</Slider>
 						</ul>
 					</div>
