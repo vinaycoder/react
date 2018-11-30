@@ -183,8 +183,7 @@ export default class FormLogin extends React.Component {
 
 		return (
 			<div>
-				<p className="product-border-around">
-					{
+				<div className="product-border-around">
 						<Register
 							onClick={this.createFormToggle}
 							createIsActive={this.state.createIsActive}
@@ -194,8 +193,6 @@ export default class FormLogin extends React.Component {
 							customerDetails={customerDetails}
 							createUserPost={this.props.createUserPost}
 						/>
-					}
-
 					<form
 						method="post"
 						id="login-form"
@@ -260,11 +257,13 @@ export default class FormLogin extends React.Component {
 									type="button"
 									title="Sign in"
 									onClick={this.forgotPasswordFormToggle}
+									className="orange-button gtmUserInfo"
+								>
+								{/*
 									forgotPasswordFormIsActive={
 										this.state.forgotPasswordFormIsActive
 									}
-									className="orange-button gtmUserInfo"
-								>
+									*/}
 									<span>Forgot your password?</span>
 								</button>
 							</div>
@@ -315,10 +314,10 @@ export default class FormLogin extends React.Component {
 							</div>
 						</div>
 					</form>
-				</p>
+				</div>
 
 				<div className="login-align-center">
-					<p
+					<div
 						className={
 							this.state.signInIsActive
 								? 'sub-child-active'
@@ -328,9 +327,9 @@ export default class FormLogin extends React.Component {
 						<span className="login-account-create-label">
 							Dont Have IndiaRush Account ?
 						</span>
-					</p>
+					</div>
 
-					<p
+					<div
 						className={
 							this.state.signInIsActive
 								? 'sub-child-active'
@@ -344,18 +343,18 @@ export default class FormLogin extends React.Component {
 									type="button"
 									title="Create Account"
 									onClick={this.createFormToggle}
-									createIsActive={this.state.createIsActive}
 									className="orange-button"
 								>
+								{/*createIsActive={this.state.createIsActive}*/}
 									<span>Create Account</span>
 								</button>
 							</span>
 						</div>
-					</p>
+					</div>
 				</div>
 
 				<div className="login-align-center">
-					<p
+					<div
 						// className="login-account-create-label-p"
 						className={
 							this.state.createIsActive
@@ -366,9 +365,9 @@ export default class FormLogin extends React.Component {
 						<span className="login-account-create-label">
 							Already part of IndiaRush ?
 						</span>
-					</p>
+					</div>
 
-					<p
+					<div
 						className={
 							this.state.createIsActive
 								? 'sub-child-active'
@@ -382,14 +381,14 @@ export default class FormLogin extends React.Component {
 									type="button"
 									title="Sign In"
 									onClick={this.signInFormToggle}
-									signInIsActive={this.state.signInIsActive}
 									className="orange-button"
 								>
+								{/*signInIsActive={this.state.signInIsActive}*/}
 									<span>Sign In</span>
 								</button>
 							</span>
 						</div>
-					</p>
+					</div>
 				</div>
 			</div>
 		);
