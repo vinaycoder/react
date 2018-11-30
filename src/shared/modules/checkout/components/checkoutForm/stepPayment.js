@@ -162,7 +162,7 @@ class CheckoutStepPayment extends React.Component
 			state:'Delhi'
 		};
 
-		var url = 'https://indiarush.com/irapi/checkout/getPayUHashForHdfc';
+		var url = 'https://indiarush.com/irapi/checkout/getHashForHdfc';
 		await	fetch(url, {
 			  method: 'POST', // or 'PUT'
 			  body: JSON.stringify(fieldsList), // data can be `string` or {object}!
