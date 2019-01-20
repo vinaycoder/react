@@ -1,12 +1,11 @@
 .vscode
 node_modules
 dist/*
+docs/*
 assets/js/app-*
 assets/js/theme-*
 assets/css/bundle-*
 assets/index.html
-assets/sw.js
-assets/precache-manifest.*.js
 logs/*.log
 npm-debug.log*
 *.zip

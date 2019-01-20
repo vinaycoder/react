@@ -9,7 +9,7 @@
     "shop",
     "cms"
   ],
-  "homepage": "https://cezerin.com",
+  "homepage": "http://localhost:3000/assets/",
   "bugs": "https://github.com/cezerin/cezerin/issues",
   "license": "MIT",
   "author": {
